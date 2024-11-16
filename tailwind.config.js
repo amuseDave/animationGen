@@ -2,7 +2,13 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: "var(--bg-color)",
+        "btn-text": "var(--btn-text-color)",
+        "btn-bg": "var(--btn-bg-color)",
+      },
+    },
   },
   plugins: [],
 };

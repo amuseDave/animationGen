@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+@layer base {
+  :root {
+    --bg-color: #020005;
+  }
+
+  .light {
+    --bg-color: #b38eff;
+  }
+}
