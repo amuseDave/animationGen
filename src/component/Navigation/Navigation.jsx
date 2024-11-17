@@ -14,7 +14,7 @@ export default function Navigation() {
     <section className="flex items-center justify-between px-10">
       <h1 className="text-2xl font-bold">LOGO</h1>
       <nav className="flex gap-3">
-        <NavLink className="nav-btn" to="custom">
+        <NavLink className="nav-btn" to="/">
           Custom
         </NavLink>
         <NavLink className="nav-btn" to="featured-animations">

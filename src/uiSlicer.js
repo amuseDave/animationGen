@@ -5,6 +5,7 @@ const initialState = {
     JSON.parse(localStorage.getItem("isDark")) === undefined
       ? true
       : JSON.parse(localStorage.getItem("isDark")),
+  type: "custom",
 };
 
 function changeTheme(state) {
@@ -22,6 +23,16 @@ const uiSlicer = createSlice({
       state.isDark = !state.isDark;
       localStorage.setItem("isDark", JSON.stringify(state.isDark));
       changeTheme(state);
+    },
+
+    changeCustom(state) {
+      state.type = "custom";
+    },
+    changeFeatured(state) {
+      state.type = "featured";
+    },
+    changeMicro(state) {
+      state.type = "micro";
     },
   },
 });

@@ -1,4 +1,3 @@
-export default function Controller({ type }) {
-  console.log(type);
+export default function Controller() {
   return <div>Controller</div>;
 }

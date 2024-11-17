@@ -1,11 +1,12 @@
-import MainPreview from "../component/MainPreview/MainPreview";
-import Controller from "../component/Controller/Controller";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { uiActions } from "../uiSlicer";
 
 export default function MicroInteractions() {
-  return (
-    <>
-      <MainPreview type="micro" />
-      <Controller type="custom" />
-    </>
-  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(uiActions.changeMicro());
+  });
+  return <div>Micro Interactions</div>;
 }

@@ -1,14 +1,14 @@
 // import { useSearchParams } from "react-router-dom";
-import MainPreview from "../component/MainPreview/MainPreview";
-import Controller from "../component/Controller/Controller";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { uiActions } from "../uiSlicer";
 
 export default function Custom() {
-  // const params = useSearchParams();
+  const dispatch = useDispatch();
 
-  return (
-    <>
-      <MainPreview type="custom" />
-      <Controller type="custom" />
-    </>
-  );
+  useEffect(() => {
+    dispatch(uiActions.changeCustom());
+  });
+
+  return <div>No Custom animations</div>;
 }

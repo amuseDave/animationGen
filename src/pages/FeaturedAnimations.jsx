@@ -1,11 +1,13 @@
-import MainPreview from "../component/MainPreview/MainPreview";
-import Controller from "../component/Controller/Controller";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { uiActions } from "../uiSlicer";
 
 export default function FeaturedAnimations() {
-  return (
-    <>
-      <MainPreview type="featured" />
-      <Controller type="featured" />
-    </>
-  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(uiActions.changeFeatured());
+  });
+
+  return <div>Featured animations</div>;
 }

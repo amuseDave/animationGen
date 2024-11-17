@@ -1,19 +1,43 @@
 import { useEffect } from "react";
 import { useRef } from "react";
+import { useSelector } from "react-redux";
+import handleCanvas from "../../utils/handleCanvas";
 
-export default function MainPreview({ type }) {
+export default function MainPreview() {
+  const { type } = useSelector((state) => state.ui);
+
+  console.log(type);
+
   const canvasEl = useRef();
-  console.log(type, ": controller type");
+  const ctx = useRef();
 
   useEffect(() => {
-    const animationPreview = canvasEl.current.getContext("2d");
+    //create 2d context canvas on main preview load and save it as reference
+    ctx.current = canvasEl.current.getContext("2d");
+    canvasEl.current.width = canvasEl.current.offsetWidth;
+    canvasEl.current.height = canvasEl.current.offsetHeight;
+  }, []);
 
-    animationPreview;
+  useEffect(() => {
+    function handleCanvasState(timeframe) {
+      canvasEl.current.width = canvasEl.current.offsetWidth;
+      canvasEl.current.height = canvasEl.current.offsetHeight;
+
+      handleCanvas(canvasEl.current, ctx.current);
+      requestAnimationFrame(handleCanvasState);
+    }
+
+    handleCanvasState();
   }, []);
 
   return (
-    <section className="h-[600px] relative">
-      <canvas ref={canvasEl} id="generator"></canvas>
+    <section className="h-[700px] relative">
+      <h2 className="absolute text-white top-5 left-5">Animation Name</h2>
+      <canvas
+        ref={canvasEl}
+        id="generator"
+        className="w-full h-full bg-zinc-950"
+      ></canvas>
     </section>
   );
 }
