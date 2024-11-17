@@ -24,22 +24,21 @@ export default function CustomCanvas() {
     const canvas = canvasEl.current;
 
     function updateCustomCanvasState() {
+      const { offsetWidth, offsetHeight } = canvas;
+
+      canvas.width = offsetWidth;
+      canvas.height = offsetHeight;
+
       dispatch(
         customActions.setSizes({
-          width: canvas.offsetWidth,
-          height: canvas.offsetHeight,
+          width: canvas.width,
+          height: canvas.height,
         })
       );
     }
 
-    function updateCanvasSize() {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    }
-
     function handleCanvasCustomState() {
       updateCustomCanvasState();
-      updateCanvasSize();
 
       handleCanvasState({
         canvas: { width, height },
@@ -85,15 +84,11 @@ export default function CustomCanvas() {
     canvas.addEventListener("mousedown", handleMouseDown);
     canvas.addEventListener("mouseup", handleMouseUp);
 
-    function removeEvents() {
+    return () => {
       window.removeEventListener("resize", handleCanvasCustomState);
       canvas.removeEventListener("mousemove", handleMouseMoveCanvas);
       canvas.removeEventListener("mousedown", handleMouseDown);
       canvas.removeEventListener("mouseup", handleMouseUp);
-    }
-
-    return () => {
-      removeEvents();
     };
   }, [position, width, square.x, square.y, height, isHovered, isHolding]);
 

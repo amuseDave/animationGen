@@ -40,7 +40,7 @@ const customSlicer = createSlice({
     },
 
     setSizes(state, { payload: { width, height } }) {
-      if (state.isHolding || state.square.animation[1]?.x !== undefined) return;
+      if (state.isHolding) return;
 
       state.canvasSize.width = width;
       state.canvasSize.height = height;
@@ -56,7 +56,13 @@ const customSlicer = createSlice({
 
       const square = width / 10;
       state.square.squareSize = square;
-      if (state.position === "center") {
+
+      console.log(state.square.animation[1]?.x);
+
+      if (state.square.animation[0]?.x !== undefined) {
+        state.square.x = state.square.animation[0].x;
+        state.square.y = state.square.animation[0].y;
+      } else if (state.position === "center") {
         state.square.x = width / 2 - square / 2;
         state.square.y = height / 2 - square / 2;
       } else if (state.position === "center-top") {
@@ -72,7 +78,9 @@ const customSlicer = createSlice({
         state.square.x = width / 2;
         state.square.y = height / 2 - square / 2;
       }
-      state.square.animation[0] = { x: state.square.x, y: state.square.y };
+      if (!state.square.animation[0]) {
+        state.square.animation[0] = { x: state.square.x, y: state.square.y };
+      }
     },
 
     setHover(state) {
