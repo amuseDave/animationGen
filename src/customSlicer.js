@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getBoxWidthHeight, getSquareSize } from "./utils/handleCanvas";
+import {
+  getBoxWidthHeight,
+  getSquareSize,
+  getSquarePos,
+} from "./utils/handleCanvas";
 
 const initialState = {
   square: {
@@ -8,7 +12,7 @@ const initialState = {
     animations: [null],
     isAnimating: false,
   },
-  position: "center",
+  position: "cc",
   isHovered: false,
   isHolding: false,
   offsetX: 0,
@@ -33,22 +37,15 @@ const customSlicer = createSlice({
 
       const squareSize = getSquareSize(width);
 
-      if (state.position === "center") {
-        state.square.x = width / 2 - squareSize / 2;
-        state.square.y = height / 2 - squareSize / 2;
-      } else if (state.position === "center-top") {
-        state.square.x = width / 2 - squareSize / 2;
-        state.square.y = height / 2 - squareSize;
-      } else if (state.position === "center-bottom") {
-        state.square.x = width / 2 - squareSize / 2;
-        state.square.y = height / 2;
-      } else if (state.position === "center-left") {
-        state.square.x = width / 2 - squareSize;
-        state.square.y = height / 2 - squareSize / 2;
-      } else if (state.position === "center-right") {
-        state.square.x = width / 2;
-        state.square.y = height / 2 - squareSize / 2;
-      }
+      const { x, y } = getSquarePos({
+        position: state.position,
+        squareSize,
+        height,
+        width,
+      });
+
+      state.square.x = x || state.square.x;
+      state.square.y = y || state.square.y;
 
       state.square.animations[0] = { x: state.square.x, y: state.square.y };
     },

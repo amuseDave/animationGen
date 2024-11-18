@@ -56,3 +56,45 @@ export function getSquareSize(width) {
 export function getBoxWidthHeight(width) {
   return { boxWidth: width / 3, boxHeight: width / 4 };
 }
+
+export function getSquarePos({ position, squareSize, height, width }) {
+  let x;
+  let y;
+
+  const { boxWidth, boxHeight } = getBoxWidthHeight(width);
+  const boxX = width / 2 - boxWidth / 2;
+  const boxY = height / 2 - boxHeight / 2;
+
+  console.log(position);
+
+  const positionMap = {
+    cc: [width / 2 - squareSize / 2, height / 2 - squareSize / 2],
+    ct: [width / 2 - squareSize / 2, height / 2 - squareSize],
+    cb: [width / 2 - squareSize / 2, height / 2],
+    cl: [width / 2 - squareSize, height / 2 - squareSize / 2],
+    cr: [width / 2, height / 2 - squareSize / 2],
+    lc: [boxX, height / 2 - squareSize / 2],
+    lco: [boxX - squareSize, height / 2 - squareSize / 2],
+    rc: [boxX + boxWidth - squareSize, height / 2 - squareSize / 2],
+    rco: [boxX + boxWidth, height / 2 - squareSize / 2],
+    tco: [width / 2 - squareSize / 2, boxY - squareSize],
+    tlot: [boxX, boxY - squareSize],
+    trot: [boxX + boxWidth - squareSize, boxY - squareSize],
+    tlol: [boxX - squareSize, boxY],
+    tror: [boxX + boxWidth, boxY],
+    bco: [width / 2 - squareSize / 2, boxY + boxHeight],
+    blob: [boxX, boxY + boxHeight],
+    brob: [boxX + boxWidth - squareSize, boxY + boxHeight],
+    blol: [boxX - squareSize, boxY + boxHeight - squareSize],
+    bror: [boxX + boxWidth, boxY + boxHeight - squareSize],
+    tc: [width / 2 - squareSize / 2, boxY],
+    tl: [boxX, boxY],
+    tr: [boxX + boxWidth - squareSize, boxY],
+    bc: [width / 2 - squareSize / 2, boxY + boxHeight - squareSize],
+    bl: [boxX, boxY + boxHeight - squareSize],
+    br: [boxX + boxWidth - squareSize, boxY + boxHeight - squareSize],
+  };
+  [x, y] = positionMap[position];
+
+  return { x, y };
+}
