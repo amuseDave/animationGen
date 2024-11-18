@@ -43,7 +43,7 @@ export default function CustomCanvas() {
       if (timeoutId) clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         dispatch(customActions.resetResizing());
-      }, 100);
+      }, 50);
     }
 
     handleSetSizes();
