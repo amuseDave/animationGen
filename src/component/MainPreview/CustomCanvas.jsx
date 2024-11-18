@@ -49,50 +49,45 @@ export default function CustomCanvas() {
       })
     );
   }, [position, isHolding]);
-  // Draw Canvas on square positiong change
+  // Draw Canvas, handle Animation on square positiong change
   useEffect(() => {
+    if (square.isAnimating) {
+      console.log("animating");
+      square.animations.forEach((animation, index) => {
+        setTimeout(() => {
+          handleCanvasCustomState({
+            width: canvasEl.current.width,
+            height: canvasEl.current.height,
+            ctx: ctx.current,
+            square: { x: animation.x, y: animation.y },
+          });
+        }, 8 * index);
+      });
+
+      intervalId.current = setInterval(() => {
+        square.animations.forEach((animation, index) => {
+          setTimeout(() => {
+            handleCanvasCustomState({
+              width: canvasEl.current.width,
+              height: canvasEl.current.height,
+              ctx: ctx.current,
+              square: { x: animation.x, y: animation.y },
+            });
+          }, 8 * index);
+        });
+      }, 10000);
+      () => {
+        clearInterval(intervalId.current);
+      };
+      return;
+    }
     handleCanvasCustomState({
       width: canvasEl.current.width,
       height: canvasEl.current.height,
       ctx: ctx.current,
       square,
     });
-  }, [square.x, square.y]);
-  // Handle Made Animation
-  useEffect(() => {
-    if (!square.isAnimating) return;
-    console.log("animating");
-
-    const canvas = canvasEl.current;
-
-    square.animations.forEach((animation, index) => {
-      setTimeout(() => {
-        handleCanvasCustomState({
-          width: canvas.width,
-          height: canvas.height,
-          ctx: ctx.current,
-          square: { x: animation.x, y: animation.y },
-        });
-      }, 8 * index);
-    });
-
-    intervalId.current = setInterval(() => {
-      square.animations.forEach((animation, index) => {
-        setTimeout(() => {
-          handleCanvasCustomState({
-            width: canvas.width,
-            height: canvas.height,
-            ctx: ctx.current,
-            square: { x: animation.x, y: animation.y },
-          });
-        }, 8 * index);
-      });
-    }, 10000);
-
-    () => {
-      clearInterval(intervalId.current);
-    };
-  }, [square.isAnimating]);
+  }, [square.x, square.y, square.isAnimating]);
 
   //
   /**
