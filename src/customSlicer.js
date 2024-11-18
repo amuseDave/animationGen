@@ -10,13 +10,14 @@ const initialState = {
     x: 0,
     y: 0,
     animations: [null],
-    isAnimating: false,
   },
   position: "cc",
   isHovered: false,
   isHolding: false,
   offsetX: 0,
   offsetY: 0,
+  isAnimating: false,
+  isResizing: false,
 };
 
 const customSlicer = createSlice({
@@ -33,7 +34,9 @@ const customSlicer = createSlice({
     },
 
     setStartPos(state, { payload: { width, height } }) {
-      if (state.square.isAnimating || state.isHolding) return;
+      if ((state.isAnimating || state.isHolding) && !state.isResizing) return;
+
+      console.log("setting start pos");
 
       const squareSize = getSquareSize(width);
 
@@ -44,10 +47,16 @@ const customSlicer = createSlice({
         width,
       });
 
-      state.square.x = x || state.square.x;
-      state.square.y = y || state.square.y;
+      state.square.x = x;
+      state.square.y = y;
 
       state.square.animations[0] = { x: state.square.x, y: state.square.y };
+    },
+    setResizing(state) {
+      if (state.isAnimating) state.isResizing = true;
+    },
+    resetResizing(state) {
+      if (state.isAnimating) state.isResizing = false;
     },
 
     setHover(state) {
@@ -60,16 +69,21 @@ const customSlicer = createSlice({
       state.isHolding = true;
     },
     removeHolding(state) {
+      if (!state.isHolding) return;
       state.isHolding = false;
       if (state.square.animations.length < 50) {
-        state.square.animations = [];
+        state.isAnimating = null;
       } else {
-        state.square.isAnimating = true;
+        state.isAnimating = true;
         state.isHovered = false;
       }
     },
+    resetAnimation(state) {
+      state.square.animations = [];
+      state.isAnimating = false;
+    },
     handleMovement(state, { payload: { x, y, width, height } }) {
-      if (!state.isHolding || state.square.isAnimating) return;
+      if (!state.isHolding || state.isAnimating) return;
 
       const diffX = x - state.offsetX;
       const diffY = y - state.offsetY;

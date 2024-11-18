@@ -1,4 +1,4 @@
-import SelectPosition from "./SelectPosition";
+import Position from "./Position.jsx";
 import "./positions.css";
 
 export default function PositionSelector() {
@@ -7,43 +7,43 @@ export default function PositionSelector() {
       <div className="-translate-x-1/2 -translate-y-full"></div>
 
       {/*Center START */}
-      <SelectPosition type="cc" positionStyles="cc" />
-      <SelectPosition type="ct" positionStyles="ct" />
-      <SelectPosition type="cb" positionStyles="cb" />
-      <SelectPosition type="cl" positionStyles="cl" />
-      <SelectPosition type="cr" positionStyles="cr" />
+      <Position type="cc" positionStyles="cc" />
+      <Position type="ct" positionStyles="ct" />
+      <Position type="cb" positionStyles="cb" />
+      <Position type="cl" positionStyles="cl" />
+      <Position type="cr" positionStyles="cr" />
       {/*Center END */}
 
       {/*Center Sides START */}
-      <SelectPosition type="lc" positionStyles="lc" />
-      <SelectPosition type="rc" positionStyles="rc" />
-      <SelectPosition type="lco" positionStyles="lco" />
-      <SelectPosition type="rco" positionStyles="rco" />
+      <Position type="lc" positionStyles="lc" />
+      <Position type="rc" positionStyles="rc" />
+      <Position type="lco" positionStyles="lco" />
+      <Position type="rco" positionStyles="rco" />
       {/*Center Sides END */}
 
       {/*Center Vertical Sides START */}
-      <SelectPosition type="tc" positionStyles="tc" />
-      <SelectPosition type="bc" positionStyles="bc" />
-      <SelectPosition type="tco" positionStyles="tco" />
-      <SelectPosition type="bco" positionStyles="bco" />
+      <Position type="tc" positionStyles="tc" />
+      <Position type="bc" positionStyles="bc" />
+      <Position type="tco" positionStyles="tco" />
+      <Position type="bco" positionStyles="bco" />
       {/*Center Vertical Sides END */}
 
       {/*Top Sides START */}
-      <SelectPosition type="tl" positionStyles="tl" />
-      <SelectPosition type="tr" positionStyles="tr" />
-      <SelectPosition type="tlot" positionStyles="tlot" />
-      <SelectPosition type="trot" positionStyles="trot" />
-      <SelectPosition type="tlol" positionStyles="tlol" />
-      <SelectPosition type="tror" positionStyles="tror" />
+      <Position type="tl" positionStyles="tl" />
+      <Position type="tr" positionStyles="tr" />
+      <Position type="tlot" positionStyles="tlot" />
+      <Position type="trot" positionStyles="trot" />
+      <Position type="tlol" positionStyles="tlol" />
+      <Position type="tror" positionStyles="tror" />
       {/*Top Sides END */}
 
       {/*Bottom Sides START*/}
-      <SelectPosition type="bl" positionStyles="bl" />
-      <SelectPosition type="br" positionStyles="br" />
-      <SelectPosition type="blob" positionStyles="blob" />
-      <SelectPosition type="brob" positionStyles="brob" />
-      <SelectPosition type="blol" positionStyles="blol" />
-      <SelectPosition type="bror" positionStyles="bror" />
+      <Position type="bl" positionStyles="bl" />
+      <Position type="br" positionStyles="br" />
+      <Position type="blob" positionStyles="blob" />
+      <Position type="brob" positionStyles="brob" />
+      <Position type="blol" positionStyles="blol" />
+      <Position type="bror" positionStyles="bror" />
       {/*Bottom Sides END*/}
     </div>
   );

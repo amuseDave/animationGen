@@ -65,8 +65,6 @@ export function getSquarePos({ position, squareSize, height, width }) {
   const boxX = width / 2 - boxWidth / 2;
   const boxY = height / 2 - boxHeight / 2;
 
-  console.log(position);
-
   const positionMap = {
     cc: [width / 2 - squareSize / 2, height / 2 - squareSize / 2],
     ct: [width / 2 - squareSize / 2, height / 2 - squareSize],

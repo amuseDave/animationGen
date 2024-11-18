@@ -6,6 +6,7 @@ const initialState = {
       ? true
       : JSON.parse(localStorage.getItem("isDark")),
   type: "custom",
+  isReset: false,
 };
 
 function changeTheme(state) {
@@ -33,6 +34,12 @@ const uiSlicer = createSlice({
     },
     changeMicro(state) {
       state.type = "micro";
+    },
+    setReset(state) {
+      state.isReset = true;
+    },
+    restartReset(state) {
+      state.isReset = false;
     },
   },
 });

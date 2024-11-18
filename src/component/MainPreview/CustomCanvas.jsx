@@ -9,27 +9,37 @@ import handleCanvasCustomState, {
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
-  const { position, isHovered, isHolding, square } = useSelector(
-    (state) => state.custom
-  );
+  const { position, isHovered, isHolding, square, isAnimating, isResizing } =
+    useSelector((state) => state.custom);
 
   const canvasEl = useRef();
   const ctx = useRef();
   const intervalId = useRef();
+  const timeouts = useRef([]);
 
   // Create ctx
   // Set start square position on resize window
+  // Handle isResizing to not animate
   useEffect(() => {
     ctx.current = canvasEl.current.getContext("2d");
+
+    let timeoutId;
+
     function handleSetSizes() {
       canvasEl.current.width = canvasEl.current.offsetWidth;
       canvasEl.current.height = canvasEl.current.offsetHeight;
+      dispatch(customActions.setResizing());
       dispatch(
         customActions.setStartPos({
           width: canvasEl.current.width,
           height: canvasEl.current.height,
         })
       );
+
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        dispatch(customActions.resetResizing());
+      }, 200);
     }
 
     handleSetSizes();
@@ -42,59 +52,75 @@ export default function CustomCanvas() {
   // Set square start pos on position change
   // Set back default pos if animation vas invalid, on isHolding change
   useEffect(() => {
+    if (isAnimating) return;
     dispatch(
       customActions.setStartPos({
         width: canvasEl.current.width,
         height: canvasEl.current.height,
       })
     );
-  }, [position, isHolding]);
-  // Draw Canvas, handle Animation on square positiong change
+  }, [position, isHolding, isAnimating]);
+  // Draw Canvas on square positiong change
   useEffect(() => {
-    if (square.isAnimating) {
-      console.log("animating");
-      square.animations.forEach((animation, index) => {
-        setTimeout(() => {
-          handleCanvasCustomState({
-            width: canvasEl.current.width,
-            height: canvasEl.current.height,
-            ctx: ctx.current,
-            square: { x: animation.x, y: animation.y },
-          });
-        }, 8 * index);
-      });
-
-      intervalId.current = setInterval(() => {
-        square.animations.forEach((animation, index) => {
-          setTimeout(() => {
-            handleCanvasCustomState({
-              width: canvasEl.current.width,
-              height: canvasEl.current.height,
-              ctx: ctx.current,
-              square: { x: animation.x, y: animation.y },
-            });
-          }, 8 * index);
-        });
-      }, 10000);
-      () => {
-        clearInterval(intervalId.current);
-      };
-      return;
-    }
     handleCanvasCustomState({
       width: canvasEl.current.width,
       height: canvasEl.current.height,
       ctx: ctx.current,
       square,
     });
-  }, [square.x, square.y, square.isAnimating]);
+  }, [square.x, square.y]);
+  // Handle Animation Drawing on Canvas
+  useEffect(() => {
+    if (!isAnimating) return;
+
+    const canvas = canvasEl.current;
+
+    square.animations.forEach((animation, index) => {
+      const timeout = setTimeout(() => {
+        handleCanvasCustomState({
+          width: canvas.width,
+          height: canvas.height,
+          ctx: ctx.current,
+          square: { x: animation.x, y: animation.y },
+        });
+      }, 8 * index);
+
+      timeouts.current.push(timeout);
+    });
+
+    intervalId.current = setInterval(() => {
+      square.animations.forEach((animation, index) => {
+        const timeout = setTimeout(() => {
+          handleCanvasCustomState({
+            width: canvas.width,
+            height: canvas.height,
+            ctx: ctx.current,
+            square: { x: animation.x, y: animation.y },
+          });
+        }, 8 * index);
+        timeouts.current.push(timeout);
+      });
+    }, 30000);
+
+    () => {
+      clearInterval(intervalId.current);
+    };
+  }, [isAnimating]);
+
+  // Clear all timeouts when resizing
+  useEffect(() => {
+    if (isResizing && isAnimating) {
+      timeouts.current.forEach(clearTimeout);
+      timeouts.current = [];
+    }
+  }, [isResizing]);
 
   //
   /**
    * @info Create callback functions to not change on re-renders to save performence.
    **/
-  // Sets isHovered
-  // Dispatched if isHolding the movement of square
+  // Sets isHovered with logic
+  // Dispatch logic if isHolding
   const handleMouseMovement = useCallback(
     throttle((e, square, isHolding, isHovered, width, height) => {
       if (isHolding) {
@@ -141,7 +167,7 @@ export default function CustomCanvas() {
 
   // Handle events, and pass down arguments to functions
   useEffect(() => {
-    if (square.isAnimating) return;
+    if (isAnimating) return;
 
     const canvas = canvasEl.current;
 
@@ -171,7 +197,7 @@ export default function CustomCanvas() {
       canvas.removeEventListener("mousedown", handleMouseDownHandler);
       canvas.removeEventListener("mouseup", handleMouseUpHandler);
     };
-  }, [isHovered, isHolding, square.x, square.y, square.isAnimating]);
+  }, [isHovered, isHolding, square.x, square.y, isAnimating]);
 
   return (
     <canvas
