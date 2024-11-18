@@ -13,7 +13,7 @@ export default function MainLayout() {
     >
       <Navigation />
 
-      <div className="grid grid-cols-[180px_4fr_1fr] gap-x-2 mt-10 px-2">
+      <div className="grid grid-cols-[180px_4fr_280px] gap-x-2 mt-10 px-2">
         <SavedAnimations />
         <MainPreview />
         <Controller />

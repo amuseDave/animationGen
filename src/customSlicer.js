@@ -68,6 +68,7 @@ const customSlicer = createSlice({
         state.square.animations = [];
       } else {
         state.square.isAnimating = true;
+        state.isHovered = false;
       }
     },
     handleMovement(state, { payload: { x, y, width, height } }) {

@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /*Center START */
+
+  .cc {
+    @apply left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+  .ct {
+    @apply left-1/2 top-[calc(50%-17px)] -translate-x-1/2 -translate-y-1/2;
+  }
+  .cb {
+    @apply left-1/2 top-[calc(50%+17px)] -translate-x-1/2 -translate-y-1/2;
+  }
+  .cl {
+    @apply left-[calc(50%-17px)] top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+  .cr {
+    @apply left-[calc(50%+17px)] top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+  /*Center END */
+
+  /*Center Sides START */
+  .lc {
+    @apply left-0 top-1/2 -translate-y-1/2;
+  }
+  .lco {
+    @apply left-0 top-1/2 -translate-x-[calc(100%+1px)] -translate-y-1/2;
+  }
+  .rc {
+    @apply right-0 top-1/2 -translate-y-1/2;
+  }
+  .rco {
+    @apply right-0 top-1/2 translate-x-[calc(100%+1px)] -translate-y-1/2;
+  }
+  /*Center Sides END */
+
+  /*Center Vertical Sides START */
+  .tc {
+    @apply left-1/2 -translate-x-1/2 top-0;
+  }
+  .tco {
+    @apply left-1/2 -translate-x-1/2 top-0 -translate-y-[calc(100%+1px)];
+  }
+  .bc {
+    @apply left-1/2 -translate-x-1/2 bottom-0;
+  }
+  .bco {
+    @apply left-1/2 -translate-x-1/2 bottom-0 translate-y-[calc(100%+1px)];
+  }
+  /*Center Vertical Sides END */
+
+  /*Top Sides START */
+  .tl {
+    @apply left-0 top-0;
+  }
+  .tr {
+    @apply right-0 top-0;
+  }
+  .tlot {
+    @apply left-0 top-0 -translate-y-[calc(100%+1px)];
+  }
+  .trot {
+    @apply right-0 top-0 -translate-y-[calc(100%+1px)];
+  }
+  .tlol {
+    @apply left-0 top-0 -translate-x-[calc(100%+1px)];
+  }
+  .tror {
+    @apply right-0 top-0 translate-x-[calc(100%+1px)];
+  }
+  /*Top Sides END */
+
+  /*Bottom Sides START*/
+  .bl {
+    @apply left-0 bottom-0;
+  }
+  .br {
+    @apply right-0 bottom-0;
+  }
+  .blob {
+    @apply left-0 bottom-0 translate-y-[calc(100%+1px)];
+  }
+  .brob {
+    @apply right-0 bottom-0 translate-y-[calc(100%+1px)];
+  }
+  .blol {
+    @apply left-0 bottom-0 -translate-x-[calc(100%+1px)];
+  }
+  .bror {
+    @apply right-0 bottom-0 translate-x-[calc(100%+1px)];
+  }
+  /*Bottom Sides END*/
+}

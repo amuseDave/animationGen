@@ -61,6 +61,7 @@ export default function CustomCanvas() {
   // Handle Made Animation
   useEffect(() => {
     if (!square.isAnimating) return;
+    console.log("animating");
 
     const canvas = canvasEl.current;
 
@@ -145,6 +146,8 @@ export default function CustomCanvas() {
 
   // Handle events, and pass down arguments to functions
   useEffect(() => {
+    if (square.isAnimating) return;
+
     const canvas = canvasEl.current;
 
     function handleMouseMovementHandler(e) {
@@ -173,7 +176,7 @@ export default function CustomCanvas() {
       canvas.removeEventListener("mousedown", handleMouseDownHandler);
       canvas.removeEventListener("mouseup", handleMouseUpHandler);
     };
-  }, [isHovered, isHolding, square.x, square.y]);
+  }, [isHovered, isHolding, square.x, square.y, square.isAnimating]);
 
   return (
     <canvas
