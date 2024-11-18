@@ -1,5 +1,6 @@
 export default function handleCanvasCustomState({
-  canvas: { width, height },
+  width,
+  height,
   ctx,
   square,
 }) {
@@ -7,12 +8,13 @@ export default function handleCanvasCustomState({
   drawDashedSquare(width, height, ctx);
 
   ctx.fillStyle = "#f3f3f3";
-  ctx.fillRect(square.x, square.y, square.squareSize, square.squareSize);
+  const squareSize = getSquareSize(width);
+  ctx.fillRect(square.x, square.y, squareSize, squareSize);
 }
 
 function drawDashedSquare(width, height, ctx) {
-  const boxWidth = width / 3;
-  const boxHeight = width / 4;
+  const { boxWidth, boxHeight } = getBoxWidthHeight(width);
+
   ctx.strokeStyle = "#777";
   ctx.lineWidth = width / 450;
   ctx.setLineDash([width / 50]);
@@ -45,4 +47,12 @@ export function drawDefaultCanvas(width, height, ctx) {
       ctx.fill();
     }
   }
+}
+
+export function getSquareSize(width) {
+  return width / 10;
+}
+
+export function getBoxWidthHeight(width) {
+  return { boxWidth: width / 3, boxHeight: width / 4 };
 }
