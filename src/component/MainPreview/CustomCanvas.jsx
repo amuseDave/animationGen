@@ -1,30 +1,28 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { customActions } from "../../customSlicer";
+import { throttle } from "lodash";
 import handleCanvasCustomState, {
   getSquareSize,
 } from "../../utils/handleCanvas";
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
-  const { position, isHovered, isHolding, type } = useSelector(
+  const { position, isHovered, isHolding, square } = useSelector(
     (state) => state.custom
   );
-  const square = useSelector((state) => state.custom.square);
 
   const canvasEl = useRef();
   const ctx = useRef();
 
-  // Set canvas size, square size, and dashed box size&pos, with resize event
+  // Create ctx
+  // Set start square position on resize window
   useEffect(() => {
     ctx.current = canvasEl.current.getContext("2d");
-
     function handleSetSizes() {
-      console.log("adding the resize");
       canvasEl.current.width = canvasEl.current.offsetWidth;
       canvasEl.current.height = canvasEl.current.offsetHeight;
-
       dispatch(
         customActions.setStartPos({
           width: canvasEl.current.width,
@@ -40,8 +38,7 @@ export default function CustomCanvas() {
       window.removeEventListener("resize", handleSetSizes);
     };
   }, []);
-
-  // Set square pos
+  // Set square start pos on position change
   useEffect(() => {
     dispatch(
       customActions.setStartPos({
@@ -50,8 +47,7 @@ export default function CustomCanvas() {
       })
     );
   }, [position]);
-
-  // Draw Canvas
+  // Draw Canvas on square positiong change
   useEffect(() => {
     handleCanvasCustomState({
       width: canvasEl.current.width,
@@ -61,62 +57,77 @@ export default function CustomCanvas() {
     });
   }, [square.x, square.y]);
 
-  useEffect(() => {
-    const canvas = canvasEl.current;
-
-    // Handle if it's hovering on square state, and add movement to animations array
-    function handleMouseMoveCanvas(e) {
+  const handleMouseMovement = useCallback(
+    throttle((e, square, isHolding, isHovered, width, height) => {
       if (isHolding) {
         dispatch(
           customActions.handleMovement({
             x: e.offsetX,
             y: e.offsetY,
-            width: canvasEl.current.width,
-            height: canvasEl.current.height,
+            width,
+            height,
           })
         );
-        // Handle return to not run unecessary code function
         return;
       }
 
-      if (
+      const isHovering =
         e.offsetY >= square.y &&
-        e.offsetY <= square.y + getSquareSize(canvasEl.current.width) &&
+        e.offsetY <= square.y + getSquareSize(width) &&
         e.offsetX >= square.x &&
-        e.offsetX <= square.x + getSquareSize(canvasEl.current.width)
-      ) {
+        e.offsetX <= square.x + getSquareSize(height);
+
+      if (isHovering && isHovered) return;
+
+      if (isHovering) {
         dispatch(customActions.setHover());
       } else {
         dispatch(customActions.removeHover());
       }
+    }, 8),
+    []
+  );
+  const handleMouseDown = useCallback((e, square, isHovered) => {
+    if (!isHovered) return;
+    dispatch(customActions.setHolding());
+    const offsetX = e.offsetX - square.x;
+    const offsetY = e.offsetY - square.y;
+    dispatch(customActions.setOffSets({ offsetX, offsetY }));
+  }, []);
+  const handleMouseUp = useCallback(() => {
+    dispatch(customActions.removeHolding());
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasEl.current;
+
+    function handleMouseMovementHandler(e) {
+      handleMouseMovement(
+        e,
+        square,
+        isHolding,
+        isHovered,
+        canvas.width,
+        canvas.height
+      );
+    }
+    function handleMouseDownHandler(e) {
+      handleMouseDown(e, square, isHovered);
+    }
+    function handleMouseUpHandler() {
+      handleMouseUp();
     }
 
-    // Set mouse down offset position if hovered is true
-    function handleMouseDown(e) {
-      if (!isHovered) return;
-
-      dispatch(customActions.setHolding());
-      const offsetX = e.offsetX - square.x;
-      const offsetY = e.offsetY - square.y;
-
-      dispatch(customActions.setOffSets({ offsetX, offsetY }));
-    }
-
-    // Remove holding state
-    function handleMouseUp() {
-      dispatch(customActions.removeHolding());
-    }
-
-    canvas.addEventListener("mousemove", handleMouseMoveCanvas);
-    canvas.addEventListener("mousedown", handleMouseDown);
-    canvas.addEventListener("mouseup", handleMouseUp);
+    canvas.addEventListener("mousemove", handleMouseMovementHandler);
+    canvas.addEventListener("mousedown", handleMouseDownHandler);
+    canvas.addEventListener("mouseup", handleMouseUpHandler);
 
     return () => {
-      canvas.removeEventListener("mousemove", handleMouseMoveCanvas);
-      canvas.removeEventListener("mousedown", handleMouseDown);
-      canvas.removeEventListener("mouseup", handleMouseUp);
+      canvas.removeEventListener("mousemove", handleMouseMovementHandler);
+      canvas.removeEventListener("mousedown", handleMouseDownHandler);
+      canvas.removeEventListener("mouseup", handleMouseUpHandler);
     };
-  }, [isHolding, isHovered, square.x, square.y]);
+  }, [isHovered, isHolding, square.x, square.y]);
 
   return (
     <canvas

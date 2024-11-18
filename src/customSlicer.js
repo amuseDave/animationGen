@@ -5,7 +5,6 @@ const initialState = {
   square: {
     x: 0,
     y: 0,
-    squareSize: 0,
     animations: [null],
   },
   position: "center",
