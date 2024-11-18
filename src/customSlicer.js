@@ -6,6 +6,7 @@ const initialState = {
     x: 0,
     y: 0,
     animations: [null],
+    isAnimating: false,
   },
   position: "center",
   isHovered: false,
@@ -28,12 +29,11 @@ const customSlicer = createSlice({
     },
 
     setStartPos(state, { payload: { width, height } }) {
+      if (state.square.isAnimating || state.isHolding) return;
+
       const squareSize = getSquareSize(width);
 
-      console.log(state.square.animations.length);
-      if (state.square.animations.length > 20) {
-        console.log("start");
-      } else if (state.position === "center") {
+      if (state.position === "center") {
         state.square.x = width / 2 - squareSize / 2;
         state.square.y = height / 2 - squareSize / 2;
       } else if (state.position === "center-top") {
@@ -49,12 +49,8 @@ const customSlicer = createSlice({
         state.square.x = width / 2;
         state.square.y = height / 2 - squareSize / 2;
       }
-      if (state.square.animations.length > 20) {
-        console.log("good shit");
-      } else {
-        state.square.animations = [];
-        state.square.animations[0] = { x: state.square.x, y: state.square.y };
-      }
+
+      state.square.animations[0] = { x: state.square.x, y: state.square.y };
     },
 
     setHover(state) {
@@ -68,9 +64,15 @@ const customSlicer = createSlice({
     },
     removeHolding(state) {
       state.isHolding = false;
+      if (state.square.animations.length < 50) {
+        state.square.animations = [];
+      } else {
+        state.square.isAnimating = true;
+      }
     },
     handleMovement(state, { payload: { x, y, width, height } }) {
-      if (!state.isHolding) return;
+      if (!state.isHolding || state.square.isAnimating) return;
+
       const diffX = x - state.offsetX;
       const diffY = y - state.offsetY;
 
@@ -90,7 +92,6 @@ const customSlicer = createSlice({
           ? state.square.y
           : diffY;
 
-      state.square.animations.push({ x: state.square.x, y: state.square.y });
       state.square.animations.push({ x: state.square.x, y: state.square.y });
     },
   },

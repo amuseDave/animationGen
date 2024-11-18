@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { customActions } from "../../customSlicer";
 
 export default function SelectPosition({ type, position }) {
-  const animations = useSelector((state) => state.custom.square.animations);
+  const { isAnimating } = useSelector((state) => state.custom.square);
   const dispatch = useDispatch();
 
   function handlePosition() {
-    if (animations[1]?.x) {
+    if (isAnimating) {
       console.log("handle reset confirm");
       return;
     }
