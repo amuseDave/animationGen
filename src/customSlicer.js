@@ -5,7 +5,7 @@ const initialState = {
     x: 0,
     y: 0,
     squareSize: 0,
-    animation: [null],
+    animations: [null],
   },
   squareDash: {
     x: 0,
@@ -39,9 +39,30 @@ const customSlicer = createSlice({
       state.position = actions.payload;
     },
 
-    setSizes(state, { payload: { width, height } }) {
-      if (state.isHolding) return;
+    setStartPos(state) {
+      const { squareSize } = state.square;
 
+      if (state.position === "center") {
+        state.square.x = state.canvasSize.width / 2 - squareSize / 2;
+        state.square.y = state.canvasSize.height / 2 - squareSize / 2;
+      } else if (state.position === "center-top") {
+        state.square.x = state.canvasSize.width / 2 - squareSize / 2;
+        state.square.y = state.canvasSize.height / 2 - squareSize;
+      } else if (state.position === "center-bottom") {
+        state.square.x = state.canvasSize.width / 2 - squareSize / 2;
+        state.square.y = state.canvasSize.height / 2;
+      } else if (state.position === "center-left") {
+        state.square.x = state.canvasSize.width / 2 - squareSize;
+        state.square.y = state.canvasSize.height / 2 - squareSize / 2;
+      } else if (state.position === "center-right") {
+        state.square.x = state.canvasSize.width / 2;
+        state.square.y = state.canvasSize.height / 2 - squareSize / 2;
+      }
+
+      state.square.animations[0] = { x: state.square.x, y: state.square.y };
+    },
+
+    setSizes(state, { payload: { width, height } }) {
       state.canvasSize.width = width;
       state.canvasSize.height = height;
 
@@ -54,33 +75,7 @@ const customSlicer = createSlice({
       state.squareDash.lineDash = width / 50;
       state.squareDash.lineWidth = width / 450;
 
-      const square = width / 10;
-      state.square.squareSize = square;
-
-      console.log(state.square.animation[1]?.x);
-
-      if (state.square.animation[0]?.x !== undefined) {
-        state.square.x = state.square.animation[0].x;
-        state.square.y = state.square.animation[0].y;
-      } else if (state.position === "center") {
-        state.square.x = width / 2 - square / 2;
-        state.square.y = height / 2 - square / 2;
-      } else if (state.position === "center-top") {
-        state.square.x = width / 2 - square / 2;
-        state.square.y = height / 2 - square;
-      } else if (state.position === "center-bottom") {
-        state.square.x = width / 2 - square / 2;
-        state.square.y = height / 2;
-      } else if (state.position === "center-left") {
-        state.square.x = width / 2 - square;
-        state.square.y = height / 2 - square / 2;
-      } else if (state.position === "center-right") {
-        state.square.x = width / 2;
-        state.square.y = height / 2 - square / 2;
-      }
-      if (!state.square.animation[0]) {
-        state.square.animation[0] = { x: state.square.x, y: state.square.y };
-      }
+      state.square.squareSize = state.canvasSize.width / 10;
     },
 
     setHover(state) {
@@ -112,21 +107,22 @@ const customSlicer = createSlice({
           ? state.square.y
           : diffY;
 
-      if (
-        Math.abs(
-          state.square.x -
-            state.square.animation[state.square.animation.length - 1].x
-        ) > 5
-      )
-        state.square.animation.push({ x: state.square.x, y: state.square.y });
+      state.square.animations.push({ x: state.square.x, y: state.square.y });
+      state.square.animations.push({ x: state.square.x, y: state.square.y });
 
-      if (
-        Math.abs(
-          state.square.y -
-            state.square.animation[state.square.animation.length - 1].y
-        ) > 5
-      )
-        state.square.animation.push({ x: state.square.x, y: state.square.y });
+      // if (
+      //   Math.abs(
+      //     state.square.x -
+      //       state.square.animations[state.square.animations.length - 1].x
+      //   ) > 2
+      // )
+
+      // if (
+      //   Math.abs(
+      //     state.square.y -
+      //       state.square.animations[state.square.animations.length - 1].y
+      //   ) > 2
+      // )
     },
   },
 });

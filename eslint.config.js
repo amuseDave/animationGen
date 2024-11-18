@@ -33,7 +33,8 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
-      "react/prop-types": "off", // Disable the rule
+      "react/prop-types": "off", // Disable prop-types rule
+      "react-hooks/exhaustive-deps": "off", // Disable dependency check for useEffect
     },
   },
 ];
