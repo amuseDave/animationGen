@@ -23,12 +23,16 @@ export default function CustomCanvas() {
   useEffect(() => {
     ctx.current = canvasEl.current.getContext("2d");
 
+    let initialResize = false;
     let timeoutId;
 
     function handleSetSizes() {
       canvasEl.current.width = canvasEl.current.offsetWidth;
       canvasEl.current.height = canvasEl.current.offsetHeight;
-      dispatch(customActions.setResizing());
+
+      if (isAnimating && initialResize) dispatch(customActions.setResizing());
+      initialResize ||= true;
+
       dispatch(
         customActions.setStartPos({
           width: canvasEl.current.width,
@@ -39,13 +43,14 @@ export default function CustomCanvas() {
       if (timeoutId) clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         dispatch(customActions.resetResizing());
-      }, 200);
+      }, 100);
     }
 
     handleSetSizes();
     window.addEventListener("resize", handleSetSizes);
 
     return () => {
+      dispatch(customActions.resetResizing());
       window.removeEventListener("resize", handleSetSizes);
     };
   }, []);
@@ -69,6 +74,7 @@ export default function CustomCanvas() {
       square,
     });
   }, [square.x, square.y]);
+
   // Handle Animation Drawing on Canvas
   useEffect(() => {
     if (!isAnimating) return;
@@ -100,7 +106,7 @@ export default function CustomCanvas() {
         }, 8 * index);
         timeouts.current.push(timeout);
       });
-    }, 30000);
+    }, 5000);
 
     () => {
       clearInterval(intervalId.current);

@@ -26,11 +26,11 @@ export default function Alerts() {
     }, 1500);
   }, []);
 
-  useEffect(() => {
-    if (isResizing && isAnimating) {
-      handleAlerts("Window is Resizing!", "success");
-    }
-  }, [isResizing, isAnimating]);
+  // useEffect(() => {
+  //   if (isResizing && isAnimating) {
+  //     handleAlerts("Window is Resizing!", "success");
+  //   }
+  // }, [isResizing, isAnimating]);
 
   useEffect(() => {
     if (!isReset) return;

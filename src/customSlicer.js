@@ -36,8 +36,6 @@ const customSlicer = createSlice({
     setStartPos(state, { payload: { width, height } }) {
       if ((state.isAnimating || state.isHolding) && !state.isResizing) return;
 
-      console.log("setting start pos");
-
       const squareSize = getSquareSize(width);
 
       const { x, y } = getSquarePos({
