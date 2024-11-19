@@ -16,6 +16,7 @@ export default function CustomCanvas() {
     square,
     isAnimating,
     isAnimationCreated,
+    zoomLevel,
   } = useSelector((state) => state.custom);
 
   const canvasEl = useRef();
@@ -59,6 +60,18 @@ export default function CustomCanvas() {
       window.removeEventListener("resize", handleSetSizes);
     };
   }, []);
+
+  useEffect(() => {
+    console.log("updating position animation");
+
+    dispatch(
+      customActions.handleUpdateAnimationsPositions({
+        width: canvasEl.current.width,
+        height: canvasEl.current.height,
+      })
+    );
+  }, [zoomLevel]);
+
   // Set square start pos on position change
   // Set back default pos if animation vas invalid, on isHolding change
   useEffect(() => {
@@ -70,7 +83,7 @@ export default function CustomCanvas() {
         action: "update-positions",
       })
     );
-  }, [position, isHolding, isAnimating]);
+  }, [position, isHolding, isAnimating, zoomLevel]);
   // Draw Canvas on square positiong change
   useEffect(() => {
     handleCanvasCustomState({
@@ -78,8 +91,9 @@ export default function CustomCanvas() {
       height: canvasEl.current.height,
       ctx: ctx.current,
       square,
+      zoomLevel,
     });
-  }, [square.x, square.y, window.innerHeight]);
+  }, [square.x, square.y, window.innerHeight, zoomLevel]);
 
   // Handle Animation Drawing on Canvas
   useEffect(() => {
@@ -95,6 +109,7 @@ export default function CustomCanvas() {
             height: canvas.height,
             ctx: ctx.current,
             square: { x: animation.x, y: animation.y },
+            zoomLevel,
           });
           if (arr.length - 1 === index) {
             dispatch(
@@ -116,7 +131,7 @@ export default function CustomCanvas() {
       timeouts.current.forEach(clearTimeout);
       timeouts.current = [];
     };
-  }, [isAnimating]);
+  }, [isAnimating, zoomLevel]);
 
   //
   /**
@@ -125,7 +140,7 @@ export default function CustomCanvas() {
   // Handle isHovered
   // Handle animation set animation movement if isHovered
   const handleHoverAndAnimation = useCallback(
-    throttle((e, square, isHolding, isHovered, width, height) => {
+    throttle((e, square, isHolding, isHovered, width, height, zoomLevel) => {
       // Handle Animation Movement
       if (isHolding) {
         dispatch(
@@ -142,9 +157,9 @@ export default function CustomCanvas() {
       // Set is Hovering
       const isHovering =
         e.offsetY >= square.y &&
-        e.offsetY <= square.y + getSquareSize(width) &&
+        e.offsetY <= square.y + getSquareSize(width, zoomLevel) &&
         e.offsetX >= square.x &&
-        e.offsetX <= square.x + getSquareSize(width);
+        e.offsetX <= square.x + getSquareSize(width, zoomLevel);
 
       if (isHovering && isHovered) return;
 
@@ -185,7 +200,8 @@ export default function CustomCanvas() {
         isHolding,
         isHovered,
         canvas.width,
-        canvas.height
+        canvas.height,
+        zoomLevel
       );
     }
     function handleMouseDownHandler(e) {
@@ -204,7 +220,7 @@ export default function CustomCanvas() {
       canvas.removeEventListener("mousedown", handleMouseDownHandler);
       canvas.removeEventListener("mouseup", handleMouseUpHandler);
     };
-  }, [isHovered, isHolding, square.x, square.y, isAnimationCreated]);
+  }, [isHovered, isHolding, square.x, square.y, isAnimationCreated, zoomLevel]);
 
   return (
     <canvas

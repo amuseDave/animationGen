@@ -7,7 +7,7 @@ export default function Custom() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(uiActions.changeCustom());
+    dispatch(uiActions.handleTypeChange("custom"));
   });
 
   return <div>No Custom animations</div>;

@@ -6,7 +6,7 @@ export default function MicroInteractions() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(uiActions.changeMicro());
+    dispatch(uiActions.handleTypeChange("micro"));
   });
   return <div>Micro Interactions</div>;
 }

@@ -41,7 +41,7 @@ export default function Alerts() {
   useEffect(() => {
     if (!isReset) return;
     initialPositionState = false;
-    dispatch(uiActions.restartReset());
+    dispatch(uiActions.handleResetAnimationAlert(false));
     handleAlerts("Animation was reset!", "text-xl text-pink-300", true);
   }, [isReset]);
 

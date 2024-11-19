@@ -7,6 +7,7 @@ const initialState = {
       : JSON.parse(localStorage.getItem("isDark")),
   type: "custom",
   isReset: false,
+  zoomLevel: 1,
 };
 
 function changeTheme(state) {
@@ -25,21 +26,29 @@ const uiSlicer = createSlice({
       localStorage.setItem("isDark", JSON.stringify(state.isDark));
       changeTheme(state);
     },
-
-    changeCustom(state) {
-      state.type = "custom";
+    handleResetAnimationAlert(state, { payload }) {
+      state.isReset = payload;
     },
-    changeFeatured(state) {
-      state.type = "featured";
+    handleTypeChange(state, { payload }) {
+      state.type = payload;
     },
-    changeMicro(state) {
-      state.type = "micro";
-    },
-    setReset(state) {
-      state.isReset = true;
-    },
-    restartReset(state) {
-      state.isReset = false;
+    handleZoomChange(state, { payload }) {
+      switch (payload) {
+        case "zoom-in":
+          if (state.zoomLevel >= 2) return;
+          state.zoomLevel += 0.1;
+          break;
+        case "zoom-out":
+          if (state.zoomLevel <= 0.5) return;
+          state.zoomLevel -= 0.1;
+          break;
+        case "reset":
+          if (state.zoomLevel === 1) return;
+          state.zoomLevel = 1;
+          break;
+        default:
+          break;
+      }
     },
   },
 });

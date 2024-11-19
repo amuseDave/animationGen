@@ -3,17 +3,18 @@ export default function handleCanvasCustomState({
   height,
   ctx,
   square,
+  zoomLevel,
 }) {
   drawDefaultCanvas(width, height, ctx);
-  drawDashedSquare(width, height, ctx);
+  drawDashedSquare(width, height, ctx, zoomLevel);
 
   ctx.fillStyle = "#f3f3f3";
-  const squareSize = getSquareSize(width);
+  const squareSize = getSquareSize(width, zoomLevel);
   ctx.fillRect(square.x, square.y, squareSize, squareSize);
 }
 
-function drawDashedSquare(width, height, ctx) {
-  const { boxWidth, boxHeight } = getBoxWidthHeight(width, height);
+function drawDashedSquare(width, height, ctx, zoomLevel) {
+  const { boxWidth, boxHeight } = getBoxWidthHeight(width, zoomLevel);
 
   ctx.strokeStyle = "#777";
   ctx.lineWidth = width / 450;
@@ -49,19 +50,28 @@ export function drawDefaultCanvas(width, height, ctx) {
   }
 }
 
-export function getSquareSize(width) {
-  return width / 10;
+export function getSquareSize(width, zoomLevel = 1) {
+  return (width / 10) * zoomLevel;
 }
 
-export function getBoxWidthHeight(width) {
-  return { boxHeight: width / 4, boxWidth: width / 3 };
+export function getBoxWidthHeight(width, zoomLevel = 1) {
+  return {
+    boxHeight: (width / 4) * zoomLevel,
+    boxWidth: (width / 3) * zoomLevel,
+  };
 }
 
-export function getSquarePos({ position, squareSize, height, width }) {
+export function getSquarePos({
+  position,
+  squareSize,
+  height,
+  width,
+  zoomLevel,
+}) {
   let x;
   let y;
 
-  const { boxWidth, boxHeight } = getBoxWidthHeight(width, height);
+  const { boxWidth, boxHeight } = getBoxWidthHeight(width, zoomLevel);
   const boxX = width / 2 - boxWidth / 2;
   const boxY = height / 2 - boxHeight / 2;
 
@@ -96,9 +106,3 @@ export function getSquarePos({ position, squareSize, height, width }) {
 
   return { x, y };
 }
-
-// const square = canvasWidth / 10;
-// const boxDashedWidth = canvasWidth / 4;
-// const boxDashedHeight = canvasWidth / 3;
-// const boxDashedX = canvasWidth - boxWidth / 2;
-// const boxDashedY = canvasHeight / 2 - boxHeight / 2;

@@ -18,7 +18,7 @@ export default function Position({ type, positionStyles }) {
       const reset = window.confirm("Reset Animation Starting Position?");
       if (!reset) return;
 
-      dispatch(uiActions.setReset());
+      dispatch(uiActions.handleResetAnimationAlert(true));
       dispatch(customActions.handleAnimation({ action: "reset" }));
       dispatch(
         customActions.handlePositions({
