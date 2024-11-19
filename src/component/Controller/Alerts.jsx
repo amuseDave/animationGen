@@ -90,7 +90,7 @@ export default function Alerts() {
         </AnimatePresence>
       </div>
 
-      <div className="absolute z-10 right-4 top-4">
+      <div className="absolute z-10 right-4 top-5">
         <AnimatePresence>
           {isAnimating && (
             <>

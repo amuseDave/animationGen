@@ -13,7 +13,7 @@ export default function handleCanvasCustomState({
 }
 
 function drawDashedSquare(width, height, ctx) {
-  const { boxWidth, boxHeight } = getBoxWidthHeight(width);
+  const { boxWidth, boxHeight } = getBoxWidthHeight(width, height);
 
   ctx.strokeStyle = "#777";
   ctx.lineWidth = width / 450;
@@ -54,14 +54,14 @@ export function getSquareSize(width) {
 }
 
 export function getBoxWidthHeight(width) {
-  return { boxWidth: width / 3, boxHeight: width / 4 };
+  return { boxHeight: width / 4, boxWidth: width / 3 };
 }
 
 export function getSquarePos({ position, squareSize, height, width }) {
   let x;
   let y;
 
-  const { boxWidth, boxHeight } = getBoxWidthHeight(width);
+  const { boxWidth, boxHeight } = getBoxWidthHeight(width, height);
   const boxX = width / 2 - boxWidth / 2;
   const boxY = height / 2 - boxHeight / 2;
 

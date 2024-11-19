@@ -25,7 +25,7 @@ export default function Controller() {
   }
 
   return (
-    <div className="relative px-3 py-5 bg-zinc-900">
+    <div className="relative px-3 py-5 rounded-lg bg-zinc-900">
       {type === "custom" && <PositionSelector />}
 
       <button

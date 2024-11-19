@@ -31,8 +31,8 @@ const customSlicer = createSlice({
         const widthRatio = width / animation.canvasWidth;
         const heightRatio = height / animation.canvasHeight;
 
-        animation.x = animation.x * widthRatio;
-        animation.y = animation.y * heightRatio;
+        animation.x *= widthRatio;
+        animation.y *= heightRatio;
 
         animation.canvasWidth = width;
         animation.canvasHeight = height;
@@ -90,7 +90,7 @@ const customSlicer = createSlice({
       const diffY = y - state.offsetY;
 
       const squareSize = getSquareSize(width);
-      const { boxWidth, boxHeight } = getBoxWidthHeight(width);
+      const { boxWidth, boxHeight } = getBoxWidthHeight(width, height);
 
       const boxX = width / 2 - boxWidth / 2;
       const boxY = height / 2 - boxHeight / 2;
