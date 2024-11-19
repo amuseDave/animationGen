@@ -11,12 +11,12 @@ export default function Alerts() {
   const dispatch = useDispatch();
   const [alerts, setAlerts] = useState([]);
 
-  const { isReset, isAnimationCreated, position } = useSelector(
+  const { isReset, isAnimationCreated, position, isAnimating } = useSelector(
     (state) => ({
       isAnimationCreated: state.custom.isAnimationCreated,
       isReset: state.ui.isReset,
-      isResizing: state.custom.isResizing,
       position: state.custom.position,
+      isAnimating: state.custom.isAnimating,
     }),
     shallowEqual
   );
@@ -42,7 +42,7 @@ export default function Alerts() {
     initialPositionState = false;
     dispatch(uiActions.restartReset());
     handleAlerts("Animation was reset!", "text-xl text-pink-300", true);
-  }, [isReset, position]);
+  }, [isReset]);
   // Position changed alert
   useEffect(() => {
     if (!initialPositionState) {
@@ -63,23 +63,47 @@ export default function Alerts() {
     dispatch(customActions.resetAnimation());
   }, [isAnimationCreated]);
 
+  useEffect(() => {
+    if (isAnimating) setAlerts([]);
+  }, [isAnimating]);
   return (
-    <div className="absolute z-10 right-4 bottom-4">
-      <AnimatePresence>
-        {alerts.map((alert) => (
-          <motion.div
-            layout
-            key={alert.id}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className={`alert ${alert.type}`}
-          >
-            {alert.message}
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </div>
+    <>
+      <div className="absolute z-10 right-4 bottom-4">
+        <AnimatePresence>
+          {!isAnimating &&
+            alerts.map((alert) => (
+              <motion.div
+                layout
+                key={alert.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: isAnimating ? 0 : 0.3 }}
+                className={`alert ${alert.type}`}
+              >
+                {alert.message}
+              </motion.div>
+            ))}
+        </AnimatePresence>
+      </div>
+
+      <div className="absolute z-10 right-4 top-4">
+        <AnimatePresence>
+          {isAnimating && (
+            <>
+              <motion.div
+                className="flex items-center gap-2 text-pink-400"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                Animation Playing{" "}
+                <span className="text-[8px] mt-1 animate-ping">🟣</span>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </div>
+    </>
   );
 }

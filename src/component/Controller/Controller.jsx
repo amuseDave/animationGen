@@ -18,7 +18,6 @@ export default function Controller() {
     }
 
     dispatch(customActions.handleIsAnimating(true));
-    console.log("playing animation");
   }
 
   return (
