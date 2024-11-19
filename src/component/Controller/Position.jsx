@@ -19,12 +19,19 @@ export default function Position({ type, positionStyles }) {
       if (!reset) return;
 
       dispatch(uiActions.setReset());
-      dispatch(customActions.resetAnimation());
-      dispatch(customActions.updatePosition(type));
+      dispatch(customActions.handleAnimation({ action: "reset" }));
+      dispatch(
+        customActions.handlePositions({
+          action: "set-position",
+          position: type,
+        })
+      );
       return;
     }
 
-    dispatch(customActions.updatePosition(type));
+    dispatch(
+      customActions.handlePositions({ action: "set-position", position: type })
+    );
   }
 
   return (

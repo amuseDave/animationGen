@@ -27,34 +27,50 @@ export default function CustomCanvas() {
   // Handle isResizing to not animate
   useEffect(() => {
     ctx.current = canvasEl.current.getContext("2d");
+
+    let timeoutId;
+
     function handleSetSizes() {
       canvasEl.current.width = canvasEl.current.offsetWidth;
       canvasEl.current.height = canvasEl.current.offsetHeight;
       dispatch(
-        customActions.setStartPos({
+        customActions.handlePositions({
           width: canvasEl.current.width,
           height: canvasEl.current.height,
+          action: "update-positions",
         })
       );
-    }
 
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        dispatch(
+          customActions.handleUpdateAnimationsPositions({
+            width: canvasEl.current.width,
+            height: canvasEl.current.height,
+          })
+        );
+      }, 200);
+    }
     handleSetSizes();
     window.addEventListener("resize", handleSetSizes);
 
     return () => {
+      clearTimeout(timeoutId);
       window.removeEventListener("resize", handleSetSizes);
     };
   }, []);
   // Set square start pos on position change
   // Set back default pos if animation vas invalid, on isHolding change
   useEffect(() => {
+    if (isHolding || isAnimating) return;
     dispatch(
-      customActions.setStartPos({
+      customActions.handlePositions({
         width: canvasEl.current.width,
         height: canvasEl.current.height,
+        action: "update-positions",
       })
     );
-  }, [position, isHolding]);
+  }, [position, isHolding, isAnimating]);
   // Draw Canvas on square positiong change
   useEffect(() => {
     handleCanvasCustomState({
@@ -81,7 +97,12 @@ export default function CustomCanvas() {
             square: { x: animation.x, y: animation.y },
           });
           if (arr.length - 1 === index) {
-            dispatch(customActions.handleIsAnimating(false));
+            dispatch(
+              customActions.handleAnimation({
+                action: "setAnimating",
+                isAnimating: false,
+              })
+            );
           }
         },
         8 * index,
@@ -102,13 +123,13 @@ export default function CustomCanvas() {
    * @info Create callback functions to not change on re-renders to save performence.
    **/
   // Handle isHovered
-  // Handle animation movement if isHovered
+  // Handle animation set animation movement if isHovered
   const handleHoverAndAnimation = useCallback(
     throttle((e, square, isHolding, isHovered, width, height) => {
       // Handle Animation Movement
       if (isHolding) {
         dispatch(
-          customActions.handleAnimationMovement({
+          customActions.handleSetAnimationMovement({
             x: e.offsetX,
             y: e.offsetY,
             width,
@@ -142,11 +163,11 @@ export default function CustomCanvas() {
     dispatch(customActions.handleHolding(true));
     const offsetX = e.offsetX - square.x;
     const offsetY = e.offsetY - square.y;
-    dispatch(customActions.setOffSets({ offsetX, offsetY }));
+    dispatch(customActions.handleSetOffSets({ offsetX, offsetY }));
   }, []);
   // Set isHolding to false
   const handleMouseUp = useCallback(() => {
-    dispatch(customActions.setAnimation());
+    dispatch(customActions.handleAnimation({ action: "set" }));
     dispatch(customActions.handleHolding(false));
     dispatch(customActions.handleHover(false));
   }, []);

@@ -16,8 +16,12 @@ export default function Controller() {
     if (!isAnimationCreated || isAnimating) {
       return;
     }
-
-    dispatch(customActions.handleIsAnimating(true));
+    dispatch(
+      customActions.handleAnimation({
+        action: "setAnimating",
+        isAnimating: true,
+      })
+    );
   }
 
   return (

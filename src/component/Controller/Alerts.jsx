@@ -36,6 +36,7 @@ export default function Alerts() {
       isSingle ? 3000 : 1500
     );
   }, []);
+
   // Animation reset alert
   useEffect(() => {
     if (!isReset) return;
@@ -43,6 +44,7 @@ export default function Alerts() {
     dispatch(uiActions.restartReset());
     handleAlerts("Animation was reset!", "text-xl text-pink-300", true);
   }, [isReset]);
+
   // Position changed alert
   useEffect(() => {
     if (!initialPositionState) {
@@ -51,6 +53,7 @@ export default function Alerts() {
     }
     handleAlerts("Position changed!", "success ");
   }, [position]);
+
   // Animation creation alert
   useEffect(() => {
     if (isAnimationCreated !== null && !isAnimationCreated) return;
@@ -60,7 +63,7 @@ export default function Alerts() {
     }
 
     handleAlerts("Animation too short!", "error ");
-    dispatch(customActions.resetAnimation());
+    dispatch(customActions.handleAnimation({ action: "reset" }));
   }, [isAnimationCreated]);
 
   useEffect(() => {
@@ -95,7 +98,8 @@ export default function Alerts() {
                 className="flex items-center gap-2 text-pink-400"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.2 }}
               >
                 Animation Playing{" "}
                 <span className="text-[8px] mt-1 animate-ping">🟣</span>

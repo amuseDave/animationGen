@@ -25,33 +25,52 @@ const customSlicer = createSlice({
   name: "custom-animations",
   initialState,
   reducers: {
-    updatePosition(state, actions) {
-      state.position = actions.payload;
-    },
-    setStartPos(state, { payload: { width, height } }) {
-      if (state.isHolding) return;
-      if (state.isAnimating) {
-        state.isAnimating = false;
-        return;
-      }
+    handleUpdateAnimationsPositions(state, { payload: { width, height } }) {
+      if (!state.isAnimationCreated) return;
+      state.square.animations.forEach((animation) => {
+        const widthRatio = width / animation.canvasWidth;
+        const heightRatio = height / animation.canvasHeight;
 
-      const squareSize = getSquareSize(width);
+        animation.x = animation.x * widthRatio;
+        animation.y = animation.y * heightRatio;
 
-      const { x, y } = getSquarePos({
-        position: state.position,
-        squareSize,
-        height,
-        width,
+        animation.canvasWidth = width;
+        animation.canvasHeight = height;
       });
 
-      state.square.x = x;
-      state.square.y = y;
-
-      state.square.animations[0] = { x: state.square.x, y: state.square.y };
+      state.square.x = state.square.animations[0].x;
+      state.square.y = state.square.animations[0].y;
     },
-    resetAnimation(state) {
-      state.square.animations = [];
-      state.isAnimationCreated = false;
+    handlePositions(state, actions) {
+      const { action, position, width, height } = actions.payload;
+      if (action === "update-positions") {
+        if (state.isHolding) return;
+        if (state.isAnimating) {
+          state.isAnimating = false;
+          return;
+        }
+
+        /////////////
+        const squareSize = getSquareSize(width);
+        const { x, y } = getSquarePos({
+          position: state.position,
+          squareSize,
+          height,
+          width,
+        });
+        state.square.x = x;
+        state.square.y = y;
+        state.square.animations[0] = {
+          x: state.square.x,
+          y: state.square.y,
+          canvasWidth: width,
+          canvasHeight: height,
+        };
+
+        ///////////
+      } else if (action === "set-position") {
+        state.position = position;
+      }
     },
     handleHover(state, actions) {
       state.isHovered = actions.payload;
@@ -60,11 +79,11 @@ const customSlicer = createSlice({
       if (!state.isHovered) return;
       state.isHolding = actions.payload;
     },
-    setOffSets(state, { payload: { offsetX, offsetY } }) {
+    handleSetOffSets(state, { payload: { offsetX, offsetY } }) {
       state.offsetX = offsetX;
       state.offsetY = offsetY;
     },
-    handleAnimationMovement(state, { payload: { x, y, width, height } }) {
+    handleSetAnimationMovement(state, { payload: { x, y, width, height } }) {
       if (!state.isHolding) return;
 
       const diffX = x - state.offsetX;
@@ -86,19 +105,37 @@ const customSlicer = createSlice({
           ? state.square.y
           : diffY;
 
-      state.square.animations.push({ x: state.square.x, y: state.square.y });
+      state.square.animations.push({
+        x: state.square.x,
+        y: state.square.y,
+        canvasWidth: width,
+        canvasHeight: height,
+      });
     },
-    setAnimation(state) {
-      if (!state.isHolding) return;
-      if (state.square.animations.length < 50) {
-        state.isAnimationCreated = null;
-      } else {
-        state.isAnimationCreated = true;
+    handleAnimation(state, actions) {
+      const { isAnimating, action } = actions.payload;
+
+      switch (action) {
+        case "set": {
+          if (!state.isHolding) return;
+          state.isAnimationCreated =
+            state.square.animations.length < 50 ? null : true;
+          break;
+        }
+        case "reset": {
+          state.square.animations = [];
+          state.isAnimationCreated = false;
+          state.isAnimating = false;
+          break;
+        }
+        case "setAnimating": {
+          if (!state.isAnimationCreated) return;
+          state.isAnimating = isAnimating;
+          break;
+        }
+        default:
+          break;
       }
-    },
-    handleIsAnimating(state, actions) {
-      if (!state.isAnimationCreated) return;
-      state.isAnimating = actions.payload;
     },
   },
 });
