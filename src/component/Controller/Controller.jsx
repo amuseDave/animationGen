@@ -1,11 +1,38 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import PositionSelector from "./PositionSelector";
+import { customActions } from "../../customSlicer";
 
 export default function Controller() {
-  const { type } = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
+  const { type, isAnimationCreated, isAnimating } = useSelector((state) => {
+    return {
+      type: state.ui.type,
+      isAnimationCreated: state.custom.isAnimationCreated,
+      isAnimating: state.custom.isAnimating,
+    };
+  }, shallowEqual);
+
+  function handlePlayAnimation() {
+    if (!isAnimationCreated || isAnimating) {
+      return;
+    }
+
+    dispatch(customActions.handleIsAnimating(true));
+    console.log("playing animation");
+  }
+
   return (
-    <div className="flex flex-col items-center px-3 py-5 bg-slate-950">
+    <div className="relative px-3 py-5 bg-zinc-900">
       {type === "custom" && <PositionSelector />}
+
+      <button
+        onClick={handlePlayAnimation}
+        className={`
+          absolute text-pink-100 rounded-md font-light text-lg bg-pink-950 bc bottom-5 py-1 text-center w-40 
+          ${!isAnimationCreated && "cursor-not-allowed opacity-25"}`}
+      >
+        Play Animation
+      </button>
     </div>
   );
 }

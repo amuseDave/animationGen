@@ -30,7 +30,6 @@ export default function CustomCanvas() {
     function handleSetSizes() {
       canvasEl.current.width = canvasEl.current.offsetWidth;
       canvasEl.current.height = canvasEl.current.offsetHeight;
-
       dispatch(
         customActions.setStartPos({
           width: canvasEl.current.width,
@@ -43,7 +42,6 @@ export default function CustomCanvas() {
     window.addEventListener("resize", handleSetSizes);
 
     return () => {
-      dispatch(customActions.resetResizing());
       window.removeEventListener("resize", handleSetSizes);
     };
   }, []);
@@ -65,7 +63,7 @@ export default function CustomCanvas() {
       ctx: ctx.current,
       square,
     });
-  }, [square.x, square.y]);
+  }, [square.x, square.y, window.innerHeight]);
 
   // Handle Animation Drawing on Canvas
   useEffect(() => {
@@ -73,20 +71,27 @@ export default function CustomCanvas() {
 
     const canvas = canvasEl.current;
 
-    square.animations.forEach((animation, index) => {
-      const timeout = setTimeout(() => {
-        handleCanvasCustomState({
-          width: canvas.width,
-          height: canvas.height,
-          ctx: ctx.current,
-          square: { x: animation.x, y: animation.y },
-        });
-      }, 8 * index);
+    square.animations.forEach((animation, index, arr) => {
+      const timeout = setTimeout(
+        () => {
+          handleCanvasCustomState({
+            width: canvas.width,
+            height: canvas.height,
+            ctx: ctx.current,
+            square: { x: animation.x, y: animation.y },
+          });
+          if (arr.length - 1 === index) {
+            dispatch(customActions.handleIsAnimating(false));
+          }
+        },
+        8 * index,
+        [index]
+      );
 
       timeouts.current.push(timeout);
     });
 
-    () => {
+    return () => {
       timeouts.current.forEach(clearTimeout);
       timeouts.current = [];
     };
@@ -96,13 +101,14 @@ export default function CustomCanvas() {
   /**
    * @info Create callback functions to not change on re-renders to save performence.
    **/
-  // Sets isHovered with logic
-  // Dispatch logic if isHolding
-  const handleMouseMovement = useCallback(
+  // Handle isHovered
+  // Handle animation movement if isHovered
+  const handleHoverAndAnimation = useCallback(
     throttle((e, square, isHolding, isHovered, width, height) => {
+      // Handle Animation Movement
       if (isHolding) {
         dispatch(
-          customActions.handleMovement({
+          customActions.handleAnimationMovement({
             x: e.offsetX,
             y: e.offsetY,
             width,
@@ -112,6 +118,7 @@ export default function CustomCanvas() {
         return;
       }
 
+      // Set is Hovering
       const isHovering =
         e.offsetY >= square.y &&
         e.offsetY <= square.y + getSquareSize(width) &&
@@ -121,9 +128,9 @@ export default function CustomCanvas() {
       if (isHovering && isHovered) return;
 
       if (isHovering) {
-        dispatch(customActions.setHover());
+        dispatch(customActions.handleHover(true));
       } else {
-        dispatch(customActions.removeHover());
+        dispatch(customActions.handleHover(false));
       }
     }, 8),
     []
@@ -132,14 +139,16 @@ export default function CustomCanvas() {
   // Sets initial mousedown offset
   const handleMouseDown = useCallback((e, square, isHovered) => {
     if (!isHovered) return;
-    dispatch(customActions.setHolding());
+    dispatch(customActions.handleHolding(true));
     const offsetX = e.offsetX - square.x;
     const offsetY = e.offsetY - square.y;
     dispatch(customActions.setOffSets({ offsetX, offsetY }));
   }, []);
   // Set isHolding to false
   const handleMouseUp = useCallback(() => {
-    dispatch(customActions.removeHolding());
+    dispatch(customActions.setAnimation());
+    dispatch(customActions.handleHolding(false));
+    dispatch(customActions.handleHover(false));
   }, []);
 
   // Handle events, and pass down arguments to functions
@@ -148,8 +157,8 @@ export default function CustomCanvas() {
 
     const canvas = canvasEl.current;
 
-    function handleMouseMovementHandler(e) {
-      handleMouseMovement(
+    function handleHoverAndAnimationHandler(e) {
+      handleHoverAndAnimation(
         e,
         square,
         isHolding,
@@ -165,12 +174,12 @@ export default function CustomCanvas() {
       handleMouseUp();
     }
 
-    canvas.addEventListener("mousemove", handleMouseMovementHandler);
+    canvas.addEventListener("mousemove", handleHoverAndAnimationHandler);
     canvas.addEventListener("mousedown", handleMouseDownHandler);
     canvas.addEventListener("mouseup", handleMouseUpHandler);
 
     return () => {
-      canvas.removeEventListener("mousemove", handleMouseMovementHandler);
+      canvas.removeEventListener("mousemove", handleHoverAndAnimationHandler);
       canvas.removeEventListener("mousedown", handleMouseDownHandler);
       canvas.removeEventListener("mouseup", handleMouseUpHandler);
     };

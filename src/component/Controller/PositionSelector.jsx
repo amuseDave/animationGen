@@ -3,7 +3,7 @@ import "./positions.css";
 
 export default function PositionSelector() {
   return (
-    <div className="w-[140px] h-[110px] bg-gray-900 relative mt-5">
+    <div className="w-[140px] h-[110px] bg-gray-900 relative mt-5 justify-self-center">
       <div className="-translate-x-1/2 -translate-y-full"></div>
 
       {/*Center START */}
