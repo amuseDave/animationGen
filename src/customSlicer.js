@@ -33,14 +33,6 @@ const customSlicer = createSlice({
       const currentBoxX = width / 2 - currentBoxWidth / 2;
       const currentBoxY = height / 2 - currentBoxHeight / 2;
 
-      // const prevCanvasHeight = state.square.animations[0].canvasHeight;
-      // const prevCanvasWidth = state.square.animations[0].canvasWidth;
-
-      // const prevBoxWidth = prevCanvasWidth / 4;
-      // const prevBoxHeight = prevCanvasWidth / 3;
-      // const prevBoxX = prevCanvasWidth / 2 - prevBoxWidth / 2;
-      // const prevBoxY = prevCanvasHeight / 2 - prevBoxHeight / 2;
-
       // Adjust square position for each animation
       state.square.animations.forEach((animation) => {
         const prevCanvasWidth = animation.canvasWidth;
@@ -63,8 +55,6 @@ const customSlicer = createSlice({
         // Update the animation's canvas dimensions
         animation.canvasWidth = width;
         animation.canvasHeight = height;
-
-        console.log(`Updated X: ${animation.x}, Updated Y: ${animation.y}`);
       });
       state.square.x = state.square.animations[0].x;
       state.square.y = state.square.animations[0].y;

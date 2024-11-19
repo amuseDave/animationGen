@@ -86,7 +86,6 @@ export default function CustomCanvas() {
     if (!isAnimating) return;
 
     const canvas = canvasEl.current;
-    console.log(square);
 
     square.animations.forEach((animation, index, arr) => {
       const timeout = setTimeout(
