@@ -16,6 +16,7 @@ const initialState = {
   isHolding: false,
   offsetX: 0,
   offsetY: 0,
+  isAnimationCreated: false,
   isAnimating: false,
   isResizing: false,
 };
@@ -70,15 +71,15 @@ const customSlicer = createSlice({
       if (!state.isHolding) return;
       state.isHolding = false;
       if (state.square.animations.length < 50) {
-        state.isAnimating = null;
+        state.isAnimationCreated = null;
       } else {
-        state.isAnimating = true;
+        state.isAnimationCreated = true;
         state.isHovered = false;
       }
     },
     resetAnimation(state) {
       state.square.animations = [];
-      state.isAnimating = false;
+      state.isAnimationCreated = false;
     },
     handleMovement(state, { payload: { x, y, width, height } }) {
       if (!state.isHolding || state.isAnimating) return;

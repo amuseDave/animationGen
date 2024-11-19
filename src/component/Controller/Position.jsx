@@ -4,16 +4,16 @@ import { uiActions } from "../../uiSlicer";
 
 export default function Position({ type, positionStyles }) {
   const dispatch = useDispatch();
-  const { isAnimating, position } = useSelector(
+  const { isAnimationCreated, position } = useSelector(
     (state) => ({
-      isAnimating: state.custom.isAnimating,
+      isAnimationCreated: state.custom.isAnimationCreated,
       position: state.custom.position,
     }),
     shallowEqual
   );
 
   function handlePosition() {
-    if (isAnimating) {
+    if (isAnimationCreated) {
       const reset = window.confirm("Reset Animation?");
 
       if (!reset) return;

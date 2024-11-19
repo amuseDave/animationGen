@@ -5,57 +5,72 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./alerts.css";
 import { uiActions } from "../../uiSlicer";
 
+let initialPositionState;
+
 export default function Alerts() {
   const dispatch = useDispatch();
   const [alerts, setAlerts] = useState([]);
-  const { isAnimating, isReset, isResizing } = useSelector(
+
+  const { isReset, isAnimationCreated, position } = useSelector(
     (state) => ({
-      isAnimating: state.custom.isAnimating,
+      isAnimationCreated: state.custom.isAnimationCreated,
       isReset: state.ui.isReset,
       isResizing: state.custom.isResizing,
+      position: state.custom.position,
     }),
     shallowEqual
   );
 
-  const handleAlerts = useCallback((message, type) => {
-    const alertId = Date.now();
-    setAlerts((prev) => [...prev, { id: alertId, message, type }]);
+  const handleAlerts = useCallback((message, type, isSingle) => {
+    const id = Date.now();
+    setAlerts((prev) => {
+      return !isSingle && !prev[0]?.isSingle
+        ? [...prev, { id, message, type, isSingle }]
+        : [{ id, message, type, isSingle }];
+    });
 
-    setTimeout(() => {
-      setAlerts((prev) => prev.filter((alert) => alert.id !== alertId));
-    }, 1500);
+    setTimeout(
+      () => {
+        setAlerts((prev) => prev.filter((alert) => alert.id !== id));
+      },
+      isSingle ? 3000 : 1500
+    );
   }, []);
-
-  // useEffect(() => {
-  //   if (isResizing && isAnimating) {
-  //     handleAlerts("Window is Resizing!", "success");
-  //   }
-  // }, [isResizing, isAnimating]);
-
+  // Animation reset alert
   useEffect(() => {
     if (!isReset) return;
     dispatch(uiActions.restartReset());
-    handleAlerts("Animation was reset!", "success");
+    handleAlerts("Animation was reset!", "text-xl text-pink-300", true);
   }, [isReset]);
-
+  // Position changed alert
   useEffect(() => {
-    if (isAnimating === null) {
-      handleAlerts("Animation too short!", "error");
-      dispatch(customActions.resetAnimation());
-    } else if (isAnimating) {
-      handleAlerts("Animation created!", "success");
+    if (!initialPositionState) {
+      initialPositionState = true;
+      return;
     }
-  }, [isAnimating]);
+    handleAlerts("Position changed!", "success ");
+  }, [position]);
+  // Animation creation alert
+  useEffect(() => {
+    if (isAnimationCreated !== null && !isAnimationCreated) return;
+    if (isAnimationCreated) {
+      handleAlerts("Animation Created!", "text-xl text-pink-500", true);
+      return;
+    }
+
+    handleAlerts("Animation too short!", "error ");
+    dispatch(customActions.resetAnimation());
+  }, [isAnimationCreated]);
 
   return (
-    <div className="fixed z-10 -translate-x-1/2 top-16 left-1/2">
+    <div className="absolute z-10 right-4 bottom-4">
       <AnimatePresence>
         {alerts.map((alert) => (
           <motion.div
             layout
             key={alert.id}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             className={`alert ${alert.type}`}

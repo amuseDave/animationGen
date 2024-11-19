@@ -4,28 +4,13 @@
 
 @layer components {
   .error {
-    @apply bg-pink-400;
+    @apply bg-pink-300 text-pink-950 font-semibold;
   }
 
   .success {
-    @apply bg-purple-100;
+    @apply bg-purple-300 text-purple-950 font-semibold;
   }
   .alert {
-    @apply w-52 font-bold text-purple-950 rounded-md mt-4 text-center py-2;
-  }
-}
-
-.animation {
-  animation: appear 0.2s ease-in-out forwards;
-}
-
-@keyframes appear {
-  from {
-    transform: scale(0);
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
+    @apply w-52 rounded-md mt-4 text-center py-2;
   }
 }
