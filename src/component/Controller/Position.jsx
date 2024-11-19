@@ -13,17 +13,16 @@ export default function Position({ type, positionStyles }) {
   );
 
   function handlePosition() {
+    if (position === type) return;
     if (isAnimationCreated) {
-      const reset = window.confirm("Reset Animation?");
-
+      const reset = window.confirm("Reset Animation Starting Position?");
       if (!reset) return;
+
       dispatch(uiActions.setReset());
       dispatch(customActions.resetAnimation());
-
+      dispatch(customActions.updatePosition(type));
       return;
     }
-
-    if (position === type) return;
 
     dispatch(customActions.updatePosition(type));
   }

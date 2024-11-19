@@ -16,7 +16,6 @@ export default function CustomCanvas() {
     square,
     isAnimating,
     isAnimationCreated,
-    isResizing,
   } = useSelector((state) => state.custom);
 
   const canvasEl = useRef();
@@ -28,16 +27,9 @@ export default function CustomCanvas() {
   // Handle isResizing to not animate
   useEffect(() => {
     ctx.current = canvasEl.current.getContext("2d");
-
-    let initialResize = false;
-    let timeoutId;
-
     function handleSetSizes() {
       canvasEl.current.width = canvasEl.current.offsetWidth;
       canvasEl.current.height = canvasEl.current.offsetHeight;
-
-      if (isAnimating && initialResize) dispatch(customActions.setResizing());
-      initialResize ||= true;
 
       dispatch(
         customActions.setStartPos({
@@ -45,11 +37,6 @@ export default function CustomCanvas() {
           height: canvasEl.current.height,
         })
       );
-
-      if (timeoutId) clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        dispatch(customActions.resetResizing());
-      }, 50);
     }
 
     handleSetSizes();
@@ -104,14 +91,6 @@ export default function CustomCanvas() {
       timeouts.current = [];
     };
   }, [isAnimating]);
-
-  // Clear all timeouts when resizing
-  // useEffect(() => {
-  //   if (isResizing && isAnimating) {
-  //     timeouts.current.forEach(clearTimeout);
-  //     timeouts.current = [];
-  //   }
-  // }, [isResizing]);
 
   //
   /**
