@@ -6,6 +6,7 @@ import { throttle } from "lodash";
 import handleCanvasCustomState, {
   getSquareSize,
 } from "../../utils/handleCanvas";
+import { uiActions } from "../../uiSlicer";
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ export default function CustomCanvas() {
     ctx.current = canvasEl.current.getContext("2d");
 
     let timeoutId;
+    let timeoutId2;
 
     function handleSetSizes() {
       canvasEl.current.width = canvasEl.current.offsetWidth;
@@ -42,7 +44,15 @@ export default function CustomCanvas() {
         })
       );
 
+      dispatch(uiActions.handleResizing(true));
+
+      if (timeoutId2) clearTimeout(timeoutId2);
       if (timeoutId) clearTimeout(timeoutId);
+
+      timeoutId2 = setTimeout(() => {
+        dispatch(uiActions.handleResizing(false));
+      }, 150);
+
       timeoutId = setTimeout(() => {
         dispatch(
           customActions.handleUpdateAnimationsPositions({
@@ -50,7 +60,7 @@ export default function CustomCanvas() {
             height: canvasEl.current.height,
           })
         );
-      }, 200);
+      }, 100);
     }
     handleSetSizes();
     window.addEventListener("resize", handleSetSizes);
@@ -62,8 +72,6 @@ export default function CustomCanvas() {
   }, []);
 
   useEffect(() => {
-    console.log("updating position animation");
-
     dispatch(
       customActions.handleUpdateAnimationsPositions({
         width: canvasEl.current.width,

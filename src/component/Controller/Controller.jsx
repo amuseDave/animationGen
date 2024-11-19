@@ -4,16 +4,20 @@ import { customActions } from "../../customSlicer";
 
 export default function Controller() {
   const dispatch = useDispatch();
-  const { type, isAnimationCreated, isAnimating } = useSelector((state) => {
-    return {
-      type: state.ui.type,
-      isAnimationCreated: state.custom.isAnimationCreated,
-      isAnimating: state.custom.isAnimating,
-    };
-  }, shallowEqual);
+  const { type, isAnimationCreated, isAnimating, isResizing } = useSelector(
+    (state) => {
+      return {
+        type: state.ui.type,
+        isAnimationCreated: state.custom.isAnimationCreated,
+        isAnimating: state.custom.isAnimating,
+        isResizing: state.ui.isResizing,
+      };
+    },
+    shallowEqual
+  );
 
   function handlePlayAnimation() {
-    if (!isAnimationCreated || isAnimating) {
+    if (!isAnimationCreated || isAnimating || isResizing) {
       return;
     }
     dispatch(
@@ -32,7 +36,10 @@ export default function Controller() {
         onClick={handlePlayAnimation}
         className={`
           absolute text-pink-100 rounded-md font-light text-lg bg-pink-950 bc bottom-5 py-1 text-center w-40 
-          ${!isAnimationCreated && "cursor-not-allowed opacity-25"}`}
+          ${
+            !isAnimationCreated ||
+            (isResizing && "cursor-not-allowed opacity-25")
+          }`}
       >
         Play Animation
       </button>

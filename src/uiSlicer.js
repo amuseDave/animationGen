@@ -8,6 +8,7 @@ const initialState = {
   type: "custom",
   isReset: false,
   zoomLevel: 1,
+  isResizing: false,
 };
 
 function changeTheme(state) {
@@ -49,6 +50,9 @@ const uiSlicer = createSlice({
         default:
           break;
       }
+    },
+    handleResizing(state, { payload }) {
+      state.isResizing = payload;
     },
   },
 });
