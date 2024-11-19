@@ -9,7 +9,7 @@ const initialState = {
   square: {
     x: 0,
     y: 0,
-    animations: [null],
+    animations: [],
   },
   position: "cc",
   isHovered: false,
