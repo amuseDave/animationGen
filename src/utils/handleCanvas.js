@@ -96,3 +96,9 @@ export function getSquarePos({ position, squareSize, height, width }) {
 
   return { x, y };
 }
+
+// const square = canvasWidth / 10;
+// const boxDashedWidth = canvasWidth / 4;
+// const boxDashedHeight = canvasWidth / 3;
+// const boxDashedX = canvasWidth - boxWidth / 2;
+// const boxDashedY = canvasHeight / 2 - boxHeight / 2;
