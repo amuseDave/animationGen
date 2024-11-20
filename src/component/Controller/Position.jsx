@@ -20,18 +20,11 @@ export default function Position({ type, positionStyles }) {
 
       dispatch(uiActions.handleResetAnimationAlert(true));
       dispatch(customActions.handleAnimation({ action: "reset" }));
-      dispatch(
-        customActions.handlePositions({
-          action: "set-position",
-          position: type,
-        })
-      );
+      dispatch(customActions.handleSetPositions(type));
       return;
     }
 
-    dispatch(
-      customActions.handlePositions({ action: "set-position", position: type })
-    );
+    dispatch(customActions.handleSetPositions(type));
   }
 
   return (

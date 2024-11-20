@@ -5,8 +5,8 @@ export default function handleCanvasCustomState({
   square,
   zoomLevel,
 }) {
+  ctx.clearRect(0, 0, 1500, 1100);
   drawDashedSquare(width, height, ctx, zoomLevel);
-
   ctx.fillStyle = "#f3f3f3";
   const squareSize = getSquareSize(width, zoomLevel);
   ctx.fillRect(square.x, square.y, squareSize, squareSize);

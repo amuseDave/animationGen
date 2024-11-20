@@ -1,12 +1,37 @@
 import { Outlet } from "react-router-dom";
 
 import Navigation from "../component/Navigation/Navigation.jsx";
-
 import SavedAnimations from "../component/SavedAnimations/SavedAnimations.jsx";
 import MainPreview from "../component/MainPreview/MainPreview.jsx";
 import Controller from "../component/Controller/Controller.jsx";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { uiActions } from "../uiSlicer.js";
 
 export default function MainLayout() {
+  const dispatch = useDispatch();
+
+  // Handle resize event for loading
+  useEffect(() => {
+    let isResizing = false;
+    let timeoutIdResize;
+    function handleResize() {
+      if (timeoutIdResize) clearTimeout(timeoutIdResize);
+      timeoutIdResize = setTimeout(() => {
+        dispatch(uiActions.handleResize(false));
+        isResizing = false;
+      }, 200);
+      if (isResizing) return;
+      dispatch(uiActions.handleResize(true));
+      isResizing = true;
+    }
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <main
       className={`pt-10 duration-200 min-h-dvh transition-color bg-background`}

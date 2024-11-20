@@ -7,6 +7,6 @@ export default function MicroInteractions() {
 
   useEffect(() => {
     dispatch(uiActions.handleTypeChange("micro"));
-  });
+  }, []);
   return <div>Micro Interactions</div>;
 }

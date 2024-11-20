@@ -8,7 +8,7 @@ export default function Custom() {
 
   useEffect(() => {
     dispatch(uiActions.handleTypeChange("custom"));
-  });
+  }, []);
 
   return <div>No Custom animations</div>;
 }

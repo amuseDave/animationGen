@@ -7,7 +7,7 @@ export default function FeaturedAnimations() {
 
   useEffect(() => {
     dispatch(uiActions.handleTypeChange("featured"));
-  });
+  }, []);
 
   return <div>Featured animations</div>;
 }

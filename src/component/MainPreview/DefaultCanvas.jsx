@@ -2,18 +2,17 @@ import { useRef, useEffect } from "react";
 import { drawDefaultCanvas } from "../../utils/handleCanvas";
 
 export default function DefaultCanvas() {
-  const canvasEl = useRef();
+  const defaultCanvas = useRef();
 
   useEffect(() => {
-    canvasEl.current.width = 1920;
-    canvasEl.current.height = 1080;
-    const ctx = canvasEl.current.getContext("2d");
+    defaultCanvas.current.width = 1920;
+    defaultCanvas.current.height = 1080;
+    const ctx = defaultCanvas.current.getContext("2d");
     drawDefaultCanvas(ctx);
   }, []);
-
   return (
     <canvas
-      ref={canvasEl}
+      ref={defaultCanvas}
       id="generator"
       className={`absolute top-0 left-0 z-10 w-[1920px] h-[1080px] cursor-crosshair bg-zinc-950`}
     ></canvas>

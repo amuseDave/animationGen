@@ -1,10 +1,8 @@
-import { useCallback, useEffect } from "react";
-import { useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { customActions } from "../../customSlicer";
 import { throttle } from "lodash";
 import handleCanvasCustomState, {
-  drawDefaultCanvas,
   getSquareSize,
 } from "../../utils/handleCanvas";
 
@@ -17,83 +15,48 @@ export default function CustomCanvas() {
     square,
     isAnimating,
     isAnimationCreated,
-    zoomLevel,
   } = useSelector((state) => state.custom);
+  const { zoomLevel, isResizing } = useSelector((state) => state.ui);
 
-  const defaultCanvasEl = useRef();
   const canvasEl = useRef();
   const ctx = useRef();
   const timeouts = useRef([]);
 
-  useEffect(() => {
-    const ctx = defaultCanvasEl.current.getContext("2d");
-    defaultCanvasEl.current.width = 1920;
-    defaultCanvasEl.current.height = 1080;
-    drawDefaultCanvas(ctx);
-  }, []);
-
   // Create ctx
-  // Set start square position on resize window
-  // Handle isResizing to not animate
   useEffect(() => {
     ctx.current = canvasEl.current.getContext("2d");
-
-    let timeoutId;
-
-    function handleSetSizes() {
-      canvasEl.current.width = canvasEl.current.offsetWidth;
-      canvasEl.current.height = canvasEl.current.offsetHeight;
-      dispatch(
-        customActions.handlePositions({
-          width: canvasEl.current.width,
-          height: canvasEl.current.height,
-          action: "update-positions",
-        })
-      );
-
-      if (timeoutId) clearTimeout(timeoutId);
-
-      timeoutId = setTimeout(() => {
-        dispatch(
-          customActions.handleUpdateAnimationsPositions({
-            width: canvasEl.current.width,
-            height: canvasEl.current.height,
-          })
-        );
-      }, 100);
-    }
-    handleSetSizes();
-    window.addEventListener("resize", handleSetSizes);
-
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener("resize", handleSetSizes);
-    };
   }, []);
 
+  // Update animation positioons
   useEffect(() => {
+    if (isResizing) return;
     dispatch(
       customActions.handleUpdateAnimationsPositions({
         width: canvasEl.current.width,
         height: canvasEl.current.height,
+        zoomLevel,
       })
     );
-  }, [zoomLevel]);
+  }, [zoomLevel, isResizing]);
 
-  // Set square start pos on position change
+  // Set square start pos
   // Set back default pos if animation vas invalid, on isHolding change
   useEffect(() => {
-    if (isHolding || isAnimating) return;
+    if (isHolding || isAnimating || isResizing) return;
+    canvasEl.current.width = canvasEl.current.offsetWidth;
+    canvasEl.current.height = canvasEl.current.offsetHeight;
     dispatch(
-      customActions.handlePositions({
+      customActions.handleUpdateAnimationsPositions({
         width: canvasEl.current.width,
         height: canvasEl.current.height,
-        action: "update-positions",
+        zoomLevel,
       })
     );
-  }, [position, isHolding, isAnimating, zoomLevel]);
-  // Draw Canvas on square positiong change
+  }, [position, isHolding, isAnimating, zoomLevel, isResizing]);
+
+  // Draw Canvas
   useEffect(() => {
+    if (isAnimating) return;
     handleCanvasCustomState({
       width: canvasEl.current.width,
       height: canvasEl.current.height,
@@ -101,7 +64,7 @@ export default function CustomCanvas() {
       square,
       zoomLevel,
     });
-  }, [square.x, square.y, window.innerHeight, zoomLevel]);
+  }, [square.x, square.y, window.innerHeight, zoomLevel, isAnimating]);
 
   // Handle Animation Drawing on Canvas
   useEffect(() => {
@@ -139,7 +102,7 @@ export default function CustomCanvas() {
       timeouts.current.forEach(clearTimeout);
       timeouts.current = [];
     };
-  }, [isAnimating, zoomLevel]);
+  }, [isAnimating]);
 
   //
   /**
@@ -157,6 +120,7 @@ export default function CustomCanvas() {
             y: e.offsetY,
             width,
             height,
+            zoomLevel,
           })
         );
         return;
@@ -231,23 +195,16 @@ export default function CustomCanvas() {
   }, [isHovered, isHolding, square.x, square.y, isAnimationCreated, zoomLevel]);
 
   return (
-    <>
-      <canvas
-        ref={defaultCanvasEl}
-        className="absolute top-0 left-0 z-10 w-[1920px] h-[1080px] bg-zinc-950"
-      ></canvas>
-
-      <canvas
-        ref={canvasEl}
-        id="generator"
-        className={`w-full relative h-full z-20 ${
-          isHolding
-            ? "cursor-grabbing"
-            : isHovered
-            ? "cursor-move"
-            : "cursor-crosshair"
-        }`}
-      ></canvas>
-    </>
+    <canvas
+      ref={canvasEl}
+      id="generator"
+      className={`w-full relative h-full z-20 ${
+        isHolding
+          ? "cursor-grabbing"
+          : isHovered
+          ? "cursor-move"
+          : "cursor-crosshair"
+      }`}
+    ></canvas>
   );
 }
