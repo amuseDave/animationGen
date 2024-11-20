@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { customActions } from "../../customSlicer";
 import { throttle } from "lodash";
 import handleCanvasCustomState, {
+  drawDefaultCanvas,
   getSquareSize,
 } from "../../utils/handleCanvas";
-import { uiActions } from "../../uiSlicer";
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
@@ -20,9 +20,17 @@ export default function CustomCanvas() {
     zoomLevel,
   } = useSelector((state) => state.custom);
 
+  const defaultCanvasEl = useRef();
   const canvasEl = useRef();
   const ctx = useRef();
   const timeouts = useRef([]);
+
+  useEffect(() => {
+    const ctx = defaultCanvasEl.current.getContext("2d");
+    defaultCanvasEl.current.width = 1920;
+    defaultCanvasEl.current.height = 1080;
+    drawDefaultCanvas(ctx);
+  }, []);
 
   // Create ctx
   // Set start square position on resize window
@@ -31,7 +39,6 @@ export default function CustomCanvas() {
     ctx.current = canvasEl.current.getContext("2d");
 
     let timeoutId;
-    let timeoutId2;
 
     function handleSetSizes() {
       canvasEl.current.width = canvasEl.current.offsetWidth;
@@ -44,14 +51,7 @@ export default function CustomCanvas() {
         })
       );
 
-      dispatch(uiActions.handleResizing(true));
-
-      if (timeoutId2) clearTimeout(timeoutId2);
       if (timeoutId) clearTimeout(timeoutId);
-
-      timeoutId2 = setTimeout(() => {
-        dispatch(uiActions.handleResizing(false));
-      }, 150);
 
       timeoutId = setTimeout(() => {
         dispatch(
@@ -231,16 +231,23 @@ export default function CustomCanvas() {
   }, [isHovered, isHolding, square.x, square.y, isAnimationCreated, zoomLevel]);
 
   return (
-    <canvas
-      ref={canvasEl}
-      id="generator"
-      className={`w-full h-full bg-zinc-950 rounded-2xl ${
-        isHolding
-          ? "cursor-grabbing"
-          : isHovered
-          ? "cursor-move"
-          : "cursor-crosshair"
-      }`}
-    ></canvas>
+    <>
+      <canvas
+        ref={defaultCanvasEl}
+        className="absolute top-0 left-0 z-10 w-[1920px] h-[1080px] bg-zinc-950"
+      ></canvas>
+
+      <canvas
+        ref={canvasEl}
+        id="generator"
+        className={`w-full relative h-full z-20 ${
+          isHolding
+            ? "cursor-grabbing"
+            : isHovered
+            ? "cursor-move"
+            : "cursor-crosshair"
+        }`}
+      ></canvas>
+    </>
   );
 }

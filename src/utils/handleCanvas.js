@@ -5,7 +5,6 @@ export default function handleCanvasCustomState({
   square,
   zoomLevel,
 }) {
-  drawDefaultCanvas(width, height, ctx);
   drawDashedSquare(width, height, ctx, zoomLevel);
 
   ctx.fillStyle = "#f3f3f3";
@@ -27,16 +26,14 @@ function drawDashedSquare(width, height, ctx, zoomLevel) {
   );
 }
 
-export function drawDefaultCanvas(width, height, ctx) {
-  ctx.clearRect(0, 0, 1500, 1100);
-
+export function drawDefaultCanvas(ctx) {
   let circlesX = 0;
   let circlesY = 0;
 
-  while (circlesX * 20 <= width) {
+  while (circlesX * 20 <= 1920) {
     circlesX++;
   }
-  while (circlesY * 20 <= height) {
+  while (circlesY * 20 <= 1080) {
     circlesY++;
   }
 
