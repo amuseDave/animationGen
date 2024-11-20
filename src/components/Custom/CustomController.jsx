@@ -25,7 +25,6 @@ export default function CustomController() {
   }
   function handleResetAnimation() {
     if (!isAnimationCreated) return;
-
     dispatch(uiActions.handleResetAnimationAlert(true));
     if (isAnimating) dispatch(uiActions.handleIsAnimating(false));
     dispatch(customActions.handleAnimation({ action: "reset-animation" }));
@@ -37,6 +36,7 @@ export default function CustomController() {
 
   return (
     <>
+      <h1 className="text-2xl text-center">Custom Controller</h1>
       <CustomStartPositionSelector />
       <PlayAnimationBtn
         handlePlayAnimation={handlePlayAnimation}

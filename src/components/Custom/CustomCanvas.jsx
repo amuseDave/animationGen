@@ -20,19 +20,13 @@ export default function CustomCanvas() {
   const ctx = useRef();
   const timeouts = useRef([]);
 
-  // Create ctx
+  // Create ctx // clean up isAnimating
   useEffect(() => {
     ctx.current = canvasEl.current.getContext("2d");
     return () => {
       dispatch(uiActions.handleIsAnimating(false));
     };
   }, []);
-
-  // useEffect(() => {
-  //   if (isAnimating && isResizing) {
-  //     dispatch(customActions.handleIsAnimating(false));
-  //   }
-  // }, [isResizing]);
 
   // Update animation positions
   useEffect(() => {
