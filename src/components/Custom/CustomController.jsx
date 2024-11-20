@@ -4,15 +4,20 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import PlayAnimationBtn from "../Utils/MainPlayButton";
 import ResetAnimationBtn from "../Utils/MainResetAnimationButton";
 import { customActions } from "../../customSlicer";
+import { useEffect } from "react";
 
 export default function CustomController() {
   const dispatch = useDispatch();
-  const { isAnimationCreated, isAnimating } = useSelector((state) => {
-    return {
-      isAnimationCreated: state.custom.isAnimationCreated,
-      isAnimating: state.ui.isAnimating,
-    };
-  }, shallowEqual);
+  const { isAnimationCreated, isAnimating, isResizing } = useSelector(
+    (state) => {
+      return {
+        isAnimationCreated: state.custom.isAnimationCreated,
+        isAnimating: state.ui.isAnimating,
+        isResizing: state.ui.isResizing,
+      };
+    },
+    shallowEqual
+  );
 
   function handlePlayAnimation() {
     if (isAnimating || !isAnimationCreated) return;
@@ -26,16 +31,20 @@ export default function CustomController() {
     dispatch(customActions.handleAnimation({ action: "reset-animation" }));
   }
 
+  useEffect(() => {
+    if (isResizing && isAnimating) dispatch(uiActions.handleIsAnimating(false));
+  }, [isResizing]);
+
   return (
     <>
       <CustomStartPositionSelector />
       <PlayAnimationBtn
         handlePlayAnimation={handlePlayAnimation}
-        active={isAnimationCreated}
+        active={isAnimationCreated && !isResizing}
       />
       <ResetAnimationBtn
         handleResetAnimation={handleResetAnimation}
-        active={!isAnimationCreated}
+        active={isResizing || !isAnimationCreated}
       />
     </>
   );

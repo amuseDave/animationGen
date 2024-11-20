@@ -17,7 +17,6 @@ const initialState = {
   offsetX: 0,
   offsetY: 0,
   isAnimationCreated: false,
-  isAnimating: false,
 };
 
 const customSlicer = createSlice({

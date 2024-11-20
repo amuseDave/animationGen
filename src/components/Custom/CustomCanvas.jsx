@@ -28,6 +28,12 @@ export default function CustomCanvas() {
     };
   }, []);
 
+  // useEffect(() => {
+  //   if (isAnimating && isResizing) {
+  //     dispatch(customActions.handleIsAnimating(false));
+  //   }
+  // }, [isResizing]);
+
   // Update animation positions
   useEffect(() => {
     if (isHolding || isResizing) return;
