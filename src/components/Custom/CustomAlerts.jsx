@@ -9,10 +9,10 @@ export default function Alerts() {
   const dispatch = useDispatch();
   const [alerts, setAlerts] = useState([]);
 
-  const { isAnimationCreated, position, isReset } = useSelector(
+  const { isAnimationCreated, positionDD, isReset } = useSelector(
     (state) => ({
       isAnimationCreated: state.custom.isAnimationCreated,
-      position: state.custom.position,
+      positionDD: state.custom.positionDD,
       isReset: state.ui.isReset,
     }),
     shallowEqual
@@ -30,10 +30,10 @@ export default function Alerts() {
   }, []);
 
   useEffect(() => {
-    if (position === changedPos || isReset) return;
-    changedPos = position;
+    if (positionDD === changedPos || isReset) return;
+    changedPos = positionDD;
     handleAlerts("Position changed!", "success");
-  }, [position]);
+  }, [positionDD]);
 
   // Animation creation alert
   useEffect(() => {

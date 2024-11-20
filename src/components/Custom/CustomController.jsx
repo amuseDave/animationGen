@@ -5,6 +5,7 @@ import PlayAnimationBtn from "../Utils/MainPlayButton";
 import ResetAnimationBtn from "../Utils/MainResetAnimationButton";
 import { customActions } from "../../customSlicer";
 import { useEffect } from "react";
+import CustomDDBtn from "./CustomDDBtn";
 
 export default function CustomController() {
   const dispatch = useDispatch();
@@ -36,8 +37,13 @@ export default function CustomController() {
 
   return (
     <>
-      <h1 className="text-2xl text-center">Custom Controller</h1>
+      <h1 className="pb-2 text-2xl text-center border-b-2 border-b-pink-100">
+        Custom Controller
+      </h1>
+
       <CustomStartPositionSelector />
+
+      <CustomDDBtn />
       <PlayAnimationBtn
         handlePlayAnimation={handlePlayAnimation}
         active={isAnimationCreated && !isResizing}

@@ -11,12 +11,14 @@ const initialState = {
     y: 0,
     animations: [],
   },
+  positionDD: "cc",
   position: "cc",
   isHovered: false,
   isHolding: false,
   offsetX: 0,
   offsetY: 0,
   isAnimationCreated: false,
+  isDragDrop: true,
 };
 
 const customSlicer = createSlice({
@@ -65,7 +67,7 @@ const customSlicer = createSlice({
 
         const squareSize = getSquareSize(width, zoomLevel);
         const { x, y } = getSquarePos({
-          position: state.position,
+          position: state.positionDD,
           squareSize,
           height,
           width,
@@ -82,7 +84,7 @@ const customSlicer = createSlice({
           canvasHeight: height,
           zoomLevel,
         };
-      } else if (actionType === "set-position") state.position = type;
+      } else if (actionType === "set-position") state.positionDD = type;
     },
     handleHover(state, actions) {
       state.isHovered = actions.payload;
@@ -154,6 +156,9 @@ const customSlicer = createSlice({
         default:
           break;
       }
+    },
+    handleDragDrop(state, { payload }) {
+      state.isDragDrop = payload;
     },
   },
 });

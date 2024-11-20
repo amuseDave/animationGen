@@ -6,91 +6,91 @@
   /*Center START */
 
   .cc {
-    @apply left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+    @apply -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2;
   }
   .ct {
-    @apply left-1/2 top-[calc(50%-17px)] -translate-x-1/2 -translate-y-1/2;
+    @apply left-1/2 top-[calc(50%-22px)] -translate-x-1/2 -translate-y-1/2;
   }
   .cb {
-    @apply left-1/2 top-[calc(50%+17px)] -translate-x-1/2 -translate-y-1/2;
+    @apply left-1/2 top-[calc(50%+22px)] -translate-x-1/2 -translate-y-1/2;
   }
   .cl {
-    @apply left-[calc(50%-17px)] top-1/2 -translate-x-1/2 -translate-y-1/2;
+    @apply left-[calc(50%-22px)] top-1/2 -translate-x-1/2 -translate-y-1/2;
   }
   .cr {
-    @apply left-[calc(50%+17px)] top-1/2 -translate-x-1/2 -translate-y-1/2;
+    @apply left-[calc(50%+22px)] top-1/2 -translate-x-1/2 -translate-y-1/2;
   }
   /*Center END */
 
   /*Center Sides START */
   .lc {
-    @apply left-0 top-1/2 -translate-y-1/2;
+    @apply left-0 -translate-y-1/2 top-1/2;
   }
   .lco {
-    @apply left-0 top-1/2 -translate-x-[calc(100%+1px)] -translate-y-1/2;
+    @apply left-0 top-1/2 -translate-x-[calc(100%+2px)] -translate-y-1/2;
   }
   .rc {
-    @apply right-0 top-1/2 -translate-y-1/2;
+    @apply right-0 -translate-y-1/2 top-1/2;
   }
   .rco {
-    @apply right-0 top-1/2 translate-x-[calc(100%+1px)] -translate-y-1/2;
+    @apply right-0 top-1/2 translate-x-[calc(100%+2px)] -translate-y-1/2;
   }
   /*Center Sides END */
 
   /*Center Vertical Sides START */
   .tc {
-    @apply left-1/2 -translate-x-1/2 top-0;
+    @apply top-0 -translate-x-1/2 left-1/2;
   }
   .tco {
-    @apply left-1/2 -translate-x-1/2 top-0 -translate-y-[calc(100%+1px)];
+    @apply left-1/2 -translate-x-1/2 top-0 -translate-y-[calc(100%+2px)];
   }
   .bc {
-    @apply left-1/2 -translate-x-1/2 bottom-0;
+    @apply bottom-0 -translate-x-1/2 left-1/2;
   }
   .bco {
-    @apply left-1/2 -translate-x-1/2 bottom-0 translate-y-[calc(100%+1px)];
+    @apply left-1/2 -translate-x-1/2 bottom-0 translate-y-[calc(100%+2px)];
   }
   /*Center Vertical Sides END */
 
   /*Top Sides START */
   .tl {
-    @apply left-0 top-0;
+    @apply top-0 left-0;
   }
   .tr {
-    @apply right-0 top-0;
+    @apply top-0 right-0;
   }
   .tlot {
-    @apply left-0 top-0 -translate-y-[calc(100%+1px)];
+    @apply left-0 top-0 -translate-y-[calc(100%+2px)];
   }
   .trot {
-    @apply right-0 top-0 -translate-y-[calc(100%+1px)];
+    @apply right-0 top-0 -translate-y-[calc(100%+2px)];
   }
   .tlol {
-    @apply left-0 top-0 -translate-x-[calc(100%+1px)];
+    @apply left-0 top-0 -translate-x-[calc(100%+2px)];
   }
   .tror {
-    @apply right-0 top-0 translate-x-[calc(100%+1px)];
+    @apply right-0 top-0 translate-x-[calc(100%+2px)];
   }
   /*Top Sides END */
 
   /*Bottom Sides START*/
   .bl {
-    @apply left-0 bottom-0;
+    @apply bottom-0 left-0;
   }
   .br {
-    @apply right-0 bottom-0;
+    @apply bottom-0 right-0;
   }
   .blob {
-    @apply left-0 bottom-0 translate-y-[calc(100%+1px)];
+    @apply left-0 bottom-0 translate-y-[calc(100%+2px)];
   }
   .brob {
-    @apply right-0 bottom-0 translate-y-[calc(100%+1px)];
+    @apply right-0 bottom-0 translate-y-[calc(100%+2px)];
   }
   .blol {
-    @apply left-0 bottom-0 -translate-x-[calc(100%+1px)];
+    @apply left-0 bottom-0 -translate-x-[calc(100%+2px)];
   }
   .bror {
-    @apply right-0 bottom-0 translate-x-[calc(100%+1px)];
+    @apply right-0 bottom-0 translate-x-[calc(100%+2px)];
   }
   /*Bottom Sides END*/
 }

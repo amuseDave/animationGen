@@ -10,7 +10,7 @@ import { uiActions } from "../../uiSlicer";
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
-  const { position, isHovered, isHolding, square, isAnimationCreated } =
+  const { positionDD, isHovered, isHolding, square, isAnimationCreated } =
     useSelector((state) => state.custom);
   const { zoomLevel, isResizing, isAnimating } = useSelector(
     (state) => state.ui
@@ -55,7 +55,7 @@ export default function CustomCanvas() {
         })
       );
     }
-  }, [zoomLevel, isResizing, position, isHolding, isAnimationCreated]);
+  }, [zoomLevel, isResizing, positionDD, isHolding, isAnimationCreated]);
 
   // Draw Canvas
   useEffect(() => {

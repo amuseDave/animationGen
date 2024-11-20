@@ -4,40 +4,50 @@ import { uiActions } from "../../uiSlicer";
 
 export default function Position({ type, positionStyles }) {
   const dispatch = useDispatch();
-  const { isAnimationCreated, position, isAnimating } = useSelector(
-    (state) => ({
-      isAnimationCreated: state.custom.isAnimationCreated,
-      position: state.custom.position,
-      isAnimating: state.ui.isAnimating,
-    }),
-    shallowEqual
-  );
+  const { isAnimationCreated, positionDD, isAnimating, isDragDrop } =
+    useSelector(
+      (state) => ({
+        isAnimationCreated: state.custom.isAnimationCreated,
+        positionDD: state.custom.positionDD,
+        isAnimating: state.ui.isAnimating,
+        isDragDrop: state.custom.isDragDrop,
+      }),
+      shallowEqual
+    );
 
   function handlePosition() {
-    if (position === type) return;
-    if (isAnimationCreated) {
-      const reset = window.confirm("Reset Animation Starting Position?");
-      if (!reset) return;
+    if (positionDD === type) return;
 
-      dispatch(uiActions.handleResetAnimationAlert(true));
-      if (isAnimating) dispatch(uiActions.handleIsAnimating(false));
-      dispatch(customActions.handleAnimation({ action: "reset-animation" }));
+    // Drag&Drop Position Selector
+    if (isDragDrop) {
+      if (isAnimationCreated) {
+        const reset = window.confirm("Reset Animation Starting Position?");
+        if (!reset) return;
+
+        dispatch(uiActions.handleResetAnimationAlert(true));
+        if (isAnimating) dispatch(uiActions.handleIsAnimating(false));
+        dispatch(customActions.handleAnimation({ action: "reset-animation" }));
+        dispatch(
+          customActions.handleSetPositions({ actionType: "set-position", type })
+        );
+        return;
+      }
+
       dispatch(
         customActions.handleSetPositions({ actionType: "set-position", type })
       );
-      return;
     }
 
-    dispatch(
-      customActions.handleSetPositions({ actionType: "set-position", type })
-    );
+    if (!isDragDrop) {
+      console.log("handle not dd position selector");
+    }
   }
 
   return (
     <>
       <div
-        className={`absolute w-4 h-4 rounded-full cursor-pointer ${positionStyles} transition-colors ${
-          position === type
+        className={`absolute w-5 h-5 rounded-full cursor-pointer ${positionStyles} transition-colors ${
+          positionDD === type
             ? "bg-purple-950 hover:bg-purple-950"
             : isAnimationCreated
             ? "bg-gray-950 hover:bg-gray-400"
