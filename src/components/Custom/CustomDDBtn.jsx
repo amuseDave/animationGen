@@ -4,7 +4,7 @@ import { customActions } from "../../customSlicer";
 export default function CustomDDBtn() {
   const { isDragDrop } = useSelector((state) => {
     return { isDragDrop: state.custom.isDragDrop };
-  });
+  }, shallowEqual);
   const dispatch = useDispatch();
 
   function handleDragDrop() {
@@ -15,7 +15,7 @@ export default function CustomDDBtn() {
     <div className="flex items-center mt-10">
       <p>Drag&Drop</p>
       <div
-        onClick={isDragDrop}
+        onClick={handleDragDrop}
         className="w-[84px] h-10 p-[2px] transition-all rounded-3xl bg-slate-500 cursor-pointer"
       >
         <div className="bg-purple-500 rounded-full w-9 h-9"></div>
