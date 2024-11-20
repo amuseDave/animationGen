@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { customActions } from "../../../customSlicer";
+import { customActions } from "../../customSlicer";
 import { throttle } from "lodash";
 import handleCanvasCustomState, {
   getSquareSize,
-} from "../../../utils/handleCanvas";
+} from "../../utils/handleCanvas";
 import { Loader } from "lucide-react";
-import { uiActions } from "../../../uiSlicer";
+import { uiActions } from "../../uiSlicer";
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
@@ -61,7 +61,6 @@ export default function CustomCanvas() {
   useEffect(() => {
     if (isAnimating) return;
 
-    console.log("Redrawing canvas");
     handleCanvasCustomState({
       width: canvasEl.current.width,
       height: canvasEl.current.height,

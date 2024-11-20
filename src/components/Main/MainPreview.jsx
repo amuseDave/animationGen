@@ -1,9 +1,9 @@
 import { shallowEqual, useSelector } from "react-redux";
-import MainAlerts from "../Alerts/MainAlerts.jsx";
-import Loader from "./Utils/Loader";
-import DefaultCanvas from "./Utils/DefaultCanvas";
-import PreviewZoomControls from "./Utils/PreviewZoomControls";
-import CustomPreview from "./CustomPreview/CustomPreview";
+import MainAlerts from "./MainAlerts.jsx";
+import Loader from "../Utils/MainLoader.jsx";
+import DefaultCanvas from "../Utils/MainCanvas.jsx";
+import PreviewZoomControls from "../Utils/MainZoomControls.jsx";
+import CustomPreview from "../Custom/CustomPreview.jsx";
 
 export default function MainPreview() {
   const { type, isResizing } = useSelector((state) => {
@@ -15,12 +15,12 @@ export default function MainPreview() {
       <h2 className="absolute text-white top-5 left-5">Animation Name</h2>
       <PreviewZoomControls />
 
-      <MainAlerts />
       {isResizing && <Loader />}
       {type === "custom" && <CustomPreview />}
       {type === "featured" && <h2>Featured animations</h2>}
       {type === "micro" && <h2>Micro animations</h2>}
 
+      <MainAlerts />
       <DefaultCanvas />
     </section>
   );

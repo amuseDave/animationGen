@@ -1,6 +1,6 @@
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { customActions } from "../../../customSlicer";
-import { uiActions } from "../../../uiSlicer";
+import { customActions } from "../../customSlicer";
+import { uiActions } from "../../uiSlicer";
 
 export default function Position({ type, positionStyles }) {
   const dispatch = useDispatch();

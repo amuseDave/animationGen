@@ -5,8 +5,7 @@ export default function PlayAnimationBtn({
   return (
     <button
       onClick={handlePlayAnimation}
-      className={`
-    absolute text-pink-100 rounded-md font-light text-lg bg-pink-950 bc bottom-5 py-1 text-center w-40 
+      className={` text-pink-100 bg-pink-950 left-1 btn-animation
     ${!active && "cursor-not-allowed opacity-25"}`}
     >
       Play Animation

@@ -2,8 +2,8 @@ import { Outlet } from "react-router-dom";
 
 import Navigation from "./Navigation/Navigation.jsx";
 import SavedAnimations from "./SavedAnimations/SavedAnimations.jsx";
-import MainPreview from "./MainPreview/MainPreview.jsx";
-import MainController from "./Controls/MainController.jsx";
+import MainPreview from "./Main/MainPreview.jsx";
+import MainController from "./Main/MainController.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../uiSlicer.js";

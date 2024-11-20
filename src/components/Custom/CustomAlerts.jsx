@@ -1,18 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { customActions } from "../../../customSlicer";
+import { customActions } from "../../customSlicer";
 import { motion, AnimatePresence } from "framer-motion";
 
-let initial = false;
+let changedPos = "cc";
 
 export default function Alerts() {
   const dispatch = useDispatch();
   const [alerts, setAlerts] = useState([]);
 
-  const { isAnimationCreated, position } = useSelector(
+  const { isAnimationCreated, position, isReset } = useSelector(
     (state) => ({
       isAnimationCreated: state.custom.isAnimationCreated,
       position: state.custom.position,
+      isReset: state.ui.isReset,
     }),
     shallowEqual
   );
@@ -28,12 +29,9 @@ export default function Alerts() {
     }, 1500);
   }, []);
 
-  // Position changed alert
   useEffect(() => {
-    if (!initial) {
-      initial = true;
-      return;
-    }
+    if (position === changedPos || isReset) return;
+    changedPos = position;
     handleAlerts("Position changed!", "success");
   }, [position]);
 

@@ -1,4 +1,4 @@
-import CustomAlerts from "../../Alerts/CustomAlerts/CustomAlerts";
+import CustomAlerts from "./CustomAlerts";
 import CustomCanvas from "./CustomCanvas";
 
 export default function CustomPreview() {

@@ -1,6 +1,6 @@
 import { CircleMinus, CirclePlus, RotateCcw } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { uiActions } from "../../../uiSlicer";
+import { uiActions } from "../../uiSlicer";
 
 export default function PreviewControls() {
   const dispatch = useDispatch();

@@ -15,3 +15,9 @@ body {
     --bg-color: #b38eff;
   }
 }
+
+@layer components {
+  .btn-animation {
+    @apply absolute rounded-md font-light text-base bottom-5 py-1 text-center w-32;
+  }
+}
