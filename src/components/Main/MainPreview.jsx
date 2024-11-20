@@ -1,3 +1,4 @@
+import "./main.css";
 import { shallowEqual, useSelector } from "react-redux";
 import MainAlerts from "./MainAlerts.jsx";
 import Loader from "../Utils/MainLoader.jsx";

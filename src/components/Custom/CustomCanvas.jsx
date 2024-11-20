@@ -55,7 +55,7 @@ export default function CustomCanvas() {
         })
       );
     }
-  }, [zoomLevel, isResizing, position, isHolding]);
+  }, [zoomLevel, isResizing, position, isHolding, isAnimationCreated]);
 
   // Draw Canvas
   useEffect(() => {
@@ -68,7 +68,14 @@ export default function CustomCanvas() {
       square,
       zoomLevel,
     });
-  }, [square.x, square.y, window.innerHeight, zoomLevel, isHolding]);
+  }, [
+    square.x,
+    square.y,
+    window.innerHeight,
+    zoomLevel,
+    isHolding,
+    isAnimationCreated,
+  ]);
 
   // Handle Animation Drawing on Canvas
   useEffect(() => {

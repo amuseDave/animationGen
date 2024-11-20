@@ -14,3 +14,9 @@
     @apply py-2 mt-4 text-center rounded-md select-none w-52;
   }
 }
+
+@layer components {
+  .btn-animation {
+    @apply absolute w-32 py-1 text-base font-medium text-center rounded-md bottom-5;
+  }
+}

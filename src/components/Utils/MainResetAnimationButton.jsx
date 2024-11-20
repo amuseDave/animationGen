@@ -1,5 +1,3 @@
-import { Rotate3D } from "lucide-react";
-
 export default function ResetAnimationBtn({
   handleResetAnimation,
   active = true,
@@ -7,11 +5,10 @@ export default function ResetAnimationBtn({
   return (
     <button
       onClick={handleResetAnimation}
-      className={`
-    animation-btn text-pink-100 bg-pink-950 right-1
+      className={`text-pink-100 bg-purple-950 right-4 btn-animation
     ${active && "cursor-not-allowed opacity-25"}`}
     >
-      Reset Animation <Rotate3D size={24} className="text-pink-600" />
+      Reset Animation
     </button>
   );
 }

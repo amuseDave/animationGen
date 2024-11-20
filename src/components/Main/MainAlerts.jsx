@@ -1,4 +1,3 @@
-import "./alerts.css";
 import AnimationResetCreateAlert from "../Utils/MainAnimationResetCreateAlert";
 import PlayingAnimationAlert from "../Utils/MainPlayingAnimationAlert";
 
