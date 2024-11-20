@@ -18,7 +18,7 @@ export default function Controller() {
     }
     dispatch(
       customActions.handleAnimation({
-        action: "setAnimating",
+        action: "set-animating",
         isAnimating: true,
       })
     );

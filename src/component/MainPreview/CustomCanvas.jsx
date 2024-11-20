@@ -5,6 +5,7 @@ import { throttle } from "lodash";
 import handleCanvasCustomState, {
   getSquareSize,
 } from "../../utils/handleCanvas";
+import { Loader } from "lucide-react";
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
@@ -25,34 +26,44 @@ export default function CustomCanvas() {
   // Create ctx
   useEffect(() => {
     ctx.current = canvasEl.current.getContext("2d");
+    return () => {
+      dispatch(
+        customActions.handleAnimation({
+          action: "set-animating",
+          isAnimating: false,
+        })
+      );
+    };
   }, []);
 
-  // Update animation positioons
+  // Update animation positions
   useEffect(() => {
-    if (isResizing) return;
-    dispatch(
-      customActions.handleUpdateAnimationsPositions({
-        width: canvasEl.current.width,
-        height: canvasEl.current.height,
-        zoomLevel,
-      })
-    );
-  }, [zoomLevel, isResizing]);
+    if (isHolding || isResizing) return;
 
-  // Set square start pos
-  // Set back default pos if animation vas invalid, on isHolding change
-  useEffect(() => {
-    if (isHolding || isAnimating || isResizing) return;
     canvasEl.current.width = canvasEl.current.offsetWidth;
     canvasEl.current.height = canvasEl.current.offsetHeight;
-    dispatch(
-      customActions.handleUpdateAnimationsPositions({
-        width: canvasEl.current.width,
-        height: canvasEl.current.height,
-        zoomLevel,
-      })
-    );
-  }, [position, isHolding, isAnimating, zoomLevel, isResizing]);
+
+    if (isAnimationCreated) {
+      // Update animation track positions
+      dispatch(
+        customActions.handleUpdateAnimationsPositions({
+          width: canvasEl.current.width,
+          height: canvasEl.current.height,
+          zoomLevel,
+        })
+      );
+    } else {
+      // set square start pos
+      dispatch(
+        customActions.handleSetPositions({
+          actionType: "update-position",
+          width: canvasEl.current.width,
+          height: canvasEl.current.height,
+          zoomLevel,
+        })
+      );
+    }
+  }, [zoomLevel, isResizing, position, isHolding]);
 
   // Draw Canvas
   useEffect(() => {
@@ -64,7 +75,7 @@ export default function CustomCanvas() {
       square,
       zoomLevel,
     });
-  }, [square.x, square.y, window.innerHeight, zoomLevel, isAnimating]);
+  }, [square.x, square.y, window.innerHeight, zoomLevel, isHolding]);
 
   // Handle Animation Drawing on Canvas
   useEffect(() => {
@@ -85,7 +96,7 @@ export default function CustomCanvas() {
           if (arr.length - 1 === index) {
             dispatch(
               customActions.handleAnimation({
-                action: "setAnimating",
+                action: "set-animating",
                 isAnimating: false,
               })
             );
@@ -154,7 +165,7 @@ export default function CustomCanvas() {
   }, []);
   // Set isHolding to false
   const handleMouseUp = useCallback(() => {
-    dispatch(customActions.handleAnimation({ action: "set" }));
+    dispatch(customActions.handleAnimation({ action: "set-animation" }));
     dispatch(customActions.handleHolding(false));
     dispatch(customActions.handleHover(false));
   }, []);
@@ -180,6 +191,7 @@ export default function CustomCanvas() {
       handleMouseDown(e, square, isHovered);
     }
     function handleMouseUpHandler() {
+      if (!isHovered || !isHolding) return;
       handleMouseUp();
     }
 
@@ -195,16 +207,19 @@ export default function CustomCanvas() {
   }, [isHovered, isHolding, square.x, square.y, isAnimationCreated, zoomLevel]);
 
   return (
-    <canvas
-      ref={canvasEl}
-      id="generator"
-      className={`w-full relative h-full z-20 ${
-        isHolding
-          ? "cursor-grabbing"
-          : isHovered
-          ? "cursor-move"
-          : "cursor-crosshair"
-      }`}
-    ></canvas>
+    <>
+      <canvas
+        ref={canvasEl}
+        id="generator"
+        className={`${isResizing && "hidden"} w-full relative h-full z-20 ${
+          isHolding
+            ? "cursor-grabbing"
+            : isHovered
+            ? "cursor-move"
+            : "cursor-crosshair"
+        }`}
+      ></canvas>
+      {isResizing && <Loader />}
+    </>
   );
 }

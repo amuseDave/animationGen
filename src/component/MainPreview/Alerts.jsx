@@ -63,7 +63,7 @@ export default function Alerts() {
     }
 
     handleAlerts("Animation too short!", "error ");
-    dispatch(customActions.handleAnimation({ action: "reset" }));
+    dispatch(customActions.handleAnimation({ action: "animation-alert-end" }));
   }, [isAnimationCreated]);
 
   useEffect(() => {

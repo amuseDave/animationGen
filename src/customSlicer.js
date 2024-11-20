@@ -28,28 +28,7 @@ const customSlicer = createSlice({
       state,
       { payload: { width, height, zoomLevel } }
     ) {
-      if (!state.isAnimationCreated) {
-        const squareSize = getSquareSize(width, zoomLevel);
-        const { x, y } = getSquarePos({
-          position: state.position,
-          squareSize,
-          height,
-          width,
-          zoomLevel,
-        });
-
-        state.square.x = x;
-        state.square.y = y;
-
-        state.square.animations[0] = {
-          x,
-          y,
-          canvasWidth: width,
-          canvasHeight: height,
-          zoomLevel,
-        };
-        return;
-      }
+      if (!state.isAnimationCreated) return;
 
       const currentBoxWidth = (width / 4) * zoomLevel;
       const currentBoxHeight = (width / 3) * zoomLevel;
@@ -80,7 +59,33 @@ const customSlicer = createSlice({
       state.square.y = state.square.animations[0].y;
     },
     handleSetPositions(state, actions) {
-      state.position = actions.payload;
+      const { actionType, width, height, zoomLevel, type } = actions.payload;
+
+      if (actionType === "update-position") {
+        if (state.isAnimationCreated) return;
+
+        const squareSize = getSquareSize(width, zoomLevel);
+        const { x, y } = getSquarePos({
+          position: state.position,
+          squareSize,
+          height,
+          width,
+          zoomLevel,
+        });
+
+        state.square.x = x;
+        state.square.y = y;
+
+        console.log("setting the default update");
+
+        state.square.animations[0] = {
+          x,
+          y,
+          canvasWidth: width,
+          canvasHeight: height,
+          zoomLevel,
+        };
+      } else if (actionType === "set-position") state.position = type;
     },
     handleHover(state, actions) {
       state.isHovered = actions.payload;
@@ -127,19 +132,26 @@ const customSlicer = createSlice({
       const { isAnimating, action } = actions.payload;
 
       switch (action) {
-        case "set": {
+        case "set-animation": {
           if (!state.isHolding) return;
+
+          if (state.square.animations.length < 50) {
+            state.square.animations = [];
+          }
           state.isAnimationCreated =
             state.square.animations.length < 50 ? null : true;
           break;
         }
-        case "reset": {
+        case "animation-alert-end":
+          state.isAnimationCreated = false;
+          break;
+        case "reset-animation": {
           state.square.animations = [];
           state.isAnimationCreated = false;
           state.isAnimating = false;
           break;
         }
-        case "setAnimating": {
+        case "set-animating": {
           if (!state.isAnimationCreated) return;
           state.isAnimating = isAnimating;
           break;

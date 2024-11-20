@@ -12,16 +12,11 @@ export default function MainPreview() {
     <section className="relative h-[720px] overflow-hidden rounded-xl">
       <h2 className="absolute text-white top-5 left-5">Animation Name</h2>
 
-      {isResizing ? (
-        <Loader />
-      ) : (
-        <>
-          <PreviewControls />
-          {type === "custom" && <CustomCanvas />}
-          {type === "feature" && <h2>Featured animations</h2>}
-          {type === "micro" && <h2>Micro animations</h2>}
-        </>
-      )}
+      <PreviewControls />
+      {isResizing && <Loader />}
+      {type === "custom" && <CustomCanvas />}
+      {type === "feature" && <h2>Featured animations</h2>}
+      {type === "micro" && <h2>Micro animations</h2>}
 
       <DefaultCanvas />
       <Alerts />
