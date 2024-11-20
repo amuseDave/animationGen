@@ -1,15 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MainLayout from "./pages/MainLayout";
+import MainLayout from "./components/MainLayout";
 import Custom from "./pages/Custom";
 import FeaturedAnimations from "./pages/FeaturedAnimations";
 import MicroInteractions from "./pages/MicroInteractions";
-import ErrorElement from "./pages/ErrorElement";
+import Error from "./pages/Error.jsx";
 
 const route = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <ErrorElement />,
+    errorElement: <Error />,
 
     children: [
       {

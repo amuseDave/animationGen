@@ -1,4 +1,4 @@
-import Position from "./Position.jsx";
+import Position from "./CustomPosition.jsx";
 import "./positions.css";
 
 export default function PositionSelector() {

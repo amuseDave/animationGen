@@ -1,13 +1,14 @@
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { customActions } from "../../customSlicer";
-import { uiActions } from "../../uiSlicer";
+import { customActions } from "../../../customSlicer";
+import { uiActions } from "../../../uiSlicer";
 
 export default function Position({ type, positionStyles }) {
   const dispatch = useDispatch();
-  const { isAnimationCreated, position } = useSelector(
+  const { isAnimationCreated, position, isAnimating } = useSelector(
     (state) => ({
       isAnimationCreated: state.custom.isAnimationCreated,
       position: state.custom.position,
+      isAnimating: state.ui.isAnimating,
     }),
     shallowEqual
   );
@@ -19,6 +20,7 @@ export default function Position({ type, positionStyles }) {
       if (!reset) return;
 
       dispatch(uiActions.handleResetAnimationAlert(true));
+      if (isAnimating) dispatch(uiActions.handleIsAnimating(false));
       dispatch(customActions.handleAnimation({ action: "reset-animation" }));
       dispatch(
         customActions.handleSetPositions({ actionType: "set-position", type })

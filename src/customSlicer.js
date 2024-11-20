@@ -76,8 +76,6 @@ const customSlicer = createSlice({
         state.square.x = x;
         state.square.y = y;
 
-        console.log("setting the default update");
-
         state.square.animations[0] = {
           x,
           y,
@@ -95,6 +93,7 @@ const customSlicer = createSlice({
       state.isHolding = actions.payload;
     },
     handleSetOffSets(state, { payload: { offsetX, offsetY } }) {
+      if (!state.isHovered) return;
       state.offsetX = offsetX;
       state.offsetY = offsetY;
     },
@@ -129,17 +128,19 @@ const customSlicer = createSlice({
       });
     },
     handleAnimation(state, actions) {
-      const { isAnimating, action } = actions.payload;
+      const { action } = actions.payload;
 
       switch (action) {
         case "set-animation": {
           if (!state.isHolding) return;
-
+          state.isHolding = false;
           if (state.square.animations.length < 50) {
             state.square.animations = [];
+            state.isAnimationCreated = null;
+          } else {
+            state.isHovered = false;
+            state.isAnimationCreated = true;
           }
-          state.isAnimationCreated =
-            state.square.animations.length < 50 ? null : true;
           break;
         }
         case "animation-alert-end":
@@ -148,14 +149,9 @@ const customSlicer = createSlice({
         case "reset-animation": {
           state.square.animations = [];
           state.isAnimationCreated = false;
-          state.isAnimating = false;
           break;
         }
-        case "set-animating": {
-          if (!state.isAnimationCreated) return;
-          state.isAnimating = isAnimating;
-          break;
-        }
+
         default:
           break;
       }

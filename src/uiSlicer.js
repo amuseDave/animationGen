@@ -5,10 +5,11 @@ const initialState = {
     JSON.parse(localStorage.getItem("isDark")) === undefined
       ? true
       : JSON.parse(localStorage.getItem("isDark")),
-  type: "custom",
+  type: null,
   isReset: false,
   zoomLevel: 1,
   isResizing: false,
+  isAnimating: false,
 };
 
 function changeTheme(state) {
@@ -53,6 +54,9 @@ const uiSlicer = createSlice({
         default:
           break;
       }
+    },
+    handleIsAnimating(state, { payload }) {
+      state.isAnimating = payload;
     },
   },
 });

@@ -1,23 +1,20 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { customActions } from "../../customSlicer";
+import { customActions } from "../../../customSlicer";
 import { throttle } from "lodash";
 import handleCanvasCustomState, {
   getSquareSize,
-} from "../../utils/handleCanvas";
+} from "../../../utils/handleCanvas";
 import { Loader } from "lucide-react";
+import { uiActions } from "../../../uiSlicer";
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
-  const {
-    position,
-    isHovered,
-    isHolding,
-    square,
-    isAnimating,
-    isAnimationCreated,
-  } = useSelector((state) => state.custom);
-  const { zoomLevel, isResizing } = useSelector((state) => state.ui);
+  const { position, isHovered, isHolding, square, isAnimationCreated } =
+    useSelector((state) => state.custom);
+  const { zoomLevel, isResizing, isAnimating } = useSelector(
+    (state) => state.ui
+  );
 
   const canvasEl = useRef();
   const ctx = useRef();
@@ -27,12 +24,7 @@ export default function CustomCanvas() {
   useEffect(() => {
     ctx.current = canvasEl.current.getContext("2d");
     return () => {
-      dispatch(
-        customActions.handleAnimation({
-          action: "set-animating",
-          isAnimating: false,
-        })
-      );
+      dispatch(uiActions.handleIsAnimating(false));
     };
   }, []);
 
@@ -68,6 +60,8 @@ export default function CustomCanvas() {
   // Draw Canvas
   useEffect(() => {
     if (isAnimating) return;
+
+    console.log("Redrawing canvas");
     handleCanvasCustomState({
       width: canvasEl.current.width,
       height: canvasEl.current.height,
@@ -94,12 +88,7 @@ export default function CustomCanvas() {
             zoomLevel,
           });
           if (arr.length - 1 === index) {
-            dispatch(
-              customActions.handleAnimation({
-                action: "set-animating",
-                isAnimating: false,
-              })
-            );
+            dispatch(uiActions.handleIsAnimating(false));
           }
         },
         8 * index,
@@ -119,8 +108,8 @@ export default function CustomCanvas() {
   /**
    * @info Create callback functions to not change on re-renders to save performence.
    **/
-  // Handle isHovered
-  // Handle animation set animation movement if isHovered
+  // Set isHovered
+  // Handle animation animation movement if hovered and holding
   const handleHoverAndAnimation = useCallback(
     throttle((e, square, isHolding, isHovered, width, height, zoomLevel) => {
       // Handle Animation Movement
@@ -166,8 +155,6 @@ export default function CustomCanvas() {
   // Set isHolding to false
   const handleMouseUp = useCallback(() => {
     dispatch(customActions.handleAnimation({ action: "set-animation" }));
-    dispatch(customActions.handleHolding(false));
-    dispatch(customActions.handleHover(false));
   }, []);
 
   // Handle events, and pass down arguments to functions
@@ -191,7 +178,7 @@ export default function CustomCanvas() {
       handleMouseDown(e, square, isHovered);
     }
     function handleMouseUpHandler() {
-      if (!isHovered || !isHolding) return;
+      if (!isHolding) return;
       handleMouseUp();
     }
 
