@@ -1,4 +1,3 @@
-import AnimationRangeControl from "../Static/AnimationRangeControl";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { customActionsDD } from "../../../store/customDDSlicer";
 import { uiActions } from "../../../store/uiSlicer";
@@ -10,7 +9,6 @@ export default function AnimationRangeHandlerDD() {
   const { square, isAnimating } = useSelector((state) => {
     return {
       square: state.customDD.square,
-
       isAnimating: state.ui.isAnimating,
     };
   }, shallowEqual);
@@ -33,11 +31,15 @@ export default function AnimationRangeHandlerDD() {
   }
 
   return (
-    <AnimationRangeControl
+    <input
+      className="flex-grow cursor-move"
+      onChange={handleAnimation}
+      id="animation"
+      name="animation"
+      type="range"
+      min="0"
       value={square.animationIndex}
       max={square.animations.length - 1}
-      handleAnimationRange={handleAnimation}
-      className={"mt-10"}
     />
   );
 }

@@ -1,13 +1,24 @@
-import AnimationRangeControl from "../Static/AnimationRangeControl";
+import { useEffect } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 
 export default function AnimationRangeHandler() {
   const dispatch = useDispatch();
   const {} = useSelector((state) => {
     return {};
-  });
+  }, shallowEqual);
+
+  function handle() {
+    dispatch();
+  }
 
   return (
-    <AnimationRangeControl value="" max="" handleAnimationRange={() => {}} />
+    <input
+      onChange={handle}
+      className="flex-grow cursor-move"
+      id="animation"
+      name="animation"
+      type="range"
+      min="0"
+    />
   );
 }

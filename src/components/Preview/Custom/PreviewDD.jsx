@@ -84,36 +84,39 @@ export default function CustomCanvas() {
     if (!isAnimating) return;
 
     const canvas = canvasEl.current;
+    //
 
-    square.animations.forEach((animation, index, arr) => {
-      const timeout = setTimeout(
-        () => {
-          // Draw canvas loop
-          handleCanvasCustomState({
-            width: canvas.width,
-            height: canvas.height,
-            ctx: ctx.current,
-            square: { x: animation.x, y: animation.y },
-            zoomLevel,
-          });
+    square.animations
+      .slice(square.animationIndex)
+      .forEach((animation, index, arr) => {
+        const timeout = setTimeout(
+          () => {
+            // Draw canvas loop
+            handleCanvasCustomState({
+              width: canvas.width,
+              height: canvas.height,
+              ctx: ctx.current,
+              square: { x: animation.x, y: animation.y },
+              zoomLevel,
+            });
 
-          dispatch(
-            customActionsDD.handleAnimation({
-              action: "set-index",
-              animationIndex: index,
-            })
-          );
+            dispatch(
+              customActionsDD.handleAnimation({
+                action: "set-index",
+                animationIndex: square.animationIndex + index,
+              })
+            );
 
-          if (arr.length - 1 === index) {
-            dispatch(uiActions.handleIsAnimating(false));
-          }
-        },
-        8 * index,
-        [index]
-      );
+            if (arr.length - 1 === index) {
+              dispatch(uiActions.handleIsAnimating(false));
+            }
+          },
+          8 * index,
+          [index]
+        );
 
-      timeouts.current.push(timeout);
-    });
+        timeouts.current.push(timeout);
+      });
 
     return () => {
       timeouts.current.forEach(clearTimeout);

@@ -63,7 +63,7 @@ export default function Alerts() {
     }
 
     if (!isDragDrop) {
-      console.log("Other created actually");
+      console.log("not Drag Drop created");
     }
   }, [isAnimationInitialCreatedDD]);
 
@@ -90,7 +90,7 @@ export default function Alerts() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className={`alert text-pink-600`}
+          className={`alert text-pink-600 text-lg`}
         >
           Animation was Created!
         </motion.div>

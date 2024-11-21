@@ -116,6 +116,7 @@ const customSlicer = createSlice({
         x: xVal,
         y: yVal,
       });
+
       state.square.animationIndex++;
     },
     handleAnimation(state, actions) {
@@ -128,6 +129,7 @@ const customSlicer = createSlice({
         }
         case "set-animation": {
           if (!state.isHolding) return;
+
           state.square.animationIndex = 0;
           state.isHolding = false;
           if (state.square.animations.length < 50) {

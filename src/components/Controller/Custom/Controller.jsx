@@ -27,10 +27,29 @@ export default function CustomController() {
       <CustomStartPositionSelector />
       <CustomDDBtn />
 
-      {isDragDrop ? <PlayResetDDBtn /> : <PlayResetBtn />}
-
-      {isDragDrop && isAnimationCreatedDD && <AnimationRangeHandlerDD />}
-      {!isDragDrop && isAnimationCreated && <AnimationRangeHandler />}
+      {/* Animation Play/Pause/Move Controls */}
+      <div className="mt-14">
+        <h1 className="text-2xl text-pink-50">Controls</h1>
+        <div className="flex gap-2 px-3 py-1 border-2 rounded-md shadow-lg bg-pink-900/10 border-zinc-800">
+          {isAnimationCreated || isAnimationCreatedDD ? (
+            isDragDrop ? (
+              <AnimationRangeHandlerDD />
+            ) : (
+              <AnimationRangeHandler />
+            )
+          ) : (
+            <input
+              className="flex-grow cursor-not-allowed"
+              id="animation"
+              name="animation"
+              type="range"
+              min="0"
+              disabled
+            />
+          )}
+          {isDragDrop ? <PlayResetDDBtn /> : <PlayResetBtn />}
+        </div>
+      </div>
     </>
   );
 }

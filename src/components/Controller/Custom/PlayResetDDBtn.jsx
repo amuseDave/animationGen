@@ -1,9 +1,9 @@
 import { uiActions } from "../../../store/uiSlicer";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import PlayAnimationBtn from "../Static/PlayAnimationBtn";
-import ResetAnimationBtn from "../Static/ResetAnimationBtn";
+
 import { customActionsDD } from "../../../store/customDDSlicer";
 import { useEffect } from "react";
+import { Play, Pause, RotateCcw } from "lucide-react";
 
 export default function PlayResetDDBTN() {
   const dispatch = useDispatch();
@@ -19,11 +19,16 @@ export default function PlayResetDDBTN() {
   );
 
   function handlePlayAnimation() {
-    if (isAnimating || !isAnimationCreatedDD) return;
-    dispatch(uiActions.handleIsAnimating(true));
+    if (!isAnimationCreatedDD) return;
+
+    if (isAnimating) dispatch(uiActions.handleIsAnimating(false));
+    else dispatch(uiActions.handleIsAnimating(true));
   }
   function handleResetAnimation() {
     if (!isAnimationCreatedDD) return;
+    const confirm = window.confirm("Are you sure you want to reset?");
+    if (!confirm) return;
+
     dispatch(uiActions.handleResetAnimationAlert(true));
     if (isAnimating) dispatch(uiActions.handleIsAnimating(false));
     dispatch(customActionsDD.handleAnimation({ action: "reset-animation" }));
@@ -33,15 +38,37 @@ export default function PlayResetDDBTN() {
     if (isResizing && isAnimating) dispatch(uiActions.handleIsAnimating(false));
   }, [isResizing]);
 
+  const playPauseClass = `text-purple-500 ${
+    !(isAnimationCreatedDD && !isResizing)
+      ? "cursor-not-allowed opacity-25"
+      : "cursor-pointer"
+  } -order-1`;
+
   return (
     <>
-      <PlayAnimationBtn
-        handlePlayAnimation={handlePlayAnimation}
-        active={isAnimationCreatedDD && !isResizing}
-      />
-      <ResetAnimationBtn
-        handleResetAnimation={handleResetAnimation}
-        active={isResizing || !isAnimationCreatedDD}
+      {isAnimating ? (
+        <Pause
+          onClick={handlePlayAnimation}
+          size={32}
+          className={playPauseClass}
+        />
+      ) : (
+        <Play
+          onClick={handlePlayAnimation}
+          size={32}
+          className={playPauseClass}
+        />
+      )}
+
+      <RotateCcw
+        size={32}
+        strokeWidth={1.5}
+        onClick={handleResetAnimation}
+        className={`text-purple-900 ${
+          isResizing || !isAnimationCreatedDD
+            ? "cursor-not-allowed opacity-25"
+            : "cursor-pointer"
+        }`}
       />
     </>
   );
