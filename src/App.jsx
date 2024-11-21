@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MainLayout from "./components/MainLayout";
+import Main from "./pages/Main.jsx";
 import Custom from "./pages/Custom";
 import FeaturedAnimations from "./pages/FeaturedAnimations";
 import MicroInteractions from "./pages/MicroInteractions";
@@ -8,7 +8,7 @@ import Error from "./pages/Error.jsx";
 const route = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: <Main />,
     errorElement: <Error />,
 
     children: [

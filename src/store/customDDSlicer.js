@@ -14,6 +14,7 @@ const initialState = {
   offsetX: 0,
   offsetY: 0,
   isAnimationCreatedDD: false,
+  isAnimationInitialCreatedDD: null,
 };
 
 const customSlicer = createSlice({
@@ -132,19 +133,21 @@ const customSlicer = createSlice({
           state.isHolding = false;
           if (state.square.animations.length < 50) {
             state.square.animations = [];
-            state.isAnimationCreatedDD = null;
+            state.isAnimationInitialCreatedDD = false;
           } else {
             state.isHovered = false;
             state.isAnimationCreatedDD = true;
+            state.isAnimationInitialCreatedDD = true;
           }
           break;
         }
         case "animation-alert-end":
-          state.isAnimationCreatedDD = false;
+          state.isAnimationInitialCreatedDD = null;
           break;
         case "reset-animation": {
           state.square.animations = [];
           state.isAnimationCreatedDD = false;
+          state.isAnimationInitialCreatedDD = null;
           break;
         }
 

@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
 
-import Navigation from "./Navigation/Navigation.jsx";
-import SavedAnimations from "./SavedAnimations/SavedAnimations.jsx";
-import MainPreview from "./Main/MainPreview.jsx";
-import MainController from "./Main/MainController.jsx";
+import Navigation from "../components/Navigation/Navigation.jsx";
+import SavedAnimations from "../components/SavedAnimations/SavedAnimations.jsx";
+
+import PreviewLayout from "../components/Preview/Layout.jsx";
+import MainController from "../components/Controller/Controller.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlicer.js";
@@ -40,7 +41,7 @@ export default function MainLayout() {
 
       <div className="grid grid-cols-[200px_1fr_300px] gap-x-3 mt-10 px-3">
         <SavedAnimations />
-        <MainPreview />
+        <PreviewLayout />
         <MainController />
       </div>
 

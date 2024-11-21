@@ -1,5 +1,5 @@
 import { useSelector, shallowEqual } from "react-redux";
-import CustomController from "../Custom/CustomController";
+import CustomController from "./Custom/Controller";
 
 export default function MainController() {
   const { type } = useSelector(

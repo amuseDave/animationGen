@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { customActionsDD } from "../../store/customDDSlicer";
+import { customActionsDD } from "../../../store/customDDSlicer";
 import { throttle } from "lodash";
 import handleCanvasCustomState, {
   getSquareSize,
-} from "../../store/handleCanvas";
-import { Loader } from "lucide-react";
-import { uiActions } from "../../store/uiSlicer";
+} from "../../../store/handleCanvas";
+import Loader from "../Static/Loader";
+import { uiActions } from "../../../store/uiSlicer";
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
@@ -36,6 +36,8 @@ export default function CustomCanvas() {
     canvasEl.current.height = canvasEl.current.offsetHeight;
 
     if (isAnimationCreatedDD) {
+      console.log("new");
+
       // Update animation track positions
       dispatch(
         customActionsDD.handleUpdateAnimationsPositions({

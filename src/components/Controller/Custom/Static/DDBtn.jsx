@@ -1,5 +1,5 @@
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { uiActions } from "../../store/uiSlicer";
+import { uiActions } from "../../../../store/uiSlicer";
 
 export default function CustomDDBtn() {
   const { isDragDrop } = useSelector((state) => {

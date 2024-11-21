@@ -1,6 +1,6 @@
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { customActionsDD } from "../../store/customDDSlicer";
-import { uiActions } from "../../store/uiSlicer";
+import { customActionsDD } from "../../../../store/customDDSlicer";
+import { uiActions } from "../../../../store/uiSlicer";
 
 export default function Position({ type, positionStyles }) {
   const dispatch = useDispatch();
@@ -48,6 +48,13 @@ export default function Position({ type, positionStyles }) {
       console.log("handle not dd position selector");
     }
   }
+
+  // Handle position styles based on isDragDrop
+  const isAnimationCreated = isDragDrop
+    ? isAnimationCreatedDD
+    : !isDragDrop
+    ? true
+    : false;
 
   return (
     <>
