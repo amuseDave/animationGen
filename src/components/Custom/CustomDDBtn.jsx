@@ -1,14 +1,14 @@
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { customActions } from "../../customSlicer";
+import { uiActions } from "../../store/uiSlicer";
 
 export default function CustomDDBtn() {
   const { isDragDrop } = useSelector((state) => {
-    return { isDragDrop: state.custom.isDragDrop };
+    return { isDragDrop: state.ui.isDragDrop };
   }, shallowEqual);
   const dispatch = useDispatch();
 
   function handleDragDrop() {
-    dispatch(customActions.handleDragDrop(!isDragDrop));
+    dispatch(uiActions.handleDragDrop(!isDragDrop));
   }
 
   return (
@@ -16,9 +16,14 @@ export default function CustomDDBtn() {
       <p>Drag&Drop</p>
       <div
         onClick={handleDragDrop}
-        className="w-[84px] h-10 p-[2px] transition-all rounded-3xl bg-slate-500 cursor-pointer"
+        className={`w-[76px] h-9 p-[2px] transition-all rounded-3xl cursor-pointer ${
+          isDragDrop ? "bg-purple-950" : "bg-purple-200"
+        }`}
       >
-        <div className="bg-purple-500 rounded-full w-9 h-9"></div>
+        <div
+          className={`bg-purple-500 rounded-full duration-300 transition-all w-8 h-8
+            ${isDragDrop ? "translate-x-10" : ""}`}
+        ></div>
       </div>
     </div>
   );

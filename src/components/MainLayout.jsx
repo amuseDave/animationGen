@@ -6,7 +6,7 @@ import MainPreview from "./Main/MainPreview.jsx";
 import MainController from "./Main/MainController.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { uiActions } from "../uiSlicer.js";
+import { uiActions } from "../store/uiSlicer.js";
 
 export default function MainLayout() {
   const dispatch = useDispatch();

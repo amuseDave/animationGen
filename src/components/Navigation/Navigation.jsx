@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./navigation.css";
 import { useDispatch } from "react-redux";
-import { uiActions } from "../../uiSlicer.js";
+import { uiActions } from "../../store/uiSlicer.js";
 
 export default function Navigation() {
   const dispatch = useDispatch();

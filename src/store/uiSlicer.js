@@ -10,6 +10,7 @@ const initialState = {
   zoomLevel: 1,
   isResizing: false,
   isAnimating: false,
+  isDragDrop: true,
 };
 
 function changeTheme(state) {
@@ -57,6 +58,9 @@ const uiSlicer = createSlice({
     },
     handleIsAnimating(state, { payload }) {
       state.isAnimating = payload;
+    },
+    handleDragDrop(state, { payload }) {
+      state.isDragDrop = payload;
     },
   },
 });

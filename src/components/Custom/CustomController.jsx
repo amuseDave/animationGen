@@ -1,18 +1,18 @@
 import CustomStartPositionSelector from "./CustomStartPositionSelector";
-import { uiActions } from "../../uiSlicer";
+import { uiActions } from "../../store/uiSlicer";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import PlayAnimationBtn from "../Utils/MainPlayButton";
 import ResetAnimationBtn from "../Utils/MainResetAnimationButton";
-import { customActions } from "../../customSlicer";
+import { customActionsDD } from "../../store/customDDSlicer";
 import { useEffect } from "react";
 import CustomDDBtn from "./CustomDDBtn";
 
 export default function CustomController() {
   const dispatch = useDispatch();
-  const { isAnimationCreated, isAnimating, isResizing } = useSelector(
+  const { isAnimationCreatedDD, isAnimating, isResizing } = useSelector(
     (state) => {
       return {
-        isAnimationCreated: state.custom.isAnimationCreated,
+        isAnimationCreatedDD: state.customDD.isAnimationCreatedDD,
         isAnimating: state.ui.isAnimating,
         isResizing: state.ui.isResizing,
       };
@@ -21,19 +21,21 @@ export default function CustomController() {
   );
 
   function handlePlayAnimation() {
-    if (isAnimating || !isAnimationCreated) return;
+    if (isAnimating || !isAnimationCreatedDD) return;
     dispatch(uiActions.handleIsAnimating(true));
   }
   function handleResetAnimation() {
-    if (!isAnimationCreated) return;
+    if (!isAnimationCreatedDD) return;
     dispatch(uiActions.handleResetAnimationAlert(true));
     if (isAnimating) dispatch(uiActions.handleIsAnimating(false));
-    dispatch(customActions.handleAnimation({ action: "reset-animation" }));
+    dispatch(customActionsDD.handleAnimation({ action: "reset-animation" }));
   }
 
   useEffect(() => {
     if (isResizing && isAnimating) dispatch(uiActions.handleIsAnimating(false));
   }, [isResizing]);
+
+  console.log(isAnimationCreatedDD);
 
   return (
     <>
@@ -46,11 +48,11 @@ export default function CustomController() {
       <CustomDDBtn />
       <PlayAnimationBtn
         handlePlayAnimation={handlePlayAnimation}
-        active={isAnimationCreated && !isResizing}
+        active={isAnimationCreatedDD && !isResizing}
       />
       <ResetAnimationBtn
         handleResetAnimation={handleResetAnimation}
-        active={isResizing || !isAnimationCreated}
+        active={isResizing || !isAnimationCreatedDD}
       />
     </>
   );

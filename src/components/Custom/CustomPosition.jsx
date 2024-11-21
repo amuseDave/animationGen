@@ -1,40 +1,46 @@
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { customActions } from "../../customSlicer";
-import { uiActions } from "../../uiSlicer";
+import { customActionsDD } from "../../store/customDDSlicer";
+import { uiActions } from "../../store/uiSlicer";
 
 export default function Position({ type, positionStyles }) {
   const dispatch = useDispatch();
-  const { isAnimationCreated, positionDD, isAnimating, isDragDrop } =
+  const { isAnimationCreatedDD, positionDD, isAnimating, isDragDrop } =
     useSelector(
       (state) => ({
-        isAnimationCreated: state.custom.isAnimationCreated,
-        positionDD: state.custom.positionDD,
+        isAnimationCreatedDD: state.customDD.isAnimationCreatedDD,
+        positionDD: state.customDD.positionDD,
         isAnimating: state.ui.isAnimating,
-        isDragDrop: state.custom.isDragDrop,
+        isDragDrop: state.ui.isDragDrop,
       }),
       shallowEqual
     );
 
   function handlePosition() {
-    if (positionDD === type) return;
+    if (positionDD === type && isDragDrop) return;
+    else if ("simplePos" === type && !isDragDrop) return;
 
     // Drag&Drop Position Selector
     if (isDragDrop) {
-      if (isAnimationCreated) {
+      if (isAnimationCreatedDD) {
         const reset = window.confirm("Reset Animation Starting Position?");
         if (!reset) return;
 
         dispatch(uiActions.handleResetAnimationAlert(true));
         if (isAnimating) dispatch(uiActions.handleIsAnimating(false));
-        dispatch(customActions.handleAnimation({ action: "reset-animation" }));
         dispatch(
-          customActions.handleSetPositions({ actionType: "set-position", type })
+          customActionsDD.handleAnimation({ action: "reset-animation" })
+        );
+        dispatch(
+          customActionsDD.handleSetPositions({
+            actionType: "set-position",
+            type,
+          })
         );
         return;
       }
 
       dispatch(
-        customActions.handleSetPositions({ actionType: "set-position", type })
+        customActionsDD.handleSetPositions({ actionType: "set-position", type })
       );
     }
 
@@ -49,7 +55,7 @@ export default function Position({ type, positionStyles }) {
         className={`absolute w-5 h-5 rounded-full cursor-pointer ${positionStyles} transition-colors ${
           positionDD === type
             ? "bg-purple-950 hover:bg-purple-950"
-            : isAnimationCreated
+            : isAnimationCreatedDD
             ? "bg-gray-950 hover:bg-gray-400"
             : "bg-gray-500 hover:bg-gray-200"
         }`}

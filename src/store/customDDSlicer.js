@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  getBoxWidthHeight,
-  getSquareSize,
-  getSquarePos,
-} from "./utils/handleCanvas";
+import { getBoxWidthHeight, getSquareSize, getSquarePos } from "./handleCanvas";
 
 const initialState = {
   square: {
@@ -17,19 +13,18 @@ const initialState = {
   isHolding: false,
   offsetX: 0,
   offsetY: 0,
-  isAnimationCreated: false,
-  isDragDrop: true,
+  isAnimationCreatedDD: false,
 };
 
 const customSlicer = createSlice({
-  name: "custom-animations",
+  name: "custom-animations-DD",
   initialState,
   reducers: {
     handleUpdateAnimationsPositions(
       state,
       { payload: { width, height, zoomLevel } }
     ) {
-      if (!state.isAnimationCreated) return;
+      if (!state.isAnimationCreatedDD) return;
 
       const currentBoxWidth = (width / 4) * zoomLevel;
       const currentBoxHeight = (width / 3) * zoomLevel;
@@ -63,7 +58,7 @@ const customSlicer = createSlice({
       const { actionType, width, height, zoomLevel, type } = actions.payload;
 
       if (actionType === "update-position") {
-        if (state.isAnimationCreated) return;
+        if (state.isAnimationCreatedDD) return;
 
         const squareSize = getSquareSize(width, zoomLevel);
         const { x, y } = getSquarePos({
@@ -137,19 +132,19 @@ const customSlicer = createSlice({
           state.isHolding = false;
           if (state.square.animations.length < 50) {
             state.square.animations = [];
-            state.isAnimationCreated = null;
+            state.isAnimationCreatedDD = null;
           } else {
             state.isHovered = false;
-            state.isAnimationCreated = true;
+            state.isAnimationCreatedDD = true;
           }
           break;
         }
         case "animation-alert-end":
-          state.isAnimationCreated = false;
+          state.isAnimationCreatedDD = false;
           break;
         case "reset-animation": {
           state.square.animations = [];
-          state.isAnimationCreated = false;
+          state.isAnimationCreatedDD = false;
           break;
         }
 
@@ -157,11 +152,8 @@ const customSlicer = createSlice({
           break;
       }
     },
-    handleDragDrop(state, { payload }) {
-      state.isDragDrop = payload;
-    },
   },
 });
 
 export default customSlicer.reducer;
-export const customActions = customSlicer.actions;
+export const customActionsDD = customSlicer.actions;

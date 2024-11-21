@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { customActions } from "../../customSlicer";
+import { customActionsDD } from "../../store/customDDSlicer";
 import { motion, AnimatePresence } from "framer-motion";
 
 let changedPos = "cc";
@@ -8,16 +8,19 @@ let changedPos = "cc";
 export default function Alerts() {
   const dispatch = useDispatch();
   const [alerts, setAlerts] = useState([]);
+  const [isCreated, setIsCreated] = useState(false);
 
-  const { isAnimationCreated, positionDD, isReset } = useSelector(
+  const { isAnimationCreatedDD, positionDD, isReset, isDragDrop } = useSelector(
     (state) => ({
-      isAnimationCreated: state.custom.isAnimationCreated,
-      positionDD: state.custom.positionDD,
+      isAnimationCreatedDD: state.customDD.isAnimationCreatedDD,
+      positionDD: state.customDD.positionDD,
       isReset: state.ui.isReset,
+      isDragDrop: state.ui.isDragDrop,
     }),
     shallowEqual
   );
 
+  // Handle alerts
   const handleAlerts = useCallback((message, type, isSingle) => {
     const id = Date.now();
     setAlerts((prev) => {
@@ -29,18 +32,36 @@ export default function Alerts() {
     }, 1500);
   }, []);
 
+  // Position change alert
   useEffect(() => {
     if (positionDD === changedPos || isReset) return;
     changedPos = positionDD;
     handleAlerts("Position changed!", "success");
   }, [positionDD]);
 
+  // Animation error alert
+  useEffect(() => {
+    if (isAnimationCreatedDD !== null) return;
+    handleAlerts("Animation too short!", "error ");
+    dispatch(
+      customActionsDD.handleAnimation({ action: "animation-alert-end" })
+    );
+  }, [isAnimationCreatedDD]);
+
   // Animation creation alert
   useEffect(() => {
-    if (isAnimationCreated !== null) return;
-    handleAlerts("Animation too short!", "error ");
-    dispatch(customActions.handleAnimation({ action: "animation-alert-end" }));
-  }, [isAnimationCreated]);
+    if (isDragDrop) {
+      if (!isAnimationCreatedDD) return;
+      setIsCreated(true);
+      setTimeout(() => {
+        setIsCreated(false);
+      }, 2500);
+    }
+
+    if (!isDragDrop) {
+      console.log("Other created actually");
+    }
+  }, [isAnimationCreatedDD]);
 
   return (
     <>
@@ -59,6 +80,19 @@ export default function Alerts() {
               {alert.message}
             </motion.div>
           ))}
+          {isCreated && (
+            <motion.div
+              key="second"
+              layout
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className={`alert text-pink-600`}
+            >
+              Animation was Created!
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
     </>

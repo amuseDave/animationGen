@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { drawDefaultCanvas } from "../../utils/handleCanvas";
+import { drawDefaultCanvas } from "../../store/handleCanvas";
 
 export default function DefaultCanvas() {
   const defaultCanvas = useRef();

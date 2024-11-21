@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { customActions } from "../../customSlicer";
+import { customActionsDD } from "../../store/customDDSlicer";
 import { throttle } from "lodash";
 import handleCanvasCustomState, {
   getSquareSize,
-} from "../../utils/handleCanvas";
+} from "../../store/handleCanvas";
 import { Loader } from "lucide-react";
-import { uiActions } from "../../uiSlicer";
+import { uiActions } from "../../store/uiSlicer";
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
-  const { positionDD, isHovered, isHolding, square, isAnimationCreated } =
-    useSelector((state) => state.custom);
+  const { positionDD, isHovered, isHolding, square, isAnimationCreatedDD } =
+    useSelector((state) => state.customDD);
   const { zoomLevel, isResizing, isAnimating } = useSelector(
     (state) => state.ui
   );
@@ -35,10 +35,10 @@ export default function CustomCanvas() {
     canvasEl.current.width = canvasEl.current.offsetWidth;
     canvasEl.current.height = canvasEl.current.offsetHeight;
 
-    if (isAnimationCreated) {
+    if (isAnimationCreatedDD) {
       // Update animation track positions
       dispatch(
-        customActions.handleUpdateAnimationsPositions({
+        customActionsDD.handleUpdateAnimationsPositions({
           width: canvasEl.current.width,
           height: canvasEl.current.height,
           zoomLevel,
@@ -47,7 +47,7 @@ export default function CustomCanvas() {
     } else {
       // set square start pos
       dispatch(
-        customActions.handleSetPositions({
+        customActionsDD.handleSetPositions({
           actionType: "update-position",
           width: canvasEl.current.width,
           height: canvasEl.current.height,
@@ -55,7 +55,7 @@ export default function CustomCanvas() {
         })
       );
     }
-  }, [zoomLevel, isResizing, positionDD, isHolding, isAnimationCreated]);
+  }, [zoomLevel, isResizing, positionDD, isHolding, isAnimationCreatedDD]);
 
   // Draw Canvas
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function CustomCanvas() {
     window.innerHeight,
     zoomLevel,
     isHolding,
-    isAnimationCreated,
+    isAnimationCreatedDD,
   ]);
 
   // Handle Animation Drawing on Canvas
@@ -121,7 +121,7 @@ export default function CustomCanvas() {
       // Handle Animation Movement
       if (isHolding) {
         dispatch(
-          customActions.handleSetAnimationMovement({
+          customActionsDD.handleSetAnimationMovement({
             x: e.offsetX,
             y: e.offsetY,
             width,
@@ -142,9 +142,9 @@ export default function CustomCanvas() {
       if (isHovering && isHovered) return;
 
       if (isHovering) {
-        dispatch(customActions.handleHover(true));
+        dispatch(customActionsDD.handleHover(true));
       } else {
-        dispatch(customActions.handleHover(false));
+        dispatch(customActionsDD.handleHover(false));
       }
     }, 8),
     []
@@ -153,19 +153,19 @@ export default function CustomCanvas() {
   // Sets initial mousedown offset
   const handleMouseDown = useCallback((e, square, isHovered) => {
     if (!isHovered) return;
-    dispatch(customActions.handleHolding(true));
+    dispatch(customActionsDD.handleHolding(true));
     const offsetX = e.offsetX - square.x;
     const offsetY = e.offsetY - square.y;
-    dispatch(customActions.handleSetOffSets({ offsetX, offsetY }));
+    dispatch(customActionsDD.handleSetOffSets({ offsetX, offsetY }));
   }, []);
   // Set isHolding to false
   const handleMouseUp = useCallback(() => {
-    dispatch(customActions.handleAnimation({ action: "set-animation" }));
+    dispatch(customActionsDD.handleAnimation({ action: "set-animation" }));
   }, []);
 
   // Handle events, and pass down arguments to functions
   useEffect(() => {
-    if (isAnimationCreated) return;
+    if (isAnimationCreatedDD) return;
 
     const canvas = canvasEl.current;
 
@@ -197,7 +197,14 @@ export default function CustomCanvas() {
       canvas.removeEventListener("mousedown", handleMouseDownHandler);
       canvas.removeEventListener("mouseup", handleMouseUpHandler);
     };
-  }, [isHovered, isHolding, square.x, square.y, isAnimationCreated, zoomLevel]);
+  }, [
+    isHovered,
+    isHolding,
+    square.x,
+    square.y,
+    isAnimationCreatedDD,
+    zoomLevel,
+  ]);
 
   return (
     <>
