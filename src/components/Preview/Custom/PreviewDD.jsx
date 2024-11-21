@@ -34,35 +34,34 @@ export default function CustomCanvas() {
     canvasEl.current.height = canvasEl.current.offsetHeight;
   }, [isResizing]);
 
-  // Update animation
+  // Update starting pos & animation
   useEffect(() => {
-    if (!isAnimationCreatedDD || isResizing) return;
-    dispatch(
-      customActionsDD.handleUpdateAnimationsPositions({
-        width: canvasEl.current.width,
-        height: canvasEl.current.height,
-        zoomLevel,
-      })
-    );
-  }, [isResizing, isAnimationCreatedDD]);
-
-  // Update starting pos
-  useEffect(() => {
-    if (isHolding || isResizing || isAnimationCreatedDD) return;
-    // set square start pos
-    dispatch(
-      customActionsDD.handleSetPositions({
-        actionType: "update-position",
-        width: canvasEl.current.width,
-        height: canvasEl.current.height,
-        zoomLevel,
-      })
-    );
+    if (isHolding || isResizing) return;
+    // Update animation positions on resize
+    if (isAnimationCreatedDD) {
+      dispatch(
+        customActionsDD.handleUpdateAnimationsPositions({
+          width: canvasEl.current.width,
+          height: canvasEl.current.height,
+          zoomLevel,
+        })
+      );
+    } else {
+      // Update starting position
+      dispatch(
+        customActionsDD.handleSetPositions({
+          actionType: "update-position",
+          width: canvasEl.current.width,
+          height: canvasEl.current.height,
+          zoomLevel,
+        })
+      );
+    }
   }, [zoomLevel, isResizing, positionDD, isHolding, isAnimationCreatedDD]);
 
   // Draw Canvas
   useEffect(() => {
-    if (isAnimating) return;
+    if (isAnimating || isResizing) return;
 
     handleCanvasCustomState({
       width: canvasEl.current.width,
@@ -73,7 +72,7 @@ export default function CustomCanvas() {
     });
   }, [
     square.animations[square.animationIndex],
-    window.innerHeight,
+    isResizing,
     zoomLevel,
     isHolding,
     isAnimationCreatedDD,
