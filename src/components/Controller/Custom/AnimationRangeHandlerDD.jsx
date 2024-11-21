@@ -7,15 +7,13 @@ import { useRef } from "react";
 export default function AnimationRangeHandlerDD() {
   const dispatch = useDispatch();
   const timeoutId = useRef();
-  const { square, animationIndex, isAnimating } = useSelector((state) => {
+  const { square, isAnimating } = useSelector((state) => {
     return {
       square: state.customDD.square,
-      animationIndex: state.customDD.square.animationIndex,
+
       isAnimating: state.ui.isAnimating,
     };
   }, shallowEqual);
-
-  console.log(animationIndex);
 
   function handleAnimation(e) {
     const index = +e.target.value;

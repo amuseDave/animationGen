@@ -28,40 +28,43 @@ export default function CustomCanvas() {
     };
   }, []);
 
-  // Update animation positions
+  // Update canvas size
   useEffect(() => {
-    if (isHolding || isResizing) return;
-
+    console.log("updating sizes");
     canvasEl.current.width = canvasEl.current.offsetWidth;
     canvasEl.current.height = canvasEl.current.offsetHeight;
+  }, [isResizing]);
 
-    if (isAnimationCreatedDD) {
-      console.log("new");
+  // Update animation
+  useEffect(() => {
+    if (!isAnimationCreatedDD || isResizing) return;
+    dispatch(
+      customActionsDD.handleUpdateAnimationsPositions({
+        width: canvasEl.current.width,
+        height: canvasEl.current.height,
+        zoomLevel,
+      })
+    );
+  }, [isResizing, isAnimationCreatedDD]);
 
-      // Update animation track positions
-      dispatch(
-        customActionsDD.handleUpdateAnimationsPositions({
-          width: canvasEl.current.width,
-          height: canvasEl.current.height,
-          zoomLevel,
-        })
-      );
-    } else {
-      // set square start pos
-      dispatch(
-        customActionsDD.handleSetPositions({
-          actionType: "update-position",
-          width: canvasEl.current.width,
-          height: canvasEl.current.height,
-          zoomLevel,
-        })
-      );
-    }
+  // Update starting pos
+  useEffect(() => {
+    if (isHolding || isResizing || isAnimationCreatedDD) return;
+    // set square start pos
+    dispatch(
+      customActionsDD.handleSetPositions({
+        actionType: "update-position",
+        width: canvasEl.current.width,
+        height: canvasEl.current.height,
+        zoomLevel,
+      })
+    );
   }, [zoomLevel, isResizing, positionDD, isHolding, isAnimationCreatedDD]);
 
   // Draw Canvas
   useEffect(() => {
     if (isAnimating) return;
+    console.log("drawing canvas");
 
     handleCanvasCustomState({
       width: canvasEl.current.width,

@@ -53,8 +53,8 @@ const customSlicer = createSlice({
       state.square.animations[0].canvasHeight = height;
       state.square.animations[0].canvasWidth = width;
 
-      state.square.x = state.square.animations[0].x;
-      state.square.y = state.square.animations[0].y;
+      state.square.x = state.square.animations[state.square.animationIndex].x;
+      state.square.y = state.square.animations[state.square.animationIndex].y;
     },
     handleSetPositions(state, actions) {
       const { actionType, width, height, zoomLevel, type } = actions.payload;
@@ -130,8 +130,6 @@ const customSlicer = createSlice({
 
       switch (action) {
         case "set-index": {
-          console.log("setting animation index");
-
           state.square.animationIndex = animationIndex;
           break;
         }
