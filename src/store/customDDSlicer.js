@@ -6,6 +6,7 @@ const initialState = {
     x: 0,
     y: 0,
     animations: [],
+    animationIndex: 0,
   },
   positionDD: "cc",
   position: "cc",
@@ -125,9 +126,15 @@ const customSlicer = createSlice({
       });
     },
     handleAnimation(state, actions) {
-      const { action } = actions.payload;
+      const { action, animationIndex } = actions.payload;
 
       switch (action) {
+        case "set-index": {
+          console.log("setting animation index");
+
+          state.square.animationIndex = animationIndex;
+          break;
+        }
         case "set-animation": {
           if (!state.isHolding) return;
           state.isHolding = false;

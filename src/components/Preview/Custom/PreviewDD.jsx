@@ -88,6 +88,7 @@ export default function CustomCanvas() {
     square.animations.forEach((animation, index, arr) => {
       const timeout = setTimeout(
         () => {
+          // Draw canvas loop
           handleCanvasCustomState({
             width: canvas.width,
             height: canvas.height,
@@ -95,6 +96,14 @@ export default function CustomCanvas() {
             square: { x: animation.x, y: animation.y },
             zoomLevel,
           });
+
+          dispatch(
+            customActionsDD.handleAnimation({
+              action: "set-index",
+              animationIndex: index,
+            })
+          );
+
           if (arr.length - 1 === index) {
             dispatch(uiActions.handleIsAnimating(false));
           }

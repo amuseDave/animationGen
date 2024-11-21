@@ -50,7 +50,7 @@ export default function Position({ type, positionStyles }) {
   }
 
   // Handle position styles based on isDragDrop
-  const isAnimationCreated = isDragDrop
+  const isDisabled = isDragDrop
     ? isAnimationCreatedDD
     : !isDragDrop
     ? true
@@ -59,11 +59,11 @@ export default function Position({ type, positionStyles }) {
   return (
     <>
       <div
-        className={`absolute w-5 h-5 rounded-full cursor-pointer ${positionStyles} transition-colors ${
+        className={`absolute w-5 h-5 rounded-full cursor-pointer ${positionStyles} transition-colors duration-200 ${
           positionDD === type
-            ? "bg-purple-950 hover:bg-purple-950"
-            : isAnimationCreatedDD
-            ? "bg-gray-950 hover:bg-gray-400"
+            ? "bg-pink-950 hover:bg-pink-950"
+            : isDisabled
+            ? "bg-zinc-950 hover:bg-pink-200"
             : "bg-gray-500 hover:bg-gray-200"
         }`}
         onClick={handlePosition}

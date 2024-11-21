@@ -3,13 +3,20 @@ import { useSelector, shallowEqual } from "react-redux";
 import CustomDDBtn from "./Static/DDBtn";
 import PlayResetDDBtn from "./PlayResetDDBtn";
 import PlayResetBtn from "./PlayResetBtn";
+import AnimationRangeHandlerDD from "./AnimationRangeHandlerDD";
+import AnimationRangeHandler from "./AnimationRangeHandler";
 
 export default function CustomController() {
-  const { isDragDrop } = useSelector((state) => {
-    return {
-      isDragDrop: state.ui.isDragDrop,
-    };
-  }, shallowEqual);
+  const { isDragDrop, isAnimationCreatedDD, isAnimationCreated } = useSelector(
+    (state) => {
+      return {
+        isDragDrop: state.ui.isDragDrop,
+        isAnimationCreatedDD: state.customDD.isAnimationCreatedDD,
+        isAnimationCreated: state.custom.isAnimationCreated,
+      };
+    },
+    shallowEqual
+  );
 
   return (
     <>
@@ -21,6 +28,9 @@ export default function CustomController() {
       <CustomDDBtn />
 
       {isDragDrop ? <PlayResetDDBtn /> : <PlayResetBtn />}
+
+      {isDragDrop && isAnimationCreatedDD && <AnimationRangeHandlerDD />}
+      {!isDragDrop && isAnimationCreated && <AnimationRangeHandler />}
     </>
   );
 }

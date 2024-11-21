@@ -12,16 +12,16 @@ export default function CustomDDBtn() {
   }
 
   return (
-    <div className="flex items-center mt-10">
-      <p>Drag&Drop</p>
+    <div className="absolute flex items-center gap-3 mt-10 bottom-16 bc">
+      <p className="text-lg">Drag&Drop: </p>
       <div
         onClick={handleDragDrop}
-        className={`w-[76px] h-9 p-[2px] transition-all rounded-3xl cursor-pointer ${
+        className={`w-[72px] h-8 p-[2px] transition-all rounded-3xl cursor-pointer ${
           isDragDrop ? "bg-purple-950" : "bg-purple-200"
         }`}
       >
         <div
-          className={`bg-purple-500 rounded-full duration-300 transition-all w-8 h-8
+          className={`bg-purple-500 rounded-full duration-300 transition-all w-7 h-7
             ${isDragDrop ? "translate-x-10" : ""}`}
         ></div>
       </div>
