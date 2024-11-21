@@ -73,7 +73,6 @@ export default function CustomCanvas() {
     });
   }, [
     square.animations[square.animationIndex],
-    square.animationIndex,
     window.innerHeight,
     zoomLevel,
     isHolding,
