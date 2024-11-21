@@ -31,13 +31,20 @@ export default function CustomController() {
       <div className="mt-14">
         <h1 className="text-2xl text-pink-50">Controls</h1>
         <div className="flex gap-2 px-3 py-1 border-2 rounded-md shadow-lg bg-pink-900/10 border-zinc-800">
-          {isAnimationCreated || isAnimationCreatedDD ? (
-            isDragDrop ? (
-              <AnimationRangeHandlerDD />
-            ) : (
-              <AnimationRangeHandler />
-            )
-          ) : (
+          {isDragDrop && isAnimationCreatedDD && <AnimationRangeHandlerDD />}
+          {!isDragDrop && isAnimationCreated && <AnimationRangeHandler />}
+
+          {isDragDrop && !isAnimationCreatedDD && (
+            <input
+              className="flex-grow cursor-not-allowed"
+              id="animation"
+              name="animation"
+              type="range"
+              min="0"
+              disabled
+            />
+          )}
+          {!isDragDrop && !isAnimationCreated && (
             <input
               className="flex-grow cursor-not-allowed"
               id="animation"
