@@ -35,7 +35,7 @@ export default function AnimationRangeHandlerDD() {
   return (
     <AnimationRangeControl
       value={square.animationIndex}
-      max={square.animations.length}
+      max={square.animations.length - 1}
       handleAnimationRange={handleAnimation}
       className={"mt-10"}
     />

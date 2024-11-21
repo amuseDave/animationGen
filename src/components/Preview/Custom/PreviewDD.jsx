@@ -30,7 +30,6 @@ export default function CustomCanvas() {
 
   // Update canvas size
   useEffect(() => {
-    console.log("updating sizes");
     canvasEl.current.width = canvasEl.current.offsetWidth;
     canvasEl.current.height = canvasEl.current.offsetHeight;
   }, [isResizing]);
@@ -64,18 +63,17 @@ export default function CustomCanvas() {
   // Draw Canvas
   useEffect(() => {
     if (isAnimating) return;
-    console.log("drawing canvas");
 
     handleCanvasCustomState({
       width: canvasEl.current.width,
       height: canvasEl.current.height,
       ctx: ctx.current,
-      square,
+      square: square.animations[square.animationIndex],
       zoomLevel,
     });
   }, [
-    square.x,
-    square.y,
+    square.animations[square.animationIndex],
+    square.animationIndex,
     window.innerHeight,
     zoomLevel,
     isHolding,
@@ -148,10 +146,14 @@ export default function CustomCanvas() {
 
       // Set is Hovering
       const isHovering =
-        e.offsetY >= square.y &&
-        e.offsetY <= square.y + getSquareSize(width, zoomLevel) &&
-        e.offsetX >= square.x &&
-        e.offsetX <= square.x + getSquareSize(width, zoomLevel);
+        e.offsetY >= square.animations[square.animationIndex].y &&
+        e.offsetY <=
+          square.animations[square.animationIndex].y +
+            getSquareSize(width, zoomLevel) &&
+        e.offsetX >= square.animations[square.animationIndex].x &&
+        e.offsetX <=
+          square.animations[square.animationIndex].x +
+            getSquareSize(width, zoomLevel);
 
       if (isHovering && isHovered) return;
 
@@ -168,8 +170,8 @@ export default function CustomCanvas() {
   const handleMouseDown = useCallback((e, square, isHovered) => {
     if (!isHovered) return;
     dispatch(customActionsDD.handleHolding(true));
-    const offsetX = e.offsetX - square.x;
-    const offsetY = e.offsetY - square.y;
+    const offsetX = e.offsetX - square.animations[square.animationIndex].x;
+    const offsetY = e.offsetY - square.animations[square.animationIndex].y;
     dispatch(customActionsDD.handleSetOffSets({ offsetX, offsetY }));
   }, []);
   // Set isHolding to false
@@ -214,10 +216,9 @@ export default function CustomCanvas() {
   }, [
     isHovered,
     isHolding,
-    square.x,
-    square.y,
     isAnimationCreatedDD,
     zoomLevel,
+    square.animations[square.animationIndex],
   ]);
 
   return (

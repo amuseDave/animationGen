@@ -3,9 +3,7 @@ import { getBoxWidthHeight, getSquareSize, getSquarePos } from "./handleCanvas";
 
 const initialState = {
   square: {
-    x: 0,
-    y: 0,
-    animations: [],
+    animations: [{ x: 0, y: 0 }],
     animationIndex: 0,
   },
   positionDD: "cc",
@@ -52,9 +50,6 @@ const customSlicer = createSlice({
       state.square.animations[0].zoomLevel = zoomLevel;
       state.square.animations[0].canvasHeight = height;
       state.square.animations[0].canvasWidth = width;
-
-      state.square.x = state.square.animations[state.square.animationIndex].x;
-      state.square.y = state.square.animations[state.square.animationIndex].y;
     },
     handleSetPositions(state, actions) {
       const { actionType, width, height, zoomLevel, type } = actions.payload;
@@ -70,9 +65,6 @@ const customSlicer = createSlice({
           width,
           zoomLevel,
         });
-
-        state.square.x = x;
-        state.square.y = y;
 
         state.square.animations[0] = {
           x,
@@ -110,20 +102,21 @@ const customSlicer = createSlice({
       const boxX = width / 2 - boxWidth / 2;
       const boxY = height / 2 - boxHeight / 2;
 
-      state.square.x =
+      const xVal =
         diffX + squareSize <= boxX || diffX >= boxX + boxWidth
-          ? state.square.x
+          ? state.square.animations[state.square.animationIndex].x
           : diffX;
 
-      state.square.y =
+      const yVal =
         diffY + squareSize <= boxY || diffY >= boxY + boxHeight
-          ? state.square.y
+          ? state.square.animations[state.square.animationIndex].y
           : diffY;
 
       state.square.animations.push({
-        x: state.square.x,
-        y: state.square.y,
+        x: xVal,
+        y: yVal,
       });
+      state.square.animationIndex++;
     },
     handleAnimation(state, actions) {
       const { action, animationIndex } = actions.payload;
@@ -135,9 +128,10 @@ const customSlicer = createSlice({
         }
         case "set-animation": {
           if (!state.isHolding) return;
+          state.square.animationIndex = 0;
           state.isHolding = false;
           if (state.square.animations.length < 50) {
-            state.square.animations = [];
+            state.square.animations = [{ x: 0, y: 0 }];
             state.isAnimationInitialCreatedDD = false;
           } else {
             state.isHovered = false;
@@ -150,7 +144,8 @@ const customSlicer = createSlice({
           state.isAnimationInitialCreatedDD = null;
           break;
         case "reset-animation": {
-          state.square.animations = [];
+          state.square.animationIndex = 0;
+          state.square.animations = [{ x: 0, y: 0 }];
           state.isAnimationCreatedDD = false;
           state.isAnimationInitialCreatedDD = null;
           break;
