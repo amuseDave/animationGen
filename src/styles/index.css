@@ -8,10 +8,22 @@ body {
 
 @layer base {
   :root {
-    --bg-color: #020005;
+    --bg-color: #090f0d;
+    --text-color: #36876d;
+    --text-color-active: #b7ffe8;
   }
 
   .light {
-    --bg-color: #b38eff;
+    --bg-color: #d8d8d8;
+  }
+}
+
+@layer components {
+  .nav-btn {
+    @apply px-4 py-2 text-text-color rounded-lg;
+  }
+
+  .active {
+    @apply bg-slate-50/15 text-text-color-active;
   }
 }

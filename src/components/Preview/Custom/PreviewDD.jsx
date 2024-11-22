@@ -239,7 +239,7 @@ export default function CustomCanvas() {
   ]);
 
   return (
-    <>
+    <div className="h-[700px]">
       <canvas
         ref={canvasEl}
         id="generator"
@@ -252,6 +252,6 @@ export default function CustomCanvas() {
         }`}
       ></canvas>
       {isResizing && <Loader />}
-    </>
+    </div>
   );
 }

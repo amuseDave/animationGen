@@ -9,7 +9,7 @@ export default function PreviewControls() {
   }
 
   return (
-    <div className="absolute z-30 border rounded-md bg-zinc-900 top-14 right-2 border-zinc-800">
+    <div className="absolute z-30 flex border rounded-md bc bg-zinc-900 border-zinc-800">
       <div
         className="p-2 cursor-pointer"
         onClick={() => {

@@ -5,8 +5,11 @@ export default function DefaultCanvas() {
   const defaultCanvas = useRef();
 
   useEffect(() => {
-    defaultCanvas.current.width = 1920;
-    defaultCanvas.current.height = 1080;
+    console.log(defaultCanvas.current.width);
+
+    defaultCanvas.current.width = 2560;
+    defaultCanvas.current.height = 1440;
+
     const ctx = defaultCanvas.current.getContext("2d");
     drawDefaultCanvas(ctx);
   }, []);
@@ -14,7 +17,7 @@ export default function DefaultCanvas() {
     <canvas
       ref={defaultCanvas}
       id="generator"
-      className={`absolute top-0 left-0 z-10 w-[1920px] h-[1080px] cursor-crosshair bg-zinc-950`}
+      className={`fixed top-0 left-0 bottom-0 right-0 z-0 cursor-crosshair bg-background transition-colors`}
     ></canvas>
   );
 }

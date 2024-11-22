@@ -7,7 +7,7 @@ export default function handleCanvasCustomState({
 }) {
   ctx.clearRect(0, 0, 1500, 1100);
   drawDashedSquare(width, height, ctx, zoomLevel);
-  ctx.fillStyle = "#f3f3f3";
+  ctx.fillStyle = "#181E1F";
   const squareSize = getSquareSize(width, zoomLevel);
   ctx.fillRect(square.x, square.y, squareSize, squareSize);
 }

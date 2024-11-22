@@ -5,8 +5,9 @@ export default {
     extend: {
       colors: {
         background: "var(--bg-color)",
-        "btn-text": "var(--btn-text-color)",
-        "btn-bg": "var(--btn-bg-color)",
+        "text-color": "var(--text-color)",
+        "text-color-active": "var(--text-color-active)",
+        "rounded-default": "var(--rounded-default)",
       },
     },
   },

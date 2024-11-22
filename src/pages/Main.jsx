@@ -8,6 +8,7 @@ import MainController from "../components/Controller/Layout.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlicer.js";
+import DefaultCanvas from "../components/Preview/Static/DefaultCanvas.jsx";
 
 export default function MainLayout() {
   const dispatch = useDispatch();
@@ -34,20 +35,22 @@ export default function MainLayout() {
   }, []);
 
   return (
-    <main
-      className={`pt-10 duration-200 min-h-dvh transition-color bg-background`}
-    >
-      <Navigation />
-
-      <div className="grid grid-cols-[200px_1fr_300px] gap-x-3 mt-10 px-3">
+    <>
+      <DefaultCanvas />
+      <main
+        className={`m-5 duration-200 min-h-[86dvh] relative z-10 grid grid-cols-[260px_1fr_260px]`}
+      >
         <SavedAnimations />
-        <PreviewLayout />
+        <div className="relative h-full">
+          <Navigation />
+          <PreviewLayout />
+        </div>
         <MainController />
-      </div>
+      </main>
 
       <footer>
         <Outlet />
       </footer>
-    </main>
+    </>
   );
 }
