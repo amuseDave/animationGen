@@ -10,7 +10,7 @@ export default function CustomDDBtn() {
   }
 
   return (
-    <div className="absolute flex items-center gap-3 mt-10 bottom-16 bc">
+    <div className="absolute flex items-center gap-3 mt-10 bottom-2 bc">
       <p className="text-lg">Drag&Drop: </p>
       <div
         onClick={handleDragDrop}

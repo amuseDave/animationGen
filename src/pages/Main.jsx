@@ -4,7 +4,7 @@ import Navigation from "../components/Navigation/Navigation.jsx";
 import SavedAnimations from "../components/SavedAnimations/SavedAnimations.jsx";
 
 import PreviewLayout from "../components/Preview/Layout.jsx";
-import MainController from "../components/Controller/Controller.jsx";
+import MainController from "../components/Controller/Layout.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlicer.js";

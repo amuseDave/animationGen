@@ -1,42 +1,37 @@
-import CustomStartPositionSelector from "./Static/PositionSelectorContainer";
 import { useSelector } from "react-redux";
-import CustomDDBtn from "./Static/DDBtn";
-import PlayResetDDBtn from "./PlayResetDDBtn";
-import PlayResetBtn from "./PlayResetBtn";
-import AnimationRangeHandlerDD from "./AnimationRangeHandlerDD";
-import AnimationRangeHandler from "./AnimationRangeHandler";
-import DisabledInput from "./Static/DisabledInput";
+import { Fragment } from "react";
+
+import KeyFrame from "./KeyFrame";
 
 export default function CustomController() {
-  const isDragDrop = useSelector((state) => state.ui.isDragDrop);
-  const isAnimationCreatedDD = useSelector(
-    (state) => state.customDD.isAnimationCreatedDD
-  );
+  const keyFrames = useSelector((state) => state.custom.keyFrames);
+  const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const isAnimationCreated = useSelector(
     (state) => state.custom.isAnimationCreated
   );
 
   return (
     <>
-      <h1 className="pb-2 text-2xl text-center border-b-2 border-b-pink-100">
-        Custom Controller
-      </h1>
-
-      <CustomStartPositionSelector />
-      <CustomDDBtn />
-
-      {/* Animation Play/Pause/Move Controls */}
-      <div className="mt-14">
-        <div className="flex gap-2 px-3 py-1 border-2 rounded-md shadow-lg bg-pink-900/10 border-zinc-800">
-          {isDragDrop && isAnimationCreatedDD && <AnimationRangeHandlerDD />}
-          {!isDragDrop && isAnimationCreated && <AnimationRangeHandler />}
-
-          {isDragDrop && !isAnimationCreatedDD && <DisabledInput />}
-          {!isDragDrop && !isAnimationCreated && <DisabledInput />}
-
-          {isDragDrop ? <PlayResetDDBtn /> : <PlayResetBtn />}
-        </div>
-      </div>
+      <section className="flex flex-col items-start mt-10">
+        {keyFrames.map((frame, index) => {
+          // if (index === keyFrames.length - 1 || index === 0) return "";
+          return (
+            <Fragment key={index}>
+              <KeyFrame
+                index={index}
+                key={index}
+                active={index === activeKeyFrame}
+                percentage={frame.keyPercentage}
+              />
+              {index === 0 && (
+                <button className="mt-1 text-4xl font-bold text-green-500">
+                  +
+                </button>
+              )}
+            </Fragment>
+          );
+        })}
+      </section>
     </>
   );
 }

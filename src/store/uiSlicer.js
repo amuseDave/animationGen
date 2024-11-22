@@ -55,6 +55,8 @@ const uiSlicer = createSlice({
         default:
           break;
       }
+
+      state.zoomLevel = +state.zoomLevel.toFixed(2);
     },
     handleIsAnimating(state, { payload }) {
       state.isAnimating = payload;
