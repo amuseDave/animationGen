@@ -1,13 +1,8 @@
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector } from "react-redux";
 import CustomController from "./Custom/Controller";
 
 export default function MainController() {
-  const { type } = useSelector(
-    (state) => ({
-      type: state.ui.type,
-    }),
-    shallowEqual
-  );
+  const type = useSelector((state) => state.ui.type);
 
   return (
     <div className="relative px-3 py-5 text-center text-pink-600 rounded-lg bg-zinc-900">

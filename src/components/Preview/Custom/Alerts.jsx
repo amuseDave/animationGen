@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { customActionsDD } from "../../../store/customDDSlicer";
 import { motion } from "framer-motion";
 
@@ -11,23 +11,12 @@ export default function Alerts() {
   const [alerts, setAlerts] = useState([]);
   const [isCreated, setIsCreated] = useState(false);
 
-  const {
-    positionDD,
-    isAnimationInitialCreatedDD,
-    position,
-    isReset,
-    isDragDrop,
-  } = useSelector(
-    (state) => ({
-      isAnimationInitialCreatedDD: state.customDD.isAnimationInitialCreatedDD,
-      positionDD: state.customDD.positionDD,
-
-      position: state.custom.position,
-
-      isReset: state.ui.isReset,
-      isDragDrop: state.ui.isDragDrop,
-    }),
-    shallowEqual
+  const positionDD = useSelector((state) => state.customDD.positionDD);
+  const position = useSelector((state) => state.custom.position);
+  const isReset = useSelector((state) => state.ui.isReset);
+  const isDragDrop = useSelector((state) => state.ui.isDragDrop);
+  const isAnimationInitialCreatedDD = useSelector(
+    (state) => state.customDD.isAnimationInitialCreatedDD
   );
 
   // Handle alerts
@@ -55,7 +44,6 @@ export default function Alerts() {
     if (!isDragDrop) {
       if (position === changedPos) return;
       changedPos = position;
-
       handleAlerts("Position changed!", "success");
     }
   }, [positionDD, position]);

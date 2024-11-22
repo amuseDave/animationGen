@@ -1,11 +1,8 @@
-import "./alerts.css";
-import { shallowEqual, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CustomPreview from "./Custom/PreviewWrapper.jsx";
 
 export default function MainPreview() {
-  const { type } = useSelector((state) => {
-    return { type: state.ui.type };
-  }, shallowEqual);
+  const type = useSelector((state) => state.ui.type);
 
   return (
     <>

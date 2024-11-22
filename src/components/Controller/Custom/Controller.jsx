@@ -1,5 +1,5 @@
 import CustomStartPositionSelector from "./Static/PositionSelectorContainer";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector } from "react-redux";
 import CustomDDBtn from "./Static/DDBtn";
 import PlayResetDDBtn from "./PlayResetDDBtn";
 import PlayResetBtn from "./PlayResetBtn";
@@ -8,15 +8,12 @@ import AnimationRangeHandler from "./AnimationRangeHandler";
 import DisabledInput from "./Static/DisabledInput";
 
 export default function CustomController() {
-  const { isDragDrop, isAnimationCreatedDD, isAnimationCreated } = useSelector(
-    (state) => {
-      return {
-        isDragDrop: state.ui.isDragDrop,
-        isAnimationCreatedDD: state.customDD.isAnimationCreatedDD,
-        isAnimationCreated: state.custom.isAnimationCreated,
-      };
-    },
-    shallowEqual
+  const isDragDrop = useSelector((state) => state.ui.isDragDrop);
+  const isAnimationCreatedDD = useSelector(
+    (state) => state.customDD.isAnimationCreatedDD
+  );
+  const isAnimationCreated = useSelector(
+    (state) => state.custom.isAnimationCreated
   );
 
   return (

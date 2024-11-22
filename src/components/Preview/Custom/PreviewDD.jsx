@@ -10,11 +10,18 @@ import { uiActions } from "../../../store/uiSlicer";
 
 export default function CustomCanvas() {
   const dispatch = useDispatch();
-  const { positionDD, isHovered, isHolding, square, isAnimationCreatedDD } =
-    useSelector((state) => state.customDD);
-  const { zoomLevel, isResizing, isAnimating } = useSelector(
-    (state) => state.ui
+
+  const positionDD = useSelector((state) => state.customDD.positionDD);
+  const isHovered = useSelector((state) => state.customDD.isHovered);
+  const isHolding = useSelector((state) => state.customDD.isHolding);
+  const square = useSelector((state) => state.customDD.square);
+  const isAnimationCreatedDD = useSelector(
+    (state) => state.customDD.isAnimationCreatedDD
   );
+
+  const zoomLevel = useSelector((state) => state.ui.zoomLevel);
+  const isResizing = useSelector((state) => state.ui.isResizing);
+  const isAnimating = useSelector((state) => state.ui.isAnimating);
 
   const canvasEl = useRef();
   const ctx = useRef();

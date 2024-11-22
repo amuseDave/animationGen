@@ -1,5 +1,5 @@
 import { uiActions } from "../../../store/uiSlicer";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { customActionsDD } from "../../../store/customDDSlicer";
 import { useEffect } from "react";
@@ -7,15 +7,11 @@ import { Play, Pause, RotateCcw } from "lucide-react";
 
 export default function PlayResetDDBTN() {
   const dispatch = useDispatch();
-  const { isAnimationCreatedDD, isAnimating, isResizing } = useSelector(
-    (state) => {
-      return {
-        isAnimationCreatedDD: state.customDD.isAnimationCreatedDD,
-        isAnimating: state.ui.isAnimating,
-        isResizing: state.ui.isResizing,
-      };
-    },
-    shallowEqual
+
+  const isAnimating = useSelector((state) => state.ui.isAnimating);
+  const isResizing = useSelector((state) => state.ui.isResizing);
+  const isAnimationCreatedDD = useSelector(
+    (state) => state.customDD.isAnimationCreatedDD
   );
 
   function handlePlayAnimation() {

@@ -1,4 +1,4 @@
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { customActionsDD } from "../../../store/customDDSlicer";
 import { uiActions } from "../../../store/uiSlicer";
 import { useRef } from "react";
@@ -6,12 +6,8 @@ import { useRef } from "react";
 export default function AnimationRangeHandlerDD() {
   const dispatch = useDispatch();
   const timeoutId = useRef();
-  const { square, isAnimating } = useSelector((state) => {
-    return {
-      square: state.customDD.square,
-      isAnimating: state.ui.isAnimating,
-    };
-  }, shallowEqual);
+  const square = useSelector((state) => state.customDD.square);
+  const isAnimating = useSelector((state) => state.ui.isAnimating);
 
   function handleAnimation(e) {
     const index = +e.target.value;

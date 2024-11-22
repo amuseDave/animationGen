@@ -1,11 +1,9 @@
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../../../store/uiSlicer";
 
 export default function CustomDDBtn() {
-  const { isDragDrop } = useSelector((state) => {
-    return { isDragDrop: state.ui.isDragDrop };
-  }, shallowEqual);
   const dispatch = useDispatch();
+  const isDragDrop = useSelector((state) => state.ui.isDragDrop);
 
   function handleDragDrop() {
     dispatch(uiActions.handleDragDrop(!isDragDrop));

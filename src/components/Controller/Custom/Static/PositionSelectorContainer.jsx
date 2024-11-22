@@ -1,5 +1,4 @@
 import PositionSelector from "./PositionSelector";
-import "./positions.css";
 
 export default function PositionSelectorContainer() {
   return (

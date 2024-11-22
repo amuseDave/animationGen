@@ -1,10 +1,8 @@
 import Preview from "./Preview";
 import PreviewDD from "./PreviewDD";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector } from "react-redux";
 export default function PreviewWrapper() {
-  const { isDragDrop } = useSelector((state) => {
-    return { isDragDrop: state.ui.isDragDrop };
-  }, shallowEqual);
+  const isDragDrop = useSelector((state) => state.ui.isDragDrop);
 
   return isDragDrop ? <PreviewDD /> : <Preview />;
 }

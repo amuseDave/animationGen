@@ -1,30 +1,21 @@
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { customActionsDD } from "../../../../store/customDDSlicer";
 import { uiActions } from "../../../../store/uiSlicer";
 import { customActions } from "../../../../store/customSlicer";
 
 export default function Position({ type, positionStyles }) {
   const dispatch = useDispatch();
-  const {
-    isAnimationCreatedDD,
-    positionDD,
-    isAnimationCreated,
-    position,
-    isDragDrop,
-    isAnimating,
-  } = useSelector(
-    (state) => ({
-      isAnimationCreatedDD: state.customDD.isAnimationCreatedDD,
-      positionDD: state.customDD.positionDD,
 
-      position: state.custom.position,
-      isAnimationCreated: state.custom.isAnimationCreated,
-
-      isDragDrop: state.ui.isDragDrop,
-      isAnimating: state.ui.isAnimating,
-    }),
-    shallowEqual
+  const positionDD = useSelector((state) => state.customDD.positionDD);
+  const isAnimationCreatedDD = useSelector(
+    (state) => state.customDD.isAnimationCreatedDD
   );
+  const position = useSelector((state) => state.custom.position);
+  const isAnimationCreated = useSelector(
+    (state) => state.custom.isAnimationCreated
+  );
+  const isDragDrop = useSelector((state) => state.ui.isDragDrop);
+  const isAnimating = useSelector((state) => state.ui.isAnimating);
 
   function handlePosition() {
     if (isDragDrop && positionDD === type) return;

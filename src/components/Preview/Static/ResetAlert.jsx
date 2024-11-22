@@ -1,4 +1,4 @@
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { uiActions } from "../../../store/uiSlicer";
@@ -6,11 +6,7 @@ import { uiActions } from "../../../store/uiSlicer";
 export default function AnimationResetCreateAlert() {
   const dispatch = useDispatch();
 
-  const { isReset } = useSelector((state) => {
-    return {
-      isReset: state.ui.isReset,
-    };
-  }, shallowEqual);
+  const isReset = useSelector((state) => state.ui.isReset);
 
   useEffect(() => {
     if (!isReset) return;

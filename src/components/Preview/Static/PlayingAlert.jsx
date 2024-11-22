@@ -1,10 +1,8 @@
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function PlayingAnimationAlert() {
-  const { isAnimating } = useSelector((state) => {
-    return { isAnimating: state.ui.isAnimating };
-  }, shallowEqual);
+  const isAnimating = useSelector((state) => state.ui.isAnimating);
 
   return (
     <div className="absolute z-20 right-4 top-5">
