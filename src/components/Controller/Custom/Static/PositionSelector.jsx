@@ -1,23 +1,34 @@
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { customActionsDD } from "../../../../store/customDDSlicer";
 import { uiActions } from "../../../../store/uiSlicer";
+import { customActions } from "../../../../store/customSlicer";
 
 export default function Position({ type, positionStyles }) {
   const dispatch = useDispatch();
-  const { isAnimationCreatedDD, positionDD, isAnimating, isDragDrop } =
-    useSelector(
-      (state) => ({
-        isAnimationCreatedDD: state.customDD.isAnimationCreatedDD,
-        positionDD: state.customDD.positionDD,
-        isAnimating: state.ui.isAnimating,
-        isDragDrop: state.ui.isDragDrop,
-      }),
-      shallowEqual
-    );
+  const {
+    isAnimationCreatedDD,
+    positionDD,
+    isAnimationCreated,
+    position,
+    isDragDrop,
+    isAnimating,
+  } = useSelector(
+    (state) => ({
+      isAnimationCreatedDD: state.customDD.isAnimationCreatedDD,
+      positionDD: state.customDD.positionDD,
+
+      position: state.custom.position,
+      isAnimationCreated: state.custom.isAnimationCreated,
+
+      isDragDrop: state.ui.isDragDrop,
+      isAnimating: state.ui.isAnimating,
+    }),
+    shallowEqual
+  );
 
   function handlePosition() {
-    if (positionDD === type && isDragDrop) return;
-    else if ("simplePos" === type && !isDragDrop) return;
+    if (isDragDrop && positionDD === type) return;
+    else if (!isDragDrop && position === type) return;
 
     // Drag&Drop Position Selector
     if (isDragDrop) {
@@ -45,22 +56,26 @@ export default function Position({ type, positionStyles }) {
     }
 
     if (!isDragDrop) {
-      console.log("handle not dd position selector");
+      dispatch(customActions.handleStartPosition(type));
     }
   }
 
   // Handle position styles based on isDragDrop
-  const isDisabled = isDragDrop
-    ? isAnimationCreatedDD
-    : !isDragDrop
-    ? true
-    : false;
+  let isDisabled;
+  let isEnabled;
+  if (isDragDrop) {
+    isDisabled = isAnimationCreatedDD;
+    isEnabled = positionDD === type;
+  } else {
+    isDisabled = isAnimationCreated;
+    isEnabled = position === type;
+  }
 
   return (
     <>
       <div
         className={`absolute w-5 h-5 rounded-full cursor-pointer ${positionStyles} transition-colors duration-200 ${
-          positionDD === type
+          isEnabled
             ? "bg-pink-950 hover:bg-pink-950"
             : isDisabled
             ? "bg-zinc-950 hover:bg-pink-200"

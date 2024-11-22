@@ -29,9 +29,15 @@ export default function CustomCanvas() {
   }, []);
 
   // Update canvas size
+  // handle specific user event
   useEffect(() => {
     canvasEl.current.width = canvasEl.current.offsetWidth;
     canvasEl.current.height = canvasEl.current.offsetHeight;
+
+    if (isHolding) {
+      dispatch(customActionsDD.handleHolding(false));
+      dispatch(customActionsDD.handleAnimation({ action: "reset-animation" }));
+    }
   }, [isResizing]);
 
   // Update starting pos & animation
@@ -85,37 +91,40 @@ export default function CustomCanvas() {
     const canvas = canvasEl.current;
     //
 
-    square.animations
-      .slice(square.animationIndex)
-      .forEach((animation, index, arr) => {
-        const timeout = setTimeout(
-          () => {
-            // Draw canvas loop
-            handleCanvasCustomState({
-              width: canvas.width,
-              height: canvas.height,
-              ctx: ctx.current,
-              square: { x: animation.x, y: animation.y },
-              zoomLevel,
-            });
+    const curIndex =
+      square.animationIndex === square.animations.length - 1
+        ? 0
+        : square.animationIndex;
 
-            dispatch(
-              customActionsDD.handleAnimation({
-                action: "set-index",
-                animationIndex: square.animationIndex + index,
-              })
-            );
+    square.animations.slice(curIndex).forEach((animation, index, arr) => {
+      const timeout = setTimeout(
+        () => {
+          // Draw canvas loop
+          handleCanvasCustomState({
+            width: canvas.width,
+            height: canvas.height,
+            ctx: ctx.current,
+            square: { x: animation.x, y: animation.y },
+            zoomLevel,
+          });
 
-            if (arr.length - 1 === index) {
-              dispatch(uiActions.handleIsAnimating(false));
-            }
-          },
-          8 * index,
-          [index]
-        );
+          dispatch(
+            customActionsDD.handleAnimation({
+              action: "set-index",
+              animationIndex: curIndex + index,
+            })
+          );
 
-        timeouts.current.push(timeout);
-      });
+          if (arr.length - 1 === index) {
+            dispatch(uiActions.handleIsAnimating(false));
+          }
+        },
+        8 * index,
+        [index]
+      );
+
+      timeouts.current.push(timeout);
+    });
 
     return () => {
       timeouts.current.forEach(clearTimeout);

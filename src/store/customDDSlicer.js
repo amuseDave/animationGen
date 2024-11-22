@@ -26,23 +26,34 @@ const customSlicer = createSlice({
     ) {
       if (!state.isAnimationCreatedDD) return;
 
-      const currentBoxWidth = (width / 4) * zoomLevel;
-      const currentBoxHeight = (width / 3) * zoomLevel;
-      const currentBoxX = width / 2 - currentBoxWidth / 2;
-      const currentBoxY = height / 2 - currentBoxHeight / 2;
       const prevCanvasWidth = state.square.animations[0].canvasWidth;
       const prevCanvasHeight = state.square.animations[0].canvasHeight;
       const prevZoomLevel = state.square.animations[0].zoomLevel;
+
+      // Avoid unecessary calculations
+      if (
+        prevCanvasWidth === width &&
+        prevCanvasHeight === height &&
+        prevZoomLevel === zoomLevel
+      ) {
+        return;
+      }
+
       const prevBoxWidth = (prevCanvasWidth / 4) * prevZoomLevel;
       const prevBoxHeight = (prevCanvasWidth / 3) * prevZoomLevel;
       const prevBoxX = prevCanvasWidth / 2 - prevBoxWidth / 2;
       const prevBoxY = prevCanvasHeight / 2 - prevBoxHeight / 2;
 
+      const currentBoxWidth = (width / 4) * zoomLevel;
+      const currentBoxHeight = (width / 3) * zoomLevel;
+      const currentBoxX = width / 2 - currentBoxWidth / 2;
+      const currentBoxY = height / 2 - currentBoxHeight / 2;
+
+      // Recalculate the square's animations using the prev & current comparison
       state.square.animations.forEach((animation) => {
         const relativeX = (animation.x - prevBoxX) / prevBoxWidth;
         const relativeY = (animation.y - prevBoxY) / prevBoxHeight;
 
-        // Recalculate the square's position using the current dashed box dimensions
         animation.x = currentBoxX + relativeX * currentBoxWidth;
         animation.y = currentBoxY + relativeY * currentBoxHeight;
       });

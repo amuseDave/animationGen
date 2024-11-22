@@ -9,7 +9,7 @@ const customSlicer = createSlice({
   name: "custom-animations",
   initialState,
   reducers: {
-    setPosition(state, { payload }) {
+    handleStartPosition(state, { payload }) {
       state.position = payload;
     },
   },
