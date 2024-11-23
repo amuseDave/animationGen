@@ -111,50 +111,50 @@ export function getSquarePos({
   return { x, y };
 }
 
-export function getPositionStyles(position, size) {
+export function getPositionStyles(position, size, scale = 1) {
   const styles = {
     cc: {
-      transform: "translate(-50%, -50%)",
+      transform: `translate(-50%, -50%)`,
       left: "50%",
       top: "50%",
     },
     ct: {
-      transform: "translate(-50%, -50%)",
+      transform: `translate(-50%, calc(-50% - ${size / 2}px))`,
       left: "50%",
-      top: `calc(50% - ${size / 2}px)`,
+      top: `50%`,
     },
     cb: {
-      transform: "translate(-50%, -50%)",
+      transform: "translate(-50%)",
       left: "50%",
-      top: `calc(50% + ${size / 2}px)`,
+      top: `50%`,
     },
     cl: {
-      transform: "translate(-50%, -50%)",
-      left: `calc(50% - ${size / 2}px)`,
+      transform: `translate(calc(-50% - ${size / 2}px), -50%)`,
+      left: `50%`,
       top: "50%",
     },
     cr: {
-      transform: "translate(-50%, -50%)",
-      left: `calc(50% + ${size / 2}px)`,
+      transform: "translate(0%, -50%)",
+      left: `50%`,
       top: "50%",
     },
     lc: {
-      transform: "translateY(-50%)",
+      transform: `translate(${(scale - 1) * 50}%, -50%)`,
       left: "0",
       top: "50%",
     },
     lco: {
-      transform: "translate(-100%, -50%)",
+      transform: `translate(${-100 - (scale - 1) * 50}%, -50%)`,
       left: "0",
       top: "50%",
     },
     rc: {
-      transform: "translateY(-50%)",
+      transform: `translate(-${(scale - 1) * 50}%, -50%)`,
       right: "0",
       top: "50%",
     },
     rco: {
-      transform: "translate(100%, -50%)",
+      transform: `translate(${100 + (scale - 1) * 50}%, -50%)`,
       right: "0",
       top: "50%",
     },

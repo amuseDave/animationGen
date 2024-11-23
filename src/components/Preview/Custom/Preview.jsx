@@ -16,8 +16,14 @@ export default function Preview() {
     height: `${18 * zoomLevel}dvw`,
   };
 
+  console.log(curKF.position);
+
   const size = (window.innerWidth / 100) * 7 * zoomLevel;
-  const vanillaPosStyles = getPositionStyles(curKF.position, size);
+  const vanillaPosStyles = getPositionStyles(
+    curKF.position,
+    size,
+    +curKF.scale
+  );
 
   const boxStyles = {
     ...vanillaPosStyles,
@@ -25,9 +31,11 @@ export default function Preview() {
     height: `${size}px`,
     backgroundColor: `${curKF.color}`,
     opacity: `${curKF.opacity}`,
-    transform: `scale(${curKF.scale}) ${vanillaPosStyles.transform || ""}`,
+    transform: `${vanillaPosStyles.transform || ""} scale(${curKF.scale})`,
     position: "absolute",
   };
+
+  console.log(boxStyles);
 
   return (
     <div className="h-[700px]">

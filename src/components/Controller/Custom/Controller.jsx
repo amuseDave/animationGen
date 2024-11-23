@@ -6,9 +6,9 @@ import { customActions } from "../../../store/customSlicer";
 
 export default function CustomController() {
   const dispatch = useDispatch();
-  const colorTimer = useRef();
-  const opacityTimer = useRef();
-  const scaleTimer = useRef();
+  // const colorTimer = useRef();
+  // const opacityTimer = useRef();
+  // const scaleTimer = useRef();
 
   const keyFrames = useSelector((state) => state.custom.keyFrames);
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
@@ -16,27 +16,25 @@ export default function CustomController() {
   const curKF = keyFrames[activeKeyFrame];
 
   function handleColor(e) {
-    if (colorTimer.current) clearTimeout(colorTimer.current);
     const { value } = e.target;
-    colorTimer.current = setTimeout(() => {
-      console.log(value);
-
-      dispatch(customActions.handleStyles({ action: "set-color", value }));
-    }, 100);
+    dispatch(customActions.handleStyles({ action: "set-color", value }));
+    // colorTimer.current = setTimeout(() => {}, 100);
+    // if (colorTimer.current) clearTimeout(colorTimer.current);
   }
   function handleOpacity(e) {
-    if (opacityTimer.current) clearTimeout(opacityTimer.current);
     const { value } = e.target;
-    opacityTimer.current = setTimeout(() => {
-      dispatch(customActions.handleStyles({ action: "set-opacity", value }));
-    }, 100);
+    dispatch(customActions.handleStyles({ action: "set-opacity", value }));
+
+    // if (opacityTimer.current) clearTimeout(opacityTimer.current);
+    // opacityTimer.current = setTimeout(() => {}, 100);
   }
   function handleScale(e) {
-    if (scaleTimer.current) clearTimeout(scaleTimer.current);
     const { value } = e.target;
-    scaleTimer.current = setTimeout(() => {
-      dispatch(customActions.handleStyles({ action: "set-scale", value }));
-    }, 100);
+    dispatch(customActions.handleStyles({ action: "set-scale", value }));
+    // if (scaleTimer.current) clearTimeout(scaleTimer.current);
+    // scaleTimer.current = setTimeout(() => {
+
+    // }, 100);
   }
 
   return (
@@ -68,7 +66,11 @@ export default function CustomController() {
         {/* Color control */}
         <div className="flex items-center gap-2">
           <p className="text-white">Color:</p>{" "}
-          <input onChange={handleColor} value={curKF.color} type="color" />
+          <input
+            onChange={handleColor}
+            defaultValue={curKF.color}
+            type="color"
+          />
         </div>
 
         {/* Opacity control */}
@@ -79,7 +81,7 @@ export default function CustomController() {
             min={0}
             max={1}
             step={0.01}
-            value={curKF.opacity}
+            defaultValue={curKF.opacity}
             onChange={handleOpacity}
           />
         </div>
@@ -92,7 +94,7 @@ export default function CustomController() {
             type="range"
             min={0}
             max={3}
-            value={curKF.scale}
+            defaultValue={curKF.scale}
             step={0.05}
           />
         </div>
