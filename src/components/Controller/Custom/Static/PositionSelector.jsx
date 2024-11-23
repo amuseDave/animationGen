@@ -10,16 +10,19 @@ export default function Position({ type, positionStyles }) {
   const isAnimationCreatedDD = useSelector(
     (state) => state.customDD.isAnimationCreatedDD
   );
-  const position = useSelector((state) => state.custom.position);
+
+  const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
+  const keyFrames = useSelector((state) => state.custom.keyFrames);
   const isAnimationCreated = useSelector(
     (state) => state.custom.isAnimationCreated
   );
+
   const isDragDrop = useSelector((state) => state.ui.isDragDrop);
   const isAnimating = useSelector((state) => state.ui.isAnimating);
 
   function handlePosition() {
     if (isDragDrop && positionDD === type) return;
-    else if (!isDragDrop && position === type) return;
+    else if (!isDragDrop && keyFrames[activeKeyFrame].position === type) return;
 
     // Drag&Drop Position Selector
     if (isDragDrop) {
@@ -47,26 +50,27 @@ export default function Position({ type, positionStyles }) {
     }
 
     if (!isDragDrop) {
-      dispatch(customActions.handleStartPosition(type));
+      dispatch(customActions.handleSetPosition(type));
     }
   }
 
   // Handle position styles based on isDragDrop
   let isDisabled;
-  let isEnabled;
+  let isHighLight;
   if (isDragDrop) {
     isDisabled = isAnimationCreatedDD;
-    isEnabled = positionDD === type;
+    isHighLight = positionDD === type;
   } else {
+    const pos = keyFrames[activeKeyFrame].position;
     isDisabled = isAnimationCreated;
-    isEnabled = position === type;
+    isHighLight = pos === type;
   }
 
   return (
     <>
       <div
         className={`absolute w-5 h-5 rounded-full cursor-pointer ${positionStyles} transition-colors duration-200 ${
-          isEnabled
+          isHighLight
             ? "bg-pink-950 hover:bg-pink-950"
             : isDisabled
             ? "bg-zinc-950 hover:bg-pink-200"

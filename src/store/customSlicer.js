@@ -15,8 +15,8 @@ const customSlicer = createSlice({
   initialState,
 
   reducers: {
-    handleStartPosition(state, { payload }) {
-      state.position = payload;
+    handleSetPosition(state, { payload }) {
+      state.keyFrames[state.activeKeyFrame].position = payload;
     },
     handleKeyFrame(state, { payload }) {
       console.log(payload);

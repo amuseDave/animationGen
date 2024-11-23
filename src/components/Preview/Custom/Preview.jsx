@@ -5,7 +5,9 @@ import Loader from "../Static/Loader";
 export default function Preview() {
   const isResizing = useSelector((state) => state.ui.isResizing);
   const zoomLevel = useSelector((state) => state.ui.zoomLevel);
-  const position = useSelector((state) => state.custom.position);
+
+  const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
+  const keyFrames = useSelector((state) => state.custom.keyFrames);
 
   // sd
   const dashedBoxSize = {
@@ -17,6 +19,8 @@ export default function Preview() {
     height: `${7 * zoomLevel}dvw`,
   };
 
+  const pos = keyFrames[activeKeyFrame].position;
+
   return (
     <>
       <section
@@ -25,10 +29,7 @@ export default function Preview() {
           isResizing && "hidden"
         }`}
       >
-        <div
-          style={boxSize}
-          className={`absolute bg-zinc-100 ${position}`}
-        ></div>
+        <div style={boxSize} className={`absolute bg-zinc-100 ${pos}`}></div>
       </section>
       {isResizing && <Loader />}
     </>

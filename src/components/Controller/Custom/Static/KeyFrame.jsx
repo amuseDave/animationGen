@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { customActions } from "../../../store/customSlicer";
+import { customActions } from "../../../../store/customSlicer";
 
 export default function KeyFrame({ active, percentage, index }) {
   const dispatch = useDispatch();
