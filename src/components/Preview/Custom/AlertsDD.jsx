@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { customActionsDD } from "../../../store/customDDSlicer";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 let changedPosDD = "cc";
 
@@ -58,33 +58,35 @@ export default function Alerts() {
   }, [isAnimationInitialCreatedDD]);
 
   return (
-    <>
-      {alerts.map((alert) => (
-        <motion.div
-          layout
-          key={alert.id}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-          className={`alert ${alert.type}`}
-        >
-          {alert.message}
-        </motion.div>
-      ))}
-      {isCreated && (
-        <motion.div
-          key="second"
-          layout
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-          className={`alert text-pink-600 text-lg`}
-        >
-          Animation was Created!
-        </motion.div>
-      )}
-    </>
+    <motion.div exit={{ opacity: 0, transition: { delay: 1 } }}>
+      <AnimatePresence>
+        {alerts.map((alert) => (
+          <motion.div
+            layout
+            key={alert.id}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className={`alert ${alert.type}`}
+          >
+            {alert.message}
+          </motion.div>
+        ))}
+        {isCreated && (
+          <motion.div
+            key="second"
+            layout
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className={`alert text-pink-600 text-lg`}
+          >
+            Animation was Created!
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }

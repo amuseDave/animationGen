@@ -3,11 +3,13 @@ import CustomAlerts from "./Custom/AlertsLayout.jsx";
 import { useSelector } from "react-redux";
 import CustomPreview from "./Custom/PreviewLayout.jsx";
 import PlayingAnimationAlert from "./Static/PlayingAlert.jsx";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import ResetAlert from "./Static/ResetAlert.jsx";
 
 export default function Layout() {
   const type = useSelector((state) => state.ui.type);
+  console.log("render");
+
   return (
     <>
       <ZoomControls />
@@ -17,9 +19,10 @@ export default function Layout() {
       {type === "micro" && <h2>Micro animations</h2>}
 
       <div className="absolute z-20 right-4 bottom-4">
-        <AnimatePresence>
-          {type === "custom" && <CustomAlerts />}
-          <ResetAlert key="reset-alert" />
+        <AnimatePresence mode="sync">
+          {type === "custom" && <CustomAlerts key="custom" />}
+
+          <ResetAlert key="reset" />
         </AnimatePresence>
       </div>
     </>
