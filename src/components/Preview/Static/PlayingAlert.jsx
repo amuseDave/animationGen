@@ -13,7 +13,7 @@ export default function PlayingAnimationAlert() {
               className="flex items-center gap-2 text-pink-400"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0, y: -20 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
             >
               Animation Playing

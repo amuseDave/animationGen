@@ -10,7 +10,7 @@ export default function Navigation() {
   // }
 
   return (
-    <section className="flex items-center justify-center px-10">
+    <section className="flex items-center justify-center">
       {/* <div></div> */}
       <nav className="flex p-[6px] border border-white rounded-lg from-background bg-green-950 bg-gradient-to-tr">
         <NavLink className="nav-btn" to="/">

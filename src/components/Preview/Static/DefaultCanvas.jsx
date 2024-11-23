@@ -5,8 +5,6 @@ export default function DefaultCanvas() {
   const defaultCanvas = useRef();
 
   useEffect(() => {
-    console.log(defaultCanvas.current.width);
-
     defaultCanvas.current.width = 2560;
     defaultCanvas.current.height = 1440;
 

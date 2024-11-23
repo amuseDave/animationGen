@@ -1,3 +1,8 @@
+import img from "../assets/square.jpg";
+
+const squareImg = new Image();
+squareImg.src = img;
+
 export default function handleCanvasCustomState({
   width,
   height,
@@ -9,7 +14,9 @@ export default function handleCanvasCustomState({
   drawDashedSquare(width, height, ctx, zoomLevel);
   ctx.fillStyle = "#181E1F";
   const squareSize = getSquareSize(width, zoomLevel);
-  ctx.fillRect(square.x, square.y, squareSize, squareSize);
+
+  ctx.drawImage(squareImg, square.x, square.y, squareSize, squareSize);
+  // ctx.fillRect();
 }
 
 function drawDashedSquare(width, height, ctx, zoomLevel) {
@@ -102,4 +109,132 @@ export function getSquarePos({
   [x, y] = positionMap[position];
 
   return { x, y };
+}
+
+export function getPositionStyles(position, size) {
+  const styles = {
+    cc: {
+      transform: "translate(-50%, -50%)",
+      left: "50%",
+      top: "50%",
+    },
+    ct: {
+      transform: "translate(-50%, -50%)",
+      left: "50%",
+      top: `calc(50% - ${size / 2}px)`,
+    },
+    cb: {
+      transform: "translate(-50%, -50%)",
+      left: "50%",
+      top: `calc(50% + ${size / 2}px)`,
+    },
+    cl: {
+      transform: "translate(-50%, -50%)",
+      left: `calc(50% - ${size / 2}px)`,
+      top: "50%",
+    },
+    cr: {
+      transform: "translate(-50%, -50%)",
+      left: `calc(50% + ${size / 2}px)`,
+      top: "50%",
+    },
+    lc: {
+      transform: "translateY(-50%)",
+      left: "0",
+      top: "50%",
+    },
+    lco: {
+      transform: "translate(-100%, -50%)",
+      left: "0",
+      top: "50%",
+    },
+    rc: {
+      transform: "translateY(-50%)",
+      right: "0",
+      top: "50%",
+    },
+    rco: {
+      transform: "translate(100%, -50%)",
+      right: "0",
+      top: "50%",
+    },
+    tc: {
+      transform: "translateX(-50%)",
+      left: "5  0%",
+      top: "0",
+    },
+    tco: {
+      transform: "translate(-50%, -100%)",
+      left: "50%",
+      top: "0",
+    },
+    bc: {
+      transform: "translateX(-50%)",
+      left: "50%",
+      bottom: "0",
+    },
+    bco: {
+      transform: "translate(-50%, 100%)",
+      left: "50%",
+      bottom: "0",
+    },
+    tl: {
+      top: "0",
+      left: "0",
+    },
+    tr: {
+      top: "0",
+      right: "0",
+    },
+    tlot: {
+      transform: "translateY(-100%)",
+      top: "0",
+      left: "0",
+    },
+    trot: {
+      transform: "translateY(-100%)",
+      top: "0",
+      right: "0",
+    },
+    tlol: {
+      transform: "translateX(-100%)",
+      top: "0",
+      left: "0",
+    },
+    tror: {
+      transform: "translateX(100%)",
+      top: "0",
+      right: "0",
+    },
+    bl: {
+      bottom: "0",
+      left: "0",
+    },
+    br: {
+      bottom: "0",
+      right: "0",
+    },
+    blob: {
+      transform: "translateY(100%)",
+      bottom: "0",
+      left: "0",
+    },
+    brob: {
+      transform: "translateY(100%)",
+      bottom: "0",
+      right: "0",
+    },
+    blol: {
+      transform: "translateX(-100%)",
+      bottom: "0",
+      left: "0",
+    },
+    bror: {
+      transform: "translateX(100%)",
+      bottom: "0",
+      right: "0",
+    },
+  };
+
+  return styles[position] || {};
 }

@@ -50,7 +50,9 @@ export default function Position({ type, positionStyles }) {
     }
 
     if (!isDragDrop) {
-      dispatch(customActions.handleSetPosition(type));
+      dispatch(
+        customActions.handleSetPosition({ action: "set-new", pos: type })
+      );
     }
   }
 

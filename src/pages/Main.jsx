@@ -41,7 +41,7 @@ export default function MainLayout() {
         className={`m-5 duration-200 min-h-[86dvh] relative z-10 grid grid-cols-[260px_1fr_260px]`}
       >
         <SavedAnimations />
-        <div className="relative h-full">
+        <div className="relative h-full cursor-crosshair">
           <Navigation />
           <PreviewLayout />
         </div>

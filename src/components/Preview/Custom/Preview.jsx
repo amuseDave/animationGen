@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { getPositionStyles } from "../../../store/handleCanvas";
 import Loader from "../Static/Loader";
 
 export default function Preview() {
@@ -9,29 +9,37 @@ export default function Preview() {
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const keyFrames = useSelector((state) => state.custom.keyFrames);
 
-  // sd
-  const dashedBoxSize = {
+  const curKF = keyFrames[activeKeyFrame];
+
+  const dashedBoxStyles = {
     width: `${24 * zoomLevel}dvw`,
     height: `${18 * zoomLevel}dvw`,
   };
-  const boxSize = {
-    width: `${7 * zoomLevel}dvw`,
-    height: `${7 * zoomLevel}dvw`,
+
+  const size = (window.innerWidth / 100) * 7 * zoomLevel;
+  const vanillaPosStyles = getPositionStyles(curKF.position, size);
+
+  const boxStyles = {
+    ...vanillaPosStyles,
+    width: `${size}px`,
+    height: `${size}px`,
+    backgroundColor: `${curKF.color}`,
+    opacity: `${curKF.opacity}`,
+    transform: `scale(${curKF.scale}) ${vanillaPosStyles.transform || ""}`,
+    position: "absolute",
   };
 
-  const pos = keyFrames[activeKeyFrame].position;
-
   return (
-    <>
+    <div className="h-[700px]">
       <section
-        style={dashedBoxSize}
+        style={dashedBoxStyles}
         className={`border-2 cursor-crosshair border-dashed border-zinc-600 absolute cc z-10 ${
           isResizing && "hidden"
         }`}
       >
-        <div style={boxSize} className={`absolute bg-zinc-100 ${pos}`}></div>
+        <div id="square" style={boxStyles} className={`rounded-xl`}></div>
       </section>
       {isResizing && <Loader />}
-    </>
+    </div>
   );
 }
