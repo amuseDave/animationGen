@@ -14,17 +14,19 @@ export default function Layout() {
       <ZoomControls />
       <div className="relative">
         <PlayingAnimationAlert />
-        {type === "custom" && <CustomPreview />}
-        {type === "featured" && <h2>Featured animations</h2>}
-        {type === "micro" && <h2>Micro animations</h2>}
-
-        <div className="absolute z-20 right-4 bottom-4">
-          <AnimatePresence>
-            {type === "custom" && <CustomAlerts key="custom" />}
-
-            <ResetAlert key="reset" />
-          </AnimatePresence>
+        <div className="h-[700px]">
+          {type === "custom" && <CustomPreview />}
+          {type === "featured" && <h2>Featured animations</h2>}
+          {type === "micro" && <h2>Micro animations</h2>}
         </div>
+      </div>
+
+      <div className="absolute z-20 right-4 bottom-4">
+        <AnimatePresence>
+          {type === "custom" && <CustomAlerts key="custom" />}
+
+          <ResetAlert key="reset" />
+        </AnimatePresence>
       </div>
     </>
   );

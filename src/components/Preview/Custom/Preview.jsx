@@ -38,7 +38,7 @@ export default function Preview() {
   console.log(boxStyles);
 
   return (
-    <div className="h-[700px]">
+    <>
       <section
         style={dashedBoxStyles}
         className={`border-2 cursor-crosshair border-dashed border-zinc-600 absolute cc z-10 ${
@@ -48,6 +48,6 @@ export default function Preview() {
         <div id="square" style={boxStyles} className={`rounded-xl`}></div>
       </section>
       {isResizing && <Loader />}
-    </div>
+    </>
   );
 }
