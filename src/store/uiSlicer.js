@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isDark:
-    JSON.parse(localStorage.getItem("isDark")) === undefined
-      ? true
-      : JSON.parse(localStorage.getItem("isDark")),
+  isDark: true,
+  // JSON.parse(localStorage.getItem("isDark")) === undefined
+  //   ? true
+  //   : JSON.parse(localStorage.getItem("isDark")),
   type: null,
   isReset: false,
   zoomLevel: 1,

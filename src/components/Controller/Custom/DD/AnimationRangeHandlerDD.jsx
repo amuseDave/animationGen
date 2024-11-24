@@ -28,7 +28,7 @@ export default function AnimationRangeHandlerDD() {
 
   return (
     <input
-      className="flex-grow cursor-move"
+      className="flex-grow"
       onChange={handleAnimation}
       id="animation"
       name="animation"
