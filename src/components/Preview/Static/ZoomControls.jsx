@@ -11,7 +11,7 @@ export default function PreviewControls() {
   return (
     <div className="absolute z-30 flex border rounded-md bc bg-zinc-900 border-zinc-800">
       <div
-        className="p-2 cursor-pointer"
+        className="p-2"
         onClick={() => {
           handleZoomChangeHandler("zoom-in");
         }}
@@ -20,7 +20,7 @@ export default function PreviewControls() {
       </div>
 
       <div
-        className="p-2 cursor-pointer"
+        className="p-2"
         onClick={() => {
           handleZoomChangeHandler("reset");
         }}
@@ -29,7 +29,7 @@ export default function PreviewControls() {
       </div>
 
       <div
-        className="p-2 cursor-pointer"
+        className="p-2"
         onClick={() => {
           handleZoomChangeHandler("zoom-out");
         }}

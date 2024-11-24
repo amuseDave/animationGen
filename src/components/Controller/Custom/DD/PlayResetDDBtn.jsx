@@ -1,7 +1,7 @@
-import { uiActions } from "../../../store/uiSlicer";
+import { uiActions } from "../../../../store/uiSlicer";
 import { useSelector, useDispatch } from "react-redux";
 
-import { customActionsDD } from "../../../store/customDDSlicer";
+import { customActionsDD } from "../../../../store/customDDSlicer";
 import { useEffect } from "react";
 import { Play, Pause, RotateCcw } from "lucide-react";
 

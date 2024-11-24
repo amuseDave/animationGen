@@ -51,7 +51,10 @@ export default function Position({ type, positionStyles }) {
 
     if (!isDragDrop) {
       dispatch(
-        customActions.handleSetPosition({ action: "set-new", pos: type })
+        customActions.handleSetPosition({
+          action: "set-new",
+          pos: type,
+        })
       );
     }
   }
@@ -71,7 +74,7 @@ export default function Position({ type, positionStyles }) {
   return (
     <>
       <div
-        className={`absolute w-5 h-5 rounded-full cursor-pointer ${positionStyles} transition-colors duration-200 ${
+        className={`absolute w-5 h-5 rounded-full ${positionStyles} transition-colors duration-200 ${
           isHighLight
             ? "bg-pink-950 hover:bg-pink-950"
             : isDisabled

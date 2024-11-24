@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { getPositionStyles } from "../../../store/handleCanvas";
 import Loader from "../Static/Loader";
 
 export default function Preview() {
@@ -15,33 +14,25 @@ export default function Preview() {
     width: `${24 * zoomLevel}dvw`,
     height: `${18 * zoomLevel}dvw`,
   };
-
-  console.log(curKF.position);
-
   const size = (window.innerWidth / 100) * 7 * zoomLevel;
-  const vanillaPosStyles = getPositionStyles(
-    curKF.position,
-    size,
-    +curKF.scale
-  );
-
   const boxStyles = {
-    ...vanillaPosStyles,
     width: `${size}px`,
     height: `${size}px`,
     backgroundColor: `${curKF.color}`,
     opacity: `${curKF.opacity}`,
-    transform: `${vanillaPosStyles.transform || ""} scale(${curKF.scale})`,
+    transform: `translate(${curKF.translateX}%, ${curKF.translateY}%) scale(${curKF.scale})`,
     position: "absolute",
+    left: `${curKF.left || "unset"}`,
+    bottom: `${curKF.bottom || "unset"}`,
+    top: `${curKF.top || "unset"}`,
+    right: `${curKF.right || "unset"}`,
   };
-
-  console.log(boxStyles);
 
   return (
     <>
       <section
         style={dashedBoxStyles}
-        className={`border-2 cursor-crosshair border-dashed border-zinc-600 absolute cc z-10 ${
+        className={`border-2 border-dashed border-zinc-600 absolute cc z-10 ${
           isResizing && "hidden"
         }`}
       >

@@ -14,7 +14,7 @@ export default function CustomDDBtn() {
       <p className="text-lg">Drag&Drop: </p>
       <div
         onClick={handleDragDrop}
-        className={`w-[72px] h-8 p-[2px] transition-all rounded-3xl cursor-pointer ${
+        className={`w-[72px] h-8 p-[2px] transition-all rounded-3xl ${
           isDragDrop ? "bg-purple-950" : "bg-purple-200"
         }`}
       >

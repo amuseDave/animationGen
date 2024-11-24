@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { drawDefaultCanvas } from "../../../store/handleCanvas";
+import { drawDefaultCanvas } from "../../../utils/handleCanvas";
 
 export default function DefaultCanvas() {
   const defaultCanvas = useRef();
@@ -15,7 +15,7 @@ export default function DefaultCanvas() {
     <canvas
       ref={defaultCanvas}
       id="generator"
-      className={`fixed top-0 left-0 bottom-0 right-0 z-0 cursor-crosshair bg-background transition-colors`}
+      className={`fixed top-0 left-0 bottom-0 right-0 z-0 cursor-none bg-background transition-colors`}
     ></canvas>
   );
 }

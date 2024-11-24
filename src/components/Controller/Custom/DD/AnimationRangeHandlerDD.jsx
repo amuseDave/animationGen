@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import { customActionsDD } from "../../../store/customDDSlicer";
-import { uiActions } from "../../../store/uiSlicer";
+import { customActionsDD } from "../../../../store/customDDSlicer";
+import { uiActions } from "../../../../store/uiSlicer";
 import { useRef } from "react";
 
 export default function AnimationRangeHandlerDD() {

@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getBoxWidthHeight, getSquareSize, getSquarePos } from "./handleCanvas";
+import {
+  getBoxWidthHeight,
+  getSquareSize,
+  getSquarePos,
+} from "../utils/handleCanvas";
 
 const initialState = {
   square: {

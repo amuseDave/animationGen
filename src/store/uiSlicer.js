@@ -11,6 +11,8 @@ const initialState = {
   isResizing: false,
   isAnimating: false,
   isDragDrop: true,
+
+  cursor: "default",
 };
 
 function changeTheme(state) {
@@ -63,6 +65,10 @@ const uiSlicer = createSlice({
     },
     handleDragDrop(state, { payload }) {
       state.isDragDrop = payload;
+    },
+
+    handleCursor(state, { payload }) {
+      state.cursor = payload;
     },
   },
 });

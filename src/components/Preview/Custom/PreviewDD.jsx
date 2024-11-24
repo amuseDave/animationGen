@@ -4,7 +4,7 @@ import { customActionsDD } from "../../../store/customDDSlicer";
 import { throttle } from "lodash";
 import handleCanvasCustomState, {
   getSquareSize,
-} from "../../../store/handleCanvas";
+} from "../../../utils/handleCanvas";
 import Loader from "../Static/Loader";
 import { uiActions } from "../../../store/uiSlicer";
 
@@ -175,8 +175,10 @@ export default function CustomCanvas() {
       if (isHovering && isHovered) return;
 
       if (isHovering) {
+        dispatch(uiActions.handleCursor("move"));
         dispatch(customActionsDD.handleHover(true));
       } else {
+        dispatch(uiActions.handleCursor("default"));
         dispatch(customActionsDD.handleHover(false));
       }
     }, 8),
@@ -190,9 +192,11 @@ export default function CustomCanvas() {
     const offsetX = e.offsetX - square.animations[square.animationIndex].x;
     const offsetY = e.offsetY - square.animations[square.animationIndex].y;
     dispatch(customActionsDD.handleSetOffSets({ offsetX, offsetY }));
+    dispatch(uiActions.handleCursor("grab"));
   }, []);
   // Set isHolding to false
   const handleMouseUp = useCallback(() => {
+    dispatch(uiActions.handleCursor("default"));
     dispatch(customActionsDD.handleAnimation({ action: "set-animation" }));
   }, []);
 
@@ -243,13 +247,7 @@ export default function CustomCanvas() {
       <canvas
         ref={canvasEl}
         id="generator"
-        className={`${isResizing && "hidden"} w-full relative h-full z-20 ${
-          isHolding
-            ? "cursor-grabbing"
-            : isHovered
-            ? "cursor-move"
-            : "cursor-crosshair"
-        }`}
+        className={`${isResizing && "hidden"} w-full relative h-full z-20`}
       ></canvas>
       {isResizing && <Loader />}
     </>

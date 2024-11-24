@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import AnimationRangeHandlerDD from "./AnimationRangeHandlerDD";
-import DisabledInput from "./Static/DisabledInput";
-import PlayResetDDBtn from "./PlayResetDDBtn";
+import AnimationRangeHandlerDD from "./DD/AnimationRangeHandlerDD";
+import DisabledInput from "./DD/DisabledInput";
+import PlayResetDDBtn from "./DD/PlayResetDDBtn";
 
 export default function ControllerDD() {
   const isAnimationCreatedDD = useSelector(

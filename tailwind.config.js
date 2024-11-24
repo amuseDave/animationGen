@@ -7,7 +7,6 @@ export default {
         background: "var(--bg-color)",
         "text-color": "var(--text-color)",
         "text-color-active": "var(--text-color-active)",
-        "rounded-default": "var(--rounded-default)",
       },
     },
   },

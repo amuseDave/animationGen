@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlicer.js";
 import DefaultCanvas from "../components/Preview/Static/DefaultCanvas.jsx";
+import CursorCanvas from "../components/CursorCanvas.jsx";
 
 export default function MainLayout() {
   const dispatch = useDispatch();
@@ -36,12 +37,13 @@ export default function MainLayout() {
 
   return (
     <>
+      <CursorCanvas />
       <DefaultCanvas />
       <main
         className={`m-5 duration-200 min-h-[86dvh] relative z-10 grid grid-cols-[260px_1fr_260px]`}
       >
         <SavedAnimations />
-        <div className="relative h-full cursor-crosshair">
+        <div className="relative h-full">
           <Navigation />
           <PreviewLayout />
         </div>
