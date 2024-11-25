@@ -21,11 +21,12 @@ export default function handleCanvasCustomState({
   }
 
   if (!initial) {
+    let x = square.x;
+    let y = square.y;
     squareImg.addEventListener("load", () => {
-      ctx.drawImage(squareImg, square.x, square.y, squareSize, squareSize);
+      ctx.drawImage(squareImg, x, y, squareSize, squareSize);
     });
     initial = true;
-    ctx.fillRect(square.x, square.y, squareSize, squareSize);
   }
 }
 
