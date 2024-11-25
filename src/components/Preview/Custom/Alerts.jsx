@@ -10,12 +10,15 @@ export default function Alerts() {
   const [alerts, setAlerts] = useState([]);
 
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
-  const keyFrames = useSelector((state) => state.custom.keyFrames);
+  const position = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].position
+  );
+  const oldPos = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].oldPos
+  );
 
   const isReset = useSelector((state) => state.ui.isReset);
 
-  const curKeyFrame = keyFrames[activeKeyFrame];
-  // Handle alerts
   const handleAlerts = useCallback((message, className) => {
     const id = Date.now();
     setAlerts((prev) => {
@@ -28,17 +31,17 @@ export default function Alerts() {
 
   // Position change alert
   useEffect(() => {
-    if (isReset || curKeyFrame.oldPos === curKeyFrame.position) return;
+    if (isReset || oldPos === position) return;
 
     handleAlerts("Position changed!", "success");
 
     dispatch(
       customActions.handleSetPosition({
         action: "set-old",
-        pos: curKeyFrame.position,
+        pos: position,
       })
     );
-  }, [curKeyFrame]);
+  }, [position]);
 
   return (
     <motion.div exit={{ opacity: 0, transition: { delay: 1 } }}>

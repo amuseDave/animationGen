@@ -4,6 +4,7 @@ import { uiActions } from "../../../../store/uiSlicer";
 import { useRef } from "react";
 
 export default function AnimationRangeHandlerDD() {
+  console.log("render");
   const dispatch = useDispatch();
   const timeoutId = useRef();
   const square = useSelector((state) => state.customDD.square);

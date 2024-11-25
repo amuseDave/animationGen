@@ -7,7 +7,7 @@ import { Play, Pause, RotateCcw } from "lucide-react";
 
 export default function PlayResetDDBTN() {
   const dispatch = useDispatch();
-
+  console.log("render");
   const isAnimating = useSelector((state) => state.ui.isAnimating);
   const isResizing = useSelector((state) => state.ui.isResizing);
   const isAnimationCreatedDD = useSelector(

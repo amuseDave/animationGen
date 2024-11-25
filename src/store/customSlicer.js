@@ -72,8 +72,6 @@ const customSlicer = createSlice({
       }
     },
     handleStyles(state, { payload: { action, value } }) {
-      console.log(action, value);
-
       switch (action) {
         case "set-color":
           state.keyFrames[state.activeKeyFrame].color = value;
@@ -86,6 +84,7 @@ const customSlicer = createSlice({
           break;
       }
     },
+    handleCreateKeyFrame(state, { payload }) {},
   },
 });
 

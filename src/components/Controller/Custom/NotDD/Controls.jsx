@@ -1,16 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Fragment } from "react";
 
-import KeyFrame from "./KeyFrame";
 import { customActions } from "../../../../store/customSlicer";
 
 export default function Controls() {
   const dispatch = useDispatch();
-
-  const keyFrames = useSelector((state) => state.custom.keyFrames);
+  console.log("rendering");
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
 
-  const curKF = keyFrames[activeKeyFrame];
+  const color = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].color
+  );
+  const opacity = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].opacity
+  );
+  const scale = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].scale
+  );
 
   function handleColor(e) {
     const { value } = e.target;
@@ -27,34 +32,12 @@ export default function Controls() {
 
   return (
     <>
-      {/*Handle current key frame*/}
-      <section className="flex flex-col items-start mt-10">
-        {keyFrames.map((frame, index) => {
-          // if (index === keyFrames.length - 1 || index === 0) return "";
-          return (
-            <Fragment key={index}>
-              <KeyFrame
-                index={index}
-                key={index}
-                active={index === activeKeyFrame}
-                percentage={frame.keyPercentage}
-              />
-              {index === 0 && (
-                <button className="mt-1 text-4xl font-bold text-green-500">
-                  +
-                </button>
-              )}
-            </Fragment>
-          );
-        })}
-      </section>
-
       {/* Style Values Container */}
       <div className="flex flex-col gap-2 mt-10">
         {/* Color control */}
         <div className="flex items-center gap-2">
           <p className="text-white">Color:</p>{" "}
-          <input onChange={handleColor} value={curKF.color} type="color" />
+          <input onChange={handleColor} value={color} type="color" />
         </div>
 
         {/* Opacity control */}
@@ -65,7 +48,7 @@ export default function Controls() {
             min={0}
             max={1}
             step={0.01}
-            value={curKF.opacity}
+            value={opacity}
             onChange={handleOpacity}
           />
         </div>
@@ -78,7 +61,7 @@ export default function Controls() {
             type="range"
             min={0}
             max={3}
-            value={curKF.scale}
+            value={scale}
             step={0.05}
           />
         </div>

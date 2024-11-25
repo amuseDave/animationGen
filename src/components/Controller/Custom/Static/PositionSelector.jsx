@@ -12,7 +12,9 @@ export default function Position({ type, positionStyles }) {
   );
 
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
-  const keyFrames = useSelector((state) => state.custom.keyFrames);
+  const position = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].position
+  );
   const isAnimationCreated = useSelector(
     (state) => state.custom.isAnimationCreated
   );
@@ -22,7 +24,7 @@ export default function Position({ type, positionStyles }) {
 
   function handlePosition() {
     if (isDragDrop && positionDD === type) return;
-    else if (!isDragDrop && keyFrames[activeKeyFrame].position === type) return;
+    else if (!isDragDrop && position === type) return;
 
     // Drag&Drop Position Selector
     if (isDragDrop) {
@@ -66,9 +68,8 @@ export default function Position({ type, positionStyles }) {
     isDisabled = isAnimationCreatedDD;
     isHighLight = positionDD === type;
   } else {
-    const pos = keyFrames[activeKeyFrame].position;
     isDisabled = isAnimationCreated;
-    isHighLight = pos === type;
+    isHighLight = position === type;
   }
 
   return (
