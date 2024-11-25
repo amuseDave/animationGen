@@ -1,5 +1,5 @@
 import img from "../assets/square.jpg";
-
+let initial = false;
 const squareImg = new Image();
 squareImg.src = img;
 
@@ -15,8 +15,18 @@ export default function handleCanvasCustomState({
   ctx.fillStyle = "#181E1F";
   const squareSize = getSquareSize(width, zoomLevel);
 
-  ctx.drawImage(squareImg, square.x, square.y, squareSize, squareSize);
-  // ctx.fillRect();
+  if (initial) {
+    ctx.drawImage(squareImg, square.x, square.y, squareSize, squareSize);
+    return;
+  }
+
+  if (!initial) {
+    squareImg.addEventListener("load", () => {
+      ctx.drawImage(squareImg, square.x, square.y, squareSize, squareSize);
+    });
+    initial = true;
+    ctx.fillRect(square.x, square.y, squareSize, squareSize);
+  }
 }
 
 function drawDashedSquare(width, height, ctx, zoomLevel) {
