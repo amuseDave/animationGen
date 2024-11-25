@@ -7,7 +7,7 @@ export default function PositionSelectorContainer() {
         Position Picker
       </h1>
 
-      <div className="w-[180px] h-[130px] bg-gray-900 mt-10 relative m-autonnnnnnn">
+      <div className="w-[180px] h-[130px] bg-gray-900 mt-10 relative m-auto">
         <div className="-translate-x-1/2 -translate-y-full"></div>
 
         {/*Center START */}
