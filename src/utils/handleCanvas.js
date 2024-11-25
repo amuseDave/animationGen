@@ -1,7 +1,7 @@
 import img from "../assets/square.jpg";
 let initial = false;
+let initial2 = false;
 const squareImg = new Image();
-squareImg.src = img;
 
 export default function handleCanvasCustomState({
   width,
@@ -23,10 +23,15 @@ export default function handleCanvasCustomState({
   if (!initial) {
     let x = square.x;
     let y = square.y;
-    squareImg.addEventListener("load", () => {
-      ctx.drawImage(squareImg, x, y, squareSize, squareSize);
-    });
-    initial = true;
+    if (!initial2) {
+      squareImg.addEventListener("load", () => {
+        ctx.drawImage(squareImg, x, y, squareSize, squareSize);
+        console.log("loaded");
+        initial = true;
+      });
+      initial2 = true;
+      squareImg.src = img;
+    }
   }
 }
 
