@@ -24,9 +24,8 @@ export default function Layout() {
       <div className="absolute z-20 right-4 bottom-4">
         <AnimatePresence>
           {type === "custom" && <CustomAlerts key="custom" />}
-
-          <ResetAlert key="reset" />
         </AnimatePresence>
+        <ResetAlert key="reset" />
       </div>
     </>
   );

@@ -7,7 +7,7 @@ export default function AlertsLayout() {
   const isDragDrop = useSelector((state) => state.ui.isDragDrop);
 
   return (
-    <motion.div exit={{ opacity: 0, transition: { delay: 1 } }}>
+    <motion.div layout exit={{ opacity: 0, transition: { delay: 1 } }}>
       <AnimatePresence>
         {isDragDrop ? <AlertsDD key="AlertsDD" /> : <Alerts key="Alerts" />}
       </AnimatePresence>
