@@ -77,6 +77,7 @@ export default function CustomCanvas() {
   useEffect(() => {
     if (isAnimating || isResizing) return;
 
+    console.log("drawing canvas", square.animations[square.animationIndex]);
     handleCanvasCustomState({
       width: canvasEl.current.width,
       height: canvasEl.current.height,

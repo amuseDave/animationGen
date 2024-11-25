@@ -1,5 +1,4 @@
 import img from "../assets/square.jpg";
-let initial = false;
 
 const squareImg = new Image();
 squareImg.src = img;
@@ -17,8 +16,10 @@ export default function handleCanvasCustomState({
   const squareSize = getSquareSize(width, zoomLevel);
 
   if (squareImg.complete) {
+    console.log(square.x, square.y, "drawing image");
     ctx.drawImage(squareImg, square.x, square.y, squareSize, squareSize);
   } else {
+    console.log(square.x, square.y, "drawing default");
     ctx.fillRect(square.x, square.y, squareSize, squareSize);
   }
 }
