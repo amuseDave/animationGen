@@ -46,7 +46,7 @@ export default function AnimationAlerts() {
   }, [isAnimationInitialCreatedDD]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="popLayout">
       {alerts.map((alert) => (
         <motion.div
           layout
@@ -72,6 +72,10 @@ export default function AnimationAlerts() {
         >
           Animation was Created!
         </motion.div>
+      )}
+
+      {alerts.length === 0 && !isCreated && (
+        <motion.div layout className="position-placeholder" />
       )}
     </AnimatePresence>
   );
