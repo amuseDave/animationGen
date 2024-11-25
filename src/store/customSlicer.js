@@ -3,6 +3,7 @@ import getPositionStyles from "../utils/getPositionStyles";
 const initialState = {
   isAnimationCreated: false,
   activeKeyFrame: 0,
+  keyFramePers: [0, 100],
   keyFrames: [
     {
       keyPercentage: 0,

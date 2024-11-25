@@ -4,7 +4,6 @@ import { customActions } from "../../../../store/customSlicer";
 
 export default function Controls() {
   const dispatch = useDispatch();
-  console.log("rendering");
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
 
   const color = useSelector(

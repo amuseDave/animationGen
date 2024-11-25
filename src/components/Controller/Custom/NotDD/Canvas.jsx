@@ -12,11 +12,18 @@ let isHover = false;
 let isHolding = false;
 
 export default function Canvas() {
-  const keyFrames = useSelector((state) => state.custom.keyFrames);
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
+  const translateX = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].translateX
+  );
+  const translateY = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].translateY
+  );
+  const position = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].position
+  );
   const cursor = useSelector((state) => state.ui.cursor);
 
-  const { translateX, translateY, position } = keyFrames[activeKeyFrame];
   const converted = getXYCanvas(translateX, translateY);
 
   const dispatch = useDispatch();
@@ -42,15 +49,6 @@ export default function Canvas() {
     if (isHolding) {
       const outsideX = offsetX - 10 / 2 <= 0 || offsetX + 10 + 5 >= 200;
       const outsideY = offsetY - 10 / 2 <= 0 || offsetY + 10 + 5 >= 200;
-
-      // if (outsideX && outsideY) {
-      //   console.log("working");
-
-      //   isHolding = false;
-      //   isHover = false;
-      //   dispatch(uiActions.handleCursor("default"));
-      //   return;
-      // }
 
       const { x, y } = getXYTranslate(offsetX, offsetY);
 
