@@ -36,10 +36,12 @@ export default function Alerts() {
     handleAlerts("Position changed!", "success");
   }, [positionDD]);
 
+  console.log(isReset);
+
   // Animation error alert
   useEffect(() => {
     if (isAnimationInitialCreatedDD !== false) return;
-    handleAlerts("Animation too short!", "error ");
+    !isReset && handleAlerts("Animation too short!", "error ");
     dispatch(
       customActionsDD.handleAnimation({ action: "animation-alert-end" })
     );

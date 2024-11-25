@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Fragment } from "react";
 import KeyFrame from "./KeyFrame";
+import KeyFramePlus from "./KeyFramePlus";
 
 export default function KeyFrames() {
   const keyFramesPers = useSelector((state) => state.custom.keyFramePers);
@@ -17,11 +18,7 @@ export default function KeyFrames() {
               active={index === activeKeyFrame}
               percentage={frame}
             />
-            {index === 0 && (
-              <button className="mt-1 text-4xl font-bold text-green-500">
-                +
-              </button>
-            )}
+            {index === 0 && <KeyFramePlus />}
           </Fragment>
         );
       })}

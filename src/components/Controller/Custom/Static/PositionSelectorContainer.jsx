@@ -2,7 +2,7 @@ import PositionSelector from "./PositionSelector";
 
 export default function PositionSelectorContainer() {
   return (
-    <div className="mt-5">
+    <div className="">
       <h1 className="pb-1 text-2xl font-light bordner-b-purple-400">
         Position Picker
       </h1>
