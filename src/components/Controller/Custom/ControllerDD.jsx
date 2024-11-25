@@ -10,7 +10,7 @@ export default function ControllerDD() {
 
   return (
     <>
-      <div className="absolute flex gap-2 px-3 py-1 border-2 rounded-md shadow-lg bg-pink-900/10 border-zinc-800 bottom-16 bc">
+      <div className="absolute flex w-[90%] gap-2 px-3 py-1 border-2 rounded-md shadow-lg bg-pink-900/10 border-zinc-800 bottom-16 bc">
         {isAnimationCreatedDD ? <AnimationRangeHandlerDD /> : <DisabledInput />}
         <PlayResetDDBtn />
       </div>

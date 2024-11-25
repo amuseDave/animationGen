@@ -2,12 +2,12 @@ import PositionSelector from "./PositionSelector";
 
 export default function PositionSelectorContainer() {
   return (
-    <div className="mt-5 text-purple-700">
-      <h1 className="pb-1 text-2xl font-light border-b-purple-400">
+    <div className="mt-5">
+      <h1 className="pb-1 text-2xl font-light bordner-b-purple-400">
         Position Picker
       </h1>
 
-      <div className="w-[180px] h-[130px] bg-gray-900 mt-10 relative justify-self-center ">
+      <div className="w-[180px] h-[130px] bg-gray-900 mt-10 relative m-autonnnnnnn">
         <div className="-translate-x-1/2 -translate-y-full"></div>
 
         {/*Center START */}
