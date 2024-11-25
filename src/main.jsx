@@ -6,10 +6,12 @@ import "./styles/positions.css";
 import App from "./App.jsx";
 import store from "./store/store.js";
 import { Provider } from "react-redux";
+import CursorCanvas from "./components/CursorCanvas.jsx";
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
   <Provider store={store}>
+    <CursorCanvas />
     <App />
   </Provider>
   // </StrictMode>

@@ -15,7 +15,9 @@ export default function Canvas() {
   const keyFrames = useSelector((state) => state.custom.keyFrames);
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const cursor = useSelector((state) => state.ui.cursor);
-  const { translateX, translateY } = keyFrames[activeKeyFrame];
+
+  const { translateX, translateY, position } = keyFrames[activeKeyFrame];
+  const converted = getXYCanvas(translateX, translateY);
 
   const dispatch = useDispatch();
   const canvasEl = useRef();
@@ -30,6 +32,10 @@ export default function Canvas() {
       isHover = false;
     };
   }, []);
+
+  useEffect(() => {
+    drawTranslateCanvas(converted.x, converted.y, ctx.current);
+  }, [translateX, translateY]);
 
   // Handle isHover, and isHolding moving
   const handleMove = useCallback((offsetX, offsetY, tX, tY) => {
@@ -83,12 +89,9 @@ export default function Canvas() {
     dispatch(uiActions.handleCursor("grab"));
   }, []);
 
-  console.log(translateX, translateY);
-
   // handle setting if isHolding
   const handleUp = useCallback(() => {
     if (!isHolding) return;
-
     if (isHover) dispatch(uiActions.handleCursor("move"));
     else dispatch(uiActions.handleCursor("default"));
     isHolding = false;
@@ -96,10 +99,6 @@ export default function Canvas() {
 
   // Handle translate canvas events
   useEffect(() => {
-    const converted = getXYCanvas(translateX, translateY);
-    drawTranslateCanvas(converted.x, converted.y, ctx.current);
-
-    if (isHolding) return;
     const canvas = canvasEl.current;
 
     function handleMoveHandler(e) {
@@ -116,22 +115,17 @@ export default function Canvas() {
     function handleUpHandler() {
       handleUp();
     }
-    console.log("new events created");
 
     canvas.addEventListener("mouseup", handleUpHandler);
     canvas.addEventListener("mousedown", handleDownHandler);
     canvas.addEventListener("mousemove", handleMoveHandler);
+
     return () => {
-      console.log("new events not removed");
-      console.log(isHolding);
-      if (isHolding) return;
-      console.log("new events removed");
-      console.log("new events removed");
       canvas.removeEventListener("mousemove", handleMoveHandler);
       canvas.removeEventListener("mousedown", handleDownHandler);
       canvas.removeEventListener("mouseup", handleUpHandler);
     };
-  }, [translateX, translateY, isHolding]);
+  }, [isHolding, activeKeyFrame, position]);
   return (
     <div className="flex items-center gap-2">
       <canvas
