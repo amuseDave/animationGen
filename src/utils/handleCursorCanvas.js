@@ -25,7 +25,7 @@ export default function drawCursor(x, y, ctx, cursor) {
   if (cursor === "grab") ctx.drawImage(cursorG, x, y, 28, 28);
 }
 
-function getXYTranslate(x, y) {
+export function getXYTranslate(x, y) {
   let shiftedX = x - 100;
   let shiftedY = y - 100;
 
@@ -52,7 +52,6 @@ export function drawTranslateCanvas(x, y, ctx) {
   ctx.strokeStyle = "#999";
 
   ctx.beginPath();
-  console.log(x, y);
 
   ctx.arc(x + 10 / 2, y + 10 / 2, 10, 0, Math.PI * 2);
   ctx.fill();

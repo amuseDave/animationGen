@@ -10,8 +10,8 @@ const initialState = {
     animations: [{ x: 0, y: 0 }],
     animationIndex: 0,
   },
+
   positionDD: "cc",
-  position: "cc",
   offsetX: 0,
   offsetY: 0,
   isAnimationCreatedDD: false,

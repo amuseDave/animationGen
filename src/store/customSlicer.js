@@ -46,15 +46,13 @@ const customSlicer = createSlice({
     handleKeyFrame(state, { payload }) {
       state.activeKeyFrame = payload;
     },
-    handleSetPosition(state, { payload: { action, pos, zoomLevel } }) {
+    handleSetPosition(state, { payload: { action, pos, x, y } }) {
       const curKF = state.keyFrames[state.activeKeyFrame];
 
       if (action === "set-new") {
         curKF.position = pos;
 
         const vanillaPosStyles = getPositionStyles(pos);
-
-        console.log(vanillaPosStyles);
 
         curKF.bottom = vanillaPosStyles.bottom || "unset";
         curKF.top = vanillaPosStyles.top || "unset";
@@ -64,6 +62,11 @@ const customSlicer = createSlice({
         curKF.translateX = vanillaPosStyles.translateX;
         curKF.translateY = vanillaPosStyles.translateY;
       }
+      if (action === "set-translate") {
+        curKF.translateX = x || curKF.translateX;
+        curKF.translateY = y || curKF.translateY;
+      }
+
       if (action === "set-old") {
         curKF.oldPos = pos;
       }

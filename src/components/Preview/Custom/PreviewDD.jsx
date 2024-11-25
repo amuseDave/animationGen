@@ -20,6 +20,7 @@ export default function CustomCanvas() {
     (state) => state.customDD.isAnimationCreatedDD
   );
 
+  const cursor = useSelector((state) => state.ui.cursor);
   const zoomLevel = useSelector((state) => state.ui.zoomLevel);
   const isResizing = useSelector((state) => state.ui.isResizing);
   const isAnimating = useSelector((state) => state.ui.isAnimating);
@@ -61,7 +62,6 @@ export default function CustomCanvas() {
         })
       );
     } else {
-      // Update starting position
       dispatch(
         customActionsDD.handleSetPositions({
           actionType: "update-position",
@@ -200,15 +200,21 @@ export default function CustomCanvas() {
     if (!isHolding) return;
 
     isHolding = false;
-    dispatch(uiActions.handleCursor("default"));
+
+    if (isHovered) dispatch(uiActions.handleCursor("move"));
+    else dispatch(uiActions.handleCursor("default"));
+
     dispatch(customActionsDD.handleAnimation({ action: "set-animation" }));
   }, []);
 
   // Handle events, and pass down arguments to functions
   useEffect(() => {
-    if (isAnimationCreatedDD) return;
-
     const canvas = canvasEl.current;
+
+    if (isAnimationCreatedDD) {
+      dispatch(uiActions.handleCursor("default"));
+      return;
+    }
 
     function handleHoverAndAnimationHandler(e) {
       handleHoverAndAnimation(
@@ -238,7 +244,9 @@ export default function CustomCanvas() {
   }, [
     isAnimationCreatedDD,
     zoomLevel,
-    square.animations[square.animationIndex],
+    square.animations[0],
+
+    // square.animations[square.animationIndex],
   ]);
 
   return (
