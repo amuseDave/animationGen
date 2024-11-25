@@ -25,6 +25,7 @@ export default function Canvas() {
 
   const handleMove = useCallback((offsetX, offsetY, tX, tY) => {
     console.log(tX, tY, offsetX, offsetY);
+    console.log(isHolding, isHover);
 
     if (isHolding) {
       return;

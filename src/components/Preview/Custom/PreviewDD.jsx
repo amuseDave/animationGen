@@ -8,12 +8,13 @@ import handleCanvasCustomState, {
 import Loader from "../Static/Loader";
 import { uiActions } from "../../../store/uiSlicer";
 
+let isHolding = false;
+let isHovered = false;
+
 export default function CustomCanvas() {
   const dispatch = useDispatch();
 
   const positionDD = useSelector((state) => state.customDD.positionDD);
-  const isHovered = useSelector((state) => state.customDD.isHovered);
-  const isHolding = useSelector((state) => state.customDD.isHolding);
   const square = useSelector((state) => state.customDD.square);
   const isAnimationCreatedDD = useSelector(
     (state) => state.customDD.isAnimationCreatedDD
@@ -36,20 +37,20 @@ export default function CustomCanvas() {
   }, []);
 
   // Update canvas size
-  // handle specific user event
+  // handle specific user event and reset animation
   useEffect(() => {
     canvasEl.current.width = canvasEl.current.offsetWidth;
     canvasEl.current.height = canvasEl.current.offsetHeight;
 
     if (isHolding) {
-      dispatch(customActionsDD.handleHolding(false));
+      isHolding = false;
       dispatch(customActionsDD.handleAnimation({ action: "reset-animation" }));
     }
   }, [isResizing]);
 
   // Update starting pos & animation
   useEffect(() => {
-    if (isHolding || isResizing) return;
+    if (isResizing || isHolding) return;
     // Update animation positions on resize
     if (isAnimationCreatedDD) {
       dispatch(
@@ -87,7 +88,7 @@ export default function CustomCanvas() {
     square.animations[square.animationIndex],
     isResizing,
     zoomLevel,
-    isHolding,
+
     isAnimationCreatedDD,
   ]);
 
@@ -146,7 +147,7 @@ export default function CustomCanvas() {
   // Set isHovered
   // Handle animation animation movement if hovered and holding
   const handleHoverAndAnimation = useCallback(
-    throttle((e, square, isHolding, isHovered, width, height, zoomLevel) => {
+    throttle((e, square, width, height, zoomLevel) => {
       // Handle Animation Movement
       if (isHolding) {
         dispatch(
@@ -175,20 +176,20 @@ export default function CustomCanvas() {
       if (isHovering && isHovered) return;
 
       if (isHovering) {
+        isHovered = true;
         dispatch(uiActions.handleCursor("move"));
-        dispatch(customActionsDD.handleHover(true));
       } else {
+        isHovered = false;
         dispatch(uiActions.handleCursor("default"));
-        dispatch(customActionsDD.handleHover(false));
       }
     }, 8),
     []
   );
   // Sets isHolding
   // Sets initial mousedown offset
-  const handleMouseDown = useCallback((e, square, isHovered) => {
+  const handleMouseDown = useCallback((e, square) => {
     if (!isHovered) return;
-    dispatch(customActionsDD.handleHolding(true));
+    isHolding = true;
     const offsetX = e.offsetX - square.animations[square.animationIndex].x;
     const offsetY = e.offsetY - square.animations[square.animationIndex].y;
     dispatch(customActionsDD.handleSetOffSets({ offsetX, offsetY }));
@@ -196,6 +197,9 @@ export default function CustomCanvas() {
   }, []);
   // Set isHolding to false
   const handleMouseUp = useCallback(() => {
+    if (!isHolding) return;
+
+    isHolding = false;
     dispatch(uiActions.handleCursor("default"));
     dispatch(customActionsDD.handleAnimation({ action: "set-animation" }));
   }, []);
@@ -210,18 +214,15 @@ export default function CustomCanvas() {
       handleHoverAndAnimation(
         e,
         square,
-        isHolding,
-        isHovered,
         canvas.width,
         canvas.height,
         zoomLevel
       );
     }
     function handleMouseDownHandler(e) {
-      handleMouseDown(e, square, isHovered);
+      handleMouseDown(e, square);
     }
     function handleMouseUpHandler() {
-      if (!isHolding) return;
       handleMouseUp();
     }
 
@@ -235,8 +236,6 @@ export default function CustomCanvas() {
       canvas.removeEventListener("mouseup", handleMouseUpHandler);
     };
   }, [
-    isHovered,
-    isHolding,
     isAnimationCreatedDD,
     zoomLevel,
     square.animations[square.animationIndex],

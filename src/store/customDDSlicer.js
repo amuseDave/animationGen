@@ -12,8 +12,6 @@ const initialState = {
   },
   positionDD: "cc",
   position: "cc",
-  isHovered: false,
-  isHolding: false,
   offsetX: 0,
   offsetY: 0,
   isAnimationCreatedDD: false,
@@ -90,15 +88,7 @@ const customSlicer = createSlice({
         };
       } else if (actionType === "set-position") state.positionDD = type;
     },
-    handleHover(state, actions) {
-      state.isHovered = actions.payload;
-    },
-    handleHolding(state, actions) {
-      if (!state.isHovered) return;
-      state.isHolding = actions.payload;
-    },
     handleSetOffSets(state, { payload: { offsetX, offsetY } }) {
-      if (!state.isHovered) return;
       state.offsetX = offsetX;
       state.offsetY = offsetY;
     },
@@ -106,8 +96,6 @@ const customSlicer = createSlice({
       state,
       { payload: { x, y, width, height, zoomLevel } }
     ) {
-      if (!state.isHolding) return;
-
       const diffX = x - state.offsetX;
       const diffY = y - state.offsetY;
 
@@ -143,15 +131,12 @@ const customSlicer = createSlice({
           break;
         }
         case "set-animation": {
-          if (!state.isHolding) return;
-
           state.square.animationIndex = 0;
-          state.isHolding = false;
+
           if (state.square.animations.length < 50) {
             state.square.animations = [{ x: 0, y: 0 }];
             state.isAnimationInitialCreatedDD = false;
           } else {
-            state.isHovered = false;
             state.isAnimationCreatedDD = true;
             state.isAnimationInitialCreatedDD = true;
           }
