@@ -83,25 +83,26 @@ const customSlicer = createSlice({
           break;
       }
     },
-    handleKeyFrame(state, { payload: { action, value } }) {
+    handleKeyFrame(
+      state,
+      { payload: { action, value, copyIndex, currentIndex } }
+    ) {
       switch (action) {
         case "add": {
           const index = state.keyFramePers.findIndex((per) => value < per);
-
-          console.log(value, "handle add keyframe");
-
-          console.log(index);
-
           state.keyFramePers.splice(index, 0, value);
-
           state.keyFrames.splice(index, 0, {
             ...state.keyFrames[index - 1],
             keyPercentage: value,
           });
 
           state.activeKeyFrame = index;
-
           state.isValidKeyFrame = true;
+          break;
+        }
+        case "copy": {
+          state.keyFrames[currentIndex] = { ...state.keyFrames[copyIndex] };
+          state.isValidKeyFrame = state.keyFramePers[copyIndex];
           break;
         }
         case "switch":

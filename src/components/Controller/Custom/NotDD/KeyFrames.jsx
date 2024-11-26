@@ -14,7 +14,7 @@ export default function KeyFrames() {
           return (
             <Fragment key={index}>
               <KeyFrame
-                index={index}
+                currentIndex={index}
                 key={index}
                 active={index === activeKeyFrame}
                 percentage={frame}

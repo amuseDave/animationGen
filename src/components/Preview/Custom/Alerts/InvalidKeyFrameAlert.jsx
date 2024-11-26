@@ -7,6 +7,7 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
   const dispatch = useDispatch();
   const isValidKeyFrame = useSelector((state) => state.custom.isValidKeyFrame);
   const [isBlock, setBlock] = useState(false);
+  const [isBlock2, setBlock2] = useState(false);
 
   const [alerts, setAlerts] = useState([]);
 
@@ -29,11 +30,23 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
       return;
     }
 
+    if (typeof isValidKeyFrame === "number") {
+      if (isBlock2) return;
+      setBlock2(true);
+      handleAlerts(
+        `Keyframe (${isValidKeyFrame}%) properties has been copied!`,
+        "success",
+        setBlock2,
+        setAlerts
+      );
+      return;
+    }
+
     handleAlerts("Keyframe has been created!", "success", null, setAlerts);
   }, [isValidKeyFrame]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="popLayout">
       {alerts.map((alert) => (
         <motion.div
           layout
