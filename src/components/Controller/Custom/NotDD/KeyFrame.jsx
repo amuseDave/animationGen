@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { customActions } from "../../../../store/customSlicer";
 import { ChevronDown, ClipboardCopy } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function KeyFrame({ active, percentage, index }) {
   const [showToolTip, setShowToolTip] = useState(false);
@@ -12,6 +12,10 @@ export default function KeyFrame({ active, percentage, index }) {
   function handleToolTip() {
     setShowToolTip(!showToolTip);
   }
+
+  useEffect(() => {
+    if (!active) setShowToolTip(false);
+  }, [active]);
 
   return (
     <div
@@ -39,15 +43,19 @@ export default function KeyFrame({ active, percentage, index }) {
       <AnimatePresence mode="popLayout">
         {showToolTip && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            className={`absolute right-0 w-20 p-1 overflow-hidden rounded-lg top-6 bg-slate-50/50`}
+            layout
+            initial={{ opacity: 0, y: -20 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            className={`absolute right-0 w-[90px] p-1 px-2 overflow-hidden rounded-lg top-6 bg-slate-50/50 z-50`}
           >
             {keyFramePers.map((per, index) => {
               if (per === percentage) return;
               return (
                 <div
-                  className="flex items-center gap-2 font-bold text-start"
+                  className="flex items-center justify-between gap-2 font-bold text-start"
                   key={index}
                 >
                   <p>{per}%</p> <ClipboardCopy size={18} />

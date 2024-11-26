@@ -8,7 +8,7 @@ export default function KeyFrames() {
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
 
   return (
-    <div className="mt-10">
+    <div className="mt-10 select-none">
       <section className="grid grid-cols-3 gap-y-2 gap-x-2 justify-items-center auto-rows-auto">
         {keyFramesPers.map((frame, index) => {
           return (
