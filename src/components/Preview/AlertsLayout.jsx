@@ -34,7 +34,11 @@ export default function AlertsLayout() {
       <LayoutGroup key="animations">
         <AnimatePresence>
           {type === "custom" && (
-            <motion.div exit={{ opacity: 0 }} transition={{ delay: 1 }}>
+            <motion.div
+              key="all-custom-animations"
+              exit={{ opacity: 0 }}
+              transition={{ delay: 1 }}
+            >
               <PositionAlert handleAlerts={handleAlerts} />
               <PositionAlertDD handleAlerts={handleAlerts} />
               <AnimationDDAlerts handleAlerts={handleAlerts} />

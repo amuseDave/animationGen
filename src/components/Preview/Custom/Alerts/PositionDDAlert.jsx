@@ -21,23 +21,22 @@ export default function PositionDD({ handleAlerts }) {
   }, [positionDD]);
 
   return (
-    <AnimatePresence mode="popLayout">
-      {alerts.length > 0 &&
-        alerts.map((alert) => (
-          <motion.div
-            layout
-            key={alert.id}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className={`alert ${alert.className} min-w-40`}
-          >
-            {alert.message}
-          </motion.div>
-        ))}
+    <AnimatePresence>
+      {alerts.map((alert) => (
+        <motion.div
+          layout
+          key={alert.id}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+          className={`alert ${alert.className} min-w-40`}
+        >
+          {alert.message}
+        </motion.div>
+      ))}
       {alerts.length === 0 && (
-        <motion.div className="w-40" layout key="positionDD-placeholder" />
+        <motion.div layout key="positionDD-placeholder" />
       )}
     </AnimatePresence>
   );
