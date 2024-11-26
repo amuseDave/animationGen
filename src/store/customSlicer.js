@@ -101,7 +101,13 @@ const customSlicer = createSlice({
           break;
         }
         case "copy": {
-          state.keyFrames[currentIndex] = { ...state.keyFrames[copyIndex] };
+          const keyPercentage = state.keyFramePers[currentIndex];
+
+          state.keyFrames[currentIndex] = {
+            ...state.keyFrames[copyIndex],
+            keyPercentage,
+          };
+
           state.isValidKeyFrame = state.keyFramePers[copyIndex];
           break;
         }
