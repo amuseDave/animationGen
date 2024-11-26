@@ -7,8 +7,8 @@ export default function AnimationAlerts() {
   const dispatch = useDispatch();
   const [alerts, setAlerts] = useState([]);
   const [isCreated, setIsCreated] = useState(false);
+  const [err, setErr] = useState(false);
 
-  const isReset = useSelector((state) => state.ui.isReset);
   const isAnimationInitialCreatedDD = useSelector(
     (state) => state.customDD.isAnimationInitialCreatedDD
   );
@@ -20,17 +20,22 @@ export default function AnimationAlerts() {
       return [...prev, { id, message, type }];
     });
     setTimeout(() => {
+      setErr(false);
+    }, 1000);
+    setTimeout(() => {
       setAlerts((prev) => prev.filter((alert) => alert.id !== id));
-    }, 1500);
+    }, 2000);
   }, []);
 
   // Animation error alert
   useEffect(() => {
     if (isAnimationInitialCreatedDD !== false) return;
-    !isReset && handleAlerts("Animation too short!", "error ");
     dispatch(
       customActionsDD.handleAnimation({ action: "animation-alert-end" })
     );
+    if (err) return;
+    handleAlerts("Animation too short!", "error ");
+    setErr(true);
   }, [isAnimationInitialCreatedDD]);
 
   // Animation creation alert
@@ -62,7 +67,7 @@ export default function AnimationAlerts() {
       ))}
       {isCreated && (
         <motion.div
-          key="second"
+          key="creation-alert"
           layout
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}

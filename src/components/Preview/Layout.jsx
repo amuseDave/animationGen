@@ -1,10 +1,9 @@
 import ZoomControls from "./Static/ZoomControls.jsx";
-import CustomAlerts from "./Custom/AlertsLayout.jsx";
 import { useSelector } from "react-redux";
 import CustomPreview from "./Custom/PreviewLayout.jsx";
 import PlayingAnimationAlert from "./Static/PlayingAlert.jsx";
-import { AnimatePresence } from "framer-motion";
-import ResetAlert from "./Static/ResetAlert.jsx";
+
+import AlertsLayout from "./AlertsLayout.jsx";
 
 export default function Layout() {
   const type = useSelector((state) => state.ui.type);
@@ -21,12 +20,7 @@ export default function Layout() {
         </div>
       </div>
 
-      <div className="absolute z-20 right-4 bottom-4">
-        <AnimatePresence>
-          {type === "custom" && <CustomAlerts key="custom" />}
-        </AnimatePresence>
-        <ResetAlert key="reset" />
-      </div>
+      <AlertsLayout />
     </>
   );
 }

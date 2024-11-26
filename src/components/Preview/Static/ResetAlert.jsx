@@ -30,6 +30,7 @@ export default function AnimationResetCreateAlert() {
           Animation was Reset!
         </motion.div>
       )}
+      {!isReset && <motion.div layout className="reset-placeholder" />}
     </AnimatePresence>
   );
 }
