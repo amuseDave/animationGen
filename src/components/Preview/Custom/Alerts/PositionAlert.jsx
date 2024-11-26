@@ -31,14 +31,14 @@ export default function PositionAlert({ handleAlerts }) {
   }, [position]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="popLayout">
       {alerts.map((alert) => (
         <motion.div
           layout
           key={alert.id}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, y: -20 }}
+          exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
           className={`alert ${alert.className}`}
         >
@@ -46,7 +46,9 @@ export default function PositionAlert({ handleAlerts }) {
         </motion.div>
       ))}
 
-      {alerts.length === 0 && <motion.div layout key="position-placeholder" />}
+      {alerts.length === 0 && (
+        <motion.div className="w-40" layout key="position-placeholder" />
+      )}
     </AnimatePresence>
   );
 }

@@ -1,7 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
-import "./styles/alerts.css";
 import "./styles/positions.css";
 import App from "./App.jsx";
 import store from "./store/store.js";
@@ -11,8 +10,10 @@ import CursorCanvas from "./components/CursorCanvas.jsx";
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
   <Provider store={store}>
-    <CursorCanvas />
-    <App />
+    <div className="duration-200 min-h-dvh transition-color bg-main-bg">
+      <CursorCanvas />
+      <App />
+    </div>
   </Provider>
   // </StrictMode>
 );

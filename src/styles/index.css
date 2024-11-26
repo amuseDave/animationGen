@@ -5,7 +5,6 @@
 * {
   cursor: none;
 }
-
 body {
   font-family: "Nunito", sans-serif;
 }
@@ -15,6 +14,14 @@ body {
     --bg-color: #090f0d;
     --text-color: #36876d;
     --text-color-active: #b7ffe8;
+
+    /**/
+
+    --alert-bg-error: #141010;
+    --alert-text-error: #ff6262;
+
+    --alert-bg-success: #00140f;
+    --alert-text-success: #00e2a6;
   }
 
   .light {
@@ -23,15 +30,31 @@ body {
 }
 
 @layer components {
+  /*NAV BUTTONS START*/
   .nav-btn {
-    @apply px-4 py-2 rounded-lg text-text-color;
+    @apply px-4 py-2 rounded-lg text-main-t;
   }
 
   .active {
-    @apply bg-slate-50/15 text-text-color-active;
+    @apply bg-slate-50/15 text-main-t-active;
+  }
+  /*NAV BUTTONS END*/
+
+  /*ALERTS*/
+  .alert {
+    @apply py-2 px-3 mt-3 text-center rounded-md select-none font-light w-max;
+  }
+
+  .error {
+    @apply bg-alert-bg-error text-alert-t-error;
+  }
+
+  .success {
+    @apply bg-alert-bg-success text-alert-t-success;
   }
 }
 
+/*INPUT RANGE DISABLE*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

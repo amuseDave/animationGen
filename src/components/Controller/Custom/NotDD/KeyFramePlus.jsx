@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { customActions } from "../../../../store/customSlicer";
-import { uiActions } from "../../../../store/uiSlicer";
 
 export default function KeyFramePlus() {
   const keyFramePers = useSelector((state) => state.custom.keyFramePers);
@@ -29,12 +28,15 @@ export default function KeyFramePlus() {
     const isValid = KF > 0 && KF < 100;
     if (!isValid) return;
 
+    // Handle validation alert
     if (keyFramePers.includes(KF)) {
-      console.log("Invalid keyframe notification handle");
+      dispatch(
+        customActions.handleKeyFrame({ action: "validation", value: false })
+      );
       return;
     }
 
-    dispatch(customActions.handleCreateKeyFrame(KF));
+    dispatch(customActions.handleKeyFrame({ value: KF, action: "add" }));
   }
 
   useEffect(() => {

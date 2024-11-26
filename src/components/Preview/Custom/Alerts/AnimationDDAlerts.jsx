@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { customActionsDD } from "../../../../store/customDDSlicer";
 import { motion, AnimatePresence } from "framer-motion";
@@ -46,7 +46,7 @@ export default function AnimationAlerts({ handleAlerts }) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className={`alert ${alert.type}`}
+          className={`alert ${alert.className}`}
         >
           {alert.message}
         </motion.div>
@@ -57,16 +57,16 @@ export default function AnimationAlerts({ handleAlerts }) {
           layout
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, y: -20 }}
+          exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className={`alert text-pink-600 text-lg`}
+          className={`alert success`}
         >
           Animation was Created!
         </motion.div>
       )}
 
       {alerts.length === 0 && !isCreated && (
-        <motion.div layout className="position-placeholder" />
+        <motion.div layout key="animationDD-placeholder" />
       )}
     </AnimatePresence>
   );

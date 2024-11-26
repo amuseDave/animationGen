@@ -10,7 +10,7 @@ const initialState = {
   zoomLevel: 1,
   isResizing: false,
   isAnimating: false,
-  isDragDrop: true,
+  isDragDrop: false,
 
   cursor: "default",
 };

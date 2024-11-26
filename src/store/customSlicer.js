@@ -45,9 +45,6 @@ const customSlicer = createSlice({
   initialState,
 
   reducers: {
-    handleKeyFrame(state, { payload }) {
-      state.activeKeyFrame = payload;
-    },
     handleSetPosition(state, { payload: { action, pos, x, y } }) {
       const curKF = state.keyFrames[state.activeKeyFrame];
 
@@ -86,12 +83,21 @@ const customSlicer = createSlice({
           break;
       }
     },
-    handleCreateKeyFrame(state, { payload }) {
-      console.log(payload, "handle add keyframe");
-
-      // Sort by keyframe
-      state.keyFramePers.push(payload);
-      state.keyFramePers.sort((a, b) => a - b);
+    handleKeyFrame(state, { payload: { action, value } }) {
+      switch (action) {
+        case "add":
+          console.log(value, "handle add keyframe");
+          // Sort by keyframe
+          state.keyFramePers.push(value);
+          state.keyFramePers.sort((a, b) => a - b);
+          break;
+        case "switch":
+          state.activeKeyFrame = value;
+          break;
+        case "validation":
+          state.isValidKeyFrame = value;
+          break;
+      }
     },
   },
 });

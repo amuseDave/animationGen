@@ -29,15 +29,15 @@ export default function PositionDD({ handleAlerts }) {
             key={alert.id}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className={`alert ${alert.type}`}
+            className={`alert ${alert.className}`}
           >
             {alert.message}
           </motion.div>
         ))}
       {alerts.length === 0 && (
-        <motion.div layout key="positionDD-placeholder" />
+        <motion.div className="w-40" layout key="positionDD-placeholder" />
       )}
     </AnimatePresence>
   );

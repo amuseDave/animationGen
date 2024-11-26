@@ -7,7 +7,11 @@ export default function KeyFrame({ active, percentage, index }) {
   return (
     <div
       className="flex items-center justify-start w-20 gap-4 mt-2 cursor-pointer"
-      onClick={() => dispatch(customActions.handleKeyFrame(index))}
+      onClick={() =>
+        dispatch(
+          customActions.handleKeyFrame({ action: "switch", value: index })
+        )
+      }
     >
       <div
         className={`w-5 h-5 rotate-45 ${
