@@ -38,7 +38,7 @@ export default function MainLayout() {
     <>
       <DefaultCanvas />
       <main
-        className={`p-6 min-h-dvh relative z-10 grid grid-cols-[260px_1fr_260px]`}
+        className={`p-6 min-h-dvh relative z-10 grid grid-cols-[280px_1fr_280px]`}
       >
         <SavedAnimations />
         <div className="relative overflow-hidden">

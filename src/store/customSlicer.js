@@ -85,12 +85,25 @@ const customSlicer = createSlice({
     },
     handleKeyFrame(state, { payload: { action, value } }) {
       switch (action) {
-        case "add":
+        case "add": {
+          const index = state.keyFramePers.findIndex((per) => value < per);
+
           console.log(value, "handle add keyframe");
-          // Sort by keyframe
-          state.keyFramePers.push(value);
-          state.keyFramePers.sort((a, b) => a - b);
+
+          console.log(index);
+
+          state.keyFramePers.splice(index, 0, value);
+
+          state.keyFrames.splice(index, 0, {
+            ...state.keyFrames[index - 1],
+            keyPercentage: value,
+          });
+
+          state.activeKeyFrame = index;
+
+          state.isValidKeyFrame = true;
           break;
+        }
         case "switch":
           state.activeKeyFrame = value;
           break;

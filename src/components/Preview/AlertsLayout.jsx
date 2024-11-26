@@ -17,9 +17,11 @@ export default function AlertsLayout() {
       setAlerts((prev) => {
         return [...prev, { id, message, className }];
       });
-      setTimeout(() => {
-        setBlock(false);
-      }, 1000);
+      if (setBlock)
+        setTimeout(() => {
+          setBlock(false);
+        }, 1000);
+
       setTimeout(() => {
         setAlerts((prev) => prev.filter((alert) => alert.id !== id));
       }, 2000);

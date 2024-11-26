@@ -10,6 +10,10 @@ export default function KeyFramePlus() {
   const [isActive, setIsActive] = useState(false);
   const [inputVal, setInputVal] = useState("");
 
+  useEffect(() => {
+    setInputVal(``);
+  }, [keyFramePers]);
+
   function handleActive(boolean) {
     setIsActive(boolean);
   }
@@ -36,6 +40,7 @@ export default function KeyFramePlus() {
       return;
     }
 
+    inputRef.current.blur();
     dispatch(customActions.handleKeyFrame({ value: KF, action: "add" }));
   }
 
@@ -44,10 +49,10 @@ export default function KeyFramePlus() {
   }, [isActive]);
 
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex items-center gap-2">
       <button
         onClick={() => handleActive(true)}
-        className="mt-1 text-4xl font-bold text-green-500"
+        className="mt-1 text-4xl font-bold text-green-500 cursor-none"
       >
         +
       </button>

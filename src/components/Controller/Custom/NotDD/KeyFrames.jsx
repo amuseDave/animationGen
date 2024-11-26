@@ -8,20 +8,22 @@ export default function KeyFrames() {
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
 
   return (
-    <section className="flex flex-col items-start mt-10">
-      {keyFramesPers.map((frame, index) => {
-        return (
-          <Fragment key={index}>
-            <KeyFrame
-              index={index}
-              key={index}
-              active={index === activeKeyFrame}
-              percentage={frame}
-            />
-            {index === 0 && <KeyFramePlus />}
-          </Fragment>
-        );
-      })}
-    </section>
+    <div className="mt-10">
+      <section className="grid grid-cols-3 gap-y-2 gap-x-2 justify-items-center auto-rows-auto">
+        {keyFramesPers.map((frame, index) => {
+          return (
+            <Fragment key={index}>
+              <KeyFrame
+                index={index}
+                key={index}
+                active={index === activeKeyFrame}
+                percentage={frame}
+              />
+            </Fragment>
+          );
+        })}
+      </section>
+      <KeyFramePlus />
+    </div>
   );
 }

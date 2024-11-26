@@ -7,6 +7,7 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
   const dispatch = useDispatch();
   const isValidKeyFrame = useSelector((state) => state.custom.isValidKeyFrame);
   const [isBlock, setBlock] = useState(false);
+
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
@@ -16,14 +17,19 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
       customActions.handleKeyFrame({ action: "validation", value: null })
     );
 
-    if (isBlock) return;
-    setBlock(true);
-    handleAlerts(
-      "Can't have the same keyframe!",
-      "error ",
-      setBlock,
-      setAlerts
-    );
+    if (isValidKeyFrame === false) {
+      if (isBlock) return;
+      setBlock(true);
+      handleAlerts(
+        "Can't have the same keyframe!",
+        "error",
+        setBlock,
+        setAlerts
+      );
+      return;
+    }
+
+    handleAlerts("Keyframe has been created!", "success", null, setAlerts);
   }, [isValidKeyFrame]);
 
   return (
