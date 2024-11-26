@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import getPositionStyles from "../utils/getPositionStyles";
 const initialState = {
   isAnimationCreated: false,
+  isValidKeyFrame: null,
   activeKeyFrame: 0,
   keyFramePers: [0, 100],
   keyFrames: [
@@ -85,7 +86,13 @@ const customSlicer = createSlice({
           break;
       }
     },
-    handleCreateKeyFrame(state, { payload }) {},
+    handleCreateKeyFrame(state, { payload }) {
+      console.log(payload, "handle add keyframe");
+
+      // Sort by keyframe
+      state.keyFramePers.push(payload);
+      state.keyFramePers.sort((a, b) => a - b);
+    },
   },
 });
 

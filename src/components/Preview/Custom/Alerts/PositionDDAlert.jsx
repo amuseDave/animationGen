@@ -1,38 +1,23 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 
 let changedPosDD = "cc";
 
-export default function PositionDD() {
+export default function PositionDD({ handleAlerts }) {
   const [alerts, setAlerts] = useState([]);
-  const [pos, setPos] = useState(false);
+  const [isBlock, setBlock] = useState(false);
 
   const positionDD = useSelector((state) => state.customDD.positionDD);
-
-  // Handle alerts
-  const handleAlerts = useCallback((message, type) => {
-    const id = Date.now();
-    setAlerts((prev) => {
-      return [...prev, { id, message, type }];
-    });
-
-    setTimeout(() => {
-      setPos(false);
-    }, 1000);
-    setTimeout(() => {
-      setAlerts((prev) => prev.filter((alert) => alert.id !== id));
-    }, 2000);
-  }, []);
 
   // Position change alert
   useEffect(() => {
     if (positionDD === changedPosDD) return;
     changedPosDD = positionDD;
 
-    if (pos) return;
-    setPos(true);
-    handleAlerts("Position changed!", "success");
+    if (isBlock) return;
+    setBlock(true);
+    handleAlerts("Position changed!", "success", setBlock, setAlerts);
   }, [positionDD]);
 
   return (

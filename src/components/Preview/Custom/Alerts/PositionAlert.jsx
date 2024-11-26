@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { customActions } from "../../../../store/customSlicer";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function PositionAlert() {
+export default function PositionAlert({ handleAlerts }) {
   const dispatch = useDispatch();
   const [alerts, setAlerts] = useState([]);
-  const [pos, setPos] = useState(false);
+  const [isBlock, setBlock] = useState(false);
 
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const position = useSelector(
@@ -15,19 +15,6 @@ export default function PositionAlert() {
   const oldPos = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].oldPos
   );
-
-  const handleAlerts = useCallback((message, className) => {
-    const id = Date.now();
-    setAlerts((prev) => {
-      return [...prev, { id, message, className }];
-    });
-    setTimeout(() => {
-      setPos(false);
-    }, 1000);
-    setTimeout(() => {
-      setAlerts((prev) => prev.filter((alert) => alert.id !== id));
-    }, 2000);
-  }, []);
 
   // Position change alert
   useEffect(() => {
@@ -38,10 +25,9 @@ export default function PositionAlert() {
         pos: position,
       })
     );
-
-    if (pos) return;
-    setPos(true);
-    handleAlerts("Position changed!", "success");
+    if (isBlock) return;
+    setBlock(true);
+    handleAlerts("Position changed!", "success", setBlock, setAlerts);
   }, [position]);
 
   return (

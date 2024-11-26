@@ -29,18 +29,18 @@ export function getXYTranslate(x, y) {
   let shiftedX = x - 100;
   let shiftedY = y - 100;
 
-  let coordX = (shiftedX * 800) / 200;
-  let coordY = (shiftedY * 800) / 200;
+  let coordX = (shiftedX * 400) / 200;
+  let coordY = (shiftedY * 400) / 200;
 
   return { x: coordX, y: coordY };
 }
 
 export function getXYCanvas(x, y) {
-  let shiftedX = x + 400;
-  let shiftedY = y + 400;
+  let shiftedX = x + 200;
+  let shiftedY = y + 200;
 
-  let scaledX = (shiftedX * 200) / 800;
-  let scaledY = (shiftedY * 200) / 800;
+  let scaledX = (shiftedX * 200) / 400;
+  let scaledY = (shiftedY * 200) / 400;
 
   return { x: scaledX, y: scaledY };
 }

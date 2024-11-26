@@ -3,29 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { customActionsDD } from "../../../../store/customDDSlicer";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function AnimationAlerts() {
+export default function AnimationAlerts({ handleAlerts }) {
   const dispatch = useDispatch();
   const [alerts, setAlerts] = useState([]);
   const [isCreated, setIsCreated] = useState(false);
-  const [err, setErr] = useState(false);
+  const [isBlock, setBlock] = useState(false);
 
   const isAnimationInitialCreatedDD = useSelector(
     (state) => state.customDD.isAnimationInitialCreatedDD
   );
-
-  // Handle alerts
-  const handleAlerts = useCallback((message, type) => {
-    const id = Date.now();
-    setAlerts((prev) => {
-      return [...prev, { id, message, type }];
-    });
-    setTimeout(() => {
-      setErr(false);
-    }, 1000);
-    setTimeout(() => {
-      setAlerts((prev) => prev.filter((alert) => alert.id !== id));
-    }, 2000);
-  }, []);
 
   // Animation error alert
   useEffect(() => {
@@ -33,9 +19,9 @@ export default function AnimationAlerts() {
     dispatch(
       customActionsDD.handleAnimation({ action: "animation-alert-end" })
     );
-    if (err) return;
-    handleAlerts("Animation too short!", "error ");
-    setErr(true);
+    if (isBlock) return;
+    handleAlerts("Animation too short!", "error ", setBlock, setAlerts);
+    setBlock(true);
   }, [isAnimationInitialCreatedDD]);
 
   // Animation creation alert

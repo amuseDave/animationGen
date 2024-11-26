@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { customActions } from "../../../../store/customSlicer";
+import { uiActions } from "../../../../store/uiSlicer";
 
 export default function KeyFramePlus() {
+  const keyFramePers = useSelector((state) => state.custom.keyFramePers);
+
   const dispatch = useDispatch();
   const inputRef = useRef();
   const [isActive, setIsActive] = useState(false);
@@ -22,7 +25,16 @@ export default function KeyFramePlus() {
 
   function handleInputSubmit(e) {
     e.preventDefault();
-    console.log(inputRef.current.value);
+    const KF = +inputRef.current.value;
+    const isValid = KF > 0 && KF < 100;
+    if (!isValid) return;
+
+    if (keyFramePers.includes(KF)) {
+      console.log("Invalid keyframe notification handle");
+      return;
+    }
+
+    dispatch(customActions.handleCreateKeyFrame(KF));
   }
 
   useEffect(() => {
