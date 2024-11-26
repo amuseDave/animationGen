@@ -9,13 +9,14 @@ export default function PositionDD({ handleAlerts }) {
   const [isBlock, setBlock] = useState(false);
 
   const positionDD = useSelector((state) => state.customDD.positionDD);
+  const isReset = useSelector((state) => state.ui.isReset);
 
   // Position change alert
   useEffect(() => {
     if (positionDD === changedPosDD) return;
     changedPosDD = positionDD;
 
-    if (isBlock) return;
+    if (isBlock || isReset) return;
     setBlock(true);
     handleAlerts("Position changed!", "success", setBlock, setAlerts);
   }, [positionDD]);
@@ -30,7 +31,7 @@ export default function PositionDD({ handleAlerts }) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className={`alert ${alert.className} min-w-40`}
+          className={`alert ${alert.className}`}
         >
           {alert.message}
         </motion.div>

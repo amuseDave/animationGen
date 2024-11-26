@@ -8,6 +8,7 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
   const isValidKeyFrame = useSelector((state) => state.custom.isValidKeyFrame);
   const [isBlock, setBlock] = useState(false);
   const [isBlock2, setBlock2] = useState(false);
+  const [isBlock3, setBlock3] = useState(false);
 
   const [alerts, setAlerts] = useState([]);
 
@@ -18,7 +19,7 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
       customActions.handleKeyFrame({ action: "validation", value: null })
     );
 
-    if (isValidKeyFrame === false) {
+    if (isValidKeyFrame === "same") {
       if (isBlock) return;
       setBlock(true);
       handleAlerts(
@@ -27,6 +28,12 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
         setBlock,
         setAlerts
       );
+      return;
+    }
+    if (isValidKeyFrame === "invalid") {
+      if (isBlock3) return;
+      setBlock3(true);
+      handleAlerts("Invalid Keyframe!", "error", setBlock3, setAlerts);
       return;
     }
 

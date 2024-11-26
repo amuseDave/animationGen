@@ -40,7 +40,7 @@ export default function PositionAlert({ handleAlerts }) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className={`alert ${alert.className} min-w-40`}
+          className={`alert ${alert.className}`}
         >
           {alert.message}
         </motion.div>
