@@ -10,6 +10,8 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
   const [isBlock2, setBlock2] = useState(false);
   const [isBlock3, setBlock3] = useState(false);
   const [isBlock4, setBlock4] = useState(false);
+  const [isBlock5, setBlock5] = useState(false);
+  const [isBlock6, setBlock6] = useState(false);
 
   const [alerts, setAlerts] = useState([]);
 
@@ -30,8 +32,7 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
         setAlerts
       );
       return;
-    }
-    if (typeof isValidKeyFrame === "number") {
+    } else if (typeof isValidKeyFrame === "number") {
       if (isBlock2) return;
       setBlock2(true);
       handleAlerts(
@@ -41,22 +42,34 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
         setAlerts
       );
       return;
-    }
-
-    if (isValidKeyFrame === "invalid") {
+    } else if (isValidKeyFrame === "invalid") {
       if (isBlock3) return;
       setBlock3(true);
       handleAlerts("Invalid Keyframe!", "error", setBlock3, setAlerts);
       return;
-    }
-
-    if (isValidKeyFrame === "same-styles") {
+    } else if (isValidKeyFrame === "same-styles") {
       if (isBlock4) return;
       setBlock4(true);
       handleAlerts(
         "All keyframes has the same styles!",
         "error",
         setBlock4,
+        setAlerts
+      );
+
+      return;
+    } else if (isValidKeyFrame === "no-reset") {
+      if (isBlock5) return;
+      setBlock5(true);
+      handleAlerts("There's nothing to reset!", "error", setBlock5, setAlerts);
+      return;
+    } else if (isValidKeyFrame === "reset") {
+      if (isBlock6) return;
+      setBlock6(true);
+      handleAlerts(
+        "Keyframes has been reset!",
+        "success",
+        setBlock6,
         setAlerts
       );
       return;

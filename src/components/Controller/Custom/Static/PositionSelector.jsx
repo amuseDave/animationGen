@@ -15,9 +15,6 @@ export default function Position({ type, positionStyles }) {
   const position = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].position
   );
-  const isAnimationCreated = useSelector(
-    (state) => state.custom.isAnimationCreated
-  );
 
   const isDragDrop = useSelector((state) => state.ui.isDragDrop);
   const isAnimating = useSelector((state) => state.ui.isAnimating);
@@ -68,7 +65,6 @@ export default function Position({ type, positionStyles }) {
     isDisabled = isAnimationCreatedDD;
     isHighLight = positionDD === type;
   } else {
-    isDisabled = isAnimationCreated;
     isHighLight = position === type;
   }
 

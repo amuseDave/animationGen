@@ -1,5 +1,4 @@
 import Color from "./Controls/Color";
-import Duration from "./Controls/Duration";
 import Opacity from "./Controls/Opacity";
 import Scale from "./Controls/Scale";
 
@@ -10,7 +9,6 @@ export default function Controls() {
         <Color />
         <Opacity />
         <Scale />
-        <Duration />
       </div>
     </>
   );

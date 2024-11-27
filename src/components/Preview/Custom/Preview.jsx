@@ -17,6 +17,9 @@ export default function Preview() {
   const zoomLevel = useSelector((state) => state.ui.zoomLevel);
 
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
+  const animationFunction = useSelector(
+    (state) => state.custom.animationFunction
+  );
   const keyFrames = useSelector((state) => state.custom.keyFrames);
   const duration = useSelector((state) => state.custom.duration);
   const curKF = keyFrames[activeKeyFrame];
@@ -39,10 +42,10 @@ export default function Preview() {
     position: "absolute",
   };
 
+  // Check validity of animation, and set to isAnimating or alert
   function handleAnimation() {
     if (isAnimating) {
       dispatch(uiActions.handleIsAnimating(false));
-
       squareAnimation.current.cancel();
       return;
     }
@@ -66,6 +69,7 @@ export default function Preview() {
     );
   }
 
+  // Create & Play Animation
   useEffect(() => {
     if (!isAnimating) return;
 
@@ -80,9 +84,8 @@ export default function Preview() {
     });
     squareAnimation.current = squareEl.current.animate(styles, {
       duration: duration * 1000,
-      easing: "ease-in-out",
+      easing: animationFunction,
       iterations: 1,
-      animate: "all",
     });
 
     if (timeoutId.current) clearTimeout(timeoutId.current);
