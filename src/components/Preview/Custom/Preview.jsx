@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import Loader from "../Static/Loader";
+import HandleAnimation from "../../Controller/Custom/NotDD/HandleAnimation";
 
 export default function Preview() {
   const isResizing = useSelector((state) => state.ui.isResizing);
@@ -7,7 +8,6 @@ export default function Preview() {
 
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const keyFrames = useSelector((state) => state.custom.keyFrames);
-
   const curKF = keyFrames[activeKeyFrame];
 
   const dashedBoxStyles = {
@@ -28,6 +28,27 @@ export default function Preview() {
     right: `${curKF.right || "unset"}`,
   };
 
+  function handleAnimation() {
+    const valid = keyFrames.every((keyframe) => {
+      keyFrames.forEach((kf) => {
+        console.log(kf, keyframe);
+
+        return (
+          keyframe.position === kf.position &&
+          keyframe.color === kf.color &&
+          keyframe.opacity === kf.opacity &&
+          keyframe.scale === kf.scale &&
+          keyframe.translateX === kf.translateX &&
+          keyframe.translateY === kf.translateY &&
+          keyframe.rotate === kf.rotate &&
+          keyframe.left === kf.left &&
+          keyframe.right === kf.right
+        );
+      });
+    });
+    console.log(valid);
+  }
+
   return (
     <>
       <section
@@ -39,6 +60,7 @@ export default function Preview() {
         <div id="square" style={boxStyles} className={`rounded-xl`}></div>
       </section>
       {isResizing && <Loader />}
+      <HandleAnimation handleAnimation={handleAnimation} />
     </>
   );
 }

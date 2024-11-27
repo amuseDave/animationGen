@@ -185,58 +185,90 @@ export default function CustomCanvas() {
     }, 8),
     []
   );
-  // Sets isHolding
-  // Sets initial mousedown offset
-  const handleMouseDown = useCallback((e, square) => {
-    if (!isHovered) return;
-    isHolding = true;
-    const offsetX = e.offsetX - square.animations[square.animationIndex].x;
-    const offsetY = e.offsetY - square.animations[square.animationIndex].y;
-    dispatch(customActionsDD.handleSetOffSets({ offsetX, offsetY }));
-    dispatch(uiActions.handleCursor("grab"));
-  }, []);
-  // Set isHolding to false
-  const handleMouseUp = useCallback(() => {
-    if (!isHolding) return;
-
-    isHolding = false;
-
-    if (isHovered) dispatch(uiActions.handleCursor("move"));
-    else dispatch(uiActions.handleCursor("default"));
-
-    dispatch(customActionsDD.handleAnimation({ action: "set-animation" }));
-  }, []);
 
   // Handle events, and pass down arguments to functions
   useEffect(() => {
     const canvas = canvasEl.current;
 
+    console.log("render");
+
     if (isAnimationCreatedDD) {
       dispatch(uiActions.handleCursor("default"));
       return;
     }
+    console.log("render2");
+
+    const throttledHandleHoverAndAnimation = throttle((e) => {
+      // Handle Animation Movement
+      if (isHolding) {
+        dispatch(
+          customActionsDD.handleSetAnimationMovement({
+            x: e.offsetX,
+            y: e.offsetY,
+            width: canvas.width,
+            height: canvas.height,
+            zoomLevel,
+          })
+        );
+        return;
+      }
+
+      // Set is Hovering
+      const isHovering =
+        e.offsetY >= square.animations[square.animationIndex].y &&
+        e.offsetY <=
+          square.animations[square.animationIndex].y +
+            getSquareSize(canvas.width, zoomLevel) &&
+        e.offsetX >= square.animations[square.animationIndex].x &&
+        e.offsetX <=
+          square.animations[square.animationIndex].x +
+            getSquareSize(canvas.width, zoomLevel);
+
+      if (isHovering && isHovered) return;
+
+      if (isHovering) {
+        isHovered = true;
+        dispatch(uiActions.handleCursor("move"));
+      } else {
+        isHovered = false;
+        dispatch(uiActions.handleCursor("default"));
+      }
+    }, 8);
 
     function handleHoverAndAnimationHandler(e) {
-      handleHoverAndAnimation(
-        e,
-        square,
-        canvas.width,
-        canvas.height,
-        zoomLevel
-      );
+      // Call the throttled function
+      throttledHandleHoverAndAnimation(e);
     }
+
+    // Sets isHolding
+    // Sets initial mousedown offset
     function handleMouseDownHandler(e) {
-      handleMouseDown(e, square);
+      if (!isHovered) return;
+      isHolding = true;
+      const offsetX = e.offsetX - square.animations[square.animationIndex].x;
+      const offsetY = e.offsetY - square.animations[square.animationIndex].y;
+      dispatch(customActionsDD.handleSetOffSets({ offsetX, offsetY }));
+      dispatch(uiActions.handleCursor("grab"));
     }
+    // // Set isHolding to false
+
     function handleMouseUpHandler() {
-      handleMouseUp();
+      if (!isHolding) return;
+      isHolding = false;
+      if (isHovered) dispatch(uiActions.handleCursor("move"));
+      else dispatch(uiActions.handleCursor("default"));
+      dispatch(customActionsDD.handleAnimation({ action: "set-animation" }));
     }
+
+    console.log("adding");
 
     canvas.addEventListener("mousemove", handleHoverAndAnimationHandler);
     canvas.addEventListener("mousedown", handleMouseDownHandler);
     canvas.addEventListener("mouseup", handleMouseUpHandler);
 
     return () => {
+      console.log("removing");
+
       canvas.removeEventListener("mousemove", handleHoverAndAnimationHandler);
       canvas.removeEventListener("mousedown", handleMouseDownHandler);
       canvas.removeEventListener("mouseup", handleMouseUpHandler);
