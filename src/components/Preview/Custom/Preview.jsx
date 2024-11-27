@@ -10,6 +10,7 @@ export default function Preview() {
   const dispatch = useDispatch();
   const squareEl = useRef();
   const squareAnimation = useRef();
+  const timeoutId = useRef();
 
   const isAnimating = useSelector((state) => state.ui.isAnimating);
   const isResizing = useSelector((state) => state.ui.isResizing);
@@ -42,7 +43,7 @@ export default function Preview() {
     if (isAnimating) {
       dispatch(uiActions.handleIsAnimating(false));
 
-      squareAnimation.current.pause();
+      squareAnimation.current.cancel();
       return;
     }
 
@@ -50,6 +51,9 @@ export default function Preview() {
       for (let j = i + 1; j < keyFrames.length; j++) {
         if (stringifyStyles(keyFrames[i]) !== stringifyStyles(keyFrames[j])) {
           dispatch(uiActions.handleIsAnimating(true));
+          dispatch(
+            customActions.handleKeyFrame({ action: "switch", value: 0 })
+          );
           return;
         }
       }
@@ -80,7 +84,10 @@ export default function Preview() {
       iterations: 1,
       animate: "all",
     });
-    setTimeout(() => {
+
+    if (timeoutId.current) clearTimeout(timeoutId.current);
+
+    timeoutId.current = setTimeout(() => {
       dispatch(uiActions.handleIsAnimating(false));
     }, duration * 1000);
   }, [isAnimating]);
