@@ -190,54 +190,19 @@ export default function CustomCanvas() {
   useEffect(() => {
     const canvas = canvasEl.current;
 
-    console.log("render");
-
     if (isAnimationCreatedDD) {
       dispatch(uiActions.handleCursor("default"));
       return;
     }
-    console.log("render2");
-
-    const throttledHandleHoverAndAnimation = throttle((e) => {
-      // Handle Animation Movement
-      if (isHolding) {
-        dispatch(
-          customActionsDD.handleSetAnimationMovement({
-            x: e.offsetX,
-            y: e.offsetY,
-            width: canvas.width,
-            height: canvas.height,
-            zoomLevel,
-          })
-        );
-        return;
-      }
-
-      // Set is Hovering
-      const isHovering =
-        e.offsetY >= square.animations[square.animationIndex].y &&
-        e.offsetY <=
-          square.animations[square.animationIndex].y +
-            getSquareSize(canvas.width, zoomLevel) &&
-        e.offsetX >= square.animations[square.animationIndex].x &&
-        e.offsetX <=
-          square.animations[square.animationIndex].x +
-            getSquareSize(canvas.width, zoomLevel);
-
-      if (isHovering && isHovered) return;
-
-      if (isHovering) {
-        isHovered = true;
-        dispatch(uiActions.handleCursor("move"));
-      } else {
-        isHovered = false;
-        dispatch(uiActions.handleCursor("default"));
-      }
-    }, 8);
 
     function handleHoverAndAnimationHandler(e) {
-      // Call the throttled function
-      throttledHandleHoverAndAnimation(e);
+      handleHoverAndAnimation(
+        e,
+        square,
+        canvas.width,
+        canvas.height,
+        zoomLevel
+      );
     }
 
     // Sets isHolding

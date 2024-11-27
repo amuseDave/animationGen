@@ -80,38 +80,25 @@ export default function Canvas() {
     }
   }, []);
 
-  // handle holding
-  const handleDown = useCallback(() => {
-    if (!isHover) return;
-    isHolding = true;
-    dispatch(uiActions.handleCursor("grab"));
-  }, []);
-
-  // handle setting if isHolding
-  const handleUp = useCallback(() => {
-    if (!isHolding) return;
-    if (isHover) dispatch(uiActions.handleCursor("move"));
-    else dispatch(uiActions.handleCursor("default"));
-    isHolding = false;
-  }, []);
-
   // Handle translate canvas events
   useEffect(() => {
     const canvas = canvasEl.current;
 
     function handleMoveHandler(e) {
-      const { offsetX, offsetY } = e;
-
-      handleMove(offsetX, offsetY, converted.x, converted.y);
+      handleMove(e.offsetX, e.offsetY, converted.x, converted.y);
     }
 
-    function handleDownHandler(e) {
-      const { offsetX, offsetY } = e;
-      handleDown(offsetX, offsetY);
+    function handleDownHandler() {
+      if (!isHover) return;
+      isHolding = true;
+      dispatch(uiActions.handleCursor("grab"));
     }
 
     function handleUpHandler() {
-      handleUp();
+      if (!isHolding) return;
+      if (isHover) dispatch(uiActions.handleCursor("move"));
+      else dispatch(uiActions.handleCursor("default"));
+      isHolding = false;
     }
 
     canvas.addEventListener("mouseup", handleUpHandler);

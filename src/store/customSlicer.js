@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import getPositionStyles from "../utils/getPositionStyles";
+import getPositionStyles from "../utils/helper";
 const initialState = {
   isAnimationCreated: false,
   isValidKeyFrame: null,
@@ -18,8 +18,8 @@ const initialState = {
       translateX: -50,
       translateY: -50,
       rotate: 0,
-      left: `50%`,
-      top: `50%`,
+      left: "50%",
+      top: "50%",
     },
     {
       keyPercentage: 100,
@@ -34,8 +34,8 @@ const initialState = {
       translateY: -50,
       rotate: 0,
 
-      left: `50%`,
-      top: `50%`,
+      left: "50%",
+      top: "50%",
     },
   ],
 };
@@ -102,7 +102,6 @@ const customSlicer = createSlice({
         }
         case "copy": {
           const keyPercentage = state.keyFramePers[currentIndex];
-
           state.keyFrames[currentIndex] = {
             ...state.keyFrames[copyIndex],
             keyPercentage,
@@ -111,11 +110,11 @@ const customSlicer = createSlice({
           state.isValidKeyFrame = state.keyFramePers[copyIndex];
           break;
         }
-        case "switch":
-          state.activeKeyFrame = value;
-          break;
         case "validation":
           state.isValidKeyFrame = value;
+          break;
+        case "switch":
+          state.activeKeyFrame = value;
           break;
       }
     },

@@ -1,8 +1,17 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Static/Loader";
 import HandleAnimation from "../../Controller/Custom/NotDD/HandleAnimation";
+import { stringifyStyles } from "../../../utils/helper";
+import { uiActions } from "../../../store/uiSlicer";
+import { customActions } from "../../../store/customSlicer";
+import { useEffect, useRef } from "react";
 
 export default function Preview() {
+  const dispatch = useDispatch();
+  const squareEl = useRef();
+  const squareAnimation = useRef();
+
+  const isAnimating = useSelector((state) => state.ui.isAnimating);
   const isResizing = useSelector((state) => state.ui.isResizing);
   const zoomLevel = useSelector((state) => state.ui.zoomLevel);
 
@@ -18,37 +27,53 @@ export default function Preview() {
   const boxStyles = {
     width: `${size}px`,
     height: `${size}px`,
-    backgroundColor: `${curKF.color}`,
-    opacity: `${curKF.opacity}`,
+    backgroundColor: curKF.color,
+    opacity: curKF.opacity,
     transform: `translate(${curKF.translateX}%, ${curKF.translateY}%) scale(${curKF.scale})`,
+    left: curKF.left,
+    bottom: curKF.bottom,
+    top: curKF.top,
+    right: curKF.right,
     position: "absolute",
-    left: `${curKF.left || "unset"}`,
-    bottom: `${curKF.bottom || "unset"}`,
-    top: `${curKF.top || "unset"}`,
-    right: `${curKF.right || "unset"}`,
   };
 
   function handleAnimation() {
-    const valid = keyFrames.every((keyframe) => {
-      keyFrames.forEach((kf) => {
-        console.log(kf, keyframe);
-
-        return (
-          keyframe.position === kf.position &&
-          keyframe.color === kf.color &&
-          keyframe.opacity === kf.opacity &&
-          keyframe.scale === kf.scale &&
-          keyframe.translateX === kf.translateX &&
-          keyframe.translateY === kf.translateY &&
-          keyframe.rotate === kf.rotate &&
-          keyframe.left === kf.left &&
-          keyframe.right === kf.right
-        );
-      });
-    });
-    console.log(valid);
+    for (let i = 0; i < keyFrames.length; i++) {
+      for (let j = i + 1; j < keyFrames.length; j++) {
+        if (stringifyStyles(keyFrames[i]) !== stringifyStyles(keyFrames[j])) {
+          dispatch(uiActions.handleIsAnimating(true));
+          return;
+        }
+      }
+    }
+    dispatch(
+      customActions.handleKeyFrame({
+        action: "validation",
+        value: "same-styles",
+      })
+    );
   }
 
+  useEffect(() => {
+    if (!isAnimating) return;
+
+    const styles = keyFrames.map((keyFrame, index) => {
+      return {
+        opacity: keyFrame.opacity,
+        backgroundColor: keyFrame.color,
+        left: keyFrame.left,
+        top: keyFrame.top,
+        transform: `translate(${keyFrame.translateX}%, ${keyFrame.translateY}%) scale(${keyFrame.scale}) rotate(${keyFrame.rotate}deg)`,
+      };
+    });
+
+    squareAnimation.current = squareEl.current.animate(styles, {
+      duration: 2000,
+      easing: "ease-in-out",
+      iterations: 5,
+      animate: "all",
+    });
+  }, [isAnimating]);
   return (
     <>
       <section
@@ -57,7 +82,12 @@ export default function Preview() {
           isResizing && "hidden"
         }`}
       >
-        <div id="square" style={boxStyles} className={`rounded-xl`}></div>
+        <div
+          ref={squareEl}
+          id="square"
+          style={boxStyles}
+          className={`rounded-xl`}
+        ></div>
       </section>
       {isResizing && <Loader />}
       <HandleAnimation handleAnimation={handleAnimation} />

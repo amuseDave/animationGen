@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import ResetAlert from "./Static/ResetAlert";
 import PositionAlertDD from "./Custom/Alerts/PositionDDAlert";
 import AnimationDDAlerts from "./Custom/Alerts/AnimationDDAlerts";
-import InvalidKeyFrameAlert from "./Custom/Alerts/InvalidKeyFrameAlert";
+import KeyFrameAlert from "./Custom/Alerts/KeyFrameAlert";
 import PositionAlert from "./Custom/Alerts/PositionAlert";
 
 export default function AlertsLayout() {
@@ -42,7 +42,7 @@ export default function AlertsLayout() {
               <PositionAlert handleAlerts={handleAlerts} />
               <PositionAlertDD handleAlerts={handleAlerts} />
               <AnimationDDAlerts handleAlerts={handleAlerts} />
-              <InvalidKeyFrameAlert handleAlerts={handleAlerts} />
+              <KeyFrameAlert handleAlerts={handleAlerts} />
             </motion.div>
           )}
         </AnimatePresence>

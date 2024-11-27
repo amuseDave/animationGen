@@ -9,6 +9,7 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
   const [isBlock, setBlock] = useState(false);
   const [isBlock2, setBlock2] = useState(false);
   const [isBlock3, setBlock3] = useState(false);
+  const [isBlock4, setBlock4] = useState(false);
 
   const [alerts, setAlerts] = useState([]);
 
@@ -30,13 +31,6 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
       );
       return;
     }
-    if (isValidKeyFrame === "invalid") {
-      if (isBlock3) return;
-      setBlock3(true);
-      handleAlerts("Invalid Keyframe!", "error", setBlock3, setAlerts);
-      return;
-    }
-
     if (typeof isValidKeyFrame === "number") {
       if (isBlock2) return;
       setBlock2(true);
@@ -44,6 +38,25 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
         `Keyframe (${isValidKeyFrame}%) properties has been copied!`,
         "success",
         setBlock2,
+        setAlerts
+      );
+      return;
+    }
+
+    if (isValidKeyFrame === "invalid") {
+      if (isBlock3) return;
+      setBlock3(true);
+      handleAlerts("Invalid Keyframe!", "error", setBlock3, setAlerts);
+      return;
+    }
+
+    if (isValidKeyFrame === "same-styles") {
+      if (isBlock4) return;
+      setBlock4(true);
+      handleAlerts(
+        "All keyframes has the same styles!",
+        "error",
+        setBlock4,
         setAlerts
       );
       return;
