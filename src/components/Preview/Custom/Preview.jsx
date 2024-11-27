@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Static/Loader";
-import HandleAnimation from "../../Controller/Custom/NotDD/HandleAnimation";
+import Playback from "./Playback";
 import { stringifyStyles } from "../../../utils/helper";
 import { uiActions } from "../../../store/uiSlicer";
 import { customActions } from "../../../store/customSlicer";
@@ -57,7 +57,7 @@ export default function Preview() {
   useEffect(() => {
     if (!isAnimating) return;
 
-    const styles = keyFrames.map((keyFrame, index) => {
+    const styles = keyFrames.map((keyFrame) => {
       return {
         opacity: keyFrame.opacity,
         backgroundColor: keyFrame.color,
@@ -66,11 +66,10 @@ export default function Preview() {
         transform: `translate(${keyFrame.translateX}%, ${keyFrame.translateY}%) scale(${keyFrame.scale}) rotate(${keyFrame.rotate}deg)`,
       };
     });
-
     squareAnimation.current = squareEl.current.animate(styles, {
       duration: 2000,
       easing: "ease-in-out",
-      iterations: 5,
+      iterations: 1,
       animate: "all",
     });
   }, [isAnimating]);
@@ -90,7 +89,7 @@ export default function Preview() {
         ></div>
       </section>
       {isResizing && <Loader />}
-      <HandleAnimation handleAnimation={handleAnimation} />
+      <Playback handleAnimation={handleAnimation} />
     </>
   );
 }

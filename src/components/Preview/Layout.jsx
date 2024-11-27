@@ -13,7 +13,7 @@ export default function Layout() {
       <ZoomControls />
       <div className="relative">
         <PlayingAnimationAlert />
-        <div className="h-[700px] relative overflow-hidden">
+        <div className="relative h-[800px] overflow-hidden">
           {type === "custom" && <CustomPreview />}
           {type === "featured" && <h2>Featured animations</h2>}
           {type === "micro" && <h2>Micro animations</h2>}

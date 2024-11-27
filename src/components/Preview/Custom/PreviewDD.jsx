@@ -225,15 +225,11 @@ export default function CustomCanvas() {
       dispatch(customActionsDD.handleAnimation({ action: "set-animation" }));
     }
 
-    console.log("adding");
-
     canvas.addEventListener("mousemove", handleHoverAndAnimationHandler);
     canvas.addEventListener("mousedown", handleMouseDownHandler);
     canvas.addEventListener("mouseup", handleMouseUpHandler);
 
     return () => {
-      console.log("removing");
-
       canvas.removeEventListener("mousemove", handleHoverAndAnimationHandler);
       canvas.removeEventListener("mousedown", handleMouseDownHandler);
       canvas.removeEventListener("mouseup", handleMouseUpHandler);
