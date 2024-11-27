@@ -9,5 +9,5 @@ export default function FeaturedAnimations() {
     dispatch(uiActions.handleTypeChange("featured"));
   }, []);
 
-  return <div>Featured animations</div>;
+  return <></>;
 }

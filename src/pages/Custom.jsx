@@ -10,5 +10,5 @@ export default function Custom() {
     dispatch(uiActions.handleTypeChange("custom"));
   }, []);
 
-  return <div>No Custom animations</div>;
+  return <></>;
 }

@@ -48,9 +48,7 @@ export default function MainLayout() {
         <MainController />
       </main>
 
-      <footer>
-        <Outlet />
-      </footer>
+      <Outlet />
     </>
   );
 }
