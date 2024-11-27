@@ -23,6 +23,7 @@ export default function Position({ type, positionStyles }) {
   const isAnimating = useSelector((state) => state.ui.isAnimating);
 
   function handlePosition() {
+    if (isAnimating) return;
     if (isDragDrop && positionDD === type) return;
     else if (!isDragDrop && position === type) return;
 
@@ -33,7 +34,6 @@ export default function Position({ type, positionStyles }) {
         if (!reset) return;
 
         dispatch(uiActions.handleResetAnimationAlert(true));
-        if (isAnimating) dispatch(uiActions.handleIsAnimating(false));
         dispatch(
           customActionsDD.handleAnimation({ action: "reset-animation" })
         );
@@ -81,7 +81,7 @@ export default function Position({ type, positionStyles }) {
             : isDisabled
             ? "bg-zinc-950 hover:bg-pink-200"
             : "bg-gray-500 hover:bg-gray-200"
-        }`}
+        } `}
         onClick={handlePosition}
       ></div>
     </>

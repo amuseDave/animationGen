@@ -17,6 +17,7 @@ export default function Preview() {
 
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const keyFrames = useSelector((state) => state.custom.keyFrames);
+  const duration = useSelector((state) => state.custom.duration);
   const curKF = keyFrames[activeKeyFrame];
 
   const dashedBoxStyles = {
@@ -38,6 +39,13 @@ export default function Preview() {
   };
 
   function handleAnimation() {
+    if (isAnimating) {
+      dispatch(uiActions.handleIsAnimating(false));
+
+      squareAnimation.current.pause();
+      return;
+    }
+
     for (let i = 0; i < keyFrames.length; i++) {
       for (let j = i + 1; j < keyFrames.length; j++) {
         if (stringifyStyles(keyFrames[i]) !== stringifyStyles(keyFrames[j])) {
@@ -67,11 +75,14 @@ export default function Preview() {
       };
     });
     squareAnimation.current = squareEl.current.animate(styles, {
-      duration: 2000,
+      duration: duration * 1000,
       easing: "ease-in-out",
       iterations: 1,
       animate: "all",
     });
+    setTimeout(() => {
+      dispatch(uiActions.handleIsAnimating(false));
+    }, duration * 1000);
   }, [isAnimating]);
   return (
     <>
@@ -89,7 +100,7 @@ export default function Preview() {
         ></div>
       </section>
       {isResizing && <Loader />}
-      <Playback handleAnimation={handleAnimation} />
+      <Playback handleAnimation={handleAnimation} isAnimating={isAnimating} />
     </>
   );
 }

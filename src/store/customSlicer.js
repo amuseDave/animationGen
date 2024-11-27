@@ -3,7 +3,7 @@ import getPositionStyles from "../utils/helper";
 const initialState = {
   isAnimationCreated: false,
   isValidKeyFrame: null,
-  duration: 2000,
+  duration: 2,
   activeKeyFrame: 0,
   keyFramePers: [0, 100],
   keyFrames: [
@@ -117,6 +117,11 @@ const customSlicer = createSlice({
         case "switch":
           state.activeKeyFrame = value;
           break;
+      }
+    },
+    handleAnimationState(state, { payload: { action, value } }) {
+      if (action === "duration") {
+        state.duration = value;
       }
     },
   },

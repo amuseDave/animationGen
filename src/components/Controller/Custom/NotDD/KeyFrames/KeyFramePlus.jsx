@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { customActions } from "../../../../store/customSlicer";
+import { customActions } from "../../../../../store/customSlicer";
 
 export default function KeyFramePlus() {
   const keyFramePers = useSelector((state) => state.custom.keyFramePers);

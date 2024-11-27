@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { customActions } from "../../../../store/customSlicer";
+import { customActions } from "../../../../../store/customSlicer";
 import { ChevronDown, ClipboardCopy } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
