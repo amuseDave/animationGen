@@ -54,10 +54,8 @@ const customSlicer = createSlice({
 
         const vanillaPosStyles = getPositionStyles(pos);
 
-        curKF.bottom = vanillaPosStyles.bottom || "unset";
         curKF.top = vanillaPosStyles.top || "unset";
         curKF.left = vanillaPosStyles.left || "unset";
-        curKF.right = vanillaPosStyles.right || "unset";
 
         curKF.translateX = vanillaPosStyles.translateX;
         curKF.translateY = vanillaPosStyles.translateY;
@@ -159,7 +157,9 @@ const customSlicer = createSlice({
       state.isValidKeyFrame = "no-reset";
     },
 
-    setSharedAnimation(state, { payload }) {},
+    handleSetSharedAnimation(state, { payload }) {
+      return { ...payload, isValidKeyFrame: null };
+    },
   },
 });
 

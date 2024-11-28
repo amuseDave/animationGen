@@ -11,7 +11,7 @@ export default function Rotate() {
   );
 
   function handleRotate(e) {
-    const { value } = e.target;
+    const value = +e.target.value;
     dispatch(customActions.handleStyles({ action: "set-rotate", value }));
   }
 

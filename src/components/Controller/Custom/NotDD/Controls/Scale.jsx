@@ -11,7 +11,7 @@ export default function Scale() {
   );
 
   function handleScale(e) {
-    const { value } = e.target;
+    const value = +e.target.value;
     dispatch(customActions.handleStyles({ action: "set-scale", value }));
   }
 

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../store/uiSlicer";
 import { useSearchParams } from "react-router-dom";
 import { validateAnimationObject } from "../utils/helper";
+import { customActions } from "../store/customSlicer";
 
 let initialCustom;
 
@@ -29,11 +30,8 @@ export default function Custom() {
       const custom = JSON.parse(atob(animation));
 
       if (!isDragDrop) {
-        const isValidAnimation = validateAnimationObject(custom);
-
-        console.log(custom);
-
-        console.log(isValidAnimation);
+        validateAnimationObject(custom) &&
+          dispatch(customActions.handleSetSharedAnimation(custom));
 
         return;
       }

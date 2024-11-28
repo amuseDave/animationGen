@@ -11,7 +11,7 @@ export default function Opacity() {
   );
 
   function handleOpacity(e) {
-    const { value } = e.target;
+    const value = +e.target.value;
     dispatch(customActions.handleStyles({ action: "set-opacity", value }));
   }
 

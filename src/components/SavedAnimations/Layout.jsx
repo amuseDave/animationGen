@@ -6,8 +6,6 @@ import Team from "./Static/Team";
 export default function Layout() {
   const type = useSelector((state) => state.ui.type);
 
-  console.log("saved render");
-
   return (
     <>
       <div className="h-full p-3 rounded-2xl bg-saved-bg">

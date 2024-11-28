@@ -194,7 +194,29 @@ export function getOffsetXY(e) {
 }
 
 function isValidKeyFrame(keyFrame) {
+  const allowedKeys = [
+    "keyPercentage",
+    "position",
+    "oldPos",
+    "color",
+    "opacity",
+    "scale",
+    "translateX",
+    "translateY",
+    "rotate",
+    "left",
+    "top",
+  ];
+
+  keyFrame.oldPos = keyFrame.position;
+
+  // Check that all keys in the object are valid
+  const hasValidKeys = Object.keys(keyFrame).every((key) => {
+    return allowedKeys.includes(key);
+  });
+
   return (
+    hasValidKeys &&
     typeof keyFrame.keyPercentage === "number" &&
     typeof keyFrame.position === "string" &&
     typeof keyFrame.oldPos === "string" &&
@@ -210,7 +232,22 @@ function isValidKeyFrame(keyFrame) {
 }
 
 export function validateAnimationObject(obj) {
+  const allowedKeys = [
+    "animationFunction",
+    "isValidKeyFrame",
+    "duration",
+    "activeKeyFrame",
+    "keyFramePers",
+    "keyFrames",
+  ];
+
+  // Check that all keys in the animation object are valid
+  const hasValidKeys = Object.keys(obj).every((key) =>
+    allowedKeys.includes(key)
+  );
+
   return (
+    hasValidKeys &&
     obj &&
     typeof obj.animationFunction === "string" &&
     (obj.isValidKeyFrame === null ||
@@ -221,6 +258,11 @@ export function validateAnimationObject(obj) {
     typeof obj.activeKeyFrame === "number" &&
     Array.isArray(obj.keyFramePers) &&
     Array.isArray(obj.keyFrames) &&
-    obj.keyFrames.every(isValidKeyFrame)
+    obj.keyFrames.every((kf, index) => {
+      return (
+        isValidKeyFrame(kf) && obj.keyFramePers[index] === kf.keyPercentage
+      );
+    }) &&
+    obj.keyFrames.length === obj.keyFramePers.length
   );
 }
