@@ -36,6 +36,7 @@ export default function Canvas() {
   function handleInputsHandler(e, type) {
     const val = handleTranslateInputs(e.target.value.trim());
     if (isNaN(val)) return;
+
     setInnerChanged(!innerChanged);
     dispatch(
       customActions.handleSetPosition({
@@ -133,15 +134,11 @@ export default function Canvas() {
       isHolding = false;
     }
 
-    console.log("adding");
-
     canvas.addEventListener("mouseup", handleUpHandler);
     canvas.addEventListener("mousedown", handleDownHandler);
     canvas.addEventListener("mousemove", handleMoveHandler);
 
     return () => {
-      console.log("removing");
-
       canvas.removeEventListener("mousemove", handleMoveHandler);
       canvas.removeEventListener("mousedown", handleDownHandler);
       canvas.removeEventListener("mouseup", handleUpHandler);

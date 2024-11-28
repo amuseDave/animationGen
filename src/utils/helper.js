@@ -168,20 +168,11 @@ export function handleTranslateInputs(val) {
     val = val.slice(1, val.length - 1);
   }
 
-  if (val === "-") {
-    val = "0";
-  }
-  if (val.startsWith("0") && val.length > 1) {
-    val = val.slice(1);
-  }
-  if (val.startsWith("-0") && val.length > 2) {
-    val = `-${val.slice(2)}`;
-  }
+  if (val === "-" || val === "") val = "0";
+  if (val.startsWith("0") && val.length > 1) val = val.slice(1);
+  if (val.startsWith("-0") && val.length > 2) val = `-${val.slice(2)}`;
 
-  if (Math.abs(val) > 400) {
-    val = val > 0 ? 400 : -400;
-  }
-  if (val === "") val = 0;
+  if (Math.abs(val) > 400) val = val > 0 ? 400 : -400;
 
   return val;
 }
