@@ -192,3 +192,35 @@ export function getOffsetXY(e) {
 
   return { offsetX, offsetY };
 }
+
+function isValidKeyFrame(keyFrame) {
+  return (
+    typeof keyFrame.keyPercentage === "number" &&
+    typeof keyFrame.position === "string" &&
+    typeof keyFrame.oldPos === "string" &&
+    typeof keyFrame.color === "string" &&
+    typeof keyFrame.opacity === "number" &&
+    typeof keyFrame.scale === "number" &&
+    typeof keyFrame.translateX === "number" &&
+    typeof keyFrame.translateY === "number" &&
+    typeof keyFrame.rotate === "number" &&
+    typeof keyFrame.left === "string" &&
+    typeof keyFrame.top === "string"
+  );
+}
+
+export function validateAnimationObject(obj) {
+  return (
+    obj &&
+    typeof obj.animationFunction === "string" &&
+    (obj.isValidKeyFrame === null ||
+      typeof obj.isValidKeyFrame === "boolean" ||
+      typeof obj.isValidKeyFrame === "string" ||
+      typeof obj.isValidKeyFrame === "number") &&
+    typeof obj.duration === "number" &&
+    typeof obj.activeKeyFrame === "number" &&
+    Array.isArray(obj.keyFramePers) &&
+    Array.isArray(obj.keyFrames) &&
+    obj.keyFrames.every(isValidKeyFrame)
+  );
+}

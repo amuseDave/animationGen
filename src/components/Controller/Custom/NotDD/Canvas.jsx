@@ -13,8 +13,6 @@ let isHover = false;
 let isHolding = false;
 
 export default function Canvas() {
-  console.log("render");
-
   const dispatch = useDispatch();
   const canvasEl = useRef();
   const ctx = useRef();

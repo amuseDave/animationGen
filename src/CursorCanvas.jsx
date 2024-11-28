@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import drawCursor from "../utils/handleCursorCanvas";
+import drawCursor from "./utils/handleCursorCanvas";
 
 let cX = 0;
 let cY = 0;

@@ -11,17 +11,24 @@ body {
 
 @layer base {
   :root {
-    --bg-color: #090f0d;
+    /*MAIN START*/
+    --bg-main: #090f0d;
     --text-color: #36876d;
     --text-color-active: #b7ffe8;
+    /*MAIN END*/
 
-    /**/
-
+    /*ALERTS START*/
     --alert-bg-error: #141010;
     --alert-text-error: #ff6262;
 
     --alert-bg-success: #00140f;
     --alert-text-success: #00e2a6;
+    /*ALERTS END*/
+
+    /*SAVED ANIMATION START*/
+    --bg-controller: #0c1412;
+    --bg-saved: #101413;
+    /*SAVED ANIMATION END*/
   }
 
   .light {
@@ -34,7 +41,6 @@ body {
   .nav-btn {
     @apply px-4 py-2 rounded-lg text-main-t;
   }
-
   .active {
     @apply bg-slate-50/15 text-main-t-active;
   }
@@ -52,16 +58,5 @@ body {
   .success {
     @apply bg-alert-bg-success text-alert-t-success;
   }
-}
-
-/*INPUT RANGE DISABLE*/
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
+  /*ALERTS END*/
 }

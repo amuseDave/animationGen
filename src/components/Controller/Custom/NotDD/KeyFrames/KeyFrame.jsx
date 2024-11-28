@@ -54,12 +54,12 @@ export default function KeyFrame({ active, currentIndex }) {
           active ? "bg-green-300" : "bg-green-900"
         }`}
       ></div>
-      <span className="ml-2 text-zinc-950">{keyFramePers[currentIndex]}%</span>
+      <span className="ml-2 text-white">{keyFramePers[currentIndex]}%</span>
       <ChevronDown
         onClick={handleToolTip}
         size={20}
         className={`${
-          showToolTip ? "rotate-180 text-white" : "rotate-0"
+          showToolTip ? "rotate-180 text-green-300" : "rotate-0 text-white"
         } transition-all`}
       />
 

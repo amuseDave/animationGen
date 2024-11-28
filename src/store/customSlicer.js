@@ -79,8 +79,11 @@ const customSlicer = createSlice({
         case "set-opacity":
           state.keyFrames[state.activeKeyFrame].opacity = value;
           break;
-        default:
+        case "set-scale":
           state.keyFrames[state.activeKeyFrame].scale = value;
+          break;
+        case "set-rotate":
+          state.keyFrames[state.activeKeyFrame].rotate = value;
           break;
       }
     },
@@ -155,6 +158,8 @@ const customSlicer = createSlice({
 
       state.isValidKeyFrame = "no-reset";
     },
+
+    setSharedAnimation(state, { payload }) {},
   },
 });
 

@@ -6,7 +6,7 @@ export default function MainController() {
   const isAnimating = useSelector((state) => state.ui.isAnimating);
   return (
     <div
-      className={`relative px-3 py-5 text-center rounded-2xl bg-emerald-950`}
+      className={`relative px-3 py-5 text-center rounded-2xl bg-controller-bg`}
     >
       <div
         className={`rounded-2xl absolute left-0 duration-500 top-0 transition-opacity w-full h-full bg-black/65 ${

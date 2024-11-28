@@ -23,7 +23,7 @@ export default function Duration() {
 
   return (
     <div className="flex items-center gap-2 mt-7">
-      <p className="text-white">Duration:</p>{" "}
+      <p className="text-white">Duration</p>{" "}
       <input
         type="range"
         min={0.1}

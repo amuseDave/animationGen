@@ -34,7 +34,7 @@ export default function Preview() {
     height: `${size}px`,
     backgroundColor: curKF.color,
     opacity: curKF.opacity,
-    transform: `translate(${curKF.translateX}%, ${curKF.translateY}%) scale(${curKF.scale})`,
+    transform: `translate(${curKF.translateX}%, ${curKF.translateY}%) rotate(${curKF.rotate}deg) scale(${curKF.scale})`,
     left: curKF.left,
     bottom: curKF.bottom,
     top: curKF.top,
@@ -93,6 +93,10 @@ export default function Preview() {
     timeoutId.current = setTimeout(() => {
       dispatch(uiActions.handleIsAnimating(false));
     }, duration * 1000);
+
+    return () => {
+      dispatch(uiActions.handleIsAnimating(false));
+    };
   }, [isAnimating]);
   return (
     <>

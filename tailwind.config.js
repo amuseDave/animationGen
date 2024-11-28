@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        "main-bg": "var(--bg-color)",
+        "main-bg": "var(--bg-main)",
         "main-t": "var(--text-color)",
         "main-t-active": "var(--text-color-active)",
 
@@ -12,6 +12,9 @@ export default {
         "alert-t-error": "var(--alert-text-error)",
         "alert-bg-success": "var(--alert-bg-success)",
         "alert-t-success": "var(--alert-text-success)",
+
+        "controller-bg": "var(--bg-controller)",
+        "saved-bg": "var(--bg-saved)",
       },
     },
   },

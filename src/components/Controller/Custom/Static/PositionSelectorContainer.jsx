@@ -3,11 +3,7 @@ import PositionSelector from "./PositionSelector";
 export default function PositionSelectorContainer() {
   return (
     <div className="">
-      <h1 className="pb-1 text-2xl font-light bordner-b-purple-400">
-        Position Picker
-      </h1>
-
-      <div className="w-[180px] h-[130px] bg-gray-900 mt-10 relative m-auto">
+      <div className="w-[180px] h-[130px] bg-gray-900 mt-5 relative m-auto">
         <div className="-translate-x-1/2 -translate-y-full"></div>
 
         {/*Center START */}

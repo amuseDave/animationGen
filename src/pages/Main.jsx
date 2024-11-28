@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import Navigation from "../components/Navigation/Navigation.jsx";
-import SavedAnimations from "../components/SavedAnimations/SavedAnimations.jsx";
+import SavedAnimations from "../components/SavedAnimations/Layout.jsx";
 
 import PreviewLayout from "../components/Preview/Layout.jsx";
 import MainController from "../components/Controller/Layout.jsx";
@@ -40,7 +40,10 @@ export default function MainLayout() {
       <main
         className={`p-6 min-h-dvh relative z-10 grid grid-cols-[280px_1fr_280px]`}
       >
-        <SavedAnimations />
+        <section className="flex flex-col gap-3">
+          <SavedAnimations />
+        </section>
+
         <div className="relative overflow-hidden">
           <Navigation />
           <PreviewLayout />
