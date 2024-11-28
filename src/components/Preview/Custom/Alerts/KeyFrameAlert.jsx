@@ -13,6 +13,7 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
   const [isBlock5, setBlock5] = useState(false);
   const [isBlock6, setBlock6] = useState(false);
   const [isBlock7, setBlock7] = useState(false);
+  const [isBlock8, setBlock8] = useState(false);
 
   const [alerts, setAlerts] = useState([]);
 
@@ -78,8 +79,18 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
       setBlock7(true);
       handleAlerts(
         "Can not delete default keyframe!",
-        "success",
+        "error",
         setBlock7,
+        setAlerts
+      );
+      return;
+    } else if (isValidKeyFrame === "delete") {
+      if (isBlock8) return;
+      setBlock8(true);
+      handleAlerts(
+        "Keyframe has been deleted!",
+        "success",
+        setBlock8,
         setAlerts
       );
       return;

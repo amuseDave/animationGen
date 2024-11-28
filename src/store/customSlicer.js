@@ -104,6 +104,7 @@ const customSlicer = createSlice({
         case "delete": {
           state.keyFrames.splice(state.activeKeyFrame, 1);
           state.keyFramePers.splice(state.activeKeyFrame, 1);
+          state.isValidKeyFrame = "delete";
           break;
         }
         case "copy": {
