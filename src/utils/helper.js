@@ -158,3 +158,34 @@ export default function getPositionStyles(position) {
 export function stringifyStyles({ pos, oldPos, keyPercentage, ...rest }) {
   return JSON.stringify({ ...rest });
 }
+
+export function handleTranslateInputs(val) {
+  if (val.includes(".")) return;
+  if (val.endsWith("-") && val.length > 1) {
+    val = `-${val.slice(0, val.length - 1)}`;
+  }
+  if (val.startsWith("-") && val.endsWith("+") && val.length > 2) {
+    val = val.slice(1, val.length - 1);
+  }
+
+  if (val === "-") {
+    val = "0";
+  }
+  if (val.startsWith("0") && val.length > 1) {
+    val = val.slice(1);
+  }
+  if (val.startsWith("-0") && val.length > 2) {
+    val = `-${val.slice(2)}`;
+  }
+
+  if (Math.abs(val) > 400) {
+    val = val > 0 ? 400 : -400;
+  }
+  if (val === "") val = 0;
+
+  return val;
+}
+
+export function handleOutsideXYCalc(val) {
+  return val + 100 + 15 >= 200 ? 200 - 15 : val + 95 <= 0 ? 0 + 5 : val + 100;
+}

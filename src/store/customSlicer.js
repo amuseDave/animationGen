@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getPositionStyles, { stringifyStyles } from "../utils/helper";
 const initialState = {
-  isReset: false,
   animationFunction: "ease",
   isValidKeyFrame: null,
   duration: 2,
@@ -64,8 +63,8 @@ const customSlicer = createSlice({
         curKF.translateY = vanillaPosStyles.translateY;
       }
       if (action === "set-translate") {
-        curKF.translateX = x || curKF.translateX;
-        curKF.translateY = y || curKF.translateY;
+        curKF.translateX = x ?? curKF.translateX;
+        curKF.translateY = y ?? curKF.translateY;
       }
 
       if (action === "set-old") {
@@ -128,14 +127,10 @@ const customSlicer = createSlice({
         state.animationFunction = value;
       }
     },
-    handleReset(state, { payload }) {
-      if (payload === "canvas-reset") {
-        state.isReset = false;
-        return;
-      }
-
+    handleReset(state) {
       if (state.keyFrames.length > 2) {
-        return { ...initialState, isValidKeyFrame: "reset", isReset: true };
+        state.activeKeyFrame = 123;
+        return { ...initialState, isValidKeyFrame: "reset", activeKeyFrame: 0 };
       }
 
       for (let i = 0; i < state.keyFrames.length; i++) {
@@ -144,7 +139,11 @@ const customSlicer = createSlice({
             stringifyStyles(state.keyFrames[i]) !==
             stringifyStyles(state.keyFrames[j])
           ) {
-            return { ...initialState, isValidKeyFrame: "reset", isReset: true };
+            return {
+              ...initialState,
+              isValidKeyFrame: "reset",
+              activeKeyFrame: 0,
+            };
           }
         }
       }

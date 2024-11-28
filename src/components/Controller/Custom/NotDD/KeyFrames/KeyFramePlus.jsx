@@ -100,9 +100,6 @@ export default function KeyFramePlus() {
             <input
               ref={inputRef}
               className="w-16 p-1 font-bold text-white border border-green-300 rounded-lg outline-none focus:border-none focus:outline-green-500 bg-slate-700"
-              type="number"
-              max={100}
-              min={0}
               placeholder="0"
               value={inputVal}
               onChange={handleInputChange}

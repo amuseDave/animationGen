@@ -25,14 +25,6 @@ export default function drawCursor(x, y, ctx, cursor) {
   if (cursor === "grab") ctx.drawImage(cursorG, x, y, 28, 28);
 }
 
-export function getXYTranslate(x, y) {
-  return { x: x - 100, y: y - 100 };
-}
-
-export function getXYCanvas(x, y) {
-  return { x: x + 100, y: y + 100 };
-}
-
 export function drawTranslateCanvas(x, y, ctx) {
   ctx.clearRect(0, 0, 200, 200);
 

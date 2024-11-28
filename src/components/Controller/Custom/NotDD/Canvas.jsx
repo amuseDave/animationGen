@@ -1,18 +1,24 @@
 import { uiActions } from "../../../../store/uiSlicer";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useRef, useCallback } from "react";
-import {
-  drawTranslateCanvas,
-  getXYCanvas,
-  getXYTranslate,
-} from "../../../../utils/handleCursorCanvas";
+import { useEffect, useRef, useCallback, useState } from "react";
+import { drawTranslateCanvas } from "../../../../utils/handleCursorCanvas";
 import { customActions } from "../../../../store/customSlicer";
+import {
+  handleOutsideXYCalc,
+  handleTranslateInputs,
+} from "../../../../utils/helper";
 
 let isHover = false;
 let isHolding = false;
 
 export default function Canvas() {
-  const isReset = useSelector((state) => state.custom.isReset);
+  const dispatch = useDispatch();
+  const canvasEl = useRef();
+  const ctx = useRef();
+
+  const [innerChanged, setInnerChanged] = useState(false);
+  const [isReleased, setIsReleased] = useState(true);
+
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const translateX = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].translateX
@@ -25,13 +31,22 @@ export default function Canvas() {
   );
 
   const cursor = useSelector((state) => state.ui.cursor);
-  //update
-  const converted = getXYCanvas(translateX, translateY);
 
-  const dispatch = useDispatch();
-  const canvasEl = useRef();
-  const ctx = useRef();
+  // Update translateXY with inputs onChange
+  function handleInputsHandler(e, type) {
+    const val = handleTranslateInputs(e.target.value.trim());
+    if (isNaN(val)) return;
+    setInnerChanged(!innerChanged);
+    dispatch(
+      customActions.handleSetPosition({
+        action: "set-translate",
+        x: type === "x" ? +val : null,
+        y: type === "y" ? +val : null,
+      })
+    );
+  }
 
+  // Create canvas context, and run clean up for cursor
   useEffect(() => {
     ctx.current = canvasEl.current.getContext("2d");
 
@@ -42,8 +57,12 @@ export default function Canvas() {
     };
   }, []);
 
+  // Draw canvas for changing translates
   useEffect(() => {
-    drawTranslateCanvas(converted.x, converted.y, ctx.current);
+    let x = handleOutsideXYCalc(translateX);
+    let y = handleOutsideXYCalc(translateY);
+
+    drawTranslateCanvas(x, y, ctx.current);
   }, [translateX, translateY]);
 
   // Handle isHover, and isHolding moving
@@ -52,12 +71,10 @@ export default function Canvas() {
       const outsideX = offsetX - 10 / 2 <= 0 || offsetX + 10 + 5 >= 200;
       const outsideY = offsetY - 10 / 2 <= 0 || offsetY + 10 + 5 >= 200;
 
-      const { x, y } = getXYTranslate(offsetX, offsetY);
-
       dispatch(
         customActions.handleSetPosition({
-          x: outsideX ? null : x,
-          y: outsideY ? null : y,
+          x: outsideX ? null : offsetX - 100,
+          y: outsideY ? null : offsetY - 100,
           action: "set-translate",
         })
       );
@@ -86,15 +103,25 @@ export default function Canvas() {
   useEffect(() => {
     const canvas = canvasEl.current;
 
-    if (isReset) dispatch(customActions.handleReset("canvas-reset"));
-
     function handleMoveHandler(e) {
-      handleMove(e.offsetX, e.offsetY, converted.x, converted.y);
+      handleMove(
+        e.offsetX,
+        e.offsetY,
+        handleOutsideXYCalc(translateX),
+        handleOutsideXYCalc(translateY)
+      );
     }
 
-    function handleDownHandler() {
-      if (!isHover) return;
+    function handleDownHandler(e) {
       isHolding = true;
+      dispatch(
+        customActions.handleSetPosition({
+          x: e.offsetX - 100,
+          y: e.offsetY - 100,
+          action: "set-translate",
+        })
+      );
+
       dispatch(uiActions.handleCursor("grab"));
     }
 
@@ -102,19 +129,25 @@ export default function Canvas() {
       if (!isHolding) return;
       if (isHover) dispatch(uiActions.handleCursor("move"));
       else dispatch(uiActions.handleCursor("default"));
+      setIsReleased(!isReleased);
       isHolding = false;
     }
+
+    console.log("adding");
 
     canvas.addEventListener("mouseup", handleUpHandler);
     canvas.addEventListener("mousedown", handleDownHandler);
     canvas.addEventListener("mousemove", handleMoveHandler);
 
     return () => {
+      console.log("removing");
+
       canvas.removeEventListener("mousemove", handleMoveHandler);
       canvas.removeEventListener("mousedown", handleDownHandler);
       canvas.removeEventListener("mouseup", handleUpHandler);
     };
-  }, [isHolding, activeKeyFrame, position, isReset]);
+  }, [activeKeyFrame, position, innerChanged, isReleased]);
+
   return (
     <>
       <div className="flex items-center">
@@ -128,14 +161,14 @@ export default function Canvas() {
       <div className="flex items-center gap-2 mt-2 text-white">
         <p>X:</p>
         <input
+          onChange={(e) => handleInputsHandler(e, "x")}
           className="w-16 p-1 bg-zinc-900"
-          type="number"
           value={translateX}
         />
         <p>Y:</p>
         <input
+          onChange={(e) => handleInputsHandler(e, "y")}
           className="w-16 p-1 bg-zinc-900"
-          type="number"
           value={translateY}
         />
       </div>
