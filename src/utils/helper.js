@@ -180,3 +180,15 @@ export function handleTranslateInputs(val) {
 export function handleOutsideXYCalc(val) {
   return val + 100 + 15 >= 200 ? 200 - 15 : val + 95 <= 0 ? 0 + 5 : val + 100;
 }
+
+export function getOffsetXY(e) {
+  const element = e.currentTarget; // The element the event is bound to
+
+  const rect = element.getBoundingClientRect();
+
+  // Calculate offsets
+  const offsetX = (e.clientX || e.touches?.[0]?.clientX || 0) - rect.left;
+  const offsetY = (e.clientY || e.touches?.[0]?.clientY || 0) - rect.top;
+
+  return { offsetX, offsetY };
+}

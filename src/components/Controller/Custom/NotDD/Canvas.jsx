@@ -4,6 +4,7 @@ import { useEffect, useRef, useCallback, useState } from "react";
 import { drawTranslateCanvas } from "../../../../utils/handleCursorCanvas";
 import { customActions } from "../../../../store/customSlicer";
 import {
+  getOffsetXY,
   handleOutsideXYCalc,
   handleTranslateInputs,
 } from "../../../../utils/helper";
@@ -105,20 +106,24 @@ export default function Canvas() {
     const canvas = canvasEl.current;
 
     function handleMoveHandler(e) {
+      e.preventDefault();
+      const { offsetX, offsetY } = getOffsetXY(e);
+
       handleMove(
-        e.offsetX,
-        e.offsetY,
+        offsetX,
+        offsetY,
         handleOutsideXYCalc(translateX),
         handleOutsideXYCalc(translateY)
       );
     }
 
     function handleDownHandler(e) {
+      const { offsetX, offsetY } = getOffsetXY(e);
       isHolding = true;
       dispatch(
         customActions.handleSetPosition({
-          x: e.offsetX - 100,
-          y: e.offsetY - 100,
+          x: offsetX - 100,
+          y: offsetY - 100,
           action: "set-translate",
         })
       );
@@ -134,9 +139,13 @@ export default function Canvas() {
       isHolding = false;
     }
 
-    canvas.addEventListener("mouseup", handleUpHandler);
+    canvas.addEventListener("touchstart", handleDownHandler);
+    canvas.addEventListener("touchmove", handleMoveHandler);
+    canvas.addEventListener("touchend", handleUpHandler);
+
     canvas.addEventListener("mousedown", handleDownHandler);
     canvas.addEventListener("mousemove", handleMoveHandler);
+    canvas.addEventListener("mouseup", handleUpHandler);
 
     return () => {
       canvas.removeEventListener("mousemove", handleMoveHandler);
