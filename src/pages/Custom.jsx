@@ -22,21 +22,22 @@ export default function Custom() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Handle Initial Load Link State for Custom Animations
     if (!initialCustom) {
       initialCustom = true;
       const animation = searchParams.get("animation");
       if (!animation) return;
-
       const custom = JSON.parse(atob(animation));
 
+      //Check and update state from shared link
       if (!isDragDrop) {
         validateAnimationObject(custom) &&
           dispatch(customActions.handleSetSharedAnimation(custom));
-
         return;
       }
     }
 
+    // Handle Link Update for sharing every 0.5s
     if (!isDragDrop) {
       if (timeoutId.current) clearTimeout(timeoutId.current);
       timeoutId.current = setTimeout(() => {
@@ -44,7 +45,7 @@ export default function Custom() {
         setSearchParams(searchParams);
       }, 500);
     }
-
+    // Handle Link Update for sharing every 0.5s
     if (isDragDrop) {
       if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
       timeoutIdDD.current = setTimeout(() => {
@@ -58,5 +59,5 @@ export default function Custom() {
     dispatch(uiActions.handleTypeChange("custom"));
   }, []);
 
-  return <></>;
+  return null;
 }

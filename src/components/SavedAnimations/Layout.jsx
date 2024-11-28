@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { Cloud } from "lucide-react";
 import logo from "../../assets/logo.png";
 import Team from "./Static/Team";
 
 export default function Layout() {
-  const type = useSelector((state) => state.ui.type);
+  // const type = useSelector((state) => state.ui.type);
 
   return (
     <>

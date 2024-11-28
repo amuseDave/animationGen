@@ -1,9 +1,9 @@
 import { NavLink, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { uiActions } from "../../store/uiSlicer";
+// import { useDispatch } from "react-redux";
+// import { uiActions } from "../../store/uiSlicer";
 
 export default function Navigation({ error }) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   return (
     <section className="flex items-center justify-center">

@@ -8,5 +8,5 @@ export default function MicroInteractions() {
   useEffect(() => {
     dispatch(uiActions.handleTypeChange("micro"));
   }, []);
-  return <></>;
+  return null;
 }
