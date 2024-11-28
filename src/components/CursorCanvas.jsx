@@ -5,6 +5,8 @@ import drawCursor from "../utils/handleCursorCanvas";
 let cX = 0;
 let cY = 0;
 
+let isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
 export default function CursorCanvas() {
   const isResizing = useSelector((state) => state.ui.isResizing);
   const cursor = useSelector((state) => state.ui.cursor);
@@ -17,6 +19,11 @@ export default function CursorCanvas() {
   }, []);
 
   useEffect(() => {
+    isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  }, [isResizing]);
+
+  useEffect(() => {
+    if (isTouchDevice) return;
     canvasEl.current.width = canvasEl.current.offsetWidth;
     canvasEl.current.height = canvasEl.current.offsetHeight;
 
@@ -33,7 +40,10 @@ export default function CursorCanvas() {
 
     window.addEventListener("mousemove", handleMouseMove);
 
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      ctx.current.clearRect(0, 0, 4000, 4000);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, [isResizing, cursor]);
 
   return (

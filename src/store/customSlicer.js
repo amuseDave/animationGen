@@ -101,6 +101,11 @@ const customSlicer = createSlice({
           state.isValidKeyFrame = true;
           break;
         }
+        case "delete": {
+          state.keyFrames.splice(state.activeKeyFrame, 1);
+          state.keyFramePers.splice(state.activeKeyFrame, 1);
+          break;
+        }
         case "copy": {
           const keyPercentage = state.keyFramePers[currentIndex];
           state.keyFrames[currentIndex] = {
@@ -114,7 +119,7 @@ const customSlicer = createSlice({
         case "validation":
           state.isValidKeyFrame = value;
           break;
-        case "switch":
+        case "change-active":
           state.activeKeyFrame = value;
           break;
       }
@@ -130,7 +135,7 @@ const customSlicer = createSlice({
     handleReset(state) {
       if (state.keyFrames.length > 2) {
         state.activeKeyFrame = 123;
-        return { ...initialState, isValidKeyFrame: "reset", activeKeyFrame: 0 };
+        return { ...initialState, isValidKeyFrame: "reset" };
       }
 
       for (let i = 0; i < state.keyFrames.length; i++) {
@@ -142,7 +147,6 @@ const customSlicer = createSlice({
             return {
               ...initialState,
               isValidKeyFrame: "reset",
-              activeKeyFrame: 0,
             };
           }
         }

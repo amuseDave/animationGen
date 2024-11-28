@@ -119,6 +119,7 @@ export default function Canvas() {
 
     function handleDownHandler(e) {
       const { offsetX, offsetY } = getOffsetXY(e);
+
       isHolding = true;
       dispatch(
         customActions.handleSetPosition({
@@ -133,6 +134,7 @@ export default function Canvas() {
 
     function handleUpHandler() {
       if (!isHolding) return;
+
       if (isHover) dispatch(uiActions.handleCursor("move"));
       else dispatch(uiActions.handleCursor("default"));
       setIsReleased(!isReleased);
@@ -148,6 +150,10 @@ export default function Canvas() {
     canvas.addEventListener("mouseup", handleUpHandler);
 
     return () => {
+      canvas.removeEventListener("touchstart", handleDownHandler);
+      canvas.removeEventListener("touchmove", handleMoveHandler);
+      canvas.removeEventListener("touchend", handleUpHandler);
+
       canvas.removeEventListener("mousemove", handleMoveHandler);
       canvas.removeEventListener("mousedown", handleDownHandler);
       canvas.removeEventListener("mouseup", handleUpHandler);

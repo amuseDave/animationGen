@@ -43,7 +43,7 @@ export default function KeyFrame({ active, currentIndex }) {
       onClick={() =>
         dispatch(
           customActions.handleKeyFrame({
-            action: "switch",
+            action: "change-active",
             value: currentIndex,
           })
         )

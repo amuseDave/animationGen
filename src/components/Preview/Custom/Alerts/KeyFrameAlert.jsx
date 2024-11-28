@@ -12,6 +12,7 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
   const [isBlock4, setBlock4] = useState(false);
   const [isBlock5, setBlock5] = useState(false);
   const [isBlock6, setBlock6] = useState(false);
+  const [isBlock7, setBlock7] = useState(false);
 
   const [alerts, setAlerts] = useState([]);
 
@@ -56,7 +57,6 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
         setBlock4,
         setAlerts
       );
-
       return;
     } else if (isValidKeyFrame === "no-reset") {
       if (isBlock5) return;
@@ -70,6 +70,16 @@ export default function ValidKeyFrameAlert({ handleAlerts }) {
         "Keyframes has been reset!",
         "success",
         setBlock6,
+        setAlerts
+      );
+      return;
+    } else if (isValidKeyFrame === "error-delete") {
+      if (isBlock7) return;
+      setBlock7(true);
+      handleAlerts(
+        "Can not delete default keyframe!",
+        "success",
+        setBlock7,
         setAlerts
       );
       return;
