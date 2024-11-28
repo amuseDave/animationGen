@@ -6,6 +6,7 @@ const initialState = {
   //   ? true
   //   : JSON.parse(localStorage.getItem("isDark")),
   type: null,
+  isChanging: true,
   isReset: false,
   zoomLevel: 1,
   isResizing: false,
@@ -30,15 +31,6 @@ const uiSlicer = createSlice({
       state.isDark = !state.isDark;
       localStorage.setItem("isDark", JSON.stringify(state.isDark));
       changeTheme(state);
-    },
-    handleResetAnimationAlert(state, { payload }) {
-      state.isReset = payload;
-    },
-    handleTypeChange(state, { payload }) {
-      state.type = payload;
-    },
-    handleResize(state, { payload }) {
-      state.isResizing = payload;
     },
     handleZoomChange(state, { payload }) {
       switch (payload) {
@@ -69,6 +61,18 @@ const uiSlicer = createSlice({
 
     handleCursor(state, { payload }) {
       state.cursor = payload;
+    },
+    handleResetAnimationAlert(state, { payload }) {
+      state.isReset = payload;
+    },
+    handleTypeChange(state, { payload }) {
+      state.type = payload;
+    },
+    handleResize(state, { payload }) {
+      state.isResizing = payload;
+    },
+    handleIsAnimationChanging(state, { payload }) {
+      state.isChanging = payload;
     },
   },
 });

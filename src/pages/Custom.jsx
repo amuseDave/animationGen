@@ -6,13 +6,12 @@ import { useSearchParams } from "react-router-dom";
 import { validateAnimationObject } from "../utils/helper";
 import { customActions } from "../store/customSlicer";
 
-let initialCustom;
-
 export default function Custom() {
   const timeoutId = useRef();
   const timeoutIdDD = useRef();
 
   const isDragDrop = useSelector((state) => state.ui.isDragDrop);
+  const isChanging = useSelector((state) => state.ui.isChanging);
 
   const stateDD = useSelector((state) => state.customDD);
   const state = useSelector((state) => state.custom);
@@ -23,18 +22,19 @@ export default function Custom() {
 
   useEffect(() => {
     // Handle Initial Load Link State for Custom Animations
-    if (!initialCustom) {
-      initialCustom = true;
+    if (isChanging) {
+      dispatch(uiActions.handleIsAnimationChanging(false));
       const animation = searchParams.get("animation");
       if (!animation) return;
       const custom = JSON.parse(atob(animation));
 
-      //Check and update state from shared link
+      // Check and Update state from shared/switched link DD
       if (!isDragDrop) {
         validateAnimationObject(custom) &&
           dispatch(customActions.handleSetSharedAnimation(custom));
         return;
       }
+      // Check and Update state from shared/switched link NDD
     }
 
     // Handle Link Update for sharing every 0.5s
@@ -57,6 +57,11 @@ export default function Custom() {
 
   useEffect(() => {
     dispatch(uiActions.handleTypeChange("custom"));
+
+    return () => {
+      if (timeoutId.current) clearTimeout(timeoutId.current);
+      if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
+    };
   }, []);
 
   return null;
