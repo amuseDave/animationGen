@@ -13,6 +13,8 @@ let isHover = false;
 let isHolding = false;
 
 export default function Canvas() {
+  console.log("render");
+
   const dispatch = useDispatch();
   const canvasEl = useRef();
   const ctx = useRef();
@@ -30,8 +32,6 @@ export default function Canvas() {
   const position = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].position
   );
-
-  const cursor = useSelector((state) => state.ui.cursor);
 
   // Update translateXY with inputs onChange
   function handleInputsHandler(e, type) {

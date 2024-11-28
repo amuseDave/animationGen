@@ -20,7 +20,6 @@ export default function CustomCanvas() {
     (state) => state.customDD.isAnimationCreatedDD
   );
 
-  const cursor = useSelector((state) => state.ui.cursor);
   const zoomLevel = useSelector((state) => state.ui.zoomLevel);
   const isResizing = useSelector((state) => state.ui.isResizing);
   const isAnimating = useSelector((state) => state.ui.isAnimating);
