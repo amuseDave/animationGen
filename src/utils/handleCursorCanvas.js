@@ -26,23 +26,11 @@ export default function drawCursor(x, y, ctx, cursor) {
 }
 
 export function getXYTranslate(x, y) {
-  let shiftedX = x - 100;
-  let shiftedY = y - 100;
-
-  let coordX = (shiftedX * 400) / 200;
-  let coordY = (shiftedY * 400) / 200;
-
-  return { x: coordX, y: coordY };
+  return { x: x - 100, y: y - 100 };
 }
 
 export function getXYCanvas(x, y) {
-  let shiftedX = x + 200;
-  let shiftedY = y + 200;
-
-  let scaledX = (shiftedX * 200) / 400;
-  let scaledY = (shiftedY * 200) / 400;
-
-  return { x: scaledX, y: scaledY };
+  return { x: x + 100, y: y + 100 };
 }
 
 export function drawTranslateCanvas(x, y, ctx) {

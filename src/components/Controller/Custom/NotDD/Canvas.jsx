@@ -12,6 +12,7 @@ let isHover = false;
 let isHolding = false;
 
 export default function Canvas() {
+  const isReset = useSelector((state) => state.custom.isReset);
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const translateX = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].translateX
@@ -22,8 +23,9 @@ export default function Canvas() {
   const position = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].position
   );
-  const cursor = useSelector((state) => state.ui.cursor);
 
+  const cursor = useSelector((state) => state.ui.cursor);
+  //update
   const converted = getXYCanvas(translateX, translateY);
 
   const dispatch = useDispatch();
@@ -84,6 +86,8 @@ export default function Canvas() {
   useEffect(() => {
     const canvas = canvasEl.current;
 
+    if (isReset) dispatch(customActions.handleReset("canvas-reset"));
+
     function handleMoveHandler(e) {
       handleMove(e.offsetX, e.offsetY, converted.x, converted.y);
     }
@@ -110,15 +114,31 @@ export default function Canvas() {
       canvas.removeEventListener("mousedown", handleDownHandler);
       canvas.removeEventListener("mouseup", handleUpHandler);
     };
-  }, [isHolding, activeKeyFrame, position]);
+  }, [isHolding, activeKeyFrame, position, isReset]);
   return (
-    <div className="flex items-center gap-2">
-      <canvas
-        ref={canvasEl}
-        width={200}
-        height={200}
-        className="bg-slate-950"
-      ></canvas>
-    </div>
+    <>
+      <div className="flex items-center">
+        <canvas
+          ref={canvasEl}
+          width={200}
+          height={200}
+          className="bg-slate-950"
+        ></canvas>
+      </div>
+      <div className="flex items-center gap-2 mt-2 text-white">
+        <p>X:</p>
+        <input
+          className="w-16 p-1 bg-zinc-900"
+          type="number"
+          value={translateX}
+        />
+        <p>Y:</p>
+        <input
+          className="w-16 p-1 bg-zinc-900"
+          type="number"
+          value={translateY}
+        />
+      </div>
+    </>
   );
 }

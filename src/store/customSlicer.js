@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getPositionStyles, { stringifyStyles } from "../utils/helper";
 const initialState = {
+  isReset: false,
   animationFunction: "ease",
   isValidKeyFrame: null,
   duration: 2,
@@ -127,9 +128,14 @@ const customSlicer = createSlice({
         state.animationFunction = value;
       }
     },
-    handleReset(state) {
+    handleReset(state, { payload }) {
+      if (payload === "canvas-reset") {
+        state.isReset = false;
+        return;
+      }
+
       if (state.keyFrames.length > 2) {
-        return { ...initialState, isValidKeyFrame: "reset" };
+        return { ...initialState, isValidKeyFrame: "reset", isReset: true };
       }
 
       for (let i = 0; i < state.keyFrames.length; i++) {
@@ -138,7 +144,7 @@ const customSlicer = createSlice({
             stringifyStyles(state.keyFrames[i]) !==
             stringifyStyles(state.keyFrames[j])
           ) {
-            return { ...initialState, isValidKeyFrame: "reset" };
+            return { ...initialState, isValidKeyFrame: "reset", isReset: true };
           }
         }
       }
