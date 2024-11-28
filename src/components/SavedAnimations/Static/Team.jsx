@@ -1,11 +1,26 @@
 import daveImg from "../../../assets/dave-icon.jpg";
 import coverImg from "../../../assets/cover.jpg";
 import { ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Team() {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    function handleClick(e) {
+      const box = e.target.closest("#feature-box");
+      const btn = e.target.closest("#feature-btn");
+
+      if (box || btn) return;
+
+      setIsOpen(false);
+    }
+    window.addEventListener("click", handleClick);
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   return (
     <div className="relative h-20 px-4 py-2 bg-saved-bg rounded-2xl">
@@ -26,6 +41,7 @@ export default function Team() {
       </div>
 
       <ChevronUp
+        id="feature-btn"
         onClick={() => {
           setIsOpen(!isOpen);
         }}
@@ -37,6 +53,7 @@ export default function Team() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="feature-box"
             animate={{ opacity: [0, 1] }}
             exit={{ opacity: 0 }}
             className="pt-12 px-6 rounded-2xl border border-main-t-gray-active h-[400px] w-[500px] bg-saved-bg absolute bottom-[88px] left-0 overflow-hidden"
