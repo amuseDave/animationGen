@@ -15,6 +15,9 @@ body {
     --bg-main: #090f0d;
     --text-color: #36876d;
     --text-color-active: #b7ffe8;
+
+    --text-gray: #5c6663;
+    --text-gray-active: #b8ccc7;
     /*MAIN END*/
 
     /*ALERTS START*/
@@ -48,7 +51,7 @@ body {
 
   /*ALERTS*/
   .alert {
-    @apply py-2 mt-3 px-3 text-center rounded-md select-none font-light w-max;
+    @apply px-3 py-2 mt-3 font-light text-center rounded-md select-none w-max;
   }
 
   .error {

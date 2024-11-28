@@ -8,7 +8,7 @@ export default function Layout() {
 
   return (
     <>
-      <div className="h-full p-3 rounded-2xl bg-saved-bg">
+      <div className="relative h-full p-3 rounded-2xl bg-saved-bg">
         <div className="flex items-center -translate-x-1">
           <img src={logo} className="w-14 h-14" />
           <h2 className="text-2xl font-semibold text-alert-t-success">
