@@ -1,7 +1,7 @@
-import { Cloud } from "lucide-react";
 import logo from "../../assets/logo.png";
 import Team from "./Static/Team";
 import SavedLibraries from "./SavedLibraries";
+import Loading from "./Static/Loading";
 
 export default function Layout() {
   return (
@@ -13,7 +13,8 @@ export default function Layout() {
           <h2 className="text-2xl font-semibold text-alert-t-success">
             Pulsewave
           </h2>
-          <Cloud className="ml-auto justify-self-end text-alert-t-success" />
+
+          <Loading />
         </div>
 
         {/* Saved Animations */}

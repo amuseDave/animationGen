@@ -75,21 +75,14 @@ const animationsSlicer = createSlice({
           state.animationsAlert = "min-limit";
           return;
         }
-
         const curId = animations[curIndex].id;
-
-        console.log(curId);
-
         animations.splice(index, 1);
         state.animationsAlert = "remove";
-
         const newIndex = animations.findIndex(
           (animation) => animation.id === curId
         );
-
         state.custom.curIndex = newIndex > -1 ? newIndex : 0;
       }
-
       localStorage.setItem("pulsewave-animations", JSON.stringify(state));
     },
     handleAnimationsAlert(state, { payload }) {

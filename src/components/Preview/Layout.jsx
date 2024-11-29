@@ -22,6 +22,8 @@ export default function Layout() {
       </div>
 
       {type === "custom" && <CustomName />}
+      {type === "featured" && <></>}
+      {type === "micro" && <></>}
 
       <AlertsLayout />
     </>
