@@ -4,15 +4,18 @@ import { motion } from "framer-motion";
 import Custom from "./Custom/Custom";
 import Featured from "./Featured/Featured";
 import Micro from "./Micro/Micro";
-import { uiActions } from "../../store/uiSlicer";
 import { animationActions } from "../../store/animationsSlicer";
+import { useNavigate } from "react-router-dom";
 
 export default function SavedLibraries() {
+  const navigate = useNavigate();
   const type = useSelector((state) => state.ui.type);
   const dispatch = useDispatch();
 
   function handleNewCanvas() {
-    if (type !== "custom") dispatch(uiActions.handleTypeChange("custom"));
+    if (type !== "custom") {
+      navigate("/");
+    }
     dispatch(animationActions.handleAddCustom({ action: "add" }));
   }
 

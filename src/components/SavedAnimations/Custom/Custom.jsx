@@ -1,13 +1,14 @@
 import { Book, ChevronDown } from "lucide-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import { customActions } from "../../../store/customSlicer";
 import { customActionsDD } from "../../../store/customDDSlicer";
 import { animationActions } from "../../../store/animationsSlicer";
-import { uiActions } from "../../../store/uiSlicer";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Custom() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const type = useSelector((state) => state.ui.type);
@@ -24,7 +25,7 @@ export default function Custom() {
 
   function handleDiffAnimation(index) {
     if (curIndex === index && type === "custom") return;
-    if (type !== "custom") dispatch(uiActions.handleTypeChange("custom"));
+    if (type !== "custom") navigate("/");
     dispatch(animationActions.handleUpdateCustom({ action: "index", index }));
   }
 
@@ -38,34 +39,37 @@ export default function Custom() {
         <ChevronDown size={22} className="ml-auto" />
       </div>
 
-      {animations.map((animation, index) => {
-        const same = index === curIndex && type === "custom";
+      <div className="flex flex-col">
+        {animations.map((animation, index) => {
+          const same = index === curIndex && type === "custom";
 
-        return (
-          <div
-            onClick={() => {
-              handleDiffAnimation(index);
-            }}
-            key={animation.id}
-            className={`flex items-center gap-3 px-2 py-2 mt-4 transition-colors rounded-md hover:bg-green-800/10 ${
-              same && "hover:bg-orange-400/10"
-            }`}
-          >
-            <div
-              className={`w-2 h-2 rounded-full bg-green-200 ${
-                same && "bg-orange-500"
-              }`}
-            ></div>
-            <p
-              className={`text-main-t-gray ${
-                same && "text-main-t-gray-active"
+          return (
+            <motion.div
+              layout
+              onClick={() => {
+                handleDiffAnimation(index);
+              }}
+              key={animation.id}
+              className={`flex items-center mt-1 gap-3 px-2 py-1 transition-colors rounded-md hover:bg-green-800/10 ${
+                same && "hover:bg-orange-400/10 order-first mt-2"
               }`}
             >
-              {animation.name}
-            </p>
-          </div>
-        );
-      })}
+              <div
+                className={`w-2 h-2 rounded-full bg-green-200 ${
+                  same && "bg-orange-500"
+                }`}
+              ></div>
+              <p
+                className={`text-main-t-gray ${
+                  same && "text-main-t-gray-active"
+                }`}
+              >
+                {animation.name}
+              </p>
+            </motion.div>
+          );
+        })}
+      </div>
     </>
   );
 }
