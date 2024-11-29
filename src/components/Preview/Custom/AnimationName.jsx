@@ -8,13 +8,13 @@ export default function AnimationName() {
   );
 
   function handleUpdateName(e) {
-    const name = e.target.value.trim();
+    const name = e.target.value.replaceAll("  ", "");
 
     // Handle alert if name is too short or too long
     if (name.length > 20) return;
 
     dispatch(
-      animationActions.updateCustom({
+      animationActions.handleUpdateCustom({
         action: "set-name",
         value: name,
       })
@@ -24,7 +24,7 @@ export default function AnimationName() {
   function handleSetDefaultName() {
     if (animationName === "")
       dispatch(
-        animationActions.updateCustom({
+        animationActions.handleUpdateCustom({
           action: "set-name",
           value: "No Name",
         })

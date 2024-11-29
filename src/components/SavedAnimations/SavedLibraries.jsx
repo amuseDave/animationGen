@@ -5,6 +5,7 @@ import Custom from "./Custom/Custom";
 import Featured from "./Featured/Featured";
 import Micro from "./Micro/Micro";
 import { uiActions } from "../../store/uiSlicer";
+import { animationActions } from "../../store/animationsSlicer";
 
 export default function SavedLibraries() {
   const type = useSelector((state) => state.ui.type);
@@ -12,6 +13,7 @@ export default function SavedLibraries() {
 
   function handleNewCanvas() {
     if (type !== "custom") dispatch(uiActions.handleTypeChange("custom"));
+    dispatch(animationActions.handleAddCustom({ action: "add" }));
   }
 
   return (

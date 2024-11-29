@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   custom: {
     curIndex: 0,
-    animations: [{ name: "Animation Name", animation: "", animationDD: "" }],
+    animations: [
+      { name: "Animation Name", animation: "", animationDD: "", id: uuidv4() },
+    ],
   },
   featured: [{ name: "any", animation: "" }],
   micro: [{ name: "sw", animation: "" }],
@@ -16,10 +19,10 @@ const animationsSlicer = createSlice({
     getSavedAnimations(state) {
       const pulseWaveAnimations =
         JSON.parse(localStorage.getItem("pulsewave-animations")) || state;
-      return { ...pulseWaveAnimations, initial: false };
+      return { ...pulseWaveAnimations };
     },
 
-    updateCustom(state, { payload: { index, action, value } }) {
+    handleUpdateCustom(state, { payload: { index, action, value } }) {
       switch (action) {
         case "ndd":
           state.custom.animations[index].animation = value;
@@ -32,6 +35,35 @@ const animationsSlicer = createSlice({
           break;
         case "index":
           state.custom.curIndex = index;
+      }
+
+      localStorage.setItem("pulsewave-animations", JSON.stringify(state));
+    },
+    handleAddCustom(state, { payload: { action } }) {
+      if (action === "add") {
+        const id = uuidv4();
+
+        let name = "Animation Name";
+        const existingNames = new Set(
+          state.custom.animations.map((a) => a.name)
+        );
+        let existCount = 0;
+        while (existingNames.has(name)) {
+          existCount++;
+          name = `Animation Name(${existCount})`;
+        }
+
+        state.custom.animations.push({
+          name,
+          animation: "",
+          animationDD: "",
+          id,
+        });
+
+        const index = state.custom.animations.findIndex(
+          (animation) => id === animation.id
+        );
+        state.custom.curIndex = index;
       }
 
       localStorage.setItem("pulsewave-animations", JSON.stringify(state));

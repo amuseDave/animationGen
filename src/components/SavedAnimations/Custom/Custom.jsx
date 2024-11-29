@@ -24,10 +24,8 @@ export default function Custom() {
 
   function handleDiffAnimation(index) {
     if (curIndex === index && type === "custom") return;
-
     if (type !== "custom") dispatch(uiActions.handleTypeChange("custom"));
-
-    dispatch(animationActions.updateCustom({ action: "index", index }));
+    dispatch(animationActions.handleUpdateCustom({ action: "index", index }));
   }
 
   useEffect(() => {
@@ -48,7 +46,7 @@ export default function Custom() {
             onClick={() => {
               handleDiffAnimation(index);
             }}
-            key={uuidv4()}
+            key={animation.id}
             className={`flex items-center gap-3 px-2 py-2 mt-4 transition-colors rounded-md hover:bg-green-800/10 ${
               same && "hover:bg-orange-400/10"
             }`}

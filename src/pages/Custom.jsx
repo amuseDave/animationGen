@@ -50,7 +50,7 @@ export default function Custom() {
       if (timeoutId.current) clearTimeout(timeoutId.current);
       timeoutId.current = setTimeout(() => {
         dispatch(
-          animationActions.updateCustom({
+          animationActions.handleUpdateCustom({
             action: "ndd",
             index: curIndex,
             value: btoa(JSON.stringify(state)),
@@ -66,7 +66,7 @@ export default function Custom() {
       if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
       timeoutIdDD.current = setTimeout(() => {
         dispatch(
-          animationActions.updateCustom({
+          animationActions.handleUpdateCustom({
             action: "dd",
             index: curIndex,
             value: btoa(JSON.stringify(stateDD)),
