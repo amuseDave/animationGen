@@ -62,18 +62,18 @@ export default function Custom() {
 
   // Save animation to the DD
   useEffect(() => {
-    if (isAnimationCreatedDD && !isInitial) {
-      if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
-      timeoutIdDD.current = setTimeout(() => {
-        dispatch(
-          animationActions.handleUpdateCustom({
-            action: "dd",
-            index: curIndex,
-            value: btoa(JSON.stringify(stateDD)),
-          })
-        );
-      }, 100);
-    }
+    if (isInitial) return;
+
+    if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
+    timeoutIdDD.current = setTimeout(() => {
+      dispatch(
+        animationActions.handleUpdateCustom({
+          action: "dd",
+          index: curIndex,
+          value: btoa(JSON.stringify(stateDD)),
+        })
+      );
+    }, 100);
   }, [isAnimationCreatedDD]);
 
   useEffect(() => {
