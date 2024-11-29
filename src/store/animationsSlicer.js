@@ -20,7 +20,7 @@ const animationsSlicer = createSlice({
     getSavedAnimations(state) {
       const pulseWaveAnimations =
         JSON.parse(localStorage.getItem("pulsewave-animations")) || state;
-      return { ...pulseWaveAnimations };
+      return { ...pulseWaveAnimations, animationsAlert: null };
     },
 
     handleUpdateCustom(state, { payload: { index, action, value } }) {
@@ -41,46 +41,53 @@ const animationsSlicer = createSlice({
       state.animationsAlert = "update";
       localStorage.setItem("pulsewave-animations", JSON.stringify(state));
     },
-    handleAddRemoveCustom(state, { payload: { action } }) {
+    handleAddRemoveCustom(state, { payload: { action, index } }) {
+      const { animations, curIndex } = state.custom;
       if (action === "add") {
-        if (state.custom.animations.length > 4) {
+        if (animations.length > 4) {
           state.animationsAlert = "limit";
           return;
         }
         const id = uuidv4();
 
         let name = "Animation Name";
-        const existingNames = new Set(
-          state.custom.animations.map((a) => a.name)
-        );
+        const existingNames = new Set(animations.map((a) => a.name));
         let existCount = 0;
         while (existingNames.has(name)) {
           existCount++;
           name = `Animation Name(${existCount})`;
         }
 
-        state.custom.animations.push({
+        animations.push({
           name,
           animation: "",
           animationDD: "",
           id,
         });
 
-        const index = state.custom.animations.findIndex(
-          (animation) => id === animation.id
-        );
+        const index = animations.findIndex((animation) => id === animation.id);
         state.custom.curIndex = index;
         state.animationsAlert = "add";
       }
 
       if (action === "remove") {
-        if (state.custom.animations.length < 2) {
+        if (animations.length < 2) {
           state.animationsAlert = "min-limit";
           return;
         }
 
-        state.custom.animations.splice(state.custom.curIndex, 1);
+        const curId = animations[curIndex].id;
+
+        console.log(curId);
+
+        animations.splice(index, 1);
         state.animationsAlert = "remove";
+
+        const newIndex = animations.findIndex(
+          (animation) => animation.id === curId
+        );
+
+        state.custom.curIndex = newIndex > -1 ? newIndex : 0;
       }
 
       localStorage.setItem("pulsewave-animations", JSON.stringify(state));

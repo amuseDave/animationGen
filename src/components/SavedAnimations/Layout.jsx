@@ -6,7 +6,7 @@ import SavedLibraries from "./SavedLibraries";
 export default function Layout() {
   return (
     <>
-      <div className="relative h-full p-4 rounded-2xl bg-saved-bg">
+      <div className="relative h-full p-4 select-none rounded-2xl bg-saved-bg">
         {/* Logo & Title */}
         <div className="flex items-center gap-2">
           <img src={logo} className="w-8 h-8" />
