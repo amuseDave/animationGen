@@ -4,6 +4,11 @@ import Custom from "./pages/Custom";
 import FeaturedAnimations from "./pages/FeaturedAnimations";
 import MicroInteractions from "./pages/MicroInteractions";
 import Error from "./pages/Error.jsx";
+import { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { animationActions } from "./store/animationsSlicer.js";
+import { uiActions } from "./store/uiSlicer.js";
 
 const route = createBrowserRouter([
   {
@@ -23,9 +28,13 @@ const route = createBrowserRouter([
 ]);
 
 export default function App() {
-  return (
-    <>
-      <RouterProvider router={route} />
-    </>
-  );
+  const isInitial = useSelector((state) => state.ui.isInitial);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(animationActions.getSavedAnimations());
+    dispatch(uiActions.handleInitial(false));
+  }, []);
+
+  return !isInitial && <RouterProvider router={route} />;
 }

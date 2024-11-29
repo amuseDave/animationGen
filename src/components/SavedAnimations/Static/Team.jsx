@@ -23,7 +23,7 @@ export default function Team() {
   }, []);
 
   return (
-    <div className="relative h-20 px-4 py-2 bg-saved-bg rounded-2xl">
+    <div className="relative h-20 px-4 py-2 select-none bg-saved-bg rounded-2xl">
       <p className="text-main-t-gray">Team</p>
 
       <div className="flex mt-2">
@@ -56,7 +56,7 @@ export default function Team() {
             id="feature-box"
             animate={{ opacity: [0, 1] }}
             exit={{ opacity: 0 }}
-            className="pt-12 px-6 rounded-2xl border border-main-t-gray-active h-[400px] w-[500px] bg-saved-bg absolute bottom-[88px] left-0 overflow-hidden"
+            className="pt-12 px-6 rounded-2xl border border-main-t-gray-active h-[400px] w-[500px] bg-saved-bg absolute bottom-[88px] left-0 overflow-hidden z-[1000]"
           >
             <img
               src={coverImg}

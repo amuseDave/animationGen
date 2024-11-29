@@ -20,7 +20,7 @@ const initialState = {
 
 const customSlicer = createSlice({
   name: "custom-animations-DD",
-  initialState,
+  initialState: {},
   reducers: {
     handleUpdateAnimationsPositions(
       state,
@@ -156,6 +156,13 @@ const customSlicer = createSlice({
         default:
           break;
       }
+    },
+
+    handleSetAnimation(state, { payload }) {
+      if (!payload) return { ...initialState };
+
+      const newAnimationState = JSON.parse(atob(payload));
+      return { ...newAnimationState, isAnimationInitialCreatedDD: null };
     },
   },
 });

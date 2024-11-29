@@ -43,7 +43,7 @@ const initialState = {
 
 const customSlicer = createSlice({
   name: "custom-animations",
-  initialState,
+  initialState: {},
 
   reducers: {
     handleSetPosition(state, { payload: { action, pos, x, y } }) {
@@ -157,8 +157,11 @@ const customSlicer = createSlice({
       state.isValidKeyFrame = "no-reset";
     },
 
-    handleSetSharedAnimation(state, { payload }) {
-      return { ...payload, isValidKeyFrame: null };
+    handleSetAnimation(state, { payload }) {
+      if (!payload) return { ...initialState };
+
+      const newAnimationState = JSON.parse(atob(payload));
+      return { ...newAnimationState, isValidKeyFrame: null };
     },
   },
 });

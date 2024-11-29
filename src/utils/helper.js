@@ -239,12 +239,13 @@ export function validateAnimationObject(obj) {
     "activeKeyFrame",
     "keyFramePers",
     "keyFrames",
+    "isDragDrop",
   ];
 
   // Check that all keys in the animation object are valid
-  const hasValidKeys = Object.keys(obj).every((key) =>
-    allowedKeys.includes(key)
-  );
+  const hasValidKeys = Object.keys(obj).every((key) => {
+    return allowedKeys.includes(key);
+  });
 
   return (
     hasValidKeys &&
@@ -254,6 +255,7 @@ export function validateAnimationObject(obj) {
       typeof obj.isValidKeyFrame === "boolean" ||
       typeof obj.isValidKeyFrame === "string" ||
       typeof obj.isValidKeyFrame === "number") &&
+    typeof obj.isDragDrop === "boolean" &&
     typeof obj.duration === "number" &&
     typeof obj.activeKeyFrame === "number" &&
     Array.isArray(obj.keyFramePers) &&

@@ -1,66 +1,87 @@
 // import { useSearchParams } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../store/uiSlicer";
-import { useSearchParams } from "react-router-dom";
+// import { useSearchParams } from "react-router-dom";
 import { validateAnimationObject } from "../utils/helper";
 import { customActions } from "../store/customSlicer";
+import { animationActions } from "../store/animationsSlicer";
 
 export default function Custom() {
+  const [isInitial, setIsInitial] = useState(true);
+
   const timeoutId = useRef();
   const timeoutIdDD = useRef();
 
   const isDragDrop = useSelector((state) => state.ui.isDragDrop);
-  const isChanging = useSelector((state) => state.ui.isChanging);
 
+  const isAnimationCreatedDD = useSelector(
+    (state) => state.customDD.isAnimationCreatedDD
+  );
   const stateDD = useSelector((state) => state.customDD);
   const state = useSelector((state) => state.custom);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const curIndex = useSelector((state) => state.animations.custom.curIndex);
+
+  // const [searchParams, setSearchParams] = useSearchParams();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     // Handle Initial Load Link State for Custom Animations
-    if (isChanging) {
-      dispatch(uiActions.handleIsAnimationChanging(false));
-      const animation = searchParams.get("animation");
-      if (!animation) return;
-      const custom = JSON.parse(atob(animation));
-
-      // Check and Update state from shared/switched link DD
-      if (!isDragDrop) {
-        validateAnimationObject(custom) &&
-          dispatch(customActions.handleSetSharedAnimation(custom));
-        return;
-      }
-      // Check and Update state from shared/switched link NDD
+    if (isInitial) {
+      setIsInitial(false);
+      // const animation = searchParams.get("animation");
+      // if (!animation) return;
+      // const custom = JSON.parse(atob(animation));
+      // // Check and Update state from shared/switched link DD
+      // if (!custom.isDragDrop) {
+      //   validateAnimationObject(custom) &&
+      //     dispatch(customActions.handleSetSharedAnimation(custom));
+      //   dispatch(uiActions.handleDragDrop(false));
+      // } else if (custom.isDragDrop) {
+      //   dispatch(uiActions.handleDragDrop(true));
+      //   // Check and Update state from shared/switched link NDD
+      // }
     }
 
-    // Handle Link Update for sharing every 0.5s
-    if (!isDragDrop) {
+    // Save keyframe animation
+    if (!isDragDrop && !isInitial) {
       if (timeoutId.current) clearTimeout(timeoutId.current);
       timeoutId.current = setTimeout(() => {
-        searchParams.set("animation", btoa(JSON.stringify(state)));
-        setSearchParams(searchParams);
-      }, 500);
+        dispatch(
+          animationActions.updateCustom({
+            action: "ndd",
+            index: curIndex,
+            value: btoa(JSON.stringify(state)),
+          })
+        );
+      }, 400);
     }
-    // Handle Link Update for sharing every 0.5s
-    if (isDragDrop) {
+  }, [state]);
+
+  // Save animation to the DD
+  useEffect(() => {
+    if (isAnimationCreatedDD && !isInitial) {
       if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
       timeoutIdDD.current = setTimeout(() => {
-        searchParams.set("animation", btoa(JSON.stringify(stateDD)));
-        setSearchParams(searchParams);
-      }, 500);
+        dispatch(
+          animationActions.updateCustom({
+            action: "dd",
+            index: curIndex,
+            value: btoa(JSON.stringify(stateDD)),
+          })
+        );
+      }, 100);
     }
-  }, [isDragDrop, state, stateDD]);
+  }, [isAnimationCreatedDD]);
 
   useEffect(() => {
     dispatch(uiActions.handleTypeChange("custom"));
 
     return () => {
-      if (timeoutId.current) clearTimeout(timeoutId.current);
-      if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
+      // if (timeoutId.current) clearTimeout(timeoutId.current);
+      // if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
     };
   }, []);
 

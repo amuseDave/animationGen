@@ -6,12 +6,12 @@ const initialState = {
   //   ? true
   //   : JSON.parse(localStorage.getItem("isDark")),
   type: null,
-  isChanging: true,
   isReset: false,
   zoomLevel: 1,
   isResizing: false,
   isAnimating: false,
   isDragDrop: false,
+  isInitial: true,
 
   cursor: "default",
 };
@@ -71,8 +71,8 @@ const uiSlicer = createSlice({
     handleResize(state, { payload }) {
       state.isResizing = payload;
     },
-    handleIsAnimationChanging(state, { payload }) {
-      state.isChanging = payload;
+    handleInitial(state, { payload }) {
+      state.isInitial = payload;
     },
   },
 });
