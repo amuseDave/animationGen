@@ -16,7 +16,7 @@ export default function SavedLibraries() {
     if (type !== "custom") {
       navigate("/");
     }
-    dispatch(animationActions.handleAddCustom({ action: "add" }));
+    dispatch(animationActions.handleAddRemoveCustom({ action: "add" }));
   }
 
   return (

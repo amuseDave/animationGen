@@ -32,20 +32,10 @@ export default function AlertsLayout() {
   return (
     <div className="absolute z-20 w-full left-4 bottom-4">
       <LayoutGroup key="animations">
-        <AnimatePresence>
-          {type === "custom" && (
-            <motion.div
-              key="all-custom-animations"
-              exit={{ opacity: 0 }}
-              transition={{ delay: 1 }}
-            >
-              <PositionAlert handleAlerts={handleAlerts} />
-              <PositionAlertDD handleAlerts={handleAlerts} />
-              <AnimationDDAlerts handleAlerts={handleAlerts} />
-              <KeyFrameAlert handleAlerts={handleAlerts} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <PositionAlert key="pos" handleAlerts={handleAlerts} />
+        <PositionAlertDD key="pos-dd" handleAlerts={handleAlerts} />
+        <AnimationDDAlerts key="dd-alerts" handleAlerts={handleAlerts} />
+        <KeyFrameAlert key="key-frame" handleAlerts={handleAlerts} />
         <ResetAlert key="reset" />
       </LayoutGroup>
     </div>

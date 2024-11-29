@@ -8,7 +8,10 @@ export default function PositionAlert({ handleAlerts }) {
   const [alerts, setAlerts] = useState([]);
   const [isBlock, setBlock] = useState(false);
 
-  const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
+  const activeKeyFrame = useSelector((state) => {
+    return state.custom.activeKeyFrame;
+  });
+
   const position = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].position
   );

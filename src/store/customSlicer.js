@@ -43,7 +43,7 @@ const initialState = {
 
 const customSlicer = createSlice({
   name: "custom-animations",
-  initialState: {},
+  initialState,
 
   reducers: {
     handleSetPosition(state, { payload: { action, pos, x, y } }) {

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
+  animationsAlert: null,
   custom: {
     curIndex: 0,
     animations: [
@@ -39,8 +40,12 @@ const animationsSlicer = createSlice({
 
       localStorage.setItem("pulsewave-animations", JSON.stringify(state));
     },
-    handleAddCustom(state, { payload: { action } }) {
+    handleAddRemoveCustom(state, { payload: { action } }) {
       if (action === "add") {
+        if (state.custom.animations.length > 4) {
+          state.animationsAlert = "limit";
+          return;
+        }
         const id = uuidv4();
 
         let name = "Animation Name";
@@ -64,9 +69,18 @@ const animationsSlicer = createSlice({
           (animation) => id === animation.id
         );
         state.custom.curIndex = index;
+        state.animationsAlert = "add";
+      }
+
+      if (action === "remove") {
+        state.custom.animations.splice(state.custom.curIndex, 1);
+        state.animationsAlert = "remove";
       }
 
       localStorage.setItem("pulsewave-animations", JSON.stringify(state));
+    },
+    handleAnimationsAlert(state, { payload }) {
+      state.animationsAlert = payload;
     },
   },
 });
