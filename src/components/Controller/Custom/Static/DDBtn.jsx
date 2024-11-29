@@ -5,23 +5,25 @@ export default function CustomDDBtn() {
   const dispatch = useDispatch();
   const isDragDrop = useSelector((state) => state.ui.isDragDrop);
 
-  function handleDragDrop() {
-    dispatch(uiActions.handleDragDrop(!isDragDrop));
+  function handleDragDrop(boolean) {
+    dispatch(uiActions.handleDragDrop(boolean));
   }
 
+  const active = "bg-green-100/10 text-main-t-active rounded-md";
+
   return (
-    <div className="absolute flex items-center gap-3 mt-10 bottom-2 bc">
-      <p className="text-lg">Drag&Drop: </p>
+    <div className="flex gap-2 p-1 mx-auto border rounded-lg border-zinc-800 bg-gradient-to-tr from-green-950 to-green-800 text-main-t w-max">
       <div
-        onClick={handleDragDrop}
-        className={`w-[72px] h-8 p-[2px] transition-all rounded-3xl ${
-          isDragDrop ? "bg-purple-950" : "bg-purple-200"
-        }`}
+        className={`px-2 py-2 transition-all ${!isDragDrop && active}`}
+        onClick={() => handleDragDrop(false)}
       >
-        <div
-          className={`bg-purple-500 rounded-full duration-300 transition-all w-7 h-7
-            ${isDragDrop ? "translate-x-10" : ""}`}
-        ></div>
+        KeyFrames
+      </div>
+      <div
+        className={`px-2 py-2 transition-all ${isDragDrop && active}`}
+        onClick={() => handleDragDrop(true)}
+      >
+        Drag&Drop
       </div>
     </div>
   );

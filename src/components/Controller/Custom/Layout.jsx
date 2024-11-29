@@ -9,11 +9,10 @@ export default function Layout() {
 
   return (
     <>
+      <CustomDDBtn />
       <CustomStartPositionSelector />
 
       {isDragDrop ? <ControllerDD /> : <Controller />}
-
-      <CustomDDBtn />
     </>
   );
 }
