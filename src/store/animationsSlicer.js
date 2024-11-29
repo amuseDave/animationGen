@@ -19,8 +19,9 @@ const animationsSlicer = createSlice({
   reducers: {
     getSavedAnimations(state) {
       const pulseWaveAnimations =
-        JSON.parse(localStorage.getItem("pulsewave-animations")) || state;
-      return { ...pulseWaveAnimations, animationsAlert: null };
+        JSON.parse(localStorage.getItem("pulsewave-animations")) ||
+        state.custom;
+      state.custom = pulseWaveAnimations;
     },
 
     handleUpdateCustom(state, { payload: { index, action, value } }) {
@@ -44,7 +45,10 @@ const animationsSlicer = createSlice({
       }
       state.animationsAlert = "update";
 
-      localStorage.setItem("pulsewave-animations", JSON.stringify(state));
+      localStorage.setItem(
+        "pulsewave-animations",
+        JSON.stringify(state.custom)
+      );
     },
     handleAddRemoveCustom(state, { payload: { action, index } }) {
       const { animations, curIndex } = state.custom;

@@ -102,7 +102,7 @@ export default function Preview() {
     <>
       <section
         style={dashedBoxStyles}
-        className={`border-2 border-dashed border-zinc-600 absolute cc z-10 ${
+        className={`border-2 border-dashed border-zinc-600 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 z-10 ${
           isResizing && "hidden"
         }`}
       >
