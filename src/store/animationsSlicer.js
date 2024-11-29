@@ -38,6 +38,7 @@ const animationsSlicer = createSlice({
           state.custom.curIndex = index;
       }
 
+      state.animationsAlert = "update";
       localStorage.setItem("pulsewave-animations", JSON.stringify(state));
     },
     handleAddRemoveCustom(state, { payload: { action } }) {
@@ -73,6 +74,11 @@ const animationsSlicer = createSlice({
       }
 
       if (action === "remove") {
+        if (state.custom.animations.length < 2) {
+          state.animationsAlert = "min-limit";
+          return;
+        }
+
         state.custom.animations.splice(state.custom.curIndex, 1);
         state.animationsAlert = "remove";
       }

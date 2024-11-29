@@ -136,7 +136,6 @@ const customSlicer = createSlice({
     },
     handleReset(state) {
       if (state.keyFrames.length > 2) {
-        state.activeKeyFrame = 123;
         return { ...initialState, isValidKeyFrame: "reset" };
       }
 

@@ -1,4 +1,4 @@
-import { Book, ChevronDown } from "lucide-react";
+import { Book, ChevronDown, Trash2 } from "lucide-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { customActions } from "../../../store/customSlicer";
@@ -29,6 +29,13 @@ export default function Custom() {
     dispatch(animationActions.handleUpdateCustom({ action: "index", index }));
   }
 
+  function handleDelete(e, index) {
+    e.stopPropagation();
+    dispatch(
+      animationActions.handleAddRemoveCustom({ action: "remove", index })
+    );
+  }
+
   useEffect(() => {
     setCurAnimation();
   }, [curIndex]);
@@ -51,8 +58,8 @@ export default function Custom() {
               }}
               key={animation.id}
               className={`flex items-center mt-1 gap-3 px-2 py-1 transition-colors rounded-md hover:bg-green-800/10 ${
-                same && "hover:bg-orange-400/10 order-first mt-2"
-              }`}
+                same && "hover:bg-orange-400/10"
+              } ${index === curIndex && "order-first mt-4"}`}
             >
               <div
                 className={`w-2 h-2 rounded-full bg-green-200 ${
@@ -66,6 +73,14 @@ export default function Custom() {
               >
                 {animation.name}
               </p>
+
+              <Trash2
+                onClick={(e) => {
+                  handleDelete(e, index);
+                }}
+                size={22}
+                className="ml-auto transition-colors text-red-600/20 hover:text-red-600/40"
+              />
             </motion.div>
           );
         })}

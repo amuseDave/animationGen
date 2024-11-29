@@ -6,6 +6,7 @@ import PositionAlertDD from "./Custom/Alerts/PositionDDAlert";
 import AnimationDDAlerts from "./Custom/Alerts/AnimationDDAlerts";
 import KeyFrameAlert from "./Custom/Alerts/KeyFrameAlert";
 import PositionAlert from "./Custom/Alerts/PositionAlert";
+import SavedAnimationsAlerts from "./Static/SavedAnimationsAlerts";
 
 export default function AlertsLayout() {
   const type = useSelector((state) => state.ui.type);
@@ -47,6 +48,7 @@ export default function AlertsLayout() {
           )}
         </AnimatePresence>
         <ResetAlert key="reset" />
+        <SavedAnimationsAlerts handleAlerts={handleAlerts} key="saved" />
       </LayoutGroup>
     </div>
   );
