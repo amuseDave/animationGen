@@ -6,6 +6,7 @@ const initialState = {
   //   ? true
   //   : JSON.parse(localStorage.getItem("isDark")),
   type: null,
+  isModalOpen: false,
   isReset: false,
   zoomLevel: 1,
   isResizing: false,
@@ -73,6 +74,9 @@ const uiSlicer = createSlice({
     },
     handleInitial(state, { payload }) {
       state.isInitial = payload;
+    },
+    handleModal(state, { payload }) {
+      state.isModalOpen = payload;
     },
   },
 });
