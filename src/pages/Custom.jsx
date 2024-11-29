@@ -77,6 +77,17 @@ export default function Custom() {
   }, [isAnimationCreatedDD]);
 
   useEffect(() => {
+    if (isInitial) return;
+    dispatch(
+      animationActions.handleUpdateCustom({
+        action: "drag-drop",
+        index: curIndex,
+        value: isDragDrop,
+      })
+    );
+  }, [isDragDrop]);
+
+  useEffect(() => {
     dispatch(uiActions.handleTypeChange("custom"));
 
     return () => {

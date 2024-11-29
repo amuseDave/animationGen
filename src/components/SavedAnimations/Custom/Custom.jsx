@@ -6,6 +6,7 @@ import { customActionsDD } from "../../../store/customDDSlicer";
 import { animationActions } from "../../../store/animationsSlicer";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { uiActions } from "../../../store/uiSlicer";
 
 export default function Custom() {
   const navigate = useNavigate();
@@ -15,12 +16,16 @@ export default function Custom() {
 
   const animations = useSelector((state) => state.animations.custom.animations);
   const curIndex = useSelector((state) => state.animations.custom.curIndex);
+  const isDragDrop = useSelector(
+    (state) => state.animations.custom.animations[curIndex].isDragDrop
+  );
 
   function setCurAnimation() {
     dispatch(customActions.handleSetAnimation(animations[curIndex].animation));
     dispatch(
       customActionsDD.handleSetAnimation(animations[curIndex].animationDD)
     );
+    dispatch(uiActions.handleDragDrop(isDragDrop));
   }
 
   function handleDiffAnimation(index) {

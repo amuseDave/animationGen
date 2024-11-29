@@ -36,9 +36,14 @@ const animationsSlicer = createSlice({
           break;
         case "index":
           state.custom.curIndex = index;
-      }
+          break;
+        case "drag-drop":
+          state.custom.animations[index].isDragDrop = value;
 
+          break;
+      }
       state.animationsAlert = "update";
+
       localStorage.setItem("pulsewave-animations", JSON.stringify(state));
     },
     handleAddRemoveCustom(state, { payload: { action, index } }) {

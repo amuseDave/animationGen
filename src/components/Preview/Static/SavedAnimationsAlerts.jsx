@@ -17,7 +17,7 @@ export default function SavedAnimationsAlerts({ handleAlerts }) {
 
   // Position change alert
   useEffect(() => {
-    if (animationsAlert === null) return;
+    if (animationsAlert === null || animationsAlert === "update") return;
     dispatch(animationActions.handleAnimationsAlert(null));
 
     if (animationsAlert === "add") {

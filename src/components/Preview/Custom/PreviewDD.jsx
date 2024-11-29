@@ -14,6 +14,8 @@ let isHovered = false;
 export default function CustomCanvas() {
   const dispatch = useDispatch();
 
+  const curIndex = useSelector((state) => state.animations.custom.curIndex);
+
   const positionDD = useSelector((state) => state.customDD.positionDD);
   const square = useSelector((state) => state.customDD.square);
   const isAnimationCreatedDD = useSelector(
@@ -70,7 +72,14 @@ export default function CustomCanvas() {
         })
       );
     }
-  }, [zoomLevel, isResizing, positionDD, isHolding, isAnimationCreatedDD]);
+  }, [
+    zoomLevel,
+    isResizing,
+    positionDD,
+    isHolding,
+    isAnimationCreatedDD,
+    curIndex,
+  ]);
 
   // Draw Canvas
   useEffect(() => {
