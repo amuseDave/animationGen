@@ -159,8 +159,7 @@ const customSlicer = createSlice({
     handleSetAnimation(state, { payload }) {
       if (!payload) return { ...initialState };
 
-      const newAnimationState = JSON.parse(atob(payload));
-      return { ...newAnimationState, isValidKeyFrame: null };
+      return { ...payload, isValidKeyFrame: null };
     },
   },
 });

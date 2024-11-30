@@ -58,7 +58,7 @@ export default function Custom() {
           animationActions.handleUpdateCustom({
             action: "ndd",
             index: curIndex,
-            value: btoa(JSON.stringify(state)),
+            value: state,
           })
         );
       }, 400);
@@ -75,7 +75,7 @@ export default function Custom() {
         animationActions.handleUpdateCustom({
           action: "dd",
           index: curIndex,
-          value: btoa(JSON.stringify(stateDD)),
+          value: stateDD,
         })
       );
     }, 400);
