@@ -1,9 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-
+import { useRef } from "react";
 import { customActions } from "../../../../../store/customSlicer";
 
 export default function Rotate() {
   const dispatch = useDispatch();
+  const timeoutId = useRef();
+
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
 
   const rotate = useSelector(
@@ -12,7 +14,12 @@ export default function Rotate() {
 
   function handleRotate(e) {
     const value = +e.target.value;
-    dispatch(customActions.handleStyles({ action: "set-rotate", value }));
+
+    if (timeoutId.current) clearTimeout(timeoutId.current);
+
+    setTimeout(() => {
+      dispatch(customActions.handleStyles({ action: "set-rotate", value }));
+    }, 8);
   }
 
   return (

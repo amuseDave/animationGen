@@ -8,6 +8,7 @@ import {
   handleOutsideXYCalc,
   handleTranslateInputs,
 } from "../../../../utils/helper";
+import { throttle } from "lodash";
 
 let isHover = false;
 let isHolding = false;
@@ -66,38 +67,41 @@ export default function Canvas() {
   }, [translateX, translateY]);
 
   // Handle isHover, and isHolding moving
-  const handleMove = useCallback((offsetX, offsetY, tX, tY) => {
-    if (isHolding) {
-      const outsideX = offsetX - 10 / 2 <= 0 || offsetX + 10 + 5 >= 200;
-      const outsideY = offsetY - 10 / 2 <= 0 || offsetY + 10 + 5 >= 200;
+  const handleMove = useCallback(
+    throttle((offsetX, offsetY, tX, tY) => {
+      if (isHolding) {
+        const outsideX = offsetX - 10 / 2 <= 0 || offsetX + 10 + 5 >= 200;
+        const outsideY = offsetY - 10 / 2 <= 0 || offsetY + 10 + 5 >= 200;
 
-      dispatch(
-        customActions.handleSetPosition({
-          x: outsideX ? null : offsetX - 100,
-          y: outsideY ? null : offsetY - 100,
-          action: "set-translate",
-        })
-      );
+        dispatch(
+          customActions.handleSetPosition({
+            x: outsideX ? null : offsetX - 100,
+            y: outsideY ? null : offsetY - 100,
+            action: "set-translate",
+          })
+        );
 
-      return;
-    }
+        return;
+      }
 
-    const isHovered =
-      offsetX >= tX - 12 &&
-      offsetX <= tX + 12 &&
-      offsetY >= tY - 12 &&
-      offsetY <= tY + 12;
+      const isHovered =
+        offsetX >= tX - 12 &&
+        offsetX <= tX + 12 &&
+        offsetY >= tY - 12 &&
+        offsetY <= tY + 12;
 
-    if (isHovered && isHover) return;
+      if (isHovered && isHover) return;
 
-    if (isHovered) {
-      dispatch(uiActions.handleCursor("move"));
-      isHover = true;
-    } else {
-      dispatch(uiActions.handleCursor("default"));
-      isHover = false;
-    }
-  }, []);
+      if (isHovered) {
+        dispatch(uiActions.handleCursor("move"));
+        isHover = true;
+      } else {
+        dispatch(uiActions.handleCursor("default"));
+        isHover = false;
+      }
+    }, 8),
+    []
+  );
 
   // Handle translate canvas events
   useEffect(() => {

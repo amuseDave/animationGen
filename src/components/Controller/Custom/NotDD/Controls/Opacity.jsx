@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 
 import { customActions } from "../../../../../store/customSlicer";
-
+import { useRef } from "react";
 export default function Opacity() {
   const dispatch = useDispatch();
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
+  const timeoutId = useRef();
 
   const opacity = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].opacity
@@ -12,7 +13,12 @@ export default function Opacity() {
 
   function handleOpacity(e) {
     const value = +e.target.value;
-    dispatch(customActions.handleStyles({ action: "set-opacity", value }));
+
+    if (timeoutId.current) clearTimeout(timeoutId.current);
+
+    setTimeout(() => {
+      dispatch(customActions.handleStyles({ action: "set-opacity", value }));
+    }, 8);
   }
 
   return (

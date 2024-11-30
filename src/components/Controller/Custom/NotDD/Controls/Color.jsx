@@ -1,9 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 
 import { customActions } from "../../../../../store/customSlicer";
+import { useRef } from "react";
 
 export default function Color() {
   const dispatch = useDispatch();
+  const timeoutId = useRef();
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
 
   const color = useSelector(
@@ -12,7 +14,12 @@ export default function Color() {
 
   function handleColor(e) {
     const { value } = e.target;
-    dispatch(customActions.handleStyles({ action: "set-color", value }));
+
+    if (timeoutId.current) clearTimeout(timeoutId.current);
+
+    setTimeout(() => {
+      dispatch(customActions.handleStyles({ action: "set-color", value }));
+    }, 8);
   }
 
   return (

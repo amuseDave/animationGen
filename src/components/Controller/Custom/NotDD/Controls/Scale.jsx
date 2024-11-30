@@ -1,10 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useRef } from "react";
 
 import { customActions } from "../../../../../store/customSlicer";
 
 export default function Scale() {
   const dispatch = useDispatch();
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
+  const timeoutId = useRef();
 
   const scale = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].scale
@@ -12,7 +14,11 @@ export default function Scale() {
 
   function handleScale(e) {
     const value = +e.target.value;
-    dispatch(customActions.handleStyles({ action: "set-scale", value }));
+    if (timeoutId.current) clearTimeout(timeoutId.current);
+
+    setTimeout(() => {
+      dispatch(customActions.handleStyles({ action: "set-scale", value }));
+    }, 8);
   }
 
   return (
