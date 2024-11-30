@@ -16,16 +16,17 @@ export default function Custom() {
 
   const animations = useSelector((state) => state.animations.custom.animations);
   const curIndex = useSelector((state) => state.animations.custom.curIndex);
-  const isDragDrop = useSelector(
-    (state) => state.animations.custom.animations[curIndex].isDragDrop
-  );
+
+  useEffect(() => {
+    setCurAnimation();
+  }, [curIndex]);
 
   function setCurAnimation() {
     dispatch(customActions.handleSetAnimation(animations[curIndex].animation));
     dispatch(
       customActionsDD.handleSetAnimation(animations[curIndex].animationDD)
     );
-    dispatch(uiActions.handleDragDrop(isDragDrop));
+    dispatch(uiActions.handleDragDrop(animations[curIndex].isDragDrop));
   }
 
   function handleDiffAnimation(index) {
@@ -41,9 +42,6 @@ export default function Custom() {
     );
   }
 
-  useEffect(() => {
-    setCurAnimation();
-  }, [curIndex]);
   return (
     <>
       <div className="flex gap-2 text-main-t-gray">

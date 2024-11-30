@@ -38,13 +38,14 @@ export default function MainLayout() {
   return (
     <>
       <DefaultCanvas />
-      <CopyModal />
       <main
         className={`p-6 min-h-dvh relative z-10 grid grid-cols-[280px_1fr_280px]`}
       >
         <section className="relative flex flex-col gap-3">
           <SavedAnimations />
         </section>
+
+        <Outlet />
 
         <div className="relative overflow-hidden">
           <Navigation />
@@ -53,7 +54,7 @@ export default function MainLayout() {
         <MainController />
       </main>
 
-      <Outlet />
+      <CopyModal />
     </>
   );
 }

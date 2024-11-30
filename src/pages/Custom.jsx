@@ -1,5 +1,5 @@
 // import { useSearchParams } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../store/uiSlicer";
 // import { useSearchParams } from "react-router-dom";
@@ -8,12 +8,11 @@ import { customActions } from "../store/customSlicer";
 import { animationActions } from "../store/animationsSlicer";
 
 export default function Custom() {
-  const [isInitial, setIsInitial] = useState(true);
-
   const timeoutId = useRef();
   const timeoutIdDD = useRef();
 
   const isDragDrop = useSelector((state) => state.ui.isDragDrop);
+  const isInitial = useSelector((state) => state.ui.isInitial);
 
   const isAnimationCreatedDD = useSelector(
     (state) => state.customDD.isAnimationCreatedDD
@@ -28,9 +27,15 @@ export default function Custom() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (isInitial) {
+      dispatch(uiActions.handleInitial(false));
+    }
+    dispatch(uiActions.handleTypeChange("custom"));
+  }, []);
+
+  useEffect(() => {
     // Handle Initial Load Link State for Custom Animations
     if (isInitial) {
-      setIsInitial(false);
       // const animation = searchParams.get("animation");
       // if (!animation) return;
       // const custom = JSON.parse(atob(animation));
@@ -73,7 +78,7 @@ export default function Custom() {
           value: btoa(JSON.stringify(stateDD)),
         })
       );
-    }, 100);
+    }, 400);
   }, [isAnimationCreatedDD]);
 
   useEffect(() => {
@@ -86,15 +91,6 @@ export default function Custom() {
       })
     );
   }, [isDragDrop]);
-
-  useEffect(() => {
-    dispatch(uiActions.handleTypeChange("custom"));
-
-    return () => {
-      // if (timeoutId.current) clearTimeout(timeoutId.current);
-      // if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
-    };
-  }, []);
 
   return null;
 }

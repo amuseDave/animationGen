@@ -2,8 +2,13 @@ import logo from "../../assets/logo.png";
 import Team from "./Static/Team";
 import SavedLibraries from "./SavedLibraries";
 import Loading from "./Static/Loading";
+import { useDispatch } from "react-redux";
+import { animationActions } from "../../store/animationsSlicer";
 
 export default function Layout() {
+  const dispatch = useDispatch();
+  dispatch(animationActions.getSavedAnimations());
+
   return (
     <>
       <div className="relative h-full p-4 select-none rounded-2xl bg-saved-bg">
