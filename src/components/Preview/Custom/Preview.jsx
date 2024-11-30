@@ -63,7 +63,7 @@ export default function Preview() {
       }
     }
 
-    toast.success("Can't animate same styles");
+    toast.error("Can't animate same styles");
   }
 
   // Create & Play Animation

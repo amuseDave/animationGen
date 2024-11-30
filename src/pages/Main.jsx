@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlicer.js";
 
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, Bounce } from "react-toastify";
+import ToastProvider from "../components/Preview/Static/ToastProvider.jsx";
 
 export default function MainLayout() {
   const dispatch = useDispatch();
@@ -51,27 +51,9 @@ export default function MainLayout() {
         <Outlet />
 
         <div className="relative overflow-hidden">
+          <ToastProvider />
           <Navigation />
           <PreviewLayout />
-          <ToastContainer
-            position="bottom-left"
-            autoClose={2000}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            transition={Bounce}
-            style={{
-              position: "absolute", // Positioning relative to the parent
-              bottom: 0,
-              left: 0,
-              marginLeft: "8px", // Adjust margin from the left of the parent
-            }}
-          />
         </div>
         <MainController />
       </main>
