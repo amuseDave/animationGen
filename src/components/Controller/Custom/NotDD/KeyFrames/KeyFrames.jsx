@@ -4,6 +4,7 @@ import { Trash2 } from "lucide-react";
 import KeyFrame from "./KeyFrame";
 import KeyFramePlus from "./KeyFramePlus";
 import { customActions } from "../../../../../store/customSlicer";
+import { toast } from "react-toastify";
 
 export default function KeyFrames() {
   const dispatch = useDispatch();
@@ -13,12 +14,7 @@ export default function KeyFrames() {
 
   function handleDeleteKeyFrame() {
     if (activeKeyFrame === 0 || activeKeyFrame === keyFramesPers.length - 1) {
-      dispatch(
-        customActions.handleKeyFrame({
-          action: "validation",
-          value: "error-delete",
-        })
-      );
+      toast.error("Cant delete default keyframe!");
       return;
     }
     dispatch(customActions.handleKeyFrame({ action: "delete" }));

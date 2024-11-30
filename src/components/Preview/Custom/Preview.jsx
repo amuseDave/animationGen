@@ -5,6 +5,7 @@ import { stringifyStyles } from "../../../utils/helper";
 import { uiActions } from "../../../store/uiSlicer";
 import { customActions } from "../../../store/customSlicer";
 import { useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 
 export default function Preview() {
   const dispatch = useDispatch();
@@ -61,12 +62,8 @@ export default function Preview() {
         }
       }
     }
-    dispatch(
-      customActions.handleKeyFrame({
-        action: "validation",
-        value: "same-styles",
-      })
-    );
+
+    toast.success("Can't animate same styles");
   }
 
   // Create & Play Animation
