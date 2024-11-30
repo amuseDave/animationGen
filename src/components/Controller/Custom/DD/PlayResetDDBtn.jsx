@@ -23,8 +23,6 @@ export default function PlayResetDDBTN() {
     if (!isAnimationCreatedDD) return;
     const confirm = window.confirm("Are you sure you want to reset?");
     if (!confirm) return;
-
-    dispatch(uiActions.handleResetAnimationAlert(true));
     if (isAnimating) dispatch(uiActions.handleIsAnimating(false));
     dispatch(customActionsDD.handleAnimation({ action: "reset-animation" }));
   }

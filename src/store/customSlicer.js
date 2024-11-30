@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getPositionStyles, { stringifyStyles } from "../utils/helper";
+import { toast } from "react-toastify";
 const initialState = {
   animationFunction: "ease",
   isValidKeyFrame: null,
@@ -9,7 +10,6 @@ const initialState = {
   keyFrames: [
     {
       keyPercentage: 0,
-      oldPos: "cc",
       position: "cc",
 
       color: "#52525b",
@@ -24,7 +24,6 @@ const initialState = {
     },
     {
       keyPercentage: 100,
-      oldPos: "cc",
       position: "cc",
 
       color: "#52525b",
@@ -59,14 +58,12 @@ const customSlicer = createSlice({
 
         curKF.translateX = vanillaPosStyles.translateX;
         curKF.translateY = vanillaPosStyles.translateY;
+
+        toast.success("Position changed!");
       }
       if (action === "set-translate") {
         curKF.translateX = x ?? curKF.translateX;
         curKF.translateY = y ?? curKF.translateY;
-      }
-
-      if (action === "set-old") {
-        curKF.oldPos = pos;
       }
     },
     handleStyles(state, { payload: { action, value } }) {
@@ -97,15 +94,16 @@ const customSlicer = createSlice({
             ...state.keyFrames[index - 1],
             keyPercentage: value,
           });
-
           state.activeKeyFrame = index;
-          state.isValidKeyFrame = true;
+
+          toast.success("Key frame has been created!");
           break;
         }
         case "delete": {
           state.keyFrames.splice(state.activeKeyFrame, 1);
           state.keyFramePers.splice(state.activeKeyFrame, 1);
-          state.isValidKeyFrame = "delete";
+
+          toast.success("Key frame has been deleted!");
           break;
         }
         case "copy": {
@@ -115,12 +113,12 @@ const customSlicer = createSlice({
             keyPercentage,
           };
 
-          state.isValidKeyFrame = state.keyFramePers[copyIndex];
+          toast.success(
+            `Keyframe (${state.keyFramePers[copyIndex]}%) properties has been copied!`
+          );
           break;
         }
-        case "validation":
-          state.isValidKeyFrame = value;
-          break;
+
         case "change-active":
           state.activeKeyFrame = value;
           break;
@@ -136,7 +134,8 @@ const customSlicer = createSlice({
     },
     handleReset(state) {
       if (state.keyFrames.length > 2) {
-        return { ...initialState, isValidKeyFrame: "reset" };
+        toast.success("Keyframe has been reset");
+        return { ...initialState };
       }
 
       for (let i = 0; i < state.keyFrames.length; i++) {
@@ -145,15 +144,13 @@ const customSlicer = createSlice({
             stringifyStyles(state.keyFrames[i]) !==
             stringifyStyles(state.keyFrames[j])
           ) {
-            return {
-              ...initialState,
-              isValidKeyFrame: "reset",
-            };
+            toast.success("Keyframe has been reset");
+            return { ...initialState };
           }
         }
       }
 
-      state.isValidKeyFrame = "no-reset";
+      toast.error("There's nothing to reset");
     },
 
     handleSetAnimation(state, { payload }) {

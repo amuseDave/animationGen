@@ -4,6 +4,7 @@ import {
   getSquareSize,
   getSquarePos,
 } from "../utils/handleCanvas";
+import { toast } from "react-toastify";
 
 const initialState = {
   square: {
@@ -15,7 +16,6 @@ const initialState = {
   offsetX: 0,
   offsetY: 0,
   isAnimationCreatedDD: false,
-  isAnimationInitialCreatedDD: null,
 };
 
 const customSlicer = createSlice({
@@ -86,7 +86,10 @@ const customSlicer = createSlice({
           canvasHeight: height,
           zoomLevel,
         };
-      } else if (actionType === "set-position") state.positionDD = type;
+      } else if (actionType === "set-position") {
+        toast.success("Position changed!");
+        state.positionDD = type;
+      }
     },
     handleSetOffSets(state, { payload: { offsetX, offsetY } }) {
       state.offsetX = offsetX;
@@ -134,22 +137,19 @@ const customSlicer = createSlice({
           state.square.animationIndex = 0;
 
           if (state.square.animations.length < 50) {
+            toast.error("Animation too short!");
             state.square.animations = [{ x: 0, y: 0 }];
-            state.isAnimationInitialCreatedDD = false;
           } else {
+            toast.success("animation has been Created");
             state.isAnimationCreatedDD = true;
-            state.isAnimationInitialCreatedDD = true;
           }
           break;
         }
-        case "animation-alert-end":
-          state.isAnimationInitialCreatedDD = null;
-          break;
         case "reset-animation": {
+          toast.success("animation has been reset!");
           state.square.animationIndex = 0;
           state.square.animations = [{ x: 0, y: 0 }];
           state.isAnimationCreatedDD = false;
-          state.isAnimationInitialCreatedDD = null;
           break;
         }
 
@@ -161,7 +161,7 @@ const customSlicer = createSlice({
     handleSetAnimation(state, { payload }) {
       if (!payload) return { ...initialState };
 
-      return { ...payload, isAnimationInitialCreatedDD: null };
+      return { ...payload };
     },
   },
 });

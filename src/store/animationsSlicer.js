@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 
 const initialState = {
   animationsAlert: null,
@@ -54,7 +55,7 @@ const animationsSlicer = createSlice({
       const { animations, curIndex } = state.custom;
       if (action === "add") {
         if (animations.length > 4) {
-          state.animationsAlert = "limit";
+          toast.error("Limit Has Been Reached!");
           return;
         }
         const id = uuidv4();
@@ -76,17 +77,17 @@ const animationsSlicer = createSlice({
 
         const index = animations.findIndex((animation) => id === animation.id);
         state.custom.curIndex = index;
-        state.animationsAlert = "add";
+        toast.success("Canvas Created!");
       }
 
       if (action === "remove") {
         if (animations.length < 2) {
-          state.animationsAlert = "min-limit";
+          toast.error("Can't delete last!");
           return;
         }
         const curId = animations[curIndex].id;
         animations.splice(index, 1);
-        state.animationsAlert = "remove";
+        toast.success("Canvas Deleted!");
         const newIndex = animations.findIndex(
           (animation) => animation.id === curId
         );

@@ -7,7 +7,6 @@ const initialState = {
   //   : JSON.parse(localStorage.getItem("isDark")),
   type: null,
   isModalOpen: false,
-  isReset: false,
   zoomLevel: 1,
   isResizing: false,
   isAnimating: false,
@@ -63,9 +62,7 @@ const uiSlicer = createSlice({
     handleCursor(state, { payload }) {
       state.cursor = payload;
     },
-    handleResetAnimationAlert(state, { payload }) {
-      state.isReset = payload;
-    },
+
     handleTypeChange(state, { payload }) {
       state.type = payload;
     },

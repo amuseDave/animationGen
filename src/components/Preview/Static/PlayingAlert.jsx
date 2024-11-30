@@ -10,11 +10,11 @@ export default function PlayingAnimationAlert() {
         {isAnimating && (
           <>
             <motion.div
-              className="flex items-center gap-2 text-alert-t-success"
+              className="flex items-center gap-2 text-main-t-gray-active"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
             >
               Animation Playing
               <span className="text-[8px] mt-1 animate-ping">🟢</span>

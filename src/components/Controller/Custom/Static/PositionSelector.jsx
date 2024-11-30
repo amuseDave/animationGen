@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { customActionsDD } from "../../../../store/customDDSlicer";
-import { uiActions } from "../../../../store/uiSlicer";
 import { customActions } from "../../../../store/customSlicer";
 
 export default function Position({ type, positionStyles }) {
@@ -17,10 +16,8 @@ export default function Position({ type, positionStyles }) {
   );
 
   const isDragDrop = useSelector((state) => state.ui.isDragDrop);
-  const isAnimating = useSelector((state) => state.ui.isAnimating);
 
   function handlePosition() {
-    if (isAnimating) return;
     if (isDragDrop && positionDD === type) return;
     else if (!isDragDrop && position === type) return;
 
@@ -30,7 +27,6 @@ export default function Position({ type, positionStyles }) {
         const reset = window.confirm("Reset Animation Starting Position?");
         if (!reset) return;
 
-        dispatch(uiActions.handleResetAnimationAlert(true));
         dispatch(
           customActionsDD.handleAnimation({ action: "reset-animation" })
         );

@@ -1,15 +1,18 @@
-import { Outlet } from "react-router-dom";
+import DefaultCanvas from "../components/Preview/Static/DefaultCanvas.jsx";
 
 import Navigation from "../components/Navigation/Navigation.jsx";
 import SavedAnimations from "../components/SavedAnimations/Layout.jsx";
-
 import PreviewLayout from "../components/Preview/Layout.jsx";
 import MainController from "../components/Controller/Layout.jsx";
 import CopyModal from "../components/Copy-Modal/Layout.jsx";
+
+import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlicer.js";
-import DefaultCanvas from "../components/Preview/Static/DefaultCanvas.jsx";
+
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, Bounce } from "react-toastify";
 
 export default function MainLayout() {
   const dispatch = useDispatch();
@@ -50,6 +53,25 @@ export default function MainLayout() {
         <div className="relative overflow-hidden">
           <Navigation />
           <PreviewLayout />
+          <ToastContainer
+            position="bottom-left"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Bounce}
+            style={{
+              position: "absolute", // Positioning relative to the parent
+              bottom: 0,
+              left: 0,
+              marginLeft: "8px", // Adjust margin from the left of the parent
+            }}
+          />
         </div>
         <MainController />
       </main>
