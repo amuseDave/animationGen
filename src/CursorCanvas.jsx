@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import drawCursor from "./utils/handleCursorCanvas";
 import { throttle } from "lodash";
@@ -23,27 +23,32 @@ export default function CursorCanvas() {
     isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
   }, [isResizing]);
 
+  const handleMouseMove = useCallback(
+    throttle((e, cursor) => {
+      const { clientX, clientY } = e;
+      drawCursor(clientX, clientY, ctx.current, cursor);
+      cX = clientX;
+      cY = clientY;
+    }, 8),
+    [] // Dependency
+  );
+
   useEffect(() => {
     if (isTouchDevice) return;
     canvasEl.current.width = canvasEl.current.offsetWidth;
     canvasEl.current.height = canvasEl.current.offsetHeight;
 
-    const handleMouseMove = throttle((e) => {
-      const { clientX, clientY } = e;
-
-      drawCursor(clientX, clientY, ctx.current, cursor);
-
-      cX = clientX;
-      cY = clientY;
-    }, 8); // Adjust the throttle delay (in ms) as needed
-
     drawCursor(cX, cY, ctx.current, cursor);
 
-    window.addEventListener("mousemove", handleMouseMove);
+    function handleMouseMoveHandler(e) {
+      handleMouseMove(e, cursor);
+    }
+
+    window.addEventListener("mousemove", handleMouseMoveHandler);
 
     return () => {
       ctx.current.clearRect(0, 0, 4000, 4000);
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousemove", handleMouseMoveHandler);
     };
   }, [isResizing, cursor]);
 

@@ -1,34 +1,11 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useRef } from "react";
-import { customActions } from "../../../../../store/customSlicer";
+import { useSelector } from "react-redux";
 
-export default function Duration() {
-  const dispatch = useDispatch();
-  const timeoutId = useRef();
-
+export default function Duration({ handleDuration }) {
   const duration = useSelector((state) => state.custom.duration);
 
-  function handleDuration(e) {
-    let val = parseFloat(e.target.value); // Parse the input as a number
-    if (isNaN(val)) val = 0.1; // Default to 0.1 if input is not a number
-    if (val < 0.1) val = 0.1; // Clamp the value to 0.1 minimum
-    if (val > 10) val = 10; // Clamp the value to 10 maximum
-
-    if (timeoutId.current) clearTimeout(timeoutId.current);
-
-    setTimeout(() => {
-      dispatch(
-        customActions.handleAnimationState({
-          action: "duration",
-          value: val,
-        })
-      );
-    }, 8);
-  }
-
   return (
-    <div className="flex items-center gap-2 mt-7">
-      <p className="text-white">Duration</p>{" "}
+    <div className="flex items-center gap-2">
+      <p className="text-white">Duration</p>
       <input
         type="range"
         min={0.1}

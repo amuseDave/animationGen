@@ -1,26 +1,10 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useRef } from "react";
-import { customActions } from "../../../../../store/customSlicer";
+import { useSelector } from "react-redux";
 
-export default function Rotate() {
-  const dispatch = useDispatch();
-  const timeoutId = useRef();
-
+export default function Rotate({ handleRotate }) {
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
-
   const rotate = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].rotate
   );
-
-  function handleRotate(e) {
-    const value = +e.target.value;
-
-    if (timeoutId.current) clearTimeout(timeoutId.current);
-
-    setTimeout(() => {
-      dispatch(customActions.handleStyles({ action: "set-rotate", value }));
-    }, 8);
-  }
 
   return (
     <div className="flex items-center gap-2">

@@ -1,25 +1,11 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { customActions } from "../../../../../store/customSlicer";
-import { useRef } from "react";
-export default function Opacity() {
-  const dispatch = useDispatch();
+export default function Opacity({ handleOpacity }) {
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
-  const timeoutId = useRef();
 
   const opacity = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].opacity
   );
-
-  function handleOpacity(e) {
-    const value = +e.target.value;
-
-    if (timeoutId.current) clearTimeout(timeoutId.current);
-
-    setTimeout(() => {
-      dispatch(customActions.handleStyles({ action: "set-opacity", value }));
-    }, 8);
-  }
 
   return (
     <div className="flex items-center gap-2">
