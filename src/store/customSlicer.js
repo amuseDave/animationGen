@@ -1,6 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getPositionStyles, { stringifyStyles } from "../utils/helper";
 import { toast } from "react-toastify";
+
+let posN;
+let resetN;
+let resetErrN;
+let createdN;
+let deletedN;
+let copyN;
+
 const initialState = {
   animationFunction: "ease",
   isValidKeyFrame: null,
@@ -59,7 +67,14 @@ const customSlicer = createSlice({
         curKF.translateX = vanillaPosStyles.translateX;
         curKF.translateY = vanillaPosStyles.translateY;
 
+        ///
+        if (posN) return;
+        posN = true;
+        setTimeout(() => {
+          posN = false;
+        }, 1000);
         toast.success("Position changed!");
+        ///
       }
       if (action === "set-translate") {
         curKF.translateX = x ?? curKF.translateX;
@@ -96,14 +111,27 @@ const customSlicer = createSlice({
           });
           state.activeKeyFrame = index;
 
+          ///
+          if (createdN) return;
+          createdN = true;
+          setTimeout(() => {
+            createdN = false;
+          }, 1000);
           toast.success("Key frame has been created!");
+          ///
           break;
         }
         case "delete": {
           state.keyFrames.splice(state.activeKeyFrame, 1);
           state.keyFramePers.splice(state.activeKeyFrame, 1);
-
+          ///
+          if (deletedN) return;
+          deletedN = true;
+          setTimeout(() => {
+            deletedN = false;
+          }, 1000);
           toast.success("Key frame has been deleted!");
+          ///
           break;
         }
         case "copy": {
@@ -113,9 +141,16 @@ const customSlicer = createSlice({
             keyPercentage,
           };
 
+          ///
+          if (copyN) return;
+          copyN = true;
+          setTimeout(() => {
+            copyN = false;
+          }, 1000);
           toast.success(
             `Keyframe (${state.keyFramePers[copyIndex]}%) properties has been copied!`
           );
+          ///
           break;
         }
 
@@ -134,8 +169,15 @@ const customSlicer = createSlice({
     },
     handleReset(state) {
       if (state.keyFrames.length > 2) {
+        ///
+        if (resetN) return { ...initialState };
+        resetN = true;
+        setTimeout(() => {
+          resetN = false;
+        }, 1000);
         toast.success("Keyframe has been reset");
         return { ...initialState };
+        ///
       }
 
       for (let i = 0; i < state.keyFrames.length; i++) {
@@ -144,13 +186,26 @@ const customSlicer = createSlice({
             stringifyStyles(state.keyFrames[i]) !==
             stringifyStyles(state.keyFrames[j])
           ) {
+            ///
+            if (resetN) return { ...initialState };
+            resetN = true;
+            setTimeout(() => {
+              resetN = false;
+            }, 1000);
             toast.success("Keyframe has been reset");
             return { ...initialState };
+            ///
           }
         }
       }
-
+      ///
+      if (resetErrN) return;
+      resetErrN = true;
+      setTimeout(() => {
+        resetErrN = false;
+      }, 1000);
       toast.error("There's nothing to reset");
+      ///
     },
 
     handleSetAnimation(state, { payload }) {

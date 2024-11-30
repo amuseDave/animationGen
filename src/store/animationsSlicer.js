@@ -2,6 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 
+let limitN;
+let createdN;
+let deleteErrN;
+let deleteN;
+
 const initialState = {
   animationsAlert: null,
   custom: {
@@ -55,7 +60,14 @@ const animationsSlicer = createSlice({
       const { animations, curIndex } = state.custom;
       if (action === "add") {
         if (animations.length > 4) {
+          ///
+          if (limitN) return;
+          limitN = true;
+          setTimeout(() => {
+            limitN = false;
+          }, 1000);
           toast.error("Limit Has Been Reached!");
+          ///
           return;
         }
         const id = uuidv4();
@@ -77,23 +89,47 @@ const animationsSlicer = createSlice({
 
         const index = animations.findIndex((animation) => id === animation.id);
         state.custom.curIndex = index;
+
+        localStorage.setItem("pulsewave-animations", JSON.stringify(state));
+        ///
+        if (createdN) return;
+        createdN = true;
+        setTimeout(() => {
+          createdN = false;
+        }, 1000);
         toast.success("Canvas Created!");
+        ///
       }
 
       if (action === "remove") {
         if (animations.length < 2) {
+          ///
+          if (deleteErrN) return;
+          deleteErrN = true;
+          setTimeout(() => {
+            deleteErrN = false;
+          }, 1000);
           toast.error("Can't delete last!");
+          ///
           return;
         }
         const curId = animations[curIndex].id;
         animations.splice(index, 1);
-        toast.success("Canvas Deleted!");
         const newIndex = animations.findIndex(
           (animation) => animation.id === curId
         );
         state.custom.curIndex = newIndex > -1 ? newIndex : 0;
+
+        localStorage.setItem("pulsewave-animations", JSON.stringify(state));
+        ///
+        if (deleteN) return;
+        deleteN = true;
+        setTimeout(() => {
+          deleteN = false;
+        }, 1000);
+        toast.success("Canvas Deleted!");
+        ///
       }
-      localStorage.setItem("pulsewave-animations", JSON.stringify(state));
     },
     handleAnimationsAlert(state, { payload }) {
       state.animationsAlert = payload;

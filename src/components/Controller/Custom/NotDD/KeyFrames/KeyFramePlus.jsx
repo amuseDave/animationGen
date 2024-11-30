@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { customActions } from "../../../../../store/customSlicer";
 import { toast } from "react-toastify";
 
+let invalidNotification;
+let sameNotification;
+
 export default function KeyFramePlus() {
   const keyFramePers = useSelector((state) => state.custom.keyFramePers);
 
@@ -62,16 +65,28 @@ export default function KeyFramePlus() {
     // Handle Invalid KF alert
     if (!isValid) {
       inputRef.current.focus();
+      ///
+      if (invalidNotification) return;
+      invalidNotification = true;
+      setTimeout(() => {
+        invalidNotification = false;
+      }, 1000);
       toast.error("Invalid keyframe!");
-
+      ///
       return;
     }
 
     // Handle same KF alert
     if (keyFramePers.includes(KF)) {
       inputRef.current.focus();
+      ///
+      if (sameNotification) return;
+      sameNotification = true;
+      setTimeout(() => {
+        sameNotification = false;
+      }, 1000);
       toast.error("Can't add same keyframe!");
-
+      ///
       return;
     }
 

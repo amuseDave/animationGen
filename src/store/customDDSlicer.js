@@ -6,6 +6,11 @@ import {
 } from "../utils/handleCanvas";
 import { toast } from "react-toastify";
 
+let posN;
+let shortN;
+let createdN;
+let resetN;
+
 const initialState = {
   square: {
     animations: [{ x: 0, y: 0 }],
@@ -87,8 +92,16 @@ const customSlicer = createSlice({
           zoomLevel,
         };
       } else if (actionType === "set-position") {
-        toast.success("Position changed!");
         state.positionDD = type;
+
+        ///
+        if (posN) return;
+        posN = true;
+        setTimeout(() => {
+          posN = false;
+        }, 1000);
+        toast.success("Position changed!");
+        ///
       }
     },
     handleSetOffSets(state, { payload: { offsetX, offsetY } }) {
@@ -137,19 +150,42 @@ const customSlicer = createSlice({
           state.square.animationIndex = 0;
 
           if (state.square.animations.length < 50) {
-            toast.error("Animation too short!");
             state.square.animations = [{ x: 0, y: 0 }];
+
+            ///
+            if (shortN) return;
+            shortN = true;
+            setTimeout(() => {
+              shortN = false;
+            }, 1000);
+            toast.error("Animation too short!");
+            ///
           } else {
-            toast.success("animation has been Created");
             state.isAnimationCreatedDD = true;
+
+            ///
+            if (createdN) return;
+            createdN = true;
+            setTimeout(() => {
+              createdN = false;
+            }, 1000);
+            toast.success("animation has been Created");
+            ///
           }
           break;
         }
         case "reset-animation": {
-          toast.success("animation has been reset!");
           state.square.animationIndex = 0;
           state.square.animations = [{ x: 0, y: 0 }];
           state.isAnimationCreatedDD = false;
+          ///
+          if (resetN) return;
+          resetN = true;
+          setTimeout(() => {
+            resetN = false;
+          }, 1000);
+          toast.success("animation has been reset!");
+          ///
           break;
         }
 

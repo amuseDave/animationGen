@@ -6,6 +6,8 @@ import KeyFramePlus from "./KeyFramePlus";
 import { customActions } from "../../../../../store/customSlicer";
 import { toast } from "react-toastify";
 
+let deleteErrorNotification;
+
 export default function KeyFrames() {
   const dispatch = useDispatch();
 
@@ -14,7 +16,14 @@ export default function KeyFrames() {
 
   function handleDeleteKeyFrame() {
     if (activeKeyFrame === 0 || activeKeyFrame === keyFramesPers.length - 1) {
+      ///
+      if (deleteErrorNotification) return;
+      deleteErrorNotification = true;
+      setTimeout(() => {
+        deleteErrorNotification = false;
+      }, 1000);
       toast.error("Cant delete default keyframe!");
+      ///
       return;
     }
     dispatch(customActions.handleKeyFrame({ action: "delete" }));

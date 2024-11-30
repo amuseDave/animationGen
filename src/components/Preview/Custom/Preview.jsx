@@ -7,6 +7,8 @@ import { customActions } from "../../../store/customSlicer";
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
+let sameStylesNotification;
+
 export default function Preview() {
   const dispatch = useDispatch();
   const squareEl = useRef();
@@ -63,7 +65,14 @@ export default function Preview() {
       }
     }
 
+    ///
+    if (sameStylesNotification) return;
+    sameStylesNotification = true;
+    setTimeout(() => {
+      sameStylesNotification = false;
+    }, 1000);
     toast.error("Can't animate same styles");
+    ///
   }
 
   // Create & Play Animation

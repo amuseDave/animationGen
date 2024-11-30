@@ -51,7 +51,7 @@ body {
 
   /*ALERTS*/
   .alert {
-    @apply pl-3 pr-7 py-2 mt-3 font-light text-center rounded-md select-none w-max flex relative overflow-hidden;
+    @apply px-3 py-2 mt-3 font-light text-center rounded-md select-none w-max flex relative overflow-hidden;
   }
 
   .error {
