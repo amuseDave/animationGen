@@ -37,22 +37,18 @@ export default function ToastProvider() {
       pauseOnFocusLoss
       draggable={false}
       pauseOnHover={true}
-      toastClassName={({ type, ...rest }) => {
-        console.log(rest);
-
-        return (
-          "alert " +
-          (type === "success"
-            ? "success"
-            : type === "error"
-            ? "error"
-            : type === "info"
-            ? "bg-blue-500 text-white"
-            : type === "warning"
-            ? "bg-yellow-500 text-black"
-            : "")
-        );
-      }}
+      toastClassName={({ type }) =>
+        "alert " +
+        (type === "success"
+          ? "success"
+          : type === "error"
+          ? "error"
+          : type === "info"
+          ? "bg-blue-500 text-white"
+          : type === "warning"
+          ? "bg-yellow-500 text-black"
+          : "")
+      }
       icon={renderIcon}
       closeButton={closeBtn}
       style={{ position: "absolute" }}

@@ -11,7 +11,7 @@ export default function Loading() {
   );
 
   useEffect(() => {
-    if (animationsAlert !== "update") return;
+    if (!animationsAlert) return;
     dispatch(animationActions.handleAnimationsAlert(null));
 
     if (isBlock) return;
