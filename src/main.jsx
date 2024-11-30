@@ -9,6 +9,7 @@ import CursorCanvas from "./CursorCanvas.jsx";
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
+
   <Provider store={store}>
     <div className="duration-200 min-h-dvh transition-color bg-main-bg">
       <CursorCanvas />
