@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import drawCursor from "./utils/handleCursorCanvas";
+import { throttle } from "lodash";
 
 let cX = 0;
 let cY = 0;
@@ -27,14 +28,14 @@ export default function CursorCanvas() {
     canvasEl.current.width = canvasEl.current.offsetWidth;
     canvasEl.current.height = canvasEl.current.offsetHeight;
 
-    function handleMouseMove(e) {
+    const handleMouseMove = throttle((e) => {
       const { clientX, clientY } = e;
 
       drawCursor(clientX, clientY, ctx.current, cursor);
 
       cX = clientX;
       cY = clientY;
-    }
+    }, 8); // Adjust the throttle delay (in ms) as needed
 
     drawCursor(cX, cY, ctx.current, cursor);
 
