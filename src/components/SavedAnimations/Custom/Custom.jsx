@@ -16,12 +16,16 @@ export default function Custom() {
 
   const animations = useSelector((state) => state.animations.custom.animations);
   const curIndex = useSelector((state) => state.animations.custom.curIndex);
+  const isDefault = useSelector((state) => state.animations.custom.isDefault);
+  const customDefault = useSelector((state) => state.animations.custom.default);
 
   useEffect(() => {
     setCurAnimation();
-  }, [curIndex]);
+  }, [curIndex, isDefault]);
 
   function setCurAnimation() {
+    const { animation, animationDD, isDragDrop } = animations[curIndex];
+
     dispatch(customActions.handleSetAnimation(animations[curIndex].animation));
     dispatch(
       customActionsDD.handleSetAnimation(animations[curIndex].animationDD)
@@ -51,7 +55,8 @@ export default function Custom() {
 
       <div className="flex flex-col">
         {animations.map((animation, index) => {
-          const same = index === curIndex && type === "custom";
+          const same = index === curIndex && type === "custom" && !isDefault;
+          console.log(same);
 
           return (
             <motion.div

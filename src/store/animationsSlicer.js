@@ -10,9 +10,22 @@ let deleteN;
 const initialState = {
   animationsAlert: null,
   custom: {
+    isDefault: true,
+    default: {
+      animation: "",
+      animationDD: "",
+      name: "Animation Name",
+      isDragDrop: false,
+    },
     curIndex: 0,
     animations: [
-      { name: "Animation Name", animation: "", animationDD: "", id: uuidv4() },
+      {
+        name: "Animation Name",
+        animation: "",
+        animationDD: "",
+        id: uuidv4(),
+        isDragDrop: false,
+      },
     ],
   },
   featured: [{ name: "any", animation: "" }],

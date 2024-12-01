@@ -4,6 +4,7 @@ import SavedLibraries from "./SavedLibraries";
 import Loading from "./Static/Loading";
 import { useDispatch } from "react-redux";
 import { animationActions } from "../../store/animationsSlicer";
+import NewCanvas from "./Custom/NewCanvas";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ export default function Layout() {
           <Loading />
         </div>
 
+        <NewCanvas />
         {/* Saved Animations */}
         <SavedLibraries />
       </div>
