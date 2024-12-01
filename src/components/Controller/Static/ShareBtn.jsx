@@ -47,7 +47,7 @@ export default function ShareBtn() {
         id="share"
         onClick={handleSharing}
         size={32}
-        className="absolute bottom-0 text-green-500 right-2"
+        className="absolute bottom-0 text-green-500 right-6"
       />
 
       <AnimatePresence>
