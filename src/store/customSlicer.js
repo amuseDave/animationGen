@@ -87,13 +87,13 @@ const customSlicer = createSlice({
           state.keyFrames[state.activeKeyFrame].color = value;
           break;
         case "set-opacity":
-          state.keyFrames[state.activeKeyFrame].opacity = value;
+          state.keyFrames[state.activeKeyFrame].opacity = +value;
           break;
         case "set-scale":
-          state.keyFrames[state.activeKeyFrame].scale = value;
+          state.keyFrames[state.activeKeyFrame].scale = +value;
           break;
         case "set-rotate":
-          state.keyFrames[state.activeKeyFrame].rotate = value;
+          state.keyFrames[state.activeKeyFrame].rotate = +value;
           break;
       }
     },
@@ -161,6 +161,10 @@ const customSlicer = createSlice({
     },
     handleAnimationState(state, { payload: { action, value } }) {
       if (action === "duration") {
+        if (isNaN(value)) value = 0.1;
+        if (value < 0.1) value = 0.1;
+        if (value > 10) value = 10;
+
         state.duration = value;
       }
       if (action === "animation") {

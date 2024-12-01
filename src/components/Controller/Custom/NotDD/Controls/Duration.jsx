@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export default function Duration({ handleDuration }) {
+export default function Duration({ handleStyle }) {
   const duration = useSelector((state) => state.custom.duration);
 
   return (
@@ -12,7 +12,9 @@ export default function Duration({ handleDuration }) {
         max={10}
         step={0.1}
         value={duration}
-        onChange={handleDuration}
+        onChange={(e) => {
+          handleStyle(e, "duration");
+        }}
       />
       <p className="text-lg font-semibold text-white">{duration}s</p>
       {/* <input

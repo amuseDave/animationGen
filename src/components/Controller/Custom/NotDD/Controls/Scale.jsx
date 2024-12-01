@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export default function Scale({ handleScale }) {
+export default function Scale({ handleStyle }) {
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const scale = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].scale
@@ -10,7 +10,9 @@ export default function Scale({ handleScale }) {
     <div className="flex items-center gap-2">
       <p className="text-white">Scale</p>
       <input
-        onChange={handleScale}
+        onChange={(e) => {
+          handleStyle(e, "set-scale");
+        }}
         type="range"
         min={0}
         max={3}

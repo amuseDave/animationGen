@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export default function Opacity({ handleOpacity }) {
+export default function Opacity({ handleStyle }) {
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
 
   const opacity = useSelector(
@@ -16,7 +16,9 @@ export default function Opacity({ handleOpacity }) {
         max={1}
         step={0.01}
         value={opacity}
-        onChange={handleOpacity}
+        onChange={(e) => {
+          handleStyle(e, "set-opacity");
+        }}
       />
     </div>
   );
