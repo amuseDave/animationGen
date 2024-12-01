@@ -35,14 +35,14 @@ export default function Custom() {
     } else {
       dispatch(customActions.handleSetAnimation(customDefault.animation));
       dispatch(customActionsDD.handleSetAnimation(customDefault.animationDD));
-      dispatch(uiActions.handleDragDrop(animations[curIndex].isDragDrop));
+      dispatch(uiActions.handleDragDrop(customDefault.isDragDrop));
     }
   }
 
   function handleDiffAnimation(index) {
     if (curIndex === index && type === "custom" && !isDefault) return;
     if (type !== "custom") navigate("/");
-    dispatch(animationActions.handleUpdateCustom({ action: "index", index }));
+    dispatch(animationActions.handleCustomUpdateIndex(index));
   }
 
   function handleDelete(e, index) {

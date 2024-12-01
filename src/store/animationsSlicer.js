@@ -6,6 +6,8 @@ let limitN;
 let createdN;
 let deleteErrN;
 let deleteN;
+let linkN;
+let linkErrN;
 
 function setCustomLocalStorage(data) {
   localStorage.setItem("pulsewave-animations", JSON.stringify(data));
@@ -24,7 +26,7 @@ const initialState = {
     curIndex: 0,
     animations: [
       {
-        name: "Animation Name",
+        name: "Your Animation",
         animation: "",
         animationDD: "",
         id: uuidv4(),
@@ -46,21 +48,27 @@ const animationsSlicer = createSlice({
         state.custom;
       state.custom = pulseWaveAnimations;
     },
-
+    handleSetCustomDefault(state, { payload }) {
+      state.custom.isDefault = payload;
+    },
+    handleClearAnimationAlert(state) {
+      state.animationsAlert = null;
+    },
     handleCustomUpdateName(state, { payload }) {
       if (state.custom.isDefault) {
         state.custom.default.name = payload;
       } else {
         state.custom.animations[state.custom.curIndex].name = payload;
       }
-      state.animationsAlert = "update";
+      setCustomLocalStorage(state.custom);
+
+      if (!state.animationsAlert) state.animationsAlert = "update";
+    },
+    handleCustomUpdateIndex(state, { payload }) {
+      state.custom.curIndex = payload;
+      state.custom.isDefault = false;
       setCustomLocalStorage(state.custom);
     },
-
-    handleSetCustomDefault(state, { payload }) {
-      state.custom.isDefault = payload;
-    },
-
     handleUpdateCustom(
       state,
       { payload: { index, action, value, isDefault } }
@@ -69,22 +77,19 @@ const animationsSlicer = createSlice({
         case "ndd":
           if (isDefault) state.custom.default.animation = value;
           else state.custom.animations[index].animation = value;
-
+          if (!state.animationsAlert) state.animationsAlert = "update";
           break;
         case "dd":
           if (isDefault) state.custom.default.animationDD = value;
           else state.custom.animations[index].animationDD = value;
-          break;
-        case "index":
-          state.custom.curIndex = index;
-          state.custom.isDefault = false;
+          if (!state.animationsAlert) state.animationsAlert = "update";
           break;
         case "drag-drop":
           if (isDefault) state.custom.default.isDragDrop = value;
           else state.custom.animations[index].isDragDrop = value;
           break;
       }
-      state.animationsAlert = "update";
+
       setCustomLocalStorage(state.custom);
     },
     handleAddRemoveCustom(state, { payload: { action, index } }) {
@@ -108,18 +113,19 @@ const animationsSlicer = createSlice({
           state.custom.default.name === "New"
             ? "Animation Name"
             : state.custom.default.name;
+        let name2 = name;
 
         const existingNames = new Set(animations.map((a) => a.name));
 
         let existCount = 0;
-        while (existingNames.has(name)) {
+        while (existingNames.has(name2)) {
           existCount++;
-          name = `${state.custom.default.name}(${existCount})`;
+          name2 = `${name}(${existCount})`;
         }
 
         animations.push({
           ...state.custom.default,
-          name,
+          name: name2,
           id,
         });
 
@@ -169,8 +175,37 @@ const animationsSlicer = createSlice({
         ///
       }
     },
-    handleAnimationsAlert(state, { payload }) {
-      state.animationsAlert = payload;
+
+    handleSharingCustom(state) {
+      let link;
+
+      if (state.custom.isDefault) {
+        link = btoa(JSON.stringify(state.custom.default));
+      } else {
+        link = btoa(
+          JSON.stringify(state.custom.animations[state.custom.curIndex])
+        );
+      }
+
+      link = window.location.origin + "/?animation=" + link;
+      navigator.clipboard
+        .writeText(link)
+        .then(() => {
+          if (linkN) return;
+          linkN = true;
+          setTimeout(() => {
+            linkN = false;
+          }, 1000);
+          toast.success("Link has been copied!");
+        })
+        .catch(() => {
+          if (linkErrN) return;
+          linkErrN = true;
+          setTimeout(() => {
+            linkErrN = false;
+          }, 1000);
+          toast.error("Couldn't copy the link. Please copy it manually.");
+        });
     },
   },
 });

@@ -12,7 +12,7 @@ export default function Reset() {
     <Power
       onClick={handleReset}
       size={38}
-      className="mx-auto mt-5 text-center"
+      className="mx-auto mt-2 text-center text-green-200"
     />
   );
 }

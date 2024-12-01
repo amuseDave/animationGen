@@ -10,6 +10,7 @@ import { animationActions } from "../store/animationsSlicer";
 export default function Custom() {
   const timeoutId = useRef();
   const timeoutIdDD = useRef();
+  const notificationTimeoutId = useRef();
 
   const isDragDrop = useSelector((state) => state.ui.isDragDrop);
   const isInitial = useSelector((state) => state.ui.isInitial);
@@ -46,6 +47,7 @@ export default function Custom() {
     dispatch(uiActions.handleTypeChange("custom"));
   }, []);
 
+  // Set local storage of saved animations DD, nDD, iDD. Default & Animations
   useEffect(() => {
     // Save keyframe animation
     if (!isDragDrop && !isInitial) {
@@ -63,7 +65,6 @@ export default function Custom() {
     }
   }, [state]);
 
-  // Save animation to the DD
   useEffect(() => {
     if (isInitial) return;
 
@@ -91,6 +92,15 @@ export default function Custom() {
       })
     );
   }, [isDragDrop]);
+  // END
+  useEffect(() => {
+    if (isInitial) return;
+    if (notificationTimeoutId.current)
+      clearTimeout(notificationTimeoutId.current);
 
+    notificationTimeoutId.current = setTimeout(() => {
+      dispatch(animationActions.handleClearAnimationAlert());
+    }, 800);
+  }, [state, isAnimationCreatedDD]);
   return null;
 }
