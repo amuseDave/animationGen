@@ -24,7 +24,7 @@ export default function NewCanvas() {
     if (type !== "custom") {
       navigate("/");
     }
-    dispatch(animationActions.handleSetCustomDefault(true));
+    dispatch(animationActions.handleSetCustomDefault({ isDefault: true }));
   }
 
   const styles =

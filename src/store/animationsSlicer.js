@@ -49,8 +49,13 @@ const animationsSlicer = createSlice({
         state.custom;
       state.custom = pulseWaveAnimations;
     },
-    handleSetCustomDefault(state, { payload }) {
-      state.custom.isDefault = payload;
+    handleSetCustomDefault(state, { payload: { sharedAnimation, isDefault } }) {
+      state.custom.isDefault = isDefault;
+
+      if (!sharedAnimation) return;
+
+      state.custom.default = { ...sharedAnimation };
+      setCustomLocalStorage(state.custom);
     },
     handleClearAnimationAlert(state) {
       state.animationsAlert = null;
@@ -176,7 +181,6 @@ const animationsSlicer = createSlice({
         ///
       }
     },
-
     handleSharingCustom(state) {
       if (linkErrN || linkN) return;
 

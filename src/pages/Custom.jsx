@@ -6,6 +6,7 @@ import { uiActions } from "../store/uiSlicer";
 import { validateAnimationObject } from "../utils/helper";
 import { customActions } from "../store/customSlicer";
 import { animationActions } from "../store/animationsSlicer";
+import { useSearchParams } from "react-router-dom";
 
 export default function Custom() {
   const timeoutId = useRef();
@@ -29,22 +30,21 @@ export default function Custom() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(uiActions.handleTypeChange("custom"));
     if (isInitial) {
       dispatch(uiActions.handleInitial(false));
       const animation = searchParams.get("animation");
       if (!animation) return;
+
       const custom = JSON.parse(atob(animation));
-      // Check and Update state from shared/switched link DD
-      if (!custom.isDragDrop) {
-        validateAnimationObject(custom) &&
-          dispatch(customActions.handleSetSharedAnimation(custom));
-        dispatch(uiActions.handleDragDrop(false));
-      } else if (custom.isDragDrop) {
-        dispatch(uiActions.handleDragDrop(true));
-        // Check and Update state from shared/switched link NDD
-      }
+
+      dispatch(
+        animationActions.handleSetCustomDefault({
+          sharedAnimation: custom,
+          isDefault: true,
+        })
+      );
     }
-    dispatch(uiActions.handleTypeChange("custom"));
   }, []);
 
   // Set local storage of saved animations DD, nDD, iDD. Default & Animations
