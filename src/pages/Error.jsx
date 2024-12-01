@@ -3,9 +3,9 @@ import Navigation from "../components/Navigation/Navigation";
 export default function Error() {
   const err = useRouteError();
 
-  console.log(err.message);
-  console.log(err.status);
-  console.log(err);
+  if (err?.status) {
+    localStorage.clear();
+  }
 
   return (
     <div className="pt-6">
