@@ -4,6 +4,8 @@ export default function Error() {
   const err = useRouteError();
 
   console.log(err.message);
+  console.log(err.status);
+  console.log(err);
 
   return (
     <div className="pt-6">
