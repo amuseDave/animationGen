@@ -3,7 +3,7 @@ import Navigation from "../components/Navigation/Navigation";
 export default function Error() {
   const err = useRouteError();
 
-  if (err?.status) {
+  if (!err?.status) {
     localStorage.clear();
   }
 
