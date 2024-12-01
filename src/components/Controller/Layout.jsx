@@ -2,7 +2,6 @@ import { Copy } from "lucide-react";
 import { uiActions } from "../../store/uiSlicer";
 import CustomController from "./Custom/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import ShareBtn from "./Static/ShareBtn";
 
 export default function MainController() {
   const type = useSelector((state) => state.ui.type);
@@ -29,7 +28,6 @@ export default function MainController() {
         {type === "featured" && <></>}
         {type === "micro" && <></>}
 
-        <ShareBtn type={type} />
         <div className="absolute text-main-t-active bottom-2 right-4">
           <Copy size={32} onClick={handleModal} />
         </div>

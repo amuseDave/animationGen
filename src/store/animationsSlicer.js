@@ -15,6 +15,7 @@ function setCustomLocalStorage(data) {
 
 const initialState = {
   animationsAlert: null,
+  copyLink: "",
   custom: {
     isDefault: true,
     default: {
@@ -177,6 +178,8 @@ const animationsSlicer = createSlice({
     },
 
     handleSharingCustom(state) {
+      if (linkErrN || linkN) return;
+
       let link;
 
       if (state.custom.isDefault) {
@@ -188,24 +191,25 @@ const animationsSlicer = createSlice({
       }
 
       link = window.location.origin + "/?animation=" + link;
+
       navigator.clipboard
         .writeText(link)
         .then(() => {
           if (linkN) return;
-          linkN = true;
           setTimeout(() => {
             linkN = false;
           }, 1000);
           toast.success("Link has been copied!");
         })
         .catch(() => {
-          if (linkErrN) return;
           linkErrN = true;
           setTimeout(() => {
             linkErrN = false;
           }, 1000);
           toast.error("Couldn't copy the link. Please copy it manually.");
         });
+
+      state.copyLink = link;
     },
   },
 });

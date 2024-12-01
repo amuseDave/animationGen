@@ -24,25 +24,25 @@ export default function Custom() {
   const curIndex = useSelector((state) => state.animations.custom.curIndex);
   const isDefault = useSelector((state) => state.animations.custom.isDefault);
 
-  // const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (isInitial) {
       dispatch(uiActions.handleInitial(false));
-      // const animation = searchParams.get("animation");
-      // if (!animation) return;
-      // const custom = JSON.parse(atob(animation));
-      // // Check and Update state from shared/switched link DD
-      // if (!custom.isDragDrop) {
-      //   validateAnimationObject(custom) &&
-      //     dispatch(customActions.handleSetSharedAnimation(custom));
-      //   dispatch(uiActions.handleDragDrop(false));
-      // } else if (custom.isDragDrop) {
-      //   dispatch(uiActions.handleDragDrop(true));
-      //   // Check and Update state from shared/switched link NDD
-      // }
+      const animation = searchParams.get("animation");
+      if (!animation) return;
+      const custom = JSON.parse(atob(animation));
+      // Check and Update state from shared/switched link DD
+      if (!custom.isDragDrop) {
+        validateAnimationObject(custom) &&
+          dispatch(customActions.handleSetSharedAnimation(custom));
+        dispatch(uiActions.handleDragDrop(false));
+      } else if (custom.isDragDrop) {
+        dispatch(uiActions.handleDragDrop(true));
+        // Check and Update state from shared/switched link NDD
+      }
     }
     dispatch(uiActions.handleTypeChange("custom"));
   }, []);
