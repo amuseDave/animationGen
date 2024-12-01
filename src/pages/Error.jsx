@@ -5,6 +5,8 @@ export default function Error() {
 
   console.log(err?.status);
   if (!err?.status) {
+    console.log(err);
+
     localStorage.clear();
   }
 
