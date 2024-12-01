@@ -6,29 +6,22 @@ export default function AnimationName() {
     (state) =>
       state.animations.custom.animations[state.animations.custom.curIndex].name
   );
+  const animationNameDefault = useSelector(
+    (state) => state.animations.custom.default.name
+  );
+  const isDefault = useSelector((state) => state.animations.custom.isDefault);
 
   function handleUpdateName(e) {
     const name = e.target.value.replaceAll("  ", "");
 
     // Handle alert if name is too short or too long
     if (name.length > 20) return;
-
-    dispatch(
-      animationActions.handleUpdateCustom({
-        action: "set-name",
-        value: name,
-      })
-    );
+    dispatch(animationActions.handleCustomUpdateName(name));
   }
 
   function handleSetDefaultName() {
-    if (animationName === "")
-      dispatch(
-        animationActions.handleUpdateCustom({
-          action: "set-name",
-          value: "No Name",
-        })
-      );
+    if (animationName === "" || animationNameDefault === "")
+      dispatch(animationActions.handleCustomUpdateName("No Name"));
   }
 
   return (
@@ -36,7 +29,7 @@ export default function AnimationName() {
       <input
         onBlur={handleSetDefaultName}
         onChange={handleUpdateName}
-        value={animationName}
+        value={isDefault ? animationNameDefault : animationName}
         className="bg-transparent outline-none"
       />
     </div>

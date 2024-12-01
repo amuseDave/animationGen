@@ -24,17 +24,23 @@ export default function Custom() {
   }, [curIndex, isDefault]);
 
   function setCurAnimation() {
-    const { animation, animationDD, isDragDrop } = animations[curIndex];
-
-    dispatch(customActions.handleSetAnimation(animations[curIndex].animation));
-    dispatch(
-      customActionsDD.handleSetAnimation(animations[curIndex].animationDD)
-    );
-    dispatch(uiActions.handleDragDrop(animations[curIndex].isDragDrop));
+    if (!isDefault) {
+      dispatch(
+        customActions.handleSetAnimation(animations[curIndex].animation)
+      );
+      dispatch(
+        customActionsDD.handleSetAnimation(animations[curIndex].animationDD)
+      );
+      dispatch(uiActions.handleDragDrop(animations[curIndex].isDragDrop));
+    } else {
+      dispatch(customActions.handleSetAnimation(customDefault.animation));
+      dispatch(customActionsDD.handleSetAnimation(customDefault.animationDD));
+      dispatch(uiActions.handleDragDrop(animations[curIndex].isDragDrop));
+    }
   }
 
   function handleDiffAnimation(index) {
-    if (curIndex === index && type === "custom") return;
+    if (curIndex === index && type === "custom" && !isDefault) return;
     if (type !== "custom") navigate("/");
     dispatch(animationActions.handleUpdateCustom({ action: "index", index }));
   }
@@ -56,7 +62,6 @@ export default function Custom() {
       <div className="flex flex-col">
         {animations.map((animation, index) => {
           const same = index === curIndex && type === "custom" && !isDefault;
-          console.log(same);
 
           return (
             <motion.div

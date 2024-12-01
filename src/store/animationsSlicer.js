@@ -7,6 +7,10 @@ let createdN;
 let deleteErrN;
 let deleteN;
 
+function setCustomLocalStorage(data) {
+  localStorage.setItem("pulsewave-animations", JSON.stringify(data));
+}
+
 const initialState = {
   animationsAlert: null,
   custom: {
@@ -14,7 +18,7 @@ const initialState = {
     default: {
       animation: "",
       animationDD: "",
-      name: "Animation Name",
+      name: "New",
       isDragDrop: false,
     },
     curIndex: 0,
@@ -43,31 +47,45 @@ const animationsSlicer = createSlice({
       state.custom = pulseWaveAnimations;
     },
 
-    handleUpdateCustom(state, { payload: { index, action, value } }) {
+    handleCustomUpdateName(state, { payload }) {
+      if (state.custom.isDefault) {
+        state.custom.default.name = payload;
+      } else {
+        state.custom.animations[state.custom.curIndex].name = payload;
+      }
+      state.animationsAlert = "update";
+      setCustomLocalStorage(state.custom);
+    },
+
+    handleSetCustomDefault(state, { payload }) {
+      state.custom.isDefault = payload;
+    },
+
+    handleUpdateCustom(
+      state,
+      { payload: { index, action, value, isDefault } }
+    ) {
       switch (action) {
         case "ndd":
-          state.custom.animations[index].animation = value;
+          if (isDefault) state.custom.default.animation = value;
+          else state.custom.animations[index].animation = value;
+
           break;
         case "dd":
-          state.custom.animations[index].animationDD = value;
-          break;
-        case "set-name":
-          state.custom.animations[state.custom.curIndex].name = value;
+          if (isDefault) state.custom.default.animationDD = value;
+          else state.custom.animations[index].animationDD = value;
           break;
         case "index":
           state.custom.curIndex = index;
+          state.custom.isDefault = false;
           break;
         case "drag-drop":
-          state.custom.animations[index].isDragDrop = value;
-
+          if (isDefault) state.custom.default.isDragDrop = value;
+          else state.custom.animations[index].isDragDrop = value;
           break;
       }
       state.animationsAlert = "update";
-
-      localStorage.setItem(
-        "pulsewave-animations",
-        JSON.stringify(state.custom)
-      );
+      setCustomLocalStorage(state.custom);
     },
     handleAddRemoveCustom(state, { payload: { action, index } }) {
       const { animations, curIndex } = state.custom;
@@ -83,27 +101,34 @@ const animationsSlicer = createSlice({
           ///
           return;
         }
+
         const id = uuidv4();
 
-        let name = "Animation Name";
+        let name =
+          state.custom.default.name === "New"
+            ? "Animation Name"
+            : state.custom.default.name;
+
         const existingNames = new Set(animations.map((a) => a.name));
+
         let existCount = 0;
         while (existingNames.has(name)) {
           existCount++;
-          name = `Animation Name(${existCount})`;
+          name = `${state.custom.default.name}(${existCount})`;
         }
 
         animations.push({
+          ...state.custom.default,
           name,
-          animation: "",
-          animationDD: "",
           id,
         });
 
         const index = animations.findIndex((animation) => id === animation.id);
         state.custom.curIndex = index;
+        state.custom.isDefault = false;
+        state.custom.default = { ...initialState.custom.default };
+        setCustomLocalStorage(state.custom);
 
-        localStorage.setItem("pulsewave-animations", JSON.stringify(state));
         ///
         if (createdN) return;
         createdN = true;
@@ -132,8 +157,8 @@ const animationsSlicer = createSlice({
           (animation) => animation.id === curId
         );
         state.custom.curIndex = newIndex > -1 ? newIndex : 0;
+        setCustomLocalStorage(state.custom);
 
-        localStorage.setItem("pulsewave-animations", JSON.stringify(state));
         ///
         if (deleteN) return;
         deleteN = true;
