@@ -25,7 +25,7 @@ export default function Custom() {
   const curIndex = useSelector((state) => state.animations.custom.curIndex);
   const isDefault = useSelector((state) => state.animations.custom.isDefault);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const dispatch = useDispatch();
 

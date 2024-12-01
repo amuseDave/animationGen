@@ -63,3 +63,24 @@ body {
   }
   /*ALERTS END*/
 }
+
+::selection {
+  background-color: #89ffbe; /* Highlight background color */
+  color: #000; /* Text color */
+}
+
+::-moz-selection {
+  /* Firefox compatibility */
+  background-color: #89ffbe; /* Highlight background color */
+  color: #000;
+}
+
+::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
+}
+
+.scroll {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  overflow-x: auto; /* Allow horizontal scrolling */
+}
