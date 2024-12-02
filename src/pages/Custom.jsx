@@ -1,10 +1,6 @@
-// import { useSearchParams } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../store/uiSlicer";
-// import { useSearchParams } from "react-router-dom";
-import { validateAnimationObject } from "../utils/helper";
-import { customActions } from "../store/customSlicer";
 import { animationActions } from "../store/animationsSlicer";
 import { useSearchParams } from "react-router-dom";
 

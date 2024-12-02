@@ -13,6 +13,8 @@ function setCustomLocalStorage(data) {
   localStorage.setItem("pulsewave-animations", JSON.stringify(data));
 }
 
+const id = uuidv4();
+
 const initialState = {
   animationsAlert: null,
   copyLink: "",
@@ -24,13 +26,14 @@ const initialState = {
       name: "New",
       isDragDrop: false,
     },
+    animationNames: [{ name: "Your Animation", id }],
     curIndex: 0,
     animations: [
       {
         name: "Your Animation",
         animation: "",
         animationDD: "",
-        id: uuidv4(),
+        id,
         isDragDrop: false,
       },
     ],
@@ -64,6 +67,7 @@ const animationsSlicer = createSlice({
       if (state.custom.isDefault) {
         state.custom.default.name = payload;
       } else {
+        state.custom.animationNames[state.custom.curIndex].name = payload;
         state.custom.animations[state.custom.curIndex].name = payload;
       }
       setCustomLocalStorage(state.custom);
@@ -134,6 +138,7 @@ const animationsSlicer = createSlice({
           name: name2,
           id,
         });
+        state.custom.animationNames.push({ name: name2, id });
 
         const index = animations.findIndex((animation) => id === animation.id);
         state.custom.curIndex = index;
@@ -165,6 +170,7 @@ const animationsSlicer = createSlice({
         }
         const curId = animations[curIndex].id;
         animations.splice(index, 1);
+        state.custom.animationNames.splice(index, 1);
         const newIndex = animations.findIndex(
           (animation) => animation.id === curId
         );

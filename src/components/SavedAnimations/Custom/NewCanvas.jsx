@@ -7,6 +7,7 @@ export default function NewCanvas() {
   const navigate = useNavigate();
   const type = useSelector((state) => state.ui.type);
   const isDefault = useSelector((state) => state.animations.custom.isDefault);
+
   const animationNameDefault = useSelector(
     (state) => state.animations.custom.default.name
   );
