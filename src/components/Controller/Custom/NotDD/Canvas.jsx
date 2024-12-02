@@ -142,6 +142,12 @@ export default function Canvas() {
       setIsReleased(!isReleased);
       isHolding = false;
     }
+    function handleMouseOut(e) {
+      isHolding = false;
+      isHover = false;
+      setIsReleased(!isReleased);
+      dispatch(uiActions.handleCursor("default"));
+    }
 
     canvas.addEventListener("touchstart", handleDownHandler);
     canvas.addEventListener("touchmove", handleMoveHandler);
@@ -150,12 +156,14 @@ export default function Canvas() {
     canvas.addEventListener("mousedown", handleDownHandler);
     canvas.addEventListener("mousemove", handleMoveHandler);
     canvas.addEventListener("mouseup", handleUpHandler);
+    canvas.addEventListener("mouseout", handleMouseOut);
 
     return () => {
       canvas.removeEventListener("touchstart", handleDownHandler);
       canvas.removeEventListener("touchmove", handleMoveHandler);
       canvas.removeEventListener("touchend", handleUpHandler);
 
+      canvas.removeEventListener("mouseout", handleMouseOut);
       canvas.removeEventListener("mousemove", handleMoveHandler);
       canvas.removeEventListener("mousedown", handleDownHandler);
       canvas.removeEventListener("mouseup", handleUpHandler);
