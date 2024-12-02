@@ -95,6 +95,8 @@ const customSlicer = createSlice({
         case "set-rotate":
           state.keyFrames[state.activeKeyFrame].rotate = +value;
           break;
+        case "set-duration":
+          state.duration = +value;
       }
     },
     handleKeyFrame(
@@ -160,13 +162,6 @@ const customSlicer = createSlice({
       }
     },
     handleAnimationState(state, { payload: { action, value } }) {
-      if (action === "duration") {
-        if (isNaN(value)) value = 0.1;
-        if (value < 0.1) value = 0.1;
-        if (value > 10) value = 10;
-
-        state.duration = value;
-      }
       if (action === "animation") {
         state.animationFunction = value;
       }

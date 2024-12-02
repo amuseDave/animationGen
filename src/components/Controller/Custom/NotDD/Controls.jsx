@@ -13,16 +13,6 @@ export default function Controls() {
   const handleStyle = throttle((e, action) => {
     const { value } = e.target;
 
-    if (action === "duration") {
-      dispatch(
-        customActions.handleAnimationState({
-          action,
-          value,
-        })
-      );
-      return;
-    }
-
     dispatch(customActions.handleStyles({ action, value }));
   }, 8);
 

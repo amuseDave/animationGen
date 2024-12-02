@@ -13,7 +13,7 @@ export default function Duration({ handleStyle }) {
         step={0.1}
         value={duration}
         onChange={(e) => {
-          handleStyle(e, "duration");
+          handleStyle(e, "set-duration");
         }}
       />
       <p className="text-lg font-semibold text-white">{duration}s</p>
