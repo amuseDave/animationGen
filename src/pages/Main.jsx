@@ -14,6 +14,7 @@ import { uiActions } from "../store/uiSlicer.js";
 import "react-toastify/dist/ReactToastify.css";
 import ToastProvider from "../components/Preview/Static/ToastProvider.jsx";
 import ShareBtn from "../components/Controller/Static/ShareBtn.jsx";
+import Savebtn from "../components/Controller/Static/Savebtn.jsx";
 
 export default function MainLayout() {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ export default function MainLayout() {
           <Navigation />
           <PreviewLayout />
           <ShareBtn />
+          <Savebtn />
         </div>
         <MainController />
       </main>

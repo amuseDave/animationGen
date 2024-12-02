@@ -19,7 +19,6 @@ export default function Custom() {
   const state = useSelector((state) => state.custom);
 
   const curIndex = useSelector((state) => state.animations.custom.curIndex);
-  const isDefault = useSelector((state) => state.animations.custom.isDefault);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -36,7 +35,7 @@ export default function Custom() {
       const custom = JSON.parse(atob(animation));
 
       dispatch(
-        animationActions.handleSetCustomDefault({
+        animationActions.handleSetCustomShared({
           sharedAnimation: custom,
           isDefault: true,
         })
@@ -55,7 +54,6 @@ export default function Custom() {
             action: "ndd",
             index: curIndex,
             value: state,
-            isDefault,
           })
         );
       }, 400);
@@ -72,7 +70,6 @@ export default function Custom() {
           action: "dd",
           index: curIndex,
           value: stateDD,
-          isDefault,
         })
       );
     }, 400);
@@ -85,7 +82,6 @@ export default function Custom() {
         action: "drag-drop",
         index: curIndex,
         value: isDragDrop,
-        isDefault,
       })
     );
   }, [isDragDrop]);

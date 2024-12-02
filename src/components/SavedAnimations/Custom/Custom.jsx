@@ -14,10 +14,9 @@ export default function Custom() {
     (state) => state.animations.custom.animationNames
   );
   const curIndex = useSelector((state) => state.animations.custom.curIndex);
-  const isDefault = useSelector((state) => state.animations.custom.isDefault);
 
   function handleDiffAnimation(index) {
-    if (curIndex === index && type === "custom" && !isDefault) return;
+    if (curIndex === index && type === "custom") return;
     if (type !== "custom") navigate("/");
     dispatch(animationActions.handleCustomUpdateIndex(index));
   }
@@ -38,7 +37,8 @@ export default function Custom() {
 
       <div className="flex flex-col">
         {animationNames.map((animation, index) => {
-          const same = index === curIndex && type === "custom" && !isDefault;
+          const same = index === curIndex && type === "custom";
+          const isShared = animation.isShared;
 
           return (
             <div
@@ -51,9 +51,9 @@ export default function Custom() {
               } ${index === 0 && "mt-4"}`}
             >
               <div
-                className={`w-[7px] h-[6px] rounded-full bg-green-200 ${
-                  same && "bg-orange-500"
-                }`}
+                className={`w-[7px] h-[6px] rounded-full ${
+                  isShared ? "bg-red-500" : "bg-green-200"
+                } ${isShared && same ? "bg-red-700" : same && "bg-orange-500"}`}
               ></div>
 
               <AnimationName

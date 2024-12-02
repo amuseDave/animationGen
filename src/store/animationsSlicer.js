@@ -19,14 +19,7 @@ const initialState = {
   animationsAlert: null,
   copyLink: "",
   custom: {
-    isDefault: true,
-    default: {
-      animation: "",
-      animationDD: "",
-      name: "New",
-      isDragDrop: false,
-    },
-    animationNames: [{ name: "Your Animation", id }],
+    animationNames: [{ name: "Your Animation", id, isShared: false }],
     curIndex: 0,
     animations: [
       {
@@ -35,6 +28,7 @@ const initialState = {
         animationDD: "",
         id,
         isDragDrop: false,
+        isShared: false,
       },
     ],
   },
@@ -51,52 +45,55 @@ const animationsSlicer = createSlice({
         JSON.parse(localStorage.getItem("pulsewave-animations")) ||
         state.custom;
       state.custom = pulseWaveAnimations;
+
+      const index = state.custom.animations.findIndex(
+        (animation) => animation.isShared
+      );
+      if (index !== -1) {
+        state.custom.animations.splice(index, 1),
+          state.custom.animationNames.splice(index, 1);
+        state.custom.curIndex = 0;
+      }
     },
-    handleSetCustomDefault(state, { payload: { sharedAnimation, isDefault } }) {
-      state.custom.isDefault = isDefault;
-
+    handleSetCustomShared(state, { payload: { sharedAnimation } }) {
       if (!sharedAnimation) return;
-
-      state.custom.default = { ...sharedAnimation };
-      setCustomLocalStorage(state.custom);
+      const id = uuidv4();
+      state.custom.animations.push({ ...sharedAnimation, isShared: true, id });
+      state.custom.animationNames.push({
+        id,
+        name: sharedAnimation.name,
+        isShared: true,
+      });
+      state.custom.curIndex = state.custom.animationNames.length - 1;
     },
     handleClearAnimationAlert(state) {
       state.animationsAlert = null;
     },
     handleCustomUpdateName(state, { payload }) {
-      if (state.custom.isDefault) {
-        state.custom.default.name = payload;
-      } else {
-        state.custom.animationNames[state.custom.curIndex].name = payload;
-        state.custom.animations[state.custom.curIndex].name = payload;
-      }
+      state.custom.animationNames[state.custom.curIndex].name = payload;
+      state.custom.animations[state.custom.curIndex].name = payload;
+
       setCustomLocalStorage(state.custom);
 
       if (!state.animationsAlert) state.animationsAlert = "update";
     },
     handleCustomUpdateIndex(state, { payload }) {
       state.custom.curIndex = payload;
-      state.custom.isDefault = false;
+
       setCustomLocalStorage(state.custom);
     },
-    handleUpdateCustom(
-      state,
-      { payload: { index, action, value, isDefault } }
-    ) {
+    handleUpdateCustom(state, { payload: { index, action, value } }) {
       switch (action) {
         case "ndd":
-          if (isDefault) state.custom.default.animation = value;
-          else state.custom.animations[index].animation = value;
+          state.custom.animations[index].animation = value;
           if (!state.animationsAlert) state.animationsAlert = "update";
           break;
         case "dd":
-          if (isDefault) state.custom.default.animationDD = value;
-          else state.custom.animations[index].animationDD = value;
+          state.custom.animations[index].animationDD = value;
           if (!state.animationsAlert) state.animationsAlert = "update";
           break;
         case "drag-drop":
-          if (isDefault) state.custom.default.isDragDrop = value;
-          else state.custom.animations[index].isDragDrop = value;
+          state.custom.animations[index].isDragDrop = value;
           break;
       }
 
@@ -119,10 +116,7 @@ const animationsSlicer = createSlice({
 
         const id = uuidv4();
 
-        let name =
-          state.custom.default.name === "New"
-            ? "Animation Name"
-            : state.custom.default.name;
+        let name = "Animation Name";
         let name2 = name;
 
         const existingNames = new Set(animations.map((a) => a.name));
@@ -134,19 +128,19 @@ const animationsSlicer = createSlice({
         }
 
         animations.push({
-          ...state.custom.default,
+          animation: "",
+          animationDD: "",
+          isDragDrop: false,
           name: name2,
           id,
+          isShared: false,
         });
-        state.custom.animationNames.push({ name: name2, id });
+        state.custom.animationNames.push({ name: name2, id, isShared: false });
 
         const index = animations.findIndex((animation) => id === animation.id);
         state.custom.curIndex = index;
-        state.custom.isDefault = false;
-        state.custom.default = { ...initialState.custom.default };
         setCustomLocalStorage(state.custom);
 
-        ///
         if (createdN) return;
         createdN = true;
         setTimeout(() => {
@@ -192,13 +186,9 @@ const animationsSlicer = createSlice({
 
       let link;
 
-      if (state.custom.isDefault) {
-        link = btoa(JSON.stringify(state.custom.default));
-      } else {
-        link = btoa(
-          JSON.stringify(state.custom.animations[state.custom.curIndex])
-        );
-      }
+      link = btoa(
+        JSON.stringify(state.custom.animations[state.custom.curIndex])
+      );
 
       link = window.location.origin + "/?animation=" + link;
 
@@ -220,6 +210,17 @@ const animationsSlicer = createSlice({
         });
 
       state.copyLink = link;
+    },
+    handleAddSharing(state) {
+      if (state.custom.animationNames.length > 4) {
+        toast.error("Limit  reached!");
+        return;
+      }
+      state.custom.animations[state.custom.curIndex].isShared = false;
+      state.custom.animationNames[state.custom.curIndex].isShared = false;
+
+      setCustomLocalStorage(state.custom);
+      toast.success("Shared animations has been saved!");
     },
   },
 });

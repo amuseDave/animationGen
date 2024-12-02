@@ -142,7 +142,7 @@ export default function Canvas() {
       setIsReleased(!isReleased);
       isHolding = false;
     }
-    function handleMouseOut(e) {
+    function handleMouseOut() {
       isHolding = false;
       isHover = false;
       setIsReleased(!isReleased);
