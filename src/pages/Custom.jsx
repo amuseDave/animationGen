@@ -1,10 +1,26 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../store/uiSlicer";
 import { animationActions } from "../store/animationsSlicer";
 import { useSearchParams } from "react-router-dom";
 
+//
+let idx;
+
+/**
+ * Control with @var idx & @var innerInitial unecessary local storage saves if switching between tabs or changing index
+ *
+ * */
+
+/**
+ * Handle Initial render for shared link
+ * Handle saving changed animations to local storage
+ * Handle loading state of small icon
+ */
+
 export default function Custom() {
+  const [innerInitial, setInnerInitial] = useState(true);
+
   const timeoutId = useRef();
   const timeoutIdDD = useRef();
   const notificationTimeoutId = useRef();
@@ -41,12 +57,21 @@ export default function Custom() {
         })
       );
     }
+
+    return () => {
+      setInnerInitial(true);
+    };
   }, []);
 
-  // Set local storage of saved animations DD, nDD, iDD. Default & Animations
+  // Set local storage of saved animations DD, nDD, iDD.
   useEffect(() => {
     // Save keyframe animation
-    if (!isDragDrop && !isInitial) {
+    if (!isDragDrop && !isInitial && curIndex === idx) {
+      if (innerInitial) {
+        setInnerInitial(false);
+        return;
+      }
+
       if (timeoutId.current) clearTimeout(timeoutId.current);
       timeoutId.current = setTimeout(() => {
         dispatch(
@@ -61,39 +86,57 @@ export default function Custom() {
   }, [state]);
 
   useEffect(() => {
-    if (isInitial) return;
+    if (!isInitial && curIndex === idx) {
+      if (innerInitial) {
+        setInnerInitial(false);
+        return;
+      }
 
-    if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
-    timeoutIdDD.current = setTimeout(() => {
-      dispatch(
-        animationActions.handleUpdateCustom({
-          action: "dd",
-          index: curIndex,
-          value: stateDD,
-        })
-      );
-    }, 400);
+      if (timeoutIdDD.current) clearTimeout(timeoutIdDD.current);
+      timeoutIdDD.current = setTimeout(() => {
+        dispatch(
+          animationActions.handleUpdateCustom({
+            action: "dd",
+            index: curIndex,
+            value: stateDD,
+          })
+        );
+      }, 400);
+    }
   }, [isAnimationCreatedDD]);
 
   useEffect(() => {
-    if (isInitial) return;
-    dispatch(
-      animationActions.handleUpdateCustom({
-        action: "drag-drop",
-        index: curIndex,
-        value: isDragDrop,
-      })
-    );
+    if (!isInitial && curIndex === idx) {
+      if (innerInitial) {
+        setInnerInitial(false);
+        return;
+      }
+      dispatch(
+        animationActions.handleUpdateCustom({
+          action: "drag-drop",
+          index: curIndex,
+          value: isDragDrop,
+        })
+      );
+    }
   }, [isDragDrop]);
   // END
   useEffect(() => {
-    if (isInitial) return;
-    if (notificationTimeoutId.current)
-      clearTimeout(notificationTimeoutId.current);
+    if (!isInitial && curIndex === idx) {
+      if (innerInitial) {
+        setInnerInitial(false);
+        return;
+      } else {
+        if (notificationTimeoutId.current)
+          clearTimeout(notificationTimeoutId.current);
 
-    notificationTimeoutId.current = setTimeout(() => {
-      dispatch(animationActions.handleClearAnimationAlert());
-    }, 800);
+        notificationTimeoutId.current = setTimeout(() => {
+          dispatch(animationActions.handleClearAnimationAlert());
+        }, 800);
+      }
+    }
+
+    idx = curIndex;
   }, [state, isAnimationCreatedDD]);
   return null;
 }

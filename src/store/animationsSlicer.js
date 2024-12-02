@@ -80,7 +80,6 @@ const animationsSlicer = createSlice({
     },
     handleCustomUpdateIndex(state, { payload }) {
       state.custom.curIndex = payload;
-
       setCustomLocalStorage(state.custom);
     },
     handleUpdateCustom(state, { payload: { index, action, value } }) {
