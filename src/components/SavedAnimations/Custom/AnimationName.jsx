@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { animationActions } from "../../../store/animationsSlicer";
 import { useEffect, useRef, useState } from "react";
+
 export default function AnimationName({ animationName, className }) {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);

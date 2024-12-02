@@ -35,7 +35,7 @@ export default function Custom() {
         <ChevronDown size={22} className="ml-auto" />
       </div>
 
-      <div className="flex flex-col">
+      <div>
         {animationNames.map((animation, index) => {
           const same = index === curIndex && type === "custom";
           const isShared = animation.isShared;
@@ -55,17 +55,22 @@ export default function Custom() {
                 handleDiffAnimation(index);
               }}
               key={animation.id}
-              className={`flex items-center mt-1 gap-3 px-2 py-1 transition-colors rounded-md ${styles} ${
+              className={`flex relative items-center mt-1 gap-3 px-2 py-1 transition-colors rounded-md ${styles} ${
                 index === 0 && "mt-4"
-              }`}
+              } group`}
             >
-              <div
-                className={`w-[7px] h-[6px] rounded-full ${
-                  isShared ? "bg-red-500" : "bg-green-200"
-                } ${isShared && same ? "bg-red-800" : same && "bg-orange-500"}`}
-              ></div>
+              <div>
+                <div
+                  className={`w-[6px] h-[6px] rounded-full ${
+                    isShared ? "bg-red-500" : "bg-green-200"
+                  } ${
+                    isShared && same ? "bg-red-800" : same && "bg-orange-500"
+                  }`}
+                ></div>
+              </div>
 
               <AnimationName
+                isShared={isShared}
                 className={`text-main-t-gray ${
                   same && "text-main-t-gray-active"
                 }`}
@@ -77,7 +82,7 @@ export default function Custom() {
                   handleDelete(e, index);
                 }}
                 size={22}
-                className="ml-auto transition-colors text-red-600/20 hover:text-red-600/40"
+                className="ml-auto transition-all duration-300 opacity-0 text-red-600/20 hover:text-red-600/40 group-hover:opacity-100"
               />
             </div>
           );
