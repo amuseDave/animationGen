@@ -51,13 +51,13 @@ export default function Custom() {
               } ${index === 0 && "mt-4"}`}
             >
               <div
-                className={`w-[10px] h-[6px] rounded-full bg-green-200 ${
+                className={`w-[7px] h-[6px] rounded-full bg-green-200 ${
                   same && "bg-orange-500"
                 }`}
               ></div>
 
               <AnimationName
-                className={`bg-transparent outline-none text-main-t-gray ${
+                className={`text-main-t-gray ${
                   same && "text-main-t-gray-active"
                 }`}
                 animationName={animation.name}

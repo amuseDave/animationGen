@@ -2,6 +2,7 @@ import { animationActions } from "../../../store/animationsSlicer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
+import AnimationName from "./AnimationName";
 
 export default function NewCanvas() {
   const navigate = useNavigate();
@@ -41,12 +42,14 @@ export default function NewCanvas() {
   return (
     <div
       onClick={handleDefault}
-      className={`mt-7 flex items-center justify-between px-4 py-2 transition-colors rounded-lg ${styles}`}
+      className={`mt-7 flex items-center px-4 py-2 transition-colors rounded-lg ${styles}`}
     >
-      <p>(Default){animationNameDefault}</p>
+      <p>(Default)</p>
+      <AnimationName animationName={animationNameDefault} />
+
       <div
         onClick={handleNewCanvas}
-        className={`p-1 transition-colors translate-x-2 rounded-full ${stylesPlus}`}
+        className={`p-1 transition-colors ml-auto translate-x-2 rounded-full ${stylesPlus}`}
       >
         <Plus size={14} />
       </div>

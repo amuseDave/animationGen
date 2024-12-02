@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
 import { animationActions } from "../../../store/animationsSlicer";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 export default function AnimationName({ animationName, className }) {
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef();
   const timeoutId = useRef();
 
@@ -15,6 +16,7 @@ export default function AnimationName({ animationName, className }) {
   }
 
   function handleSetDefaultName() {
+    setIsOpen(false);
     if (animationName === "") {
       dispatch(animationActions.handleCustomUpdateName("No Name"));
     }
@@ -27,13 +29,31 @@ export default function AnimationName({ animationName, className }) {
     }, 500);
   }, [animationName]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    inputRef.current.focus();
+  }, [isOpen]);
+
   return (
-    <input
-      ref={inputRef}
-      onBlur={handleSetDefaultName}
-      onChange={handleUpdateName}
-      value={animationName}
-      className={className}
-    />
+    <>
+      {isOpen ? (
+        <input
+          ref={inputRef}
+          onBlur={handleSetDefaultName}
+          onChange={handleUpdateName}
+          value={animationName}
+          className={`${className} bg-transparent outline-none w-full`}
+        />
+      ) : (
+        <p
+          onDoubleClick={() => {
+            setIsOpen(true);
+          }}
+          className={`${className} w-full`}
+        >
+          {animationName}
+        </p>
+      )}
+    </>
   );
 }
