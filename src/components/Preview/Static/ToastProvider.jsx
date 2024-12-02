@@ -7,7 +7,7 @@ function closeBtn({ closeToast, type }) {
     <X
       size={18}
       onClick={closeToast}
-      className={`ml-4 select-none transition-all ${
+      className={`ml-4   transition-all ${
         type === "success" ? "text-alert-t-success" : "text-alert-t-error"
       } active:scale-[1.4] hover:scale-[1.2]`}
     />

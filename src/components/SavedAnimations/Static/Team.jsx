@@ -23,7 +23,7 @@ export default function Team() {
   }, []);
 
   return (
-    <div className="relative h-20 px-4 py-2 select-none bg-saved-bg rounded-2xl">
+    <div className="relative h-20 px-4 py-2   bg-saved-bg rounded-2xl">
       <p className="text-main-t-gray">Team</p>
 
       <div className="flex mt-2">

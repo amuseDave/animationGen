@@ -40,20 +40,29 @@ export default function Custom() {
           const same = index === curIndex && type === "custom";
           const isShared = animation.isShared;
 
+          const styles =
+            isShared && same
+              ? "hover:bg-red-800/10"
+              : same
+              ? "hover:bg-orange-400/10"
+              : isShared
+              ? "hover:bg-red-600/10"
+              : "hover:bg-green-800/10";
+
           return (
             <div
               onClick={() => {
                 handleDiffAnimation(index);
               }}
               key={animation.id}
-              className={`flex items-center mt-1 gap-3 px-2 py-1 transition-colors rounded-md hover:bg-green-800/10 ${
-                same && "hover:bg-orange-400/10"
-              } ${index === 0 && "mt-4"}`}
+              className={`flex items-center mt-1 gap-3 px-2 py-1 transition-colors rounded-md ${styles} ${
+                index === 0 && "mt-4"
+              }`}
             >
               <div
                 className={`w-[7px] h-[6px] rounded-full ${
                   isShared ? "bg-red-500" : "bg-green-200"
-                } ${isShared && same ? "bg-red-700" : same && "bg-orange-500"}`}
+                } ${isShared && same ? "bg-red-800" : same && "bg-orange-500"}`}
               ></div>
 
               <AnimationName

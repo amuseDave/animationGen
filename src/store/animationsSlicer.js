@@ -46,25 +46,26 @@ const animationsSlicer = createSlice({
         state.custom;
       state.custom = pulseWaveAnimations;
 
-      const index = state.custom.animations.findIndex(
-        (animation) => animation.isShared
-      );
-      if (index !== -1) {
-        state.custom.animations.splice(index, 1),
-          state.custom.animationNames.splice(index, 1);
-        state.custom.curIndex = 0;
+      if (state.custom.animations[0].isShared) {
+        state.custom.animations.splice(0, 1);
+        state.custom.animationNames.splice(0, 1);
+        state.custom.curIndex !== 0 && state.custom.curIndex--;
       }
     },
     handleSetCustomShared(state, { payload: { sharedAnimation } }) {
       if (!sharedAnimation) return;
       const id = uuidv4();
-      state.custom.animations.push({ ...sharedAnimation, isShared: true, id });
-      state.custom.animationNames.push({
+      state.custom.animations.unshift({
+        ...sharedAnimation,
+        isShared: true,
+        id,
+      });
+      state.custom.animationNames.unshift({
         id,
         name: sharedAnimation.name,
         isShared: true,
       });
-      state.custom.curIndex = state.custom.animationNames.length - 1;
+      state.custom.curIndex = 0;
     },
     handleClearAnimationAlert(state) {
       state.animationsAlert = null;
@@ -212,7 +213,13 @@ const animationsSlicer = createSlice({
       state.copyLink = link;
     },
     handleAddSharing(state) {
-      if (state.custom.animationNames.length > 4) {
+      if (state.custom.animationNames.length > 5) {
+        if (limitN) return;
+        limitN = true;
+        setTimeout(() => {
+          limitN = false;
+        }, 1000);
+
         toast.error("Limit  reached!");
         return;
       }

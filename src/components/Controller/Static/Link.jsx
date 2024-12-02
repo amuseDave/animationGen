@@ -13,7 +13,7 @@ export default function Link({ copyLink }) {
   }, []);
 
   return (
-    <span ref={linkEl} className="text-sm">
+    <span ref={linkEl} className="text-sm select-text">
       {copyLink}
     </span>
   );

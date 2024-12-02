@@ -4,6 +4,7 @@
 
 * {
   cursor: none;
+  user-select: none;
 }
 body {
   font-family: "Nunito", sans-serif;
@@ -51,7 +52,7 @@ body {
 
   /*ALERTS*/
   .alert {
-    @apply px-3 py-2 mt-3 font-light text-center rounded-md select-none w-max flex relative overflow-hidden;
+    @apply relative flex px-3 py-2 mt-3 overflow-hidden font-light text-center rounded-md w-max;
   }
 
   .error {
