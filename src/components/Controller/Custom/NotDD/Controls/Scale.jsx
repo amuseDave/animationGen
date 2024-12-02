@@ -1,24 +1,46 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { customActions } from "../../../../../store/customSlicer";
+import { handleValueInputs } from "../../../../../utils/helper";
 
-export default function Scale({ handleStyle }) {
+export default function Scale() {
+  const dispatch = useDispatch();
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
-  const scale = useSelector(
-    (state) => state.custom.keyFrames[activeKeyFrame].scale
+  const scaleX = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].scaleX
   );
+  const scaleY = useSelector(
+    (state) => state.custom.keyFrames[activeKeyFrame].scaleY
+  );
+  function handleScaleChange(e, type) {
+    let { value: val } = e.target;
+    const value = handleValueInputs(val);
+    if (isNaN(value) || value.length > 5) return;
+
+    dispatch(customActions.handleScale({ type, value }));
+  }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 mb-4">
       <p className="text-white">Scale</p>
-      <input
-        onChange={(e) => {
-          handleStyle(e, "set-scale");
-        }}
-        type="range"
-        min={0}
-        max={3}
-        value={scale}
-        step={0.05}
-      />
+
+      <div className="flex items-center font-bold text-white">
+        X:
+        <input
+          value={scaleX}
+          className="w-16 p-1 bg-zinc-900"
+          onChange={(e) => {
+            handleScaleChange(e, "x");
+          }}
+        />
+        Y:
+        <input
+          value={scaleY}
+          className="w-16 p-1 bg-zinc-900"
+          onChange={(e) => {
+            handleScaleChange(e, "y");
+          }}
+        />
+      </div>
     </div>
   );
 }

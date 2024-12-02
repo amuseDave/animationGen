@@ -176,6 +176,16 @@ export function handleTranslateInputs(val) {
 
   return val;
 }
+export function handleValueInputs(value) {
+  if (value === "." || value === "") value = "0";
+  if (value.startsWith("0") && value.length > 1 && !value.startsWith("0."))
+    value = value.slice(1);
+  if (value > 5) value = "5";
+  if (value === "5.") value = "5";
+  if (value < 0) value = "0";
+
+  return value;
+}
 
 export function handleOutsideXYCalc(val) {
   return val + 100 + 15 >= 200 ? 200 - 15 : val + 95 <= 0 ? 0 + 5 : val + 100;

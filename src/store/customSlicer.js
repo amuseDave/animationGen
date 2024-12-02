@@ -23,7 +23,8 @@ const initialState = {
       color: "#52525b",
       opacity: 1,
 
-      scale: 1,
+      scaleX: 1,
+      scaleY: 1,
       translateX: -50,
       translateY: -50,
       rotate: 0,
@@ -37,7 +38,8 @@ const initialState = {
       color: "#52525b",
       opacity: 1,
 
-      scale: 1,
+      scaleX: 1,
+      scaleY: 1,
       translateX: -50,
       translateY: -50,
       rotate: 0,
@@ -89,15 +91,16 @@ const customSlicer = createSlice({
         case "set-opacity":
           state.keyFrames[state.activeKeyFrame].opacity = +value;
           break;
-        case "set-scale":
-          state.keyFrames[state.activeKeyFrame].scale = +value;
-          break;
         case "set-rotate":
           state.keyFrames[state.activeKeyFrame].rotate = +value;
           break;
         case "set-duration":
           state.duration = +value;
       }
+    },
+    handleScale(state, { payload: { type, value } }) {
+      if (type === "x") state.keyFrames[state.activeKeyFrame].scaleX = value;
+      if (type === "y") state.keyFrames[state.activeKeyFrame].scaleY = value;
     },
     handleKeyFrame(
       state,

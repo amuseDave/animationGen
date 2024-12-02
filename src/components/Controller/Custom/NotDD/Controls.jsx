@@ -18,12 +18,13 @@ export default function Controls() {
 
   return (
     <>
-      <div className="flex flex-col gap-1 mt-5">
+      <div className="flex flex-col gap-1 mt-3">
         <Color handleStyle={handleStyle} />
-        <Scale handleStyle={handleStyle} />
         <Opacity handleStyle={handleStyle} />
         <Rotate handleStyle={handleStyle} />
         <Duration handleStyle={handleStyle} />
+
+        <Scale />
       </div>
     </>
   );

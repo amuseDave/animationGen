@@ -37,7 +37,7 @@ export default function Preview() {
     height: `${size}px`,
     backgroundColor: curKF.color,
     opacity: curKF.opacity,
-    transform: `translate(${curKF.translateX}%, ${curKF.translateY}%) rotate(${curKF.rotate}deg) scale(${curKF.scale})`,
+    transform: `translate(${curKF.translateX}%, ${curKF.translateY}%) rotate(${curKF.rotate}deg) scaleX(${curKF.scaleX}) scaleY(${curKF.scaleY})`,
     left: curKF.left,
     bottom: curKF.bottom,
     top: curKF.top,
@@ -85,9 +85,10 @@ export default function Preview() {
         backgroundColor: keyFrame.color,
         left: keyFrame.left,
         top: keyFrame.top,
-        transform: `translate(${keyFrame.translateX}%, ${keyFrame.translateY}%) scale(${keyFrame.scale}) rotate(${keyFrame.rotate}deg)`,
+        transform: `translate(${keyFrame.translateX}%, ${keyFrame.translateY}%) scaleX(${keyFrame.scaleX}) scaleY(${keyFrame.scaleY}) rotate(${keyFrame.rotate}deg)`,
       };
     });
+
     squareAnimation.current = squareEl.current.animate(styles, {
       duration: duration * 1000,
       easing: animationFunction,
