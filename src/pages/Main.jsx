@@ -1,5 +1,3 @@
-import DefaultCanvas from "../components/Preview/Static/DefaultCanvas.jsx";
-
 import Navigation from "../components/Navigation/Navigation.jsx";
 import SavedAnimations from "../components/SavedAnimations/Layout.jsx";
 import PreviewLayout from "../components/Preview/Layout.jsx";
@@ -42,7 +40,6 @@ export default function MainLayout() {
 
   return (
     <>
-      <DefaultCanvas />
       <main
         className={`p-6 min-h-dvh relative z-10 grid grid-cols-[280px_1fr_280px]`}
       >

@@ -177,7 +177,7 @@ const customSlicer = createSlice({
         setTimeout(() => {
           resetN = false;
         }, 1000);
-        toast.success("Keyframe has been reset");
+        toast.success("Keyframes has been reset");
         return { ...initialState };
         ///
       }
@@ -194,7 +194,7 @@ const customSlicer = createSlice({
             setTimeout(() => {
               resetN = false;
             }, 1000);
-            toast.success("Keyframe has been reset");
+            toast.success("Keyframes has been reset");
             return { ...initialState };
             ///
           }
