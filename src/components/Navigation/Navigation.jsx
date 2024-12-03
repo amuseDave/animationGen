@@ -6,7 +6,7 @@ export default function Navigation({ error }) {
   // const dispatch = useDispatch();
 
   return (
-    <nav className="relative mx-auto w-max flex p-[6px] rounded-lg from-background bg-green-950 bg-gradient-to-tr navigation">
+    <nav className="relative mx-auto w-max flex p-[6px] rounded-lg navigation">
       {error ? (
         <>
           {" "}

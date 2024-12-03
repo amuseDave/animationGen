@@ -43,10 +43,13 @@ body {
 @layer components {
   /*NAV BUTTONS START*/
   .nav-btn {
-    @apply px-4 py-2 rounded-lg text-main-t;
+    @apply px-4 py-2 transition-all duration-300 rounded-lg text-main-t;
+  }
+  .nav-btn-DD {
+    @apply px-2 py-1 text-base transition-all duration-300 rounded-md text-main-t font-extralight;
   }
   .active {
-    @apply bg-slate-50/15 text-main-t-active;
+    @apply bg-cyan-500/5 text-main-t-active;
   }
   /*NAV BUTTONS END*/
 
