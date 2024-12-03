@@ -9,16 +9,16 @@
     @apply -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2;
   }
   .ct {
-    @apply left-1/2 top-[calc(50%-22px)] -translate-x-1/2 -translate-y-1/2;
+    @apply left-1/2 top-[calc(50%-16px)] -translate-x-1/2 -translate-y-1/2;
   }
   .cb {
-    @apply left-1/2 top-[calc(50%+22px)] -translate-x-1/2 -translate-y-1/2;
+    @apply left-1/2 top-[calc(50%+16px)] -translate-x-1/2 -translate-y-1/2;
   }
   .cl {
-    @apply left-[calc(50%-22px)] top-1/2 -translate-x-1/2 -translate-y-1/2;
+    @apply left-[calc(50%-16px)] top-1/2 -translate-x-1/2 -translate-y-1/2;
   }
   .cr {
-    @apply left-[calc(50%+22px)] top-1/2 -translate-x-1/2 -translate-y-1/2;
+    @apply left-[calc(50%+16px)] top-1/2 -translate-x-1/2 -translate-y-1/2;
   }
   /*Center END */
 

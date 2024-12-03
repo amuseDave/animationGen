@@ -30,7 +30,7 @@ export default function KeyFrames() {
   }
 
   return (
-    <div className="mt-10 ">
+    <div className="mt-5 ">
       <section className="grid grid-cols-2 ml-4 gap-y-2 gap-x-2 auto-rows-auto">
         {keyFramesPers.map((frame, index) => {
           return (

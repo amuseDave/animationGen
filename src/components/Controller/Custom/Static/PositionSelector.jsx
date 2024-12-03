@@ -67,7 +67,7 @@ export default function Position({ type, positionStyles }) {
   return (
     <>
       <div
-        className={`absolute w-5 h-5 rounded-full ${positionStyles} transition-colors duration-200 ${
+        className={`absolute w-[14px] h-[14px] rounded-full ${positionStyles} transition-colors duration-200 ${
           isHighLight
             ? "bg-pink-950 hover:bg-pink-950"
             : isDisabled
