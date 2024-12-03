@@ -1,8 +1,3 @@
-.navigation {
-  background-color: #09100e;
-  background-image: linear-gradient(#09100e, #162b25);
-}
-
 @property --x-pos {
   syntax: "<length>";
   initial-value: 50px;
@@ -61,4 +56,13 @@
   100% {
     --gradient-angle: 360deg;
   }
+}
+
+.navigation::after {
+  content: "";
+  position: absolute;
+  inset: -0px;
+  z-index: -1;
+  background-color: #122721;
+  border-radius: inherit;
 }

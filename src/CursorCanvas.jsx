@@ -55,7 +55,7 @@ export default function CursorCanvas() {
   return (
     <canvas
       ref={canvasEl}
-      className="fixed z-[4000] top-0 left-0 h-[100dvh] w-[100dvw] pointer-events-none"
+      className="fixed z-[1000] top-0 left-0 h-[100dvh] w-[100dvw] pointer-events-none"
     ></canvas>
   );
 }
