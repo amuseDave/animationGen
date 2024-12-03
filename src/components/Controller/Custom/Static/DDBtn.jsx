@@ -13,7 +13,7 @@ export default function CustomDDBtn() {
 
   return (
     <div
-      className={`relative mx-auto w-max flex p-[5px] rounded-md navigation z-0 bg-black ${ddStyle}`}
+      className={`relative mx-auto w-max flex p-[5px] rounded-md navigation z-0 ${ddStyle}`}
     >
       <div
         className={`nav-btn-DD ${!isDragDrop && "active"}`}

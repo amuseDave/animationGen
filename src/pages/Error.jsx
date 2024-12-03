@@ -11,7 +11,7 @@ export default function Error() {
   }
 
   return (
-    <div className="pt-6">
+    <div className="relative z-0 pt-6">
       <Navigation error={err} />
     </div>
   );
