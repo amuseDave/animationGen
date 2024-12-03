@@ -90,3 +90,14 @@
     #0a110f
   );
 }
+
+.zoom {
+  background: radial-gradient(
+    circle 80px at center 20px,
+    #122721,
+    #0a110f,
+    #0a110f
+  );
+  border: 1px solid #2e92763b;
+  color: var(--alert-t-success);
+}
