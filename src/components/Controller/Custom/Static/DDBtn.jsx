@@ -25,7 +25,7 @@ export default function CustomDDBtn() {
         className={`nav-btn-DD ${isDragDrop && "active"}`}
         onClick={() => handleDragDrop(true)}
       >
-        Drag&Drop
+        Hold&Release
       </div>
     </div>
   );
