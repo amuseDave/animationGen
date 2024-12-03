@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import getPositionStyles, { stringifyStyles } from "../utils/helper";
+import getPositionStyles, { hexToRgba, stringifyStyles } from "../utils/helper";
 import { toast } from "react-toastify";
 
 let posN;
@@ -20,7 +20,8 @@ const initialState = {
       keyPercentage: 0,
       position: "cc",
 
-      color: "#52525b",
+      backgroundColor: "#52525b",
+      bgOpacity: 1,
       opacity: 1,
 
       scaleX: 1,
@@ -35,7 +36,8 @@ const initialState = {
       keyPercentage: 100,
       position: "cc",
 
-      color: "#52525b",
+      backgroundColor: "#52525b",
+      bgOpacity: 1,
       opacity: 1,
 
       scaleX: 1,
@@ -85,9 +87,11 @@ const customSlicer = createSlice({
     },
     handleStyles(state, { payload: { action, value } }) {
       switch (action) {
-        case "set-color":
-          state.keyFrames[state.activeKeyFrame].color = value;
+        case "set-background-color": {
+          state.keyFrames[state.activeKeyFrame].bgOpacity = value.opacity;
+          state.keyFrames[state.activeKeyFrame].backgroundColor = value.color;
           break;
+        }
         case "set-opacity":
           state.keyFrames[state.activeKeyFrame].opacity = +value;
           break;

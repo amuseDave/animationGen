@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Static/Loader";
 import Playback from "./Playback";
-import { stringifyStyles } from "../../../utils/helper";
+import { hexToRgba, stringifyStyles } from "../../../utils/helper";
 import { uiActions } from "../../../store/uiSlicer";
 import { customActions } from "../../../store/customSlicer";
 import { useEffect, useRef } from "react";
@@ -35,7 +35,7 @@ export default function Preview() {
   const boxStyles = {
     width: `${size}px`,
     height: `${size}px`,
-    backgroundColor: curKF.color,
+    backgroundColor: hexToRgba(curKF.backgroundColor, curKF.bgOpacity),
     opacity: curKF.opacity,
     transform: `translate(${curKF.translateX}%, ${curKF.translateY}%) rotate(${curKF.rotate}deg) scaleX(${curKF.scaleX}) scaleY(${curKF.scaleY})`,
     left: curKF.left,
@@ -82,7 +82,7 @@ export default function Preview() {
     const styles = keyFrames.map((keyFrame) => {
       return {
         opacity: keyFrame.opacity,
-        backgroundColor: keyFrame.color,
+        backgroundColor: keyFrame.backgroundColor,
         left: keyFrame.left,
         top: keyFrame.top,
         transform: `translate(${keyFrame.translateX}%, ${keyFrame.translateY}%) scaleX(${keyFrame.scaleX}) scaleY(${keyFrame.scaleY}) rotate(${keyFrame.rotate}deg)`,
