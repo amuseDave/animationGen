@@ -3,12 +3,40 @@
   background-image: linear-gradient(#09100e, #162b25);
 }
 
+@property --x-pos {
+  syntax: "<length>";
+  initial-value: 50px;
+  inherits: false;
+}
+
+/* Navigation main styles */
+.navigation-main {
+  transition: --x-pos 0.6s ease-in-out; /* Animate only the variable */
+  background: radial-gradient(
+    circle 150px at var(--x-pos) 20px,
+    #122721,
+    #0a1310,
+    #0a1310
+  );
+}
+
+.navigation-main.custom {
+  --x-pos: 50px;
+}
+.navigation-main.featured {
+  --x-pos: 140px;
+}
+.navigation-main.micro {
+  --x-pos: 240px;
+}
+
 @property --gradient-angle {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 
+.navigation-main::before,
 .navigation::before {
   content: "";
   position: absolute;

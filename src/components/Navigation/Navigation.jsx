@@ -1,12 +1,19 @@
 import { NavLink, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 // import { uiActions } from "../../store/uiSlicer";
 
 export default function Navigation({ error }) {
+  const type = useSelector((state) => state.ui.type);
   // const dispatch = useDispatch();
 
+  const navClass =
+    type === "custom" ? "custom" : type === "featured" ? "featured" : "micro";
+
   return (
-    <nav className="relative mx-auto w-max flex p-[6px] rounded-lg navigation">
+    <nav
+      className={`relative mx-auto w-max flex p-[6px] rounded-lg navigation-main ${navClass}`}
+    >
       {error ? (
         <>
           {" "}
