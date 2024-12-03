@@ -14,9 +14,7 @@ let isHovered = false;
 export default function CustomCanvas() {
   const dispatch = useDispatch();
 
-  const curIndex = useSelector(
-    (state) => state.animations.custom.curIndex
-  );
+  const curIndex = useSelector((state) => state.animations.custom.curIndex);
 
   const positionDD = useSelector((state) => state.customDD.positionDD);
   const square = useSelector((state) => state.customDD.square);
@@ -25,6 +23,7 @@ export default function CustomCanvas() {
   );
 
   const zoomLevel = useSelector((state) => state.ui.zoomLevel);
+  const cursor = useSelector((state) => state.ui.cursor);
   const isResizing = useSelector((state) => state.ui.isResizing);
   const isAnimating = useSelector((state) => state.ui.isAnimating);
 
