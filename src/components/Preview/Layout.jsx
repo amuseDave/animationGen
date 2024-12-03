@@ -9,7 +9,7 @@ export default function Layout() {
     type && (
       <>
         <ZoomControls />
-        <div className="relative">
+        <div className="relative overflow-hidden">
           <PlayingAnimationAlert />
           <div className="relative h-[800px] overflow-hidden">
             {type === "custom" && <CustomPreview />}

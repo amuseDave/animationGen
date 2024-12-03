@@ -49,7 +49,7 @@ export default function MainLayout() {
 
         <Outlet />
 
-        <div className="relative overflow-hidden">
+        <div className="relative">
           <ToastProvider />
           <Navigation />
           <PreviewLayout />

@@ -1,0 +1,36 @@
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.navigation::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  /* width: calc(100% + 1px);
+  height: calc(100% + 1px);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%; */
+  z-index: -1;
+  border-radius: inherit;
+
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--alert-text-success),
+    transparent,
+    transparent,
+    var(--alert-text-success)
+  );
+  animation: rotation 5s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
