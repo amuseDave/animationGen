@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { customActions } from "../../../../store/customSlicer";
 import { throttle } from "lodash";
 import Duration from "./Controls/Duration";
+import TextColor from "./Controls/TextColor";
 
 export default function Controls() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ export default function Controls() {
   return (
     <>
       <div className="flex flex-col gap-1 mt-3">
+        <TextColor handleStyle={handleStyle} />
         <Color handleStyle={handleStyle} />
         <Opacity handleStyle={handleStyle} />
         <Rotate handleStyle={handleStyle} />

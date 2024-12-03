@@ -35,7 +35,9 @@ export default function Preview() {
   const boxStyles = {
     width: `${size}px`,
     height: `${size}px`,
+    fontSize: `${Math.floor(size) / 7}px`,
     backgroundColor: hexToRgba(curKF.backgroundColor, curKF.bgOpacity),
+    color: hexToRgba(curKF.textColor, curKF.textOpacity),
     opacity: curKF.opacity,
     transform: `translate(${curKF.translateX}%, ${curKF.translateY}%) rotate(${curKF.rotate}deg) scaleX(${curKF.scaleX}) scaleY(${curKF.scaleY})`,
     left: curKF.left,
@@ -82,7 +84,11 @@ export default function Preview() {
     const styles = keyFrames.map((keyFrame) => {
       return {
         opacity: keyFrame.opacity,
-        backgroundColor: keyFrame.backgroundColor,
+        backgroundColor: hexToRgba(
+          keyFrame.backgroundColor,
+          keyFrame.bgOpacity
+        ),
+        color: hexToRgba(keyFrame.textColor, keyFrame.textOpacity),
         left: keyFrame.left,
         top: keyFrame.top,
         transform: `translate(${keyFrame.translateX}%, ${keyFrame.translateY}%) scaleX(${keyFrame.scaleX}) scaleY(${keyFrame.scaleY}) rotate(${keyFrame.rotate}deg)`,
@@ -117,8 +123,10 @@ export default function Preview() {
           ref={squareEl}
           id="square"
           style={boxStyles}
-          className={`rounded-xl`}
-        ></div>
+          className={`rounded-xl flex items-center justify-center font-bold`}
+        >
+          Your content
+        </div>
       </section>
       {isResizing && <Loader />}
       <Playback handleAnimation={handleAnimation} isAnimating={isAnimating} />

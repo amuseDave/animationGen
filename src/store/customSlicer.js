@@ -20,6 +20,8 @@ const initialState = {
       keyPercentage: 0,
       position: "cc",
 
+      textColor: "#ffffff",
+      textOpacity: 1,
       backgroundColor: "#52525b",
       bgOpacity: 1,
       opacity: 1,
@@ -36,6 +38,8 @@ const initialState = {
       keyPercentage: 100,
       position: "cc",
 
+      textColor: "#ffffff",
+      textOpacity: 1,
       backgroundColor: "#52525b",
       bgOpacity: 1,
       opacity: 1,
@@ -85,6 +89,7 @@ const customSlicer = createSlice({
         curKF.translateY = y ?? curKF.translateY;
       }
     },
+
     handleStyles(state, { payload: { action, value } }) {
       switch (action) {
         case "set-background-color": {
@@ -92,6 +97,13 @@ const customSlicer = createSlice({
           state.keyFrames[state.activeKeyFrame].backgroundColor = value.color;
           break;
         }
+
+        case "set-text-color": {
+          state.keyFrames[state.activeKeyFrame].textOpacity = value.opacity;
+          state.keyFrames[state.activeKeyFrame].textColor = value.color;
+          break;
+        }
+
         case "set-opacity":
           state.keyFrames[state.activeKeyFrame].opacity = +value;
           break;
