@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import getPositionStyles, { hexToRgba, stringifyStyles } from "../utils/helper";
+import getPositionStyles, { stringifyStyles } from "../utils/helper";
 import { toast } from "react-toastify";
 
 let posN;

@@ -24,6 +24,7 @@ export default function CustomCanvas() {
 
   const zoomLevel = useSelector((state) => state.ui.zoomLevel);
   const cursor = useSelector((state) => state.ui.cursor);
+  cursor;
   const isResizing = useSelector((state) => state.ui.isResizing);
   const isAnimating = useSelector((state) => state.ui.isAnimating);
 
