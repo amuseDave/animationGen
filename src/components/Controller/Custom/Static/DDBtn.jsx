@@ -9,8 +9,14 @@ export default function CustomDDBtn() {
     dispatch(uiActions.handleDragDrop(boolean));
   }
 
+  const ddStyle = isDragDrop ? "ndd" : "dd";
+
+  console.log(ddStyle);
+
   return (
-    <div className="relative mx-auto w-max flex p-[5px] rounded-md navigation z-10 bg-black">
+    <div
+      className={`relative mx-auto w-max flex p-[5px] rounded-md navigation z-10 bg-black ${ddStyle}`}
+    >
       <div
         className={`nav-btn-DD ${!isDragDrop && "active"}`}
         onClick={() => handleDragDrop(false)}

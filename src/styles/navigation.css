@@ -6,12 +6,12 @@
 
 /* Navigation main styles */
 .navigation-main {
-  transition: --x-pos 0.6s ease-in-out; /* Animate only the variable */
+  transition: --x-pos 0.4s 0.1s ease-in-out; /* Animate only the variable */
   background: radial-gradient(
     circle 150px at var(--x-pos) 20px,
     #122721,
     #0a1310,
-    #0a1310
+    #081411
   );
 }
 
@@ -41,12 +41,18 @@
 
   background: conic-gradient(
     from var(--gradient-angle),
-    var(--alert-text-success),
+    var(--text-color-active),
     transparent,
     transparent,
-    var(--alert-text-success)
+    transparent,
+    transparent,
+    var(--text-color-active)
   );
-  animation: rotation 5s linear infinite;
+  animation: rotation 7s linear infinite;
+}
+
+.navigation::before {
+  animation: rotation 10s linear infinite;
 }
 
 @keyframes rotation {
@@ -58,11 +64,29 @@
   }
 }
 
+@property --x-posDD {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: false;
+}
+.navigation.dd::after {
+  --x-posDD: 50px;
+}
+.navigation.ndd::after {
+  --x-posDD: 150px;
+}
+
 .navigation::after {
   content: "";
   position: absolute;
   inset: -0px;
   z-index: -1;
-  background-color: #122721;
   border-radius: inherit;
+  transition: --x-posDD 0.4s 0.1s ease-in-out; /* Animate only the variable */
+  background: radial-gradient(
+    circle 140px at var(--x-posDD) 20px,
+    #122721,
+    #070c0a,
+    #060c09
+  );
 }
