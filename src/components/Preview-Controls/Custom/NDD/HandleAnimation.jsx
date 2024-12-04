@@ -22,6 +22,8 @@ export default function HandleAnimation() {
   const timeoutId = useRef();
 
   useEffect(() => {
+    console.log("getting element");
+
     squareEl.current = document.getElementById("square");
   }, []);
 
