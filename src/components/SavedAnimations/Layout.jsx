@@ -13,13 +13,10 @@ export default function Layout() {
 
   return (
     <>
-      <div className="relative h-full p-4   rounded-2xl bg-saved-bg">
-        {/* Logo & Title */}
-        <div className="flex items-center gap-2">
-          <img src={logo} className="w-8 h-8" />
-          <h2 className="text-2xl font-semibold text-alert-t-success">
-            Pulsewave
-          </h2>
+      <div className="library-panel-container">
+        <div className="logo-container">
+          <img src={logo} className="logo-container-img" />
+          <h2 className="logo-container-title">Pulsewave</h2>
 
           <Loading />
         </div>

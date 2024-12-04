@@ -16,11 +16,7 @@ export default function Savebtn() {
 
   return (
     isShared && (
-      <Save
-        onClick={handleAddSharing}
-        size={32}
-        className="absolute bottom-0 text-green-500 right-20"
-      >
+      <Save onClick={handleAddSharing} size={32} className="save-btn">
         Savebtn
       </Save>
     )

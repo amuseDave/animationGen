@@ -1,3 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /*NAV BUTTONS START*/
+  .nav-btn {
+    @apply px-4 py-2 transition-all duration-300 rounded-lg text-main-t;
+  }
+  .nav-btn-DD {
+    @apply px-4 py-1 text-base transition-all duration-300 rounded-md text-main-t font-extralight;
+  }
+  .active {
+    @apply bg-cyan-500/5 text-main-t-active;
+  }
+
+  .navigation-main-container {
+    @apply relative mx-auto w-max flex p-[6px] rounded-lg navigation-bg;
+  }
+
+  .navigation {
+    @apply relative flex p-1 mx-auto w-max rounded-xl;
+  }
+}
+
 @property --x-pos {
   syntax: "<length>";
   initial-value: 50px;
@@ -5,7 +30,7 @@
 }
 
 /* Navigation main styles */
-.navigation-main {
+.navigation-bg {
   transition: --x-pos 0.4s 0.1s ease-in-out; /* Animate only the variable */
   background: radial-gradient(
     circle 150px at var(--x-pos) 20px,
@@ -15,13 +40,10 @@
   );
 }
 
-.navigation-main.custom {
-  --x-pos: 50px;
-}
-.navigation-main.featured {
+.navigation-bg.featured {
   --x-pos: 140px;
 }
-.navigation-main.micro {
+.navigation-bg.micro {
   --x-pos: 240px;
 }
 
@@ -31,7 +53,7 @@
   inherits: false;
 }
 
-.navigation-main::before {
+.navigation-bg::before {
   content: "";
   position: absolute;
   inset: -1px;
@@ -59,40 +81,52 @@
   }
 }
 
+/*********/
+/*KEYFRAME DRAG&DROP NAVIGATION START*/
+/*********/
 @property --x-posDD {
   syntax: "<length>";
   initial-value: 0px;
   inherits: false;
 }
 .navigation.dd::after {
-  --x-posDD: 50px;
+  --x-posDD: 60px;
 }
 .navigation.ndd::after {
   --x-posDD: 170px;
 }
 
+.navigation::before {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  z-index: -2;
+  border-radius: inherit;
+  background-image: linear-gradient(
+    to right,
+    #0c1110,
+    #0c1110,
+    #1a5e630a,
+    #0c1110,
+    #0c1110
+  );
+}
+
+/* */
 .navigation::after {
   content: "";
   position: absolute;
-  inset: -0px;
+  inset: 0px;
   z-index: -1;
   border-radius: inherit;
   transition: --x-posDD 0.4s 0.1s ease-in-out; /* Animate only the variable */
   background: radial-gradient(
-    circle 140px at var(--x-posDD) 20px,
-    #122721,
-    #0a110f,
-    #0a110f
+    circle 180px at var(--x-posDD) 20px,
+    #142b24,
+    transparent,
+    transparent
   );
 }
-
-.zoom {
-  background: radial-gradient(
-    circle 80px at center 20px,
-    #122721,
-    #0a110f,
-    #0a110f
-  );
-  border: 1px solid #2e92763b;
-  color: var(--alert-t-success);
-}
+/*********/
+/*KEYFRAME DRAG&DROP NAVIGATION END*/
+/*********/

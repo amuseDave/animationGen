@@ -257,7 +257,7 @@ export default function CustomCanvas() {
       <canvas
         ref={canvasEl}
         id="generator"
-        className={`${isResizing && "hidden"} w-full relative h-full z-20`}
+        className={`${isResizing && "hidden"} preview-dd-canvas`}
       ></canvas>
       {isResizing && <Loader />}
     </>

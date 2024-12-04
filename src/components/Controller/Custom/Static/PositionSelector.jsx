@@ -67,12 +67,10 @@ export default function Position({ type, positionStyles }) {
   return (
     <>
       <div
-        className={`absolute w-[14px] h-[14px] rounded-full ${positionStyles} transition-colors duration-200 ${
+        className={`position-selector ${positionStyles} ${
           isHighLight
-            ? "bg-pink-950 hover:bg-pink-950"
-            : isDisabled
-            ? "bg-zinc-950 hover:bg-pink-200"
-            : "bg-gray-500 hover:bg-gray-200"
+            ? "position-selector-active"
+            : isDisabled && "bg-zinc-950 hover:bg-[#e4ff4b]"
         } `}
         onClick={handlePosition}
       ></div>

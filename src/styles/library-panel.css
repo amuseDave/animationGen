@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .library-total-panel-container {
+    @apply relative flex flex-col gap-3;
+  }
+
+  .library-panel-container {
+    @apply relative h-full p-4 rounded-2xl bg-saved-bg;
+  }
+
+  /*************************/
+  /*LOGO CONTAINER TOP START*/
+  /*************************/
+  .logo-container {
+    @apply flex items-center gap-2;
+  }
+
+  .logo-container-img {
+    @apply w-8 h-8;
+  }
+
+  .logo-container-title {
+    @apply text-2xl font-semibold text-alert-t-success;
+  }
+
+  .logo-container-loader {
+    @apply w-5 h-5 ml-auto border-2 rounded-full border-green-400/60 animate-spin border-t-transparent;
+  }
+  .logo-container-cloud {
+    @apply ml-auto justify-self-end text-alert-t-success;
+  }
+  /*************************/
+  /*LOGO CONTAINER TOP END*/
+  /*************************/
+
+  /*************************/
+  /*Add Canvas START*/
+  /*************************/
+  .add-canvas-container {
+    @apply flex items-center px-4 py-2 transition-colors rounded-lg mt-7 bg-green-300/5 text-alert-t-success hover:bg-green-300/10;
+  }
+
+  .add-canvas-plus {
+    @apply p-1 ml-auto transition-colors translate-x-2 rounded-full bg-green-300/40 hover:bg-green-400/50 text-orange-50;
+  }
+
+  /*************************/
+  /*Add Canvas End*/
+  /*************************/
+
+  /*************************/
+  /*Libraries start*/
+  /*************************/
+  .libraries-container {
+    @apply flex flex-col font-medium;
+  }
+
+  .library-margin {
+    @apply mt-8;
+  }
+
+  .library-active {
+    @apply order-first mt-4;
+  }
+
+  .library-title-container {
+    @apply flex items-center gap-2 text-main-t-gray;
+  }
+
+  .library-title-container-icon {
+    @apply ml-auto;
+  }
+
+  .library-dot {
+    @apply w-[6px] h-[6px] rounded-full bg-green-200;
+  }
+
+  .library-dot-active {
+    @apply bg-orange-500;
+  }
+
+  .library-dot-shared {
+    @apply bg-red-500;
+  }
+
+  .library-dot-shared-active {
+    @apply bg-red-800;
+  }
+
+  .library-animation-container {
+    @apply relative flex items-center gap-3 px-2 py-1 mt-1 transition-colors rounded-md hover:bg-green-800/10;
+  }
+
+  .library-animation-container-active {
+    @apply hover:bg-orange-400/10;
+  }
+
+  .library-animation-container-shared {
+    @apply hover:bg-red-600/10;
+  }
+  .library-animation-container-shared-active {
+    @apply hover:bg-red-800/10;
+  }
+
+  .library-animation-title {
+    @apply text-main-t-gray;
+  }
+
+  .library-animation-title-active {
+    @apply text-main-t-gray-active;
+  }
+
+  .library-animation-delete {
+    @apply ml-auto transition-all duration-300 opacity-0 text-red-600/20 hover:text-red-600/40 group-hover:opacity-100;
+  }
+
+  .library-animation-input {
+    @apply w-full bg-transparent outline-none;
+  }
+
+  /*************************/
+  /*Libraries end*/
+  /*************************/
+}

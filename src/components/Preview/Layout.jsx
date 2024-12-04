@@ -9,13 +9,12 @@ export default function Layout() {
     type && (
       <>
         <ZoomControls />
-        <div className="relative overflow-hidden">
+
+        <div className="preview-container">
           <PlayingAnimationAlert />
-          <div className="relative h-[800px] overflow-hidden">
-            {type === "custom" && <CustomPreview />}
-            {type === "featured" && <h2>Featured animations</h2>}
-            {type === "micro" && <h2>Micro animations</h2>}
-          </div>
+          {type === "custom" && <CustomPreview />}
+          {type === "featured" && <h2>Featured animations</h2>}
+          {type === "micro" && <h2>Micro animations</h2>}
         </div>
       </>
     )

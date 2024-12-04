@@ -43,7 +43,7 @@ export default function AnimationName({ animationName, className }) {
           onBlur={handleSetDefaultName}
           onChange={handleUpdateName}
           value={animationName}
-          className={`${className} bg-transparent outline-none w-full`}
+          className={`${className} library-animation-input`}
         />
       ) : (
         <p

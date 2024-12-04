@@ -1,11 +1,17 @@
+import { Cross } from "lucide-react";
 import PositionSelector from "./PositionSelector";
 
 export default function PositionSelectorContainer() {
   return (
-    <div className="">
-      <div className="w-[140px] h-[100px] bg-gray-900 mt-5 relative m-auto">
-        <div className="-translate-x-1/2 -translate-y-full"></div>
-
+    <>
+      <div className="position-title">
+        <Cross
+          className="rounded-[4px] w-5 h-5 p-[2px] bg-white/15"
+          size={16}
+        />{" "}
+        Position
+      </div>
+      <div className="position-selector-container">
         {/*Center START */}
         <PositionSelector type="cc" positionStyles="cc" />
         <PositionSelector type="ct" positionStyles="ct" />
@@ -46,6 +52,6 @@ export default function PositionSelectorContainer() {
         <PositionSelector type="bror" positionStyles="bror" />
         {/*Bottom Sides END*/}
       </div>
-    </div>
+    </>
   );
 }

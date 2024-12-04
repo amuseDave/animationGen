@@ -7,9 +7,7 @@ function closeBtn({ closeToast, type }) {
     <X
       size={18}
       onClick={closeToast}
-      className={`ml-4   transition-all ${
-        type === "success" ? "text-alert-t-success" : "text-alert-t-error"
-      } active:scale-[1.4] hover:scale-[1.2]`}
+      className={`alert-x ${type === "error" && "text-alert-t-error"}`}
     />
   );
 }
@@ -19,8 +17,8 @@ export default function ToastProvider() {
     return (
       <Bell
         size={24}
-        className={`${
-          type === "success" ? "text-alert-t-success" : "text-alert-t-error"
+        className={`text-alert-t-success${
+          type === "error" && "text-alert-t-error"
         }`}
       />
     );
@@ -40,9 +38,9 @@ export default function ToastProvider() {
       toastClassName={({ type }) =>
         "alert " +
         (type === "success"
-          ? "success"
+          ? "alert-success"
           : type === "error"
-          ? "error"
+          ? "alert-error"
           : type === "info"
           ? "bg-blue-500 text-white"
           : type === "warning"

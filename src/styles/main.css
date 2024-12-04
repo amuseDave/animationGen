@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .main-container {
+    @apply transition-colors duration-200 min-h-dvh bg-main-bg;
+  }
+
+  .main-grid {
+    @apply p-6 min-h-dvh relative z-10 grid grid-cols-[280px_1fr_280px];
+  }
+}
+
+* {
+  cursor: none;
+  user-select: none;
+}
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+::selection {
+  background-color: #89ffbe; /* Highlight background color */
+  color: #000; /* Text color */
+}
+
+::-moz-selection {
+  /* Firefox compatibility */
+  background-color: #89ffbe; /* Highlight background color */
+  color: #000;
+}
+
+::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
+}
+
+.scroll {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  overflow-x: auto; /* Allow horizontal scrolling */
+}

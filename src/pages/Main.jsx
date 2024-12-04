@@ -11,8 +11,8 @@ import { uiActions } from "../store/uiSlicer.js";
 
 import "react-toastify/dist/ReactToastify.css";
 import ToastProvider from "../components/Preview/Static/ToastProvider.jsx";
-import ShareBtn from "../components/Controller/Static/ShareBtn.jsx";
-import Savebtn from "../components/Controller/Static/Savebtn.jsx";
+import ShareBtn from "../components/Preview/Static/ShareBtn.jsx";
+import Savebtn from "../components/Preview/Static/Savebtn.jsx";
 
 export default function MainLayout() {
   const dispatch = useDispatch();
@@ -40,10 +40,8 @@ export default function MainLayout() {
 
   return (
     <>
-      <main
-        className={`p-6 min-h-dvh relative z-10 grid grid-cols-[280px_1fr_280px]`}
-      >
-        <section className="relative flex flex-col gap-3">
+      <main className={`main-grid`}>
+        <section className="library-total-panel-container">
           <SavedAnimations />
         </section>
 

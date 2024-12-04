@@ -8,15 +8,12 @@ export default function Navigation({ error }) {
   // const dispatch = useDispatch();
 
   const navClass =
-    type === "custom" ? "custom" : type === "featured" ? "featured" : "micro";
+    type === "featured" ? "featured" : type === "micro" && "micro";
 
   return (
-    <nav
-      className={`relative mx-auto w-max flex p-[6px] rounded-lg navigation-main ${navClass}`}
-    >
+    <nav className={`navigation-main-container ${navClass}`}>
       {error ? (
         <>
-          {" "}
           <Link className="nav-btn" to="/">
             Custom
           </Link>

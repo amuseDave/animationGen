@@ -9,22 +9,24 @@ export default function SavedLibraries() {
 
   return (
     <>
-      <div className="flex flex-col font-medium">
+      <div className="libraries-container">
         <motion.div
           layout
-          className={`mt-8 ${type === "custom" && "order-first mt-2"}`}
+          className={`library-margin ${type === "custom" && "library-active"}`}
         >
           <Custom />
         </motion.div>
         <motion.div
           layout
-          className={`mt-8 ${type === "featured" && "order-first mt-2"}`}
+          className={`library-margin ${
+            type === "featured" && "library-active"
+          }`}
         >
           <Featured />
         </motion.div>
         <motion.div
           layout
-          className={`mt-8 ${type === "micro" && "order-first mt-2"}`}
+          className={`library-margin ${type === "micro" && "library-active"}`}
         >
           <Micro />
         </motion.div>

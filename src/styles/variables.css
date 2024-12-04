@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /*MAIN START*/
+    --bg-main: #090f0d;
+    --text-color: #36876d;
+    --text-color-active: #b7ffe8;
+
+    --text-gray: #5c6663;
+    --text-gray-active: #b8ccc7;
+    /*MAIN END*/
+
+    /*ALERTS START*/
+    --alert-bg-error: #141010;
+    --alert-text-error: #ff6262;
+
+    --alert-bg-success: #00140f;
+    --alert-text-success: #00e2a6;
+    /*ALERTS END*/
+
+    /*SAVED ANIMATION START*/
+    --bg-controller: #0c1412;
+    --bg-saved: #101413;
+    /*SAVED ANIMATION END*/
+  }
+
+  .light {
+    --bg-color: #d8d8d8;
+  }
+}

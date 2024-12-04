@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .controller-container {
+    @apply relative z-0 p-4 px-5 text-center rounded-2xl bg-controller-bg;
+  }
+  .controller-container-not-allowed {
+    @apply rounded-2xl absolute left-0 duration-500 top-0 transition-opacity w-full h-full z-10 bg-black/65;
+  }
+
+  .controller-copy {
+    @apply absolute text-main-t-active bottom-2 right-4;
+  }
+
+  .position-selector-container {
+    @apply w-full h-[150px] border border-white/5 rounded-xl bg-[#101715] mt-6 relative m-auto;
+  }
+  .position-selector {
+    @apply absolute w-[12px] h-[12px] rounded-full transition-colors duration-200 bg-[#222928] hover:bg-[#e1ff9a91];
+  }
+
+  .position-selector-active {
+    @apply bg-[#E1FF9A] hover:bg-[#E1FF9A];
+  }
+
+  .position-title {
+    @apply flex items-center mt-5 gap-3 font-medium text-main-t-gray-active;
+  }
+}

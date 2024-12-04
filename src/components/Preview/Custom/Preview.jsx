@@ -115,15 +115,13 @@ export default function Preview() {
     <>
       <section
         style={dashedBoxStyles}
-        className={`border-2 border-dashed border-zinc-600 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 z-10 ${
-          isResizing && "hidden"
-        }`}
+        className={`preview-keyframe-dashed-box ${isResizing && "hidden"}`}
       >
         <div
           ref={squareEl}
           id="square"
           style={boxStyles}
-          className={`rounded-xl flex items-center justify-center font-bold`}
+          className={`preview-keyframe-box`}
         >
           Your content
         </div>

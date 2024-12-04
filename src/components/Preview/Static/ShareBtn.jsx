@@ -47,7 +47,7 @@ export default function ShareBtn() {
         id="share"
         onClick={handleSharing}
         size={32}
-        className="absolute bottom-0 text-green-500 right-6"
+        className="share-btn"
       />
 
       <AnimatePresence>
@@ -57,18 +57,14 @@ export default function ShareBtn() {
             exit={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 10 }}
-            className="absolute z-30 p-2 pr-8 text-white rounded-md shadow-lg bottom-10 right-4 w-80 bg-green-600/10"
+            className="share-container"
           >
             {" "}
-            <X
-              size={24}
-              onClick={handleSharedClose}
-              className="absolute p-[1px] text-red-400 transition duration-300 rounded-full top-1 right-1"
-            />
+            <X size={24} onClick={handleSharedClose} className="share-x" />
             <div className="relative">
               {/* Close Button */}
               {/* Scrolling Content */}
-              <div className="overflow-x-scroll whitespace-nowrap scroll">
+              <div className="share-text-container">
                 <Link copyLink={copyLink} />
               </div>
             </div>

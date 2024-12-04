@@ -29,7 +29,7 @@ export default function CursorCanvas() {
       drawCursor(clientX, clientY, ctx.current, cursor);
       cX = clientX;
       cY = clientY;
-    }, 8),
+    }, 4),
     [] // Dependency
   );
 

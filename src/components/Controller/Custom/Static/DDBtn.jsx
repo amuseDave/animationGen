@@ -12,20 +12,18 @@ export default function CustomDDBtn() {
   const ddStyle = isDragDrop ? "ndd" : "dd";
 
   return (
-    <div
-      className={`relative mx-auto w-max flex p-1 rounded-xl navigation ${ddStyle}`}
-    >
+    <div className={`navigation z-0 ${ddStyle}`}>
       <div
-        className={`nav-btn-DD ${!isDragDrop && "active"}`}
+        className={`nav-btn-DD z-10 ${!isDragDrop && "active"}`}
         onClick={() => handleDragDrop(false)}
       >
         KeyFrame
       </div>
       <div
-        className={`nav-btn-DD ${isDragDrop && "active"}`}
+        className={`nav-btn-DD z-10 ${isDragDrop && "active"}`}
         onClick={() => handleDragDrop(true)}
       >
-        Drag&Drop
+        Drag & Drop
       </div>
     </div>
   );

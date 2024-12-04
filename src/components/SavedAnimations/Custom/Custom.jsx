@@ -30,9 +30,9 @@ export default function Custom() {
 
   return (
     <>
-      <div className="flex gap-2 text-main-t-gray">
+      <div className="library-title-container">
         <Book size={22} /> <h1>Custom library</h1>{" "}
-        <ChevronDown size={22} className="ml-auto" />
+        <ChevronDown size={22} className="library-title-container-icon" />
       </div>
 
       <div>
@@ -42,12 +42,10 @@ export default function Custom() {
 
           const styles =
             isShared && same
-              ? "hover:bg-red-800/10"
+              ? "library-animation-container-shared-active"
               : same
-              ? "hover:bg-orange-400/10"
-              : isShared
-              ? "hover:bg-red-600/10"
-              : "hover:bg-green-800/10";
+              ? "library-animation-container-active"
+              : isShared && "library-animation-container-shared ";
 
           return (
             <div
@@ -55,24 +53,24 @@ export default function Custom() {
                 handleDiffAnimation(index);
               }}
               key={animation.id}
-              className={`flex relative items-center mt-1 gap-3 px-2 py-1 transition-colors rounded-md ${styles} ${
-                index === 0 && "mt-4"
+              className={`library-animation-container ${styles} ${
+                index === 0 && "mt-3"
               } group`}
             >
               <div>
                 <div
-                  className={`w-[6px] h-[6px] rounded-full ${
-                    isShared ? "bg-red-500" : "bg-green-200"
-                  } ${
-                    isShared && same ? "bg-red-800" : same && "bg-orange-500"
+                  className={`library-dot ${isShared && "library-dot-shared"} ${
+                    isShared && same
+                      ? "library-dot-shared-active"
+                      : same && "library-dot-active"
                   }`}
                 ></div>
               </div>
 
               <AnimationName
                 isShared={isShared}
-                className={`text-main-t-gray ${
-                  same && "text-main-t-gray-active"
+                className={`library-animation-title ${
+                  same && "library-animation-title-active"
                 }`}
                 animationName={animation.name}
               />
@@ -82,7 +80,7 @@ export default function Custom() {
                   handleDelete(e, index);
                 }}
                 size={22}
-                className="ml-auto transition-all duration-300 opacity-0 text-red-600/20 hover:text-red-600/40 group-hover:opacity-100"
+                className="library-animation-delete"
               />
             </div>
           );

@@ -7,8 +7,8 @@ export default function Loading() {
   );
 
   return animationsAlert ? (
-    <div className="w-5 h-5 ml-auto border-2 rounded-full border-green-400/60 animate-spin border-t-transparent"></div>
+    <div className="logo-container-loader"></div>
   ) : (
-    <CloudDownload className="ml-auto justify-self-end text-alert-t-success" />
+    <CloudDownload className="logo-container-cloud" />
   );
 }

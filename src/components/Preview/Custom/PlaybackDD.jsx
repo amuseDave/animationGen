@@ -10,7 +10,7 @@ export default function PlaybackDD() {
 
   return (
     <>
-      <div className="absolute flex w-[90%] gap-2 px-3 py-1 border-2 rounded-md shadow-lg bg-teal-400/10 border-zinc-800 bottom-16 bc z-20">
+      <div className="preview-dd-playback bc">
         {isAnimationCreatedDD ? <AnimationRangeHandlerDD /> : <DisabledInput />}
         <PlayResetDDBtn />
       </div>
