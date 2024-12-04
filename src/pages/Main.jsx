@@ -3,6 +3,7 @@ import SavedAnimations from "../components/SavedAnimations/Layout.jsx";
 import PreviewLayout from "../components/Preview/Layout.jsx";
 import MainController from "../components/Controller/Layout.jsx";
 import CopyModal from "../components/Copy-Modal/Layout.jsx";
+import PreviewControls from "../components/Preview-Controls/Layout.jsx";
 
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
@@ -47,12 +48,15 @@ export default function MainLayout() {
 
         <Outlet />
 
-        <div className="relative">
+        <div className="middle-container">
           <ToastProvider />
           <Navigation />
           <PreviewLayout />
-          <ShareBtn />
-          <Savebtn />
+          <div className="preview-controls-container">
+            <ShareBtn />
+            <Savebtn />
+            <PreviewControls />
+          </div>
         </div>
         <MainController />
       </main>

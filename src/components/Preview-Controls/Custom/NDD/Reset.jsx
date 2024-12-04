@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { customActions } from "../../../../../store/customSlicer";
+import { customActions } from "../../../../store/customSlicer";
 import { Power } from "lucide-react";
 export default function Reset() {
   const dispatch = useDispatch();

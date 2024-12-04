@@ -7,11 +7,7 @@
     @apply relative z-0 p-4 px-5 text-center rounded-2xl bg-controller-bg;
   }
   .controller-container-not-allowed {
-    @apply rounded-2xl absolute left-0 duration-500 top-0 transition-opacity w-full h-full z-10 bg-black/65;
-  }
-
-  .controller-copy {
-    @apply absolute text-main-t-active bottom-2 right-4;
+    @apply absolute top-0 left-0 z-10 w-full h-full transition-opacity duration-500 rounded-2xl bg-black/65;
   }
 
   .position-selector-container {
@@ -26,7 +22,7 @@
   }
 
   .control-title {
-    @apply flex items-center mt-6 gap-2 font-medium text-white/90;
+    @apply flex items-center gap-2 mt-6 font-medium text-white/90;
   }
 
   .controls-container {
@@ -37,7 +33,7 @@
   }
 
   .control-input-container {
-    @apply flex items-center gap-2 mt-2 border border-white/10 px-[2px] py-[1px] rounded-md;
+    @apply flex items-center gap-2 border border-white/10 px-[2px] py-[1px] rounded-md;
   }
   .control-range-input {
   }

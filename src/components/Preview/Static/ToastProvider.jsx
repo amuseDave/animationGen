@@ -49,7 +49,7 @@ export default function ToastProvider() {
       }
       icon={renderIcon}
       closeButton={closeBtn}
-      style={{ position: "absolute" }}
+      style={{ position: "absolute", zIndex: 10, bottom: 80 }}
       transition={Flip}
     />
   );

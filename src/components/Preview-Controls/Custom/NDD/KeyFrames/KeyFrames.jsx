@@ -31,7 +31,7 @@ export default function KeyFrames() {
 
   return (
     <div className="">
-      <section className="grid grid-cols-2 ml-4 gap-y-2 gap-x-2 auto-rows-auto">
+      <section className="flex items-center">
         {keyFramesPers.map((frame, index) => {
           return (
             <Fragment key={index}>
@@ -45,7 +45,7 @@ export default function KeyFrames() {
           );
         })}
       </section>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         <KeyFramePlus />
         <Trash2
           onClick={handleDeleteKeyFrame}

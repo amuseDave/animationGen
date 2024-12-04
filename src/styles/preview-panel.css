@@ -3,15 +3,19 @@
 @tailwind utilities;
 
 @layer components {
+  .middle-container {
+    @apply relative flex flex-col;
+  }
+
   .preview-container {
-    @apply relative h-[800px] overflow-hidden;
+    @apply relative h-full overflow-hidden;
   }
   .preview-dd-canvas {
     @apply relative z-20 w-full h-full;
   }
 
   .preview-dd-playback {
-    @apply absolute flex w-[90%] gap-2 px-3 py-1 border-2 rounded-md shadow-lg bg-teal-400/10 border-zinc-800 bottom-16 z-20;
+    @apply absolute flex w-[90%] gap-2 px-3 py-1 border-2 rounded-md shadow-lg bg-teal-400/10 border-zinc-800 z-20;
   }
 
   .preview-keyframe-dashed-box {
@@ -58,7 +62,7 @@
   /*ZOOM START*/
   /***************/
   .zoom {
-    @apply absolute z-30 flex rounded-md;
+    @apply absolute z-30 flex flex-col rounded-md;
     background: linear-gradient(to right, #0a110f, #0e1f1a, #07110e);
     border: 1px solid #2e92763b;
     color: var(--alert-t-success);
@@ -66,6 +70,14 @@
   /***************/
   /*ZOOM END*/
   /***************/
+
+  /***************/
+  /*PREVIEW CONTROLS STARTS*/
+  /***************/
+
+  .preview-controls-container {
+    @apply relative flex items-center h-20 mx-5 mt-auto bg-saved-bg rounded-2xl;
+  }
 
   /***************/
   /*SHARE/SAVE BTN START*/
@@ -91,4 +103,8 @@
   /***************/
   /*SHARE/SAVE BTN END*/
   /***************/
+
+  .preview-controller-copy {
+    @apply text-main-t-active;
+  }
 }

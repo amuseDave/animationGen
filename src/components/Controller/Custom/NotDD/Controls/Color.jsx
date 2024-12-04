@@ -26,7 +26,6 @@ export default function Color({ handleStyle }) {
     <>
       <div className="control-container ">
         <p>Fill</p>
-
         <div className="control-input-container">
           <input
             ref={colorEl}
@@ -43,7 +42,7 @@ export default function Color({ handleStyle }) {
             max={1}
             step={0.01}
             value={bgOpacity}
-          />{" "}
+          />
         </div>
       </div>
     </>

@@ -1,4 +1,3 @@
-import PlaybackDD from "./PlaybackDD";
 import Preview from "./Preview";
 import PreviewDD from "./PreviewDD";
 import { useSelector } from "react-redux";
@@ -8,7 +7,6 @@ export default function PreviewWrapper() {
   return isDragDrop ? (
     <>
       <PreviewDD />
-      <PlaybackDD />
     </>
   ) : (
     <Preview />

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import AnimationRangeHandlerDD from "../../Controller/Custom/DD/AnimationRangeHandlerDD";
-import DisabledInput from "../../Controller/Custom/DD/DisabledInput";
-import PlayResetDDBtn from "../../Controller/Custom/DD/PlayResetDDBtn";
+import AnimationRangeHandlerDD from "./AnimationRangeHandlerDD";
+import DisabledInput from "./DisabledInput";
+import PlayResetDDBtn from "./PlayResetDDBtn";
 
 export default function PlaybackDD() {
   const isAnimationCreatedDD = useSelector(
@@ -10,7 +10,7 @@ export default function PlaybackDD() {
 
   return (
     <>
-      <div className="preview-dd-playback bc">
+      <div className="preview-dd-playback lc">
         {isAnimationCreatedDD ? <AnimationRangeHandlerDD /> : <DisabledInput />}
         <PlayResetDDBtn />
       </div>

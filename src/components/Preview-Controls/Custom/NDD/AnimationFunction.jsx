@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import { customActions } from "../../../../../store/customSlicer";
+import { customActions } from "../../../../store/customSlicer";
 
 export default function AnimationFunction() {
   const dispatch = useDispatch();

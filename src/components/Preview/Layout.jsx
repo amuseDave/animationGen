@@ -8,9 +8,8 @@ export default function Layout() {
   return (
     type && (
       <>
-        <ZoomControls />
-
         <div className="preview-container">
+          <ZoomControls />
           <PlayingAnimationAlert />
           {type === "custom" && <CustomPreview />}
           {type === "featured" && <h2>Featured animations</h2>}
