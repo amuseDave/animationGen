@@ -6,6 +6,7 @@ import "./styles/positions.css";
 import "./styles/library-panel.css";
 import "./styles/preview-panel.css";
 import "./styles/controller-panel.css";
+import "./styles/preview-controller.css";
 import "./styles/navigation.css";
 import App from "./App.jsx";
 import store from "./store/store.js";

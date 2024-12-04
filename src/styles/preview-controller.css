@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .preview-controls-container {
+    @apply relative flex items-center h-20 mx-5 mt-auto bg-saved-bg rounded-2xl;
+  }
+
+  /***************/
+  /*SHARE/SAVE BTN START*/
+  /***************/
+  .save-btn {
+    @apply absolute bottom-0 text-green-500 right-20;
+  }
+  .share-btn {
+    @apply absolute bottom-0 text-green-500 right-6;
+  }
+
+  .share-container {
+    @apply absolute z-30 p-2 pr-8 text-white rounded-md shadow-lg bottom-10 right-4 w-80 bg-green-600/10;
+  }
+
+  .share-x {
+    @apply absolute p-[1px] text-red-400 transition duration-300 rounded-full top-1 right-1;
+  }
+
+  .share-text-container {
+    @apply overflow-x-scroll whitespace-nowrap;
+  }
+  /***************/
+  /*SHARE/SAVE BTN END*/
+  /***************/
+
+  .preview-controller-copy {
+    @apply text-main-t-active;
+  }
+}
