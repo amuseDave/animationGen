@@ -17,10 +17,10 @@ export default function drawCursor(x, y, ctx, cursor) {
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = "high";
 
-  ctx.shadowColor = "rgba(0, 255, 255, 0.8)";
+  ctx.shadowColor = "rgba(0, 255, 255, 0.2)";
   ctx.shadowBlur = 20;
 
-  if (cursor === "default") ctx.drawImage(cursorD, x, y, 28, 28);
+  if (cursor === "default") ctx.drawImage(cursorD, x, y);
   if (cursor === "move") ctx.drawImage(cursorM, x, y, 28, 28);
   if (cursor === "grab") ctx.drawImage(cursorG, x, y, 28, 28);
 }

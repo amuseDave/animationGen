@@ -1,3 +1,6 @@
+import circleTriangle from "../../../../assets/svgs/circle-triangle.svg";
+import convertShape from "../../../../assets/svgs/convertshape.svg";
+
 import Color from "./Controls/Color";
 import Opacity from "./Controls/Opacity";
 import Rotate from "./Controls/Rotate";
@@ -19,14 +22,30 @@ export default function Controls() {
 
   return (
     <>
-      <div className="flex flex-col gap-1 mt-3">
-        <TextColor handleStyle={handleStyle} />
-        <Color handleStyle={handleStyle} />
-        <Opacity handleStyle={handleStyle} />
-        <Rotate handleStyle={handleStyle} />
-        <Duration handleStyle={handleStyle} />
+      <div className="mt-10">
+        <div className="control-title">
+          <img src={circleTriangle} />
+          Styles
+        </div>
 
-        <Scale />
+        <div className="controls-container">
+          <Color handleStyle={handleStyle} />
+          <TextColor handleStyle={handleStyle} />
+          <Opacity handleStyle={handleStyle} />
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <div className="control-title">
+          <img src={convertShape} />
+          Properties
+        </div>
+
+        <div className="controls-container">
+          <Rotate handleStyle={handleStyle} />
+          <Duration handleStyle={handleStyle} />
+          <Scale />
+        </div>
       </div>
     </>
   );

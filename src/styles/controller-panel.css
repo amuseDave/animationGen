@@ -25,7 +25,18 @@
     @apply bg-[#E1FF9A] hover:bg-[#E1FF9A];
   }
 
-  .position-title {
-    @apply flex items-center mt-5 gap-3 font-medium text-main-t-gray-active;
+  .control-title {
+    @apply flex items-center mt-6 gap-2 font-medium text-white/90;
+  }
+
+  .controls-container {
+    @apply mt-4 text-main-t-gray;
+  }
+  .control-container {
+    @apply flex items-center justify-between gap-2;
+  }
+
+  .control-input-container {
+    @apply flex items-center gap-2 mt-2;
   }
 }

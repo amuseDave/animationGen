@@ -1,14 +1,12 @@
-import { Cross } from "lucide-react";
+import circleTriangle from "../../../../assets/svgs/maximize.svg";
+
 import PositionSelector from "./PositionSelector";
 
 export default function PositionSelectorContainer() {
   return (
     <>
-      <div className="position-title">
-        <Cross
-          className="rounded-[4px] w-5 h-5 p-[2px] bg-white/15"
-          size={16}
-        />{" "}
+      <div className="control-title">
+        <img src={circleTriangle} />
         Position
       </div>
       <div className="position-selector-container">

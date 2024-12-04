@@ -24,26 +24,26 @@ export default function Color({ handleStyle }) {
 
   return (
     <>
-      <div className="flex items-center gap-2">
-        <p className="text-white">Background:</p>{" "}
-        <input
-          ref={colorEl}
-          onChange={handleInput}
-          value={color}
-          type="color"
-        />
-      </div>
-      <div className="flex items-center gap-2">
-        <p className="text-left text-white">Bg opacity</p>
-        <input
-          onChange={handleInput}
-          ref={opacityEl}
-          type="range"
-          min={0.01}
-          max={1}
-          step={0.01}
-          value={bgOpacity}
-        />
+      <div className="control-container ">
+        <p>Fill</p>
+
+        <div className="control-input-container">
+          <input
+            ref={colorEl}
+            onChange={handleInput}
+            value={color}
+            type="color"
+          />
+          <input
+            onChange={handleInput}
+            ref={opacityEl}
+            type="range"
+            min={0.01}
+            max={1}
+            step={0.01}
+            value={bgOpacity}
+          />{" "}
+        </div>
       </div>
     </>
   );

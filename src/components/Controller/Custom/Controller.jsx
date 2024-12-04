@@ -8,9 +8,10 @@ import Reset from "./NotDD/Controls/Reset";
 export default function CustomController() {
   return (
     <>
-      <KeyFrames />
       <Controls />
+      <KeyFrames />
       <Canvas />
+
       <AnimationFunction />
       <Reset />
     </>
