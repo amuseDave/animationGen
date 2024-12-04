@@ -13,19 +13,19 @@ export default function CustomDDBtn() {
 
   return (
     <div
-      className={`relative mx-auto w-max flex p-[5px] rounded-md navigation z-0 ${ddStyle}`}
+      className={`relative mx-auto w-max flex p-1 rounded-xl navigation ${ddStyle}`}
     >
       <div
         className={`nav-btn-DD ${!isDragDrop && "active"}`}
         onClick={() => handleDragDrop(false)}
       >
-        KeyFrames
+        KeyFrame
       </div>
       <div
         className={`nav-btn-DD ${isDragDrop && "active"}`}
         onClick={() => handleDragDrop(true)}
       >
-        Hold&Release
+        Drag&Drop
       </div>
     </div>
   );

@@ -31,8 +31,7 @@
   inherits: false;
 }
 
-.navigation-main::before,
-.navigation::before {
+.navigation-main::before {
   content: "";
   position: absolute;
   inset: -1px;
@@ -49,10 +48,6 @@
     var(--text-color-active)
   );
   animation: rotation 7s linear infinite;
-}
-
-.navigation::before {
-  animation: rotation 10s linear infinite;
 }
 
 @keyframes rotation {
@@ -73,7 +68,7 @@
   --x-posDD: 50px;
 }
 .navigation.ndd::after {
-  --x-posDD: 150px;
+  --x-posDD: 170px;
 }
 
 .navigation::after {
