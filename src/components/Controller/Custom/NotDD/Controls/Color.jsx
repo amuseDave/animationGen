@@ -34,6 +34,7 @@ export default function Color({ handleStyle }) {
             value={color}
             type="color"
           />
+          <p className="text-main-t-gray-active">{color}</p>
           <input
             onChange={handleInput}
             ref={opacityEl}

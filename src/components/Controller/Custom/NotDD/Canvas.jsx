@@ -85,9 +85,9 @@ export default function Canvas() {
       }
 
       const isHovered =
-        offsetX >= tX - 12 &&
+        offsetX >= tX - 8 &&
         offsetX <= tX + 12 &&
-        offsetY >= tY - 12 &&
+        offsetY >= tY - 8 &&
         offsetY <= tY + 12;
 
       if (isHovered && isHover) return;
