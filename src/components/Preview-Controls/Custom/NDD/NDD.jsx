@@ -2,6 +2,7 @@ import AnimationFunction from "./AnimationFunction.jsx";
 import KeyFrames from "./KeyFrames/KeyFrames";
 import HandleAnimation from "./HandleAnimation.jsx";
 import Reset from "./Reset.jsx";
+import Duration from "./Duration.jsx";
 
 export default function NDD() {
   return (
@@ -10,6 +11,7 @@ export default function NDD() {
       <AnimationFunction />
       <Reset />
       <HandleAnimation />
+      <Duration />
     </>
   );
 }

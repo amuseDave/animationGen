@@ -11,7 +11,7 @@
   }
 
   .position-selector-container {
-    @apply w-full h-[150px] border border-white/5 rounded-xl bg-[#101715] mt-6 relative m-auto;
+    @apply w-[95%] h-[150px] border border-white/5 rounded-xl bg-[#101715] mt-6 relative mx-auto;
   }
   .position-selector {
     @apply absolute w-[12px] h-[12px] rounded-full transition-colors duration-200 bg-[#222928] hover:bg-[#e1ff9a91];
@@ -45,7 +45,7 @@
     @apply flex items-center px-[2px] gap-1 border bg-[#111A17] border-[#222928]  rounded-md w-44 h-[30px];
   }
   .control-value-input {
-    @apply bg-transparent border-none outline-none w-4;
+    @apply w-4 bg-transparent border-none outline-none;
   }
   .control-color-input-container {
     @apply flex items-center w-5 h-5;
@@ -61,7 +61,6 @@ input[type="color"] {
   appearance: none;
   position: absolute;
   z-index: 10;
-
   top: 0;
   left: 0;
   translate: 2px 0px;

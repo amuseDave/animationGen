@@ -8,7 +8,6 @@ import Scale from "./Controls/Scale";
 import { useDispatch } from "react-redux";
 import { customActions } from "../../../../store/customSlicer";
 import { throttle } from "lodash";
-import Duration from "./Controls/Duration";
 import TextColor from "./Controls/TextColor";
 
 export default function Controls() {
@@ -42,9 +41,8 @@ export default function Controls() {
         </div>
 
         <div className="controls-container">
-          <Rotate handleStyle={handleStyle} />
-          <Duration handleStyle={handleStyle} />
           <Scale />
+          <Rotate handleStyle={handleStyle} />
         </div>
       </div>
     </>

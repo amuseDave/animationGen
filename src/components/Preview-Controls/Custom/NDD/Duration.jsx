@@ -1,7 +1,14 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { customActions } from "../../../../store/customSlicer";
 
-export default function Duration({ handleStyle }) {
+export default function Duration() {
+  const dispatch = useDispatch();
   const duration = useSelector((state) => state.custom.duration);
+
+  function handleDuration(e) {
+    const { value } = e.target;
+    dispatch(customActions.handleAnimationState({ action: "duration", value }));
+  }
 
   return (
     <div className="flex items-center gap-2">
@@ -12,9 +19,7 @@ export default function Duration({ handleStyle }) {
         max={10}
         step={0.1}
         value={duration}
-        onChange={(e) => {
-          handleStyle(e, "set-duration");
-        }}
+        onChange={handleDuration}
       />
       <p className="text-lg font-semibold text-white">{duration}s</p>
       {/* <input

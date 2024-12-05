@@ -8,7 +8,7 @@
   }
 
   .main-grid {
-    @apply p-6 min-h-dvh relative z-10 grid grid-cols-[280px_1fr_280px];
+    @apply p-6 min-h-dvh relative z-10 grid grid-cols-[265px_1fr_290px];
   }
 }
 

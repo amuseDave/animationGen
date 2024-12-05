@@ -20,11 +20,11 @@ const initialState = {
       keyPercentage: 0,
       position: "cc",
 
-      textColor: "#ffffff",
-      textOpacity: 1,
-      backgroundColor: "#52525b",
-      bgOpacity: 1,
-      opacity: 1,
+      textColor: "#000000",
+      textOpacity: "100",
+      backgroundColor: "#E1FF9A",
+      bgOpacity: "100",
+      opacity: "100",
 
       scaleX: 1,
       scaleY: 1,
@@ -38,9 +38,9 @@ const initialState = {
       keyPercentage: 100,
       position: "cc",
 
-      textColor: "#ffffff",
+      textColor: "#000000",
       textOpacity: 1,
-      backgroundColor: "#52525b",
+      backgroundColor: "#E1FF9A",
       bgOpacity: 1,
       opacity: 1,
 
@@ -97,13 +97,11 @@ const customSlicer = createSlice({
           state.keyFrames[state.activeKeyFrame].backgroundColor = value.color;
           break;
         }
-
         case "set-text-color": {
           state.keyFrames[state.activeKeyFrame].textOpacity = value.opacity;
           state.keyFrames[state.activeKeyFrame].textColor = value.color;
           break;
         }
-
         case "set-opacity":
           state.keyFrames[state.activeKeyFrame].opacity = value;
           break;
@@ -117,6 +115,13 @@ const customSlicer = createSlice({
     handleScale(state, { payload: { type, value } }) {
       if (type === "x") state.keyFrames[state.activeKeyFrame].scaleX = value;
       if (type === "y") state.keyFrames[state.activeKeyFrame].scaleY = value;
+    },
+    handleAnimationState(state, { payload: { action, value } }) {
+      if (action === "animation") {
+        state.animationFunction = value;
+      } else if (action === "duration") {
+        state.duration = value;
+      }
     },
     handleKeyFrame(
       state,
@@ -178,11 +183,6 @@ const customSlicer = createSlice({
         case "change-active":
           state.activeKeyFrame = value;
           break;
-      }
-    },
-    handleAnimationState(state, { payload: { action, value } }) {
-      if (action === "animation") {
-        state.animationFunction = value;
       }
     },
     handleReset(state) {
