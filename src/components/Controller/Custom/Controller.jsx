@@ -7,7 +7,7 @@ export default function CustomController() {
     <>
       <Controls />
 
-      <div className="mt-6">
+      <div className="mt-8">
         <div className="control-title control-main-color">
           <img src={convertShape} />
           Translate

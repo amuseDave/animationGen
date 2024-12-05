@@ -22,7 +22,7 @@
   }
 
   .control-title {
-    @apply flex items-center gap-2 mt-6 font-medium;
+    @apply flex items-center gap-2 mt-8 font-medium;
   }
   .control-main-color {
     @apply text-[#CFE5DF];
@@ -32,7 +32,7 @@
   }
 
   .controls-container {
-    @apply mt-2 text-[#5C6663];
+    @apply mt-4 text-[#5C6663];
   }
   .control-container {
     @apply flex items-center justify-between gap-2 mt-[10px];
@@ -59,7 +59,7 @@
   }
 
   .control-canvas {
-    @apply relative rounded-xl bg-[#101715] border-[#222928] border mx-auto;
+    @apply relative rounded-xl bg-[#101715] border-[#222928] border mx-auto mt-4;
   }
   .control-canvas-box {
     @apply text-main-t-gray text-xl font-medium;
