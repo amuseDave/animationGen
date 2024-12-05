@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { customActions } from "../../../../../store/customSlicer";
-import { handleValueInputs } from "../../../../../utils/helper";
+import { handleValueScaleInputs } from "../../../../../utils/helper";
 
 export default function Scale() {
   const dispatch = useDispatch();
@@ -13,8 +13,8 @@ export default function Scale() {
   );
   function handleScaleChange(e, type) {
     let { value: val } = e.target;
-    const value = handleValueInputs(val);
-    if (isNaN(value) || value.length > 5) return;
+    const value = handleValueScaleInputs(val, 5);
+    if (isNaN(value) || value.length > 4) return;
 
     dispatch(customActions.handleScale({ type, value }));
   }

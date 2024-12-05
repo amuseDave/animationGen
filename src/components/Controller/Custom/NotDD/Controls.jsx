@@ -23,7 +23,7 @@ export default function Controls() {
   return (
     <>
       <div className="mt-10">
-        <div className="control-title">
+        <div className="control-title control-main-color">
           <img src={circleTriangle} />
           Styles
         </div>
@@ -36,7 +36,7 @@ export default function Controls() {
       </div>
 
       <div className="mt-8">
-        <div className="control-title">
+        <div className="control-title control-main-color">
           <img src={convertShape} />
           Properties
         </div>

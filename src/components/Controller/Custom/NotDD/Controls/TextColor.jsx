@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useSelector } from "react-redux";
+import { handleValueInputs } from "../../../../../utils/helper";
 
 export default function TextColor({ handleStyle }) {
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
@@ -15,8 +16,11 @@ export default function TextColor({ handleStyle }) {
   );
 
   function handleInput() {
-    const textOp = opacityEl.current.value;
+    let textOp = opacityEl.current.value;
     const textC = colorEl.current.value;
+
+    textOp = handleValueInputs(textOp, 100);
+    if (isNaN(textOp)) return;
 
     handleStyle(
       { target: { value: { color: textC, opacity: textOp } } },
@@ -26,26 +30,32 @@ export default function TextColor({ handleStyle }) {
 
   return (
     <>
-      <div className="flex items-center gap-2">
-        <p className="text-white">Text Color:</p>{" "}
-        <input
-          ref={colorEl}
-          onChange={handleInput}
-          value={color}
-          type="color"
-        />
-      </div>
-      <div className="flex items-center gap-2">
-        <p className="text-left text-white">Text opacity</p>
-        <input
-          onChange={handleInput}
-          ref={opacityEl}
-          type="range"
-          min={0.01}
-          max={1}
-          step={0.01}
-          value={textOpacity}
-        />
+      <div className="control-container">
+        <p>Font</p>
+        <div className="control-input-container">
+          <div className="control-color-input-container">
+            <input
+              ref={colorEl}
+              onChange={handleInput}
+              value={color}
+              type="color"
+            />
+          </div>
+
+          <p className="control-main-color control-text">{color}</p>
+          <div className="control-separator"></div>
+
+          <div className="flex items-center">
+            <input
+              style={{ width: `${textOpacity.length * 8 + 7}px` }}
+              className="control-value-input"
+              onChange={handleInput}
+              ref={opacityEl}
+              value={textOpacity}
+            />{" "}
+            <p className="mr-1">%</p>
+          </div>
+        </div>
       </div>
     </>
   );

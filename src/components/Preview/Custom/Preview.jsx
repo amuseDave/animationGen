@@ -16,6 +16,7 @@ export default function Preview() {
     width: `${24 * zoomLevel}dvw`,
     height: `${18 * zoomLevel}dvw`,
   };
+
   const size = (window.innerWidth / 100) * 7 * zoomLevel;
   const boxStyles = {
     width: `${size}px`,

@@ -176,14 +176,22 @@ export function handleTranslateInputs(val) {
 
   return val;
 }
-export function handleValueInputs(value) {
+export function handleValueScaleInputs(value, max) {
   if (value === "." || value === "") value = "0";
   if (value.startsWith("0") && value.length > 1 && !value.startsWith("0."))
     value = value.slice(1);
-  if (value > 5) value = "5";
-  if (value === "5.") value = "5";
+  if (value > max) value = `${max}`;
+  if (value === "5.") value = `${max}`;
   if (value < 0) value = "0";
 
+  return value;
+}
+
+export function handleValueInputs(value, max) {
+  if (value === "") value = "0";
+  if (value.startsWith("0") && value.length > 1) value = value.slice(1);
+  if (value > max) value = `${max}`;
+  if (value < 0) value = "0";
   return value;
 }
 
@@ -283,5 +291,6 @@ export function hexToRgba(hex, opacity) {
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+
+  return `rgba(${r}, ${g}, ${b}, ${opacity / 100})`;
 }
