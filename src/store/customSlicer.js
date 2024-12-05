@@ -10,8 +10,8 @@ let deletedN;
 let copyN;
 
 const initialState = {
+  reset: false,
   animationFunction: "ease",
-  isValidKeyFrame: null,
   duration: 2,
   activeKeyFrame: 0,
   keyFramePers: [0, 100],
@@ -85,8 +85,8 @@ const customSlicer = createSlice({
         ///
       }
       if (action === "set-translate") {
-        curKF.translateX = x ?? curKF.translateX;
-        curKF.translateY = y ?? curKF.translateY;
+        curKF.translateX = Math.round(x) || curKF.translateX;
+        curKF.translateY = Math.round(y) || curKF.translateY;
       }
     },
 
@@ -188,13 +188,16 @@ const customSlicer = createSlice({
     handleReset(state) {
       if (state.keyFrames.length > 2) {
         ///
-        if (resetN) return { ...initialState };
+
+        state.reset = !state.reset;
+
+        if (resetN) return { ...initialState, reset: !state.reset };
         resetN = true;
         setTimeout(() => {
           resetN = false;
         }, 1000);
         toast.success("Keyframes has been reset");
-        return { ...initialState };
+        return { ...initialState, reset: !state.reset };
         ///
       }
 
@@ -205,13 +208,13 @@ const customSlicer = createSlice({
             stringifyStyles(state.keyFrames[j])
           ) {
             ///
-            if (resetN) return { ...initialState };
+            if (resetN) return { ...initialState, reset: !state.reset };
             resetN = true;
             setTimeout(() => {
               resetN = false;
             }, 1000);
             toast.success("Keyframes has been reset");
-            return { ...initialState };
+            return { ...initialState, reset: !state.reset };
             ///
           }
         }
@@ -229,7 +232,7 @@ const customSlicer = createSlice({
     handleSetAnimation(state, { payload }) {
       if (!payload) return { ...initialState };
 
-      return { ...payload, isValidKeyFrame: null };
+      return { ...payload };
     },
   },
 });

@@ -21,6 +21,7 @@ export default function Canvas() {
   const [innerChanged, setInnerChanged] = useState(false);
   const [isReleased, setIsReleased] = useState(true);
 
+  const reset = useSelector((state) => state.custom.reset);
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const translateX = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].translateX
@@ -75,8 +76,8 @@ export default function Canvas() {
 
         dispatch(
           customActions.handleSetPosition({
-            x: outsideX ? null : offsetX - 100,
-            y: outsideY ? null : offsetY - 100,
+            x: outsideX ? null : offsetX - 125,
+            y: outsideY ? null : offsetY - 125,
             action: "set-translate",
           })
         );
@@ -125,8 +126,8 @@ export default function Canvas() {
       isHolding = true;
       dispatch(
         customActions.handleSetPosition({
-          x: offsetX - 100,
-          y: offsetY - 100,
+          x: offsetX - 125,
+          y: offsetY - 125,
           action: "set-translate",
         })
       );
@@ -168,27 +169,34 @@ export default function Canvas() {
       canvas.removeEventListener("mousedown", handleDownHandler);
       canvas.removeEventListener("mouseup", handleUpHandler);
     };
-  }, [activeKeyFrame, position, innerChanged, isReleased]);
+  }, [activeKeyFrame, position, innerChanged, isReleased, reset]);
 
   return (
     <>
-      <div className="flex items-center gap-2 mt-2 text-white">
-        <p>X:</p>
-        <input
-          onChange={(e) => handleInputsHandler(e, "x")}
-          className="w-16 p-1 bg-zinc-900"
-          value={translateX}
-        />
-        <p>Y:</p>
-        <input
-          onChange={(e) => handleInputsHandler(e, "y")}
-          className="w-16 p-1 bg-zinc-900"
-          value={translateY}
-        />
-      </div>
       <div className="control-canvas">
         <div className="absolute z-0 w-[1px] h-full bg-[#222928] cc"></div>
         <div className="absolute z-0 h-[1px] w-full bg-[#222928] cc"></div>
+
+        <div className="absolute flex gap-1 px-1 py-1 -translate-y-full top-1/2">
+          <div className="control-square-box control-canvas-box">x</div>
+          <input
+            style={{ width: `${`${translateX}`.length * 8 + 12}px` }}
+            onChange={(e) => handleInputsHandler(e, "x")}
+            className="control-value-input text-[#556664] font-medium"
+            value={translateX}
+          />
+        </div>
+
+        <div className="absolute flex gap-1 px-1 py-1 left-1/2">
+          <div className="control-square-box control-canvas-box">y</div>
+          <input
+            style={{ width: `${`${translateY}`.length * 8 + 12}px` }}
+            onChange={(e) => handleInputsHandler(e, "y")}
+            className="control-value-input text-[#556664] font-medium"
+            value={translateY}
+          />
+        </div>
+
         <canvas
           width={250}
           height={250}

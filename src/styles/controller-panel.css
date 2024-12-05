@@ -61,6 +61,9 @@
   .control-canvas {
     @apply relative rounded-xl bg-[#101715] border-[#222928] border mx-auto;
   }
+  .control-canvas-box {
+    @apply text-main-t-gray text-xl font-medium;
+  }
 }
 
 input[type="color"] {
