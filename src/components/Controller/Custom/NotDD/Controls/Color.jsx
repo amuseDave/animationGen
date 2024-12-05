@@ -31,7 +31,11 @@ export default function Color({ handleStyle }) {
       <div className="control-container">
         <p>Fill</p>
         <div className="control-input-container">
-          <div className="control-color-input-container">
+          <div className="relative control-color-input-container">
+            <div
+              style={{ backgroundColor: color }}
+              className="absolute top-0 left-0 z-0 control-square"
+            ></div>
             <input
               ref={colorEl}
               onChange={handleInput}
@@ -39,7 +43,9 @@ export default function Color({ handleStyle }) {
               type="color"
             />
           </div>
-          <p className="control-main-color control-text">{color}</p>
+          <p className="translate-x-1 control-main-color control-text">
+            {color}
+          </p>
           <div className="control-separator"></div>
           <div className="flex items-center">
             <input

@@ -5,7 +5,7 @@ import PositionSelector from "./PositionSelector";
 export default function PositionSelectorContainer() {
   return (
     <>
-      <div className="control-title">
+      <div className="control-title control-main-color">
         <img src={circleTriangle} />
         Position
       </div>

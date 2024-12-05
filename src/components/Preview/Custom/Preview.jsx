@@ -24,7 +24,7 @@ export default function Preview() {
     fontSize: `${Math.floor(size) / 7}px`,
     backgroundColor: hexToRgba(curKF.backgroundColor, curKF.bgOpacity),
     color: hexToRgba(curKF.textColor, curKF.textOpacity),
-    opacity: curKF.opacity,
+    opacity: curKF.opacity / 100,
     transform: `translate(${curKF.translateX}%, ${curKF.translateY}%) rotate(${curKF.rotate}deg) scaleX(${curKF.scaleX}) scaleY(${curKF.scaleY})`,
     left: curKF.left,
     bottom: curKF.bottom,

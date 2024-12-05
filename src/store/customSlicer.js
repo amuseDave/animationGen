@@ -105,7 +105,7 @@ const customSlicer = createSlice({
         }
 
         case "set-opacity":
-          state.keyFrames[state.activeKeyFrame].opacity = +value;
+          state.keyFrames[state.activeKeyFrame].opacity = value;
           break;
         case "set-rotate":
           state.keyFrames[state.activeKeyFrame].rotate = +value;
