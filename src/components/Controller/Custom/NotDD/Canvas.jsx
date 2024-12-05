@@ -34,7 +34,7 @@ export default function Canvas() {
 
   // Update translateXY with inputs onChange
   function handleInputsHandler(e, type) {
-    const val = handleTranslateInputs(e.target.value.trim());
+    const val = handleTranslateInputs(e.target.value.trim(), 400);
     if (isNaN(val)) return;
 
     setInnerChanged(!innerChanged);

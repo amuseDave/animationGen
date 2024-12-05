@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { customActions } from "../../../../../store/customSlicer";
 import { handleValueScaleInputs } from "../../../../../utils/helper";
+import linkSvg from "../../../../../assets/svgs/link.svg";
 
 export default function Scale() {
   const dispatch = useDispatch();
@@ -20,10 +21,10 @@ export default function Scale() {
   }
 
   return (
-    <div className="control-container control-main-color">
+    <div className="control-container">
       <p>Scale</p>
 
-      <div className="control-input-container">
+      <div className="control-input-container control-main-color">
         <div className="flex items-center">
           <div className="control-square-box">
             <p>w</p>
@@ -52,6 +53,8 @@ export default function Scale() {
           />
           <p>x</p>
         </div>
+
+        <img src={linkSvg} className="w-5 h-5 ml-auto mr-1 " />
       </div>
     </div>
   );

@@ -42,16 +42,16 @@
   }
 
   .control-input-container {
-    @apply flex items-center px-[2px] gap-1 border bg-[#111A17] border-[#222928]  rounded-md w-44 h-[30px];
+    @apply flex items-center px-[2px] py-[16px] gap-1 border bg-[#111A17] border-[#222928]  rounded-md w-44 h-[30px];
   }
   .control-value-input {
     @apply w-4 bg-transparent border-none outline-none;
   }
   .control-color-input-container {
-    @apply flex items-center w-5 h-5;
+    @apply flex items-center w-[22px] h-[22px];
   }
   .control-square {
-    @apply w-5 h-5 rounded-md mx-[2px];
+    @apply w-[22px] h-[22px] rounded-[5px] mx-[3px];
   }
 
   .control-square-box {
