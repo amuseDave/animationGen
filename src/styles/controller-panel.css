@@ -11,7 +11,7 @@
   }
 
   .position-selector-container {
-    @apply w-[95%] h-[140px] border-[#222928] border rounded-xl bg-[#101715] mt-6 relative mx-auto;
+    @apply w-[95%] h-[140px] border-[#222928] border rounded-xl bg-[#101715] mt-4 relative mx-auto;
   }
   .position-selector {
     @apply absolute w-[12px] h-[12px] rounded-full transition-colors duration-200 bg-[#222928] hover:bg-[#e1ff9a91];
@@ -22,7 +22,7 @@
   }
 
   .control-title {
-    @apply flex items-center gap-2 mt-8 font-medium;
+    @apply flex items-center gap-2 mt-4 font-medium;
   }
   .control-main-color {
     @apply text-[#CFE5DF];
@@ -32,10 +32,10 @@
   }
 
   .controls-container {
-    @apply mt-4 text-[#5C6663];
+    @apply mt-2 text-[#5C6663];
   }
   .control-container {
-    @apply flex items-center justify-between gap-2 mt-[10px];
+    @apply flex items-center justify-between gap-2 mt-2;
   }
   .control-separator {
     @apply h-4 w-[2px] mx-2 bg-[#5C6663];
@@ -59,7 +59,7 @@
   }
 
   .control-canvas {
-    @apply relative rounded-xl bg-[#101715] border-[#222928] border mx-auto mt-4;
+    @apply relative rounded-xl bg-[#101715] border-[#222928] border mx-auto mt-2;
   }
   .control-canvas-box {
     @apply text-xl font-medium text-main-t-gray;
