@@ -64,7 +64,7 @@ export default function Scale() {
           <p>x</p>
         </div>
 
-        <img src={linkSvg} className="w-5 h-5 ml-0 ml-auto mr-1 gap-x-0 " />
+        <img src={linkSvg} className="w-5 h-5 ml-auto mr-1 gap-x-0 " />
       </div>
     </div>
   );
