@@ -49,7 +49,6 @@ export default function MainLayout() {
         <Outlet />
 
         <div className="middle-container">
-          <ToastProvider />
           <Navigation />
           <PreviewLayout />
           <div className="preview-controls-container">
@@ -57,6 +56,7 @@ export default function MainLayout() {
             <Savebtn />
             <PreviewControls />
           </div>
+          <ToastProvider />
         </div>
         <MainController />
       </main>

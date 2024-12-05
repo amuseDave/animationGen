@@ -4,7 +4,7 @@
 
 @layer components {
   .preview-controls-container {
-    @apply relative flex items-center h-20 mx-5 mt-auto bg-saved-bg rounded-2xl;
+    @apply relative flex items-center h-full mx-5 mt-auto bg-saved-bg rounded-2xl;
   }
 
   /***************/
@@ -34,5 +34,8 @@
 
   .preview-controller-copy {
     @apply text-main-t-active;
+  }
+  .preview-dd-playback {
+    @apply absolute flex w-[90%] gap-2 px-3 py-1 border-2 rounded-md shadow-lg bg-teal-400/10 border-zinc-800 z-20;
   }
 }
