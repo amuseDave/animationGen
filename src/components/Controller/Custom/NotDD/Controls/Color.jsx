@@ -47,7 +47,10 @@ export default function Color({ handleStyle }) {
             {color}
           </p>
           <div className="control-separator"></div>
-          <div className="flex items-center">
+          <div
+            onClick={() => opacityEl.current.focus()}
+            className="flex items-center"
+          >
             <input
               style={{
                 width: `${`${bgOpacity}`.length * 8 + 7}px`,

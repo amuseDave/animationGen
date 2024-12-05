@@ -2,9 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { customActions } from "../../../../../store/customSlicer";
 import { handleValueScaleInputs } from "../../../../../utils/helper";
 import linkSvg from "../../../../../assets/svgs/link.svg";
+import { useRef } from "react";
 
 export default function Scale() {
   const dispatch = useDispatch();
+
+  const inputHEl = useRef();
+  const inputWEl = useRef();
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
   const scaleX = useSelector(
     (state) => state.custom.keyFrames[activeKeyFrame].scaleX
@@ -25,25 +29,31 @@ export default function Scale() {
       <p>Scale</p>
 
       <div className="control-input-container control-main-color">
-        <div className="flex items-center">
+        <div
+          onClick={() => inputWEl.current.focus()}
+          className="flex items-center w-[46%]"
+        >
           <div className="control-square-box">
             <p>w</p>
           </div>
           <input
+            ref={inputWEl}
             style={{ width: `${`${scaleX}`.length * 7 + 4}px` }}
             value={scaleX}
             className="control-value-input"
-            onChange={(e) => {
-              handleScaleChange(e, "x");
-            }}
+            onChange={(e) => handleScaleChange(e, "x")}
           />
           <p>x</p>
         </div>
-        <div className="flex items-center ml-3">
-          <div className="control-square-box">
+        <div
+          onClick={() => inputHEl.current.focus()}
+          className="flex items-center w-[45%]"
+        >
+          <div className="control-square-box no-left-margin">
             <p>h</p>
           </div>
           <input
+            ref={inputHEl}
             style={{ width: `${`${scaleY}`.length * 7 + 4}px` }}
             value={scaleY}
             className="control-value-input"
@@ -54,7 +64,7 @@ export default function Scale() {
           <p>x</p>
         </div>
 
-        <img src={linkSvg} className="w-5 h-5 ml-auto mr-1 " />
+        <img src={linkSvg} className="w-5 h-5 ml-0 ml-auto mr-1 gap-x-0 " />
       </div>
     </div>
   );
