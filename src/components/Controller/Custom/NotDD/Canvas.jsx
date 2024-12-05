@@ -70,8 +70,8 @@ export default function Canvas() {
   const handleMove = useCallback(
     throttle((offsetX, offsetY, tX, tY) => {
       if (isHolding) {
-        const outsideX = offsetX - 10 / 2 <= 0 || offsetX + 10 + 5 >= 200;
-        const outsideY = offsetY - 10 / 2 <= 0 || offsetY + 10 + 5 >= 200;
+        const outsideX = offsetX - 10 / 2 <= 0 || offsetX + 10 + 5 >= 250;
+        const outsideY = offsetY - 10 / 2 <= 0 || offsetY + 10 + 5 >= 250;
 
         dispatch(
           customActions.handleSetPosition({
@@ -172,14 +172,6 @@ export default function Canvas() {
 
   return (
     <>
-      <div className="flex items-center">
-        <canvas
-          ref={canvasEl}
-          width={200}
-          height={200}
-          className="bg-slate-950"
-        ></canvas>
-      </div>
       <div className="flex items-center gap-2 mt-2 text-white">
         <p>X:</p>
         <input
@@ -193,6 +185,16 @@ export default function Canvas() {
           className="w-16 p-1 bg-zinc-900"
           value={translateY}
         />
+      </div>
+      <div className="control-canvas">
+        <div className="absolute z-0 w-[1px] h-full bg-[#222928] cc"></div>
+        <div className="absolute z-0 h-[1px] w-full bg-[#222928] cc"></div>
+        <canvas
+          width={250}
+          height={250}
+          ref={canvasEl}
+          className="relative z-10"
+        ></canvas>
       </div>
     </>
   );

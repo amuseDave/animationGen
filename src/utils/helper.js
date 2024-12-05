@@ -196,7 +196,7 @@ export function handleValueInputs(value, max) {
 }
 
 export function handleOutsideXYCalc(val) {
-  return val + 100 + 15 >= 200 ? 200 - 15 : val + 95 <= 0 ? 0 + 5 : val + 100;
+  return val + 100 + 15 >= 250 ? 250 - 15 : val + 95 <= 0 ? 0 + 5 : val + 100;
 }
 
 export function getOffsetXY(e) {

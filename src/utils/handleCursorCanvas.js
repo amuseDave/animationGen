@@ -26,7 +26,7 @@ export default function drawCursor(x, y, ctx, cursor) {
 }
 
 export function drawTranslateCanvas(x, y, ctx) {
-  ctx.clearRect(0, 0, 200, 200);
+  ctx.clearRect(0, 0, 250, 250);
 
   ctx.fillStyle = "#999";
   ctx.strokeStyle = "#999";
