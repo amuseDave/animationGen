@@ -9,10 +9,6 @@ export default function Opacity({ handleStyle }) {
     (state) => state.custom.keyFrames[activeKeyFrame].opacity
   );
 
-  console.log(opacity);
-
-  console.log(opacity.length * 8 + 7);
-
   return (
     <div className="control-container">
       <p>Opacity</p>
@@ -23,7 +19,7 @@ export default function Opacity({ handleStyle }) {
         ></div>
         <input
           className="control-value-input control-main-color"
-          style={{ width: `${opacity.length * 8 + 5}px` }}
+          style={{ width: `${`${opacity}`.length * 8 + 5}px` }}
           value={opacity}
           onChange={(e) => {
             const value = handleValueInputs(e.target.value, 100);

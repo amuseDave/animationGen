@@ -32,6 +32,7 @@ export default function TextColor({ handleStyle }) {
     <>
       <div className="control-container">
         <p>Font</p>
+
         <div className="control-input-container">
           <div className="relative control-color-input-container">
             <div
@@ -53,13 +54,13 @@ export default function TextColor({ handleStyle }) {
 
           <div className="flex items-center">
             <input
-              style={{ width: `${textOpacity.length * 8 + 7}px` }}
+              style={{ width: `${`${textOpacity}`.length * 8 + 7}px` }}
               className="control-value-input"
               onChange={handleInput}
               ref={opacityEl}
               value={textOpacity}
             />{" "}
-            <p className="mr-1">%</p>
+            <p>%</p>
           </div>
         </div>
       </div>

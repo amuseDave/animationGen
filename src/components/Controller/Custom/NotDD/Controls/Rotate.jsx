@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { handleValueScaleInputs } from "../../../../../utils/helper";
 
 export default function Rotate({ handleStyle }) {
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);

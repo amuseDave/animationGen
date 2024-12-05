@@ -49,7 +49,9 @@ export default function Color({ handleStyle }) {
           <div className="control-separator"></div>
           <div className="flex items-center">
             <input
-              style={{ width: `${bgOpacity.length * 8 + 7}px` }}
+              style={{
+                width: `${`${bgOpacity}`.length * 8 + 7}px`,
+              }}
               className="control-value-input"
               onChange={handleInput}
               ref={opacityEl}

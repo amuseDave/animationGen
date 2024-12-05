@@ -20,26 +20,38 @@ export default function Scale() {
   }
 
   return (
-    <div className="flex items-center gap-2 mb-4">
-      <p className="text-white">Scale</p>
+    <div className="control-container control-main-color">
+      <p>Scale</p>
 
-      <div className="flex items-center font-bold text-white">
-        X:
-        <input
-          value={scaleX}
-          className="w-16 p-1 bg-zinc-900"
-          onChange={(e) => {
-            handleScaleChange(e, "x");
-          }}
-        />
-        Y:
-        <input
-          value={scaleY}
-          className="w-16 p-1 bg-zinc-900"
-          onChange={(e) => {
-            handleScaleChange(e, "y");
-          }}
-        />
+      <div className="control-input-container">
+        <div className="flex items-center">
+          <div className="control-square-box">
+            <p>w</p>
+          </div>
+          <input
+            style={{ width: `${`${scaleX}`.length * 7 + 4}px` }}
+            value={scaleX}
+            className="control-value-input"
+            onChange={(e) => {
+              handleScaleChange(e, "x");
+            }}
+          />
+          <p>x</p>
+        </div>
+        <div className="flex items-center ml-3">
+          <div className="control-square-box">
+            <p>h</p>
+          </div>
+          <input
+            style={{ width: `${`${scaleY}`.length * 7 + 4}px` }}
+            value={scaleY}
+            className="control-value-input"
+            onChange={(e) => {
+              handleScaleChange(e, "y");
+            }}
+          />
+          <p>x</p>
+        </div>
       </div>
     </div>
   );

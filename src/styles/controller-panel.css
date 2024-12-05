@@ -35,7 +35,7 @@
     @apply mt-4 text-[#5C6663];
   }
   .control-container {
-    @apply flex items-center justify-between gap-2 mt-3;
+    @apply flex items-center justify-between gap-2 mt-[10px];
   }
   .control-separator {
     @apply h-4 w-[2px] mx-2 bg-[#5C6663];
@@ -52,6 +52,10 @@
   }
   .control-square {
     @apply w-5 h-5 rounded-md mx-[2px];
+  }
+
+  .control-square-box {
+    @apply control-square bg-[#222928] flex items-center text-center font-light justify-center text-[15px] mr-[4px];
   }
 }
 

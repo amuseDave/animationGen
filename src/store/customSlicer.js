@@ -21,10 +21,10 @@ const initialState = {
       position: "cc",
 
       textColor: "#000000",
-      textOpacity: "100",
+      textOpacity: 100,
       backgroundColor: "#E1FF9A",
-      bgOpacity: "100",
-      opacity: "100",
+      bgOpacity: 100,
+      opacity: 100,
 
       scaleX: 1,
       scaleY: 1,
@@ -39,10 +39,10 @@ const initialState = {
       position: "cc",
 
       textColor: "#000000",
-      textOpacity: 1,
+      textOpacity: 100,
       backgroundColor: "#E1FF9A",
-      bgOpacity: 1,
-      opacity: 1,
+      bgOpacity: 100,
+      opacity: 100,
 
       scaleX: 1,
       scaleY: 1,
