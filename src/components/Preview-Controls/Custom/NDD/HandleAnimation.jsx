@@ -22,8 +22,6 @@ export default function HandleAnimation() {
   const timeoutId = useRef();
 
   useEffect(() => {
-    console.log("getting element");
-
     squareEl.current = document.getElementById("square");
   }, []);
 
@@ -94,13 +92,13 @@ export default function HandleAnimation() {
     <>
       {isAnimating ? (
         <RefreshCcw
-          className="absolute text-white bc bg-slate-900"
+          className="text-white bc bg-slate-900"
           size={32}
           onClick={handleAnimation}
         />
       ) : (
         <Play
-          className="absolute text-white bc bg-slate-900"
+          className="text-white bc bg-slate-900"
           size={32}
           onClick={handleAnimation}
         />

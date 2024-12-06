@@ -6,12 +6,18 @@ import Duration from "./Duration.jsx";
 
 export default function NDD() {
   return (
-    <>
-      <KeyFrames />
-      <AnimationFunction />
-      <Reset />
-      <HandleAnimation />
-      <Duration />
-    </>
+    <div className="preview-controller-customNDD-container">
+      <div className="flex justify-center">
+        <AnimationFunction />
+
+        <HandleAnimation />
+        <Duration />
+        <Reset />
+      </div>
+
+      <div className="flex">
+        <KeyFrames />
+      </div>
+    </div>
   );
 }

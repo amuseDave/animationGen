@@ -69,7 +69,7 @@
     @apply absolute flex gap-1 px-1 py-1 -translate-y-full top-1/2;
   }
   .control-canvas-translateY-box {
-    @apply absolute flex gap-1 px-1 py-1 left-1/2 top-0;
+    @apply absolute top-0 flex gap-1 px-1 py-1 left-1/2;
   }
 }
 

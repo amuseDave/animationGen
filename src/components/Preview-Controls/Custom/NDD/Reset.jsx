@@ -11,8 +11,8 @@ export default function Reset() {
   return (
     <Power
       onClick={handleReset}
-      size={38}
-      className="mx-auto mt-2 text-center text-green-200"
+      size={32}
+      className="absolute text-center text-green-200 right-28"
     />
   );
 }

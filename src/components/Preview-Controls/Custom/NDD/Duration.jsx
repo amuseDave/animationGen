@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { customActions } from "../../../../store/customSlicer";
+import { handleValueScaleInputs } from "../../../../utils/helper";
+import timerSvg from "../../../../assets/svgs/timer.svg";
 
 export default function Duration() {
   const dispatch = useDispatch();
@@ -7,28 +9,37 @@ export default function Duration() {
 
   function handleDuration(e) {
     const { value } = e.target;
-    dispatch(customActions.handleAnimationState({ action: "duration", value }));
+    let val = handleValueScaleInputs(value, 10);
+    if (val.length > 3 || isNaN(val)) return;
+    if (val.length === 3 && val.endsWith(".")) return;
+
+    dispatch(
+      customActions.handleAnimationState({ action: "duration", value: val })
+    );
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <p className="text-white">Duration</p>
+    <div className="preview-controller-box-item">
+      <img src={timerSvg} className="mr-[6px]" />
       <input
-        type="range"
-        min={0.1}
-        max={10}
-        step={0.1}
+        onBlur={() => {
+          if (duration < 0.1) {
+            dispatch(
+              customActions.handleAnimationState({
+                action: "duration",
+                value: 0.1,
+              })
+            );
+          }
+        }}
+        style={{
+          width: `${`${duration}`.length * 7 + 3}px`,
+        }}
+        className="preview-controller-value-input"
         value={duration}
         onChange={handleDuration}
       />
-      <p className="text-lg font-semibold text-white">{duration}s</p>
-      {/* <input
-        className="w-10 p-1 text-xl text-white border-2 rounded-md outline-none bg-slate-800 border-zinc-950"
-        type="number"
-        placeholder="0.1"
-        onChange={handleDuration}
-        defaultValue={duration}
-      /> */}
+      s
     </div>
   );
 }

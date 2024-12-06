@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { animationActions } from "../../../store/animationsSlicer";
+import { animationActions } from "../../../../store/animationsSlicer";
 import { Save } from "lucide-react";
 
 export default function Savebtn() {

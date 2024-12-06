@@ -13,8 +13,7 @@ import { uiActions } from "../store/uiSlicer.js";
 
 import "react-toastify/dist/ReactToastify.css";
 import ToastProvider from "../components/Preview/Static/ToastProvider.jsx";
-import ShareBtn from "../components/Preview/Static/ShareBtn.jsx";
-import Savebtn from "../components/Preview/Static/Savebtn.jsx";
+
 import PlayingAnimationAlert from "../components/Preview/Static/PlayingAlert.jsx";
 
 export default function MainLayout() {
@@ -57,8 +56,6 @@ export default function MainLayout() {
             <PreviewLayout />
           </div>
           <div className="preview-controls-container">
-            <ShareBtn />
-            <Savebtn />
             <PreviewControls />
           </div>
           <ToastProvider /> <ZoomControls />
