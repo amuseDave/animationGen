@@ -94,16 +94,13 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
               y: "calc(-100%)",
               transition: { duration: 0.15 },
             }}
-            className={`absolute left-0 top-0 p-1 px-2 rounded-lg bg-[#222928] text-[#CFE5DF]`}
+            className="keyframe-tooltip-container"
             style={{ transform: "translateY(-110%)" }}
           >
             {keyFramePers.map((per, copyIndex) => {
               if (per === curKf) return;
               return (
-                <div
-                  className="flex items-center justify-between gap-2 font-bold text-start"
-                  key={copyIndex}
-                >
+                <div className="keyframe-tooltip" key={copyIndex}>
                   <p>{per}%</p>
                   <ClipboardCopy
                     onClick={() => handleCopyKeyFrame(copyIndex)}
@@ -115,6 +112,8 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <div className="absolute w-[2px] translate-y-full h-[100%] mt-[1px] bg-[#080A0A]"></div>
     </div>
   );
 }

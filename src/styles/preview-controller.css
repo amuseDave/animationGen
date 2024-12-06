@@ -54,4 +54,10 @@
   .keyframe {
     @apply absolute bg-[#222928] text-[#556664] text-sm rounded-md font-bold px-1 flex items-center justify-center top-1/2 -translate-y-1/2;
   }
+  .keyframe-tooltip-container {
+    @apply absolute left-0 top-0 p-1 px-2 rounded-lg bg-[#222928] text-[#CFE5DF] flex flex-col gap-y-1;
+  }
+  .keyframe-tooltip {
+    @apply flex items-center justify-between gap-2 font-bold text-start;
+  }
 }
