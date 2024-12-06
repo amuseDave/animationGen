@@ -5,7 +5,7 @@ import { drawTranslateCanvas } from "../../../../utils/handleCursorCanvas";
 import { customActions } from "../../../../store/customSlicer";
 import {
   getOffsetXY,
-  handleOutsideXYCalc,
+  convertTranslateValueToOffSetXY,
   handleTranslateInputs,
 } from "../../../../utils/helper";
 import { throttle } from "lodash";
@@ -61,8 +61,8 @@ export default function Canvas() {
 
   // Draw canvas for changing translates
   useEffect(() => {
-    let x = handleOutsideXYCalc(translateX);
-    let y = handleOutsideXYCalc(translateY);
+    let x = convertTranslateValueToOffSetXY(translateX);
+    let y = convertTranslateValueToOffSetXY(translateY);
 
     drawTranslateCanvas(x, y, ctx.current);
   }, [translateX, translateY]);
@@ -71,17 +71,13 @@ export default function Canvas() {
   const handleMove = useCallback(
     throttle((offsetX, offsetY, tX, tY) => {
       if (isHolding) {
-        const outsideX = offsetX - 10 / 2 <= 0 || offsetX + 20 >= 250;
-        const outsideY = offsetY - 10 / 2 <= 0 || offsetY + 10 + 5 >= 250;
-
-        console.log(outsideY);
-
-        console.log(offsetY);
+        const outsideX = offsetX - 10 <= 0 || offsetX + 10 >= 250;
+        const outsideY = offsetY - 10 <= 0 || offsetY + 10 >= 250;
 
         dispatch(
           customActions.handleSetPosition({
-            x: outsideX ? null : offsetX - 125,
-            y: outsideY ? null : offsetY - 125,
+            x: outsideX ? undefined : offsetX - 125,
+            y: outsideY ? undefined : offsetY - 125,
             action: "set-translate",
           })
         );
@@ -90,10 +86,10 @@ export default function Canvas() {
       }
 
       const isHovered =
-        offsetX >= tX - 8 &&
-        offsetX <= tX + 12 &&
-        offsetY >= tY - 8 &&
-        offsetY <= tY + 12;
+        offsetX >= tX - 10 &&
+        offsetX <= tX + 10 &&
+        offsetY >= tY - 10 &&
+        offsetY <= tY + 10;
 
       if (isHovered && isHover) return;
 
@@ -119,8 +115,8 @@ export default function Canvas() {
       handleMove(
         offsetX,
         offsetY,
-        handleOutsideXYCalc(translateX),
-        handleOutsideXYCalc(translateY)
+        convertTranslateValueToOffSetXY(translateX),
+        convertTranslateValueToOffSetXY(translateY)
       );
     }
 
@@ -128,6 +124,7 @@ export default function Canvas() {
       const { offsetX, offsetY } = getOffsetXY(e);
 
       isHolding = true;
+
       dispatch(
         customActions.handleSetPosition({
           x: offsetX - 125,
@@ -177,7 +174,10 @@ export default function Canvas() {
 
   return (
     <>
-      <div className="box-content translate-x-1 control-canvas">
+      <div
+        className="control-canvas"
+        style={{ width: "250px", height: "250px" }}
+      >
         <div className="absolute z-0 w-[1px] h-full bg-[#222928] cc"></div>
         <div className="absolute z-0 h-[1px] w-full bg-[#222928] cc"></div>
 

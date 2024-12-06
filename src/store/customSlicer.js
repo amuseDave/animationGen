@@ -85,8 +85,8 @@ const customSlicer = createSlice({
         ///
       }
       if (action === "set-translate") {
-        curKF.translateX = Math.round(x) || curKF.translateX;
-        curKF.translateY = Math.round(y) || curKF.translateY;
+        curKF.translateX = x !== undefined ? Math.round(x) : curKF.translateX;
+        curKF.translateY = y !== undefined ? Math.round(y) : curKF.translateY;
       }
     },
 

@@ -1,6 +1,7 @@
 import cursorDefault from "../assets/cursor-default.png";
 import cursorMove from "../assets/cursor-move.png";
 import cursorGrab from "../assets/cursor-grab.png";
+import translateSquare from "../assets/svgs/translateSquare.svg";
 
 const cursorD = new Image();
 cursorD.src = cursorDefault;
@@ -10,6 +11,9 @@ cursorM.src = cursorMove;
 
 const cursorG = new Image();
 cursorG.src = cursorGrab;
+
+const translateSqureImg = new Image();
+translateSqureImg.src = translateSquare;
 
 export default function drawCursor(x, y, ctx, cursor) {
   ctx.clearRect(0, 0, 4000, 4000);
@@ -21,17 +25,12 @@ export default function drawCursor(x, y, ctx, cursor) {
   ctx.shadowBlur = 20;
 
   if (cursor === "default") ctx.drawImage(cursorD, x, y);
-  if (cursor === "move") ctx.drawImage(cursorM, x, y, 28, 28);
-  if (cursor === "grab") ctx.drawImage(cursorG, x, y, 28, 28);
+  if (cursor === "move") ctx.drawImage(cursorM, x, y);
+  if (cursor === "grab") ctx.drawImage(cursorG, x, y);
 }
 
 export function drawTranslateCanvas(x, y, ctx) {
   ctx.clearRect(0, 0, 250, 250);
 
-  ctx.fillStyle = "#E1FF9A";
-
-  ctx.beginPath();
-
-  ctx.arc(x + 10 / 2, y + 10 / 2, 10, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.drawImage(translateSqureImg, x - 20 / 2, y - 20 / 2);
 }

@@ -59,7 +59,7 @@
   }
 
   .control-canvas {
-    @apply relative rounded-xl bg-[#101715] border-[#222928] border mt-2;
+    @apply relative rounded-xl bg-[#101715] border-[#222928] border mt-2 translate-x-[2px];
   }
   .control-canvas-box {
     @apply text-xl font-medium text-main-t-gray;
