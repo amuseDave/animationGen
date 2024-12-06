@@ -63,6 +63,17 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
 
   return (
     <div
+      onDoubleClick={() => {
+        handleToolTip();
+      }}
+      onClick={() => {
+        dispatch(
+          customActions.handleKeyFrame({
+            action: "change-active",
+            value: currentIndex,
+          })
+        );
+      }}
       ref={heightRef}
       className="h-full"
       style={{
@@ -75,15 +86,6 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
         ref={keyframeRef}
         id={`per-${curKf}`}
         className={`keyframe ${active && "bg-[#E1FF9A] text-black"} `}
-        onClick={() => {
-          dispatch(
-            customActions.handleKeyFrame({
-              action: "change-active",
-              value: currentIndex,
-            })
-          );
-          handleToolTip();
-        }}
       >
         <p>{curKf}%</p>
         {/* KEY FRAME COPY POPOUT */}

@@ -4,7 +4,7 @@
 
 @layer components {
   .middle-container {
-    @apply relative grid grid-rows-[min-content_1fr_92px];
+    @apply relative grid grid-rows-[min-content_1fr_80px];
   }
 
   .preview-container {

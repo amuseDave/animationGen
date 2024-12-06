@@ -40,7 +40,7 @@
   }
 
   .preview-controller-customNDD-container {
-    @apply relative grid h-full grid-rows-[50%_50%] text-[#CFE5DF];
+    @apply relative grid h-full grid-rows-[44%_56%] text-[#CFE5DF];
   }
 
   .preview-controller-box-item {

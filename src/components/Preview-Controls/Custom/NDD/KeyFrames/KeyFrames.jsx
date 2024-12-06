@@ -1,19 +1,11 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { Fragment } from "react";
-import { Trash2 } from "lucide-react";
 import KeyFrame from "./KeyFrame";
-import KeyFramePlus from "./KeyFramePlus";
-import { customActions } from "../../../../../store/customSlicer";
-import { toast } from "react-toastify";
-
-let deleteErrorNotification;
 
 export default function KeyFrames() {
   const containerRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(0);
-
-  const dispatch = useDispatch();
 
   const keyFramesPers = useSelector((state) => state.custom.keyFramePers);
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
