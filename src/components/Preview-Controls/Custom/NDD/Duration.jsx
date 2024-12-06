@@ -2,8 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { customActions } from "../../../../store/customSlicer";
 import { handleValueScaleInputs } from "../../../../utils/helper";
 import timerSvg from "../../../../assets/svgs/timer.svg";
+import { useRef } from "react";
 
 export default function Duration() {
+  const inputEl = useRef(null);
   const dispatch = useDispatch();
   const duration = useSelector((state) => state.custom.duration);
 
@@ -19,9 +21,13 @@ export default function Duration() {
   }
 
   return (
-    <div className="preview-controller-box-item">
+    <div
+      onClick={() => inputEl.current.focus()}
+      className="preview-controller-box-item"
+    >
       <img src={timerSvg} className="mr-[6px]" />
       <input
+        ref={inputEl}
         onBlur={() => {
           if (duration < 0.1) {
             dispatch(
@@ -33,7 +39,7 @@ export default function Duration() {
           }
         }}
         style={{
-          width: `${`${duration}`.length * 7 + 3}px`,
+          width: `${`${duration}`.length * 7 + 5}px`,
         }}
         className="preview-controller-value-input"
         value={duration}
