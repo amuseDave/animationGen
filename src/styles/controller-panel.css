@@ -4,17 +4,17 @@
 
 @layer components {
   .controller-container {
-    @apply relative z-0 p-4 px-5 text-center rounded-2xl bg-controller-bg;
+    @apply relative z-0 pt-4 pb-6 pl-4 pr-6 text-center rounded-2xl bg-controller-bg;
   }
   .controller-container-not-allowed {
     @apply absolute top-0 left-0 z-10 w-full h-full transition-opacity duration-500 rounded-2xl bg-black/65;
   }
 
   .position-selector-container {
-    @apply w-[95%] h-[140px] border-[#222928] border rounded-xl bg-[#101715] mt-4 relative mx-auto;
+    @apply w-[242px] ml-[6px] h-[148px] border-[#222928] border rounded-xl bg-[#101715] mt-4 relative;
   }
   .position-selector {
-    @apply absolute w-[12px] h-[12px] rounded-full transition-colors duration-200 bg-[#222928] hover:bg-[#e1ff9a91];
+    @apply absolute w-[11px] h-[11px] rounded-full transition-colors duration-200 bg-[#222928] hover:bg-[#e1ff9a91];
   }
 
   .position-selector-active {
@@ -22,7 +22,7 @@
   }
 
   .control-title {
-    @apply flex items-center gap-2 mt-4 font-medium;
+    @apply flex items-center gap-[10px] font-medium;
   }
   .control-main-color {
     @apply text-[#CFE5DF];
@@ -32,10 +32,10 @@
   }
 
   .controls-container {
-    @apply mt-2 text-[#5C6663];
+    @apply mt-2 ml-2 text-[#5C6663];
   }
   .control-container {
-    @apply flex items-center justify-between gap-2 mt-2;
+    @apply flex items-center justify-between gap-2 mt-[6px];
   }
   .control-separator {
     @apply h-4 w-[2px] mx-2 bg-[#5C6663];
@@ -59,7 +59,7 @@
   }
 
   .control-canvas {
-    @apply relative rounded-xl bg-[#101715] border-[#222928] border mx-auto mt-2;
+    @apply relative rounded-xl bg-[#101715] border-[#222928] border mt-2;
   }
   .control-canvas-box {
     @apply text-xl font-medium text-main-t-gray;

@@ -71,8 +71,12 @@ export default function Canvas() {
   const handleMove = useCallback(
     throttle((offsetX, offsetY, tX, tY) => {
       if (isHolding) {
-        const outsideX = offsetX - 10 / 2 <= 0 || offsetX + 10 + 5 >= 250;
+        const outsideX = offsetX - 10 / 2 <= 0 || offsetX + 20 >= 250;
         const outsideY = offsetY - 10 / 2 <= 0 || offsetY + 10 + 5 >= 250;
+
+        console.log(outsideY);
+
+        console.log(offsetY);
 
         dispatch(
           customActions.handleSetPosition({
@@ -173,7 +177,7 @@ export default function Canvas() {
 
   return (
     <>
-      <div className="control-canvas">
+      <div className="box-content translate-x-1 control-canvas">
         <div className="absolute z-0 w-[1px] h-full bg-[#222928] cc"></div>
         <div className="absolute z-0 h-[1px] w-full bg-[#222928] cc"></div>
 
