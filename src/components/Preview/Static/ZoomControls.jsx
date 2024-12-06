@@ -9,7 +9,7 @@ export default function PreviewControls() {
   }
 
   return (
-    <div className="mr-10 zoom rc">
+    <div className="mr-5 zoom tr">
       <div
         className="p-2"
         onClick={() => {

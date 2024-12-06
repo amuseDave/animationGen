@@ -5,6 +5,7 @@ import MainController from "../components/Controller/Layout.jsx";
 import CopyModal from "../components/Copy-Modal/Layout.jsx";
 import PreviewControls from "../components/Preview-Controls/Layout.jsx";
 
+import ZoomControls from "../components/Preview/Static/ZoomControls.jsx";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -14,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ToastProvider from "../components/Preview/Static/ToastProvider.jsx";
 import ShareBtn from "../components/Preview/Static/ShareBtn.jsx";
 import Savebtn from "../components/Preview/Static/Savebtn.jsx";
+import PlayingAnimationAlert from "../components/Preview/Static/PlayingAlert.jsx";
 
 export default function MainLayout() {
   const dispatch = useDispatch();
@@ -50,13 +52,16 @@ export default function MainLayout() {
 
         <div className="middle-container">
           <Navigation />
-          <PreviewLayout />
+          <div className="preview-container">
+            <PlayingAnimationAlert />
+            <PreviewLayout />
+          </div>
           <div className="preview-controls-container">
             <ShareBtn />
             <Savebtn />
             <PreviewControls />
           </div>
-          <ToastProvider />
+          <ToastProvider /> <ZoomControls />
         </div>
         <MainController />
       </main>

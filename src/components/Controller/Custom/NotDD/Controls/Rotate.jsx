@@ -28,7 +28,6 @@ export default function Rotate({ handleStyle }) {
             className="control-value-input"
             onChange={(e) => {
               const val = handleTranslateInputs(e.target.value.trim(), 980);
-              console.log(val);
 
               if (isNaN(val)) return;
 
@@ -42,7 +41,11 @@ export default function Rotate({ handleStyle }) {
           °
         </div>
 
-        <img src={rotateSvg} className="w-5 h-5 ml-auto mr-1" />
+        <img
+          onClick={() => handleStyle({ target: { value: 0 } }, "set-rotate")}
+          src={rotateSvg}
+          className="w-5 h-5 ml-auto mr-1"
+        />
       </div>
     </div>
   );

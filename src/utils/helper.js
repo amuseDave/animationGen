@@ -164,6 +164,7 @@ export function handleTranslateInputs(val, max) {
   if (val.endsWith("-") && val.length > 1) {
     val = `-${val.slice(0, val.length - 1)}`;
   }
+
   if (val.startsWith("-") && val.endsWith("+") && val.length > 2) {
     val = val.slice(1, val.length - 1);
   }

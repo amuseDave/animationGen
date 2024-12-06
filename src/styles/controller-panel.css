@@ -64,6 +64,13 @@
   .control-canvas-box {
     @apply text-xl font-medium text-main-t-gray;
   }
+
+  .control-canvas-translateX-box {
+    @apply absolute flex gap-1 px-1 py-1 -translate-y-full top-1/2;
+  }
+  .control-canvas-translateY-box {
+    @apply absolute flex gap-1 px-1 py-1 left-1/2;
+  }
 }
 
 input[type="color"] {

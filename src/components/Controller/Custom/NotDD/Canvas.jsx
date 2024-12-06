@@ -177,7 +177,7 @@ export default function Canvas() {
         <div className="absolute z-0 w-[1px] h-full bg-[#222928] cc"></div>
         <div className="absolute z-0 h-[1px] w-full bg-[#222928] cc"></div>
 
-        <div className="absolute flex gap-1 px-1 py-1 -translate-y-full top-1/2">
+        <div className="control-canvas-translateX-box">
           <div className="control-square-box control-canvas-box">x</div>
           <input
             style={{ width: `${`${translateX}`.length * 8 + 12}px` }}
@@ -187,7 +187,7 @@ export default function Canvas() {
           />
         </div>
 
-        <div className="absolute flex gap-1 px-1 py-1 left-1/2">
+        <div className="control-canvas-translateY-box">
           <div className="control-square-box control-canvas-box">y</div>
           <input
             style={{ width: `${`${translateY}`.length * 8 + 12}px` }}
