@@ -6,13 +6,16 @@ import Duration from "./Duration.jsx";
 import nextSvg from "../../../../assets/svgs/next.svg";
 import prevSvg from "../../../../assets/svgs/prev.svg";
 import ChangeKeyFrame from "./ChangeKeyFrame.jsx";
+import KeyFramePlus from "./KeyFrames/KeyFramePlus.jsx";
+import KeyFrameTrash from "./KeyFrames/KeyFrameTrash.jsx";
 
 export default function NDD() {
   return (
     <div className="preview-controller-customNDD-container">
       <div className="flex items-center justify-center">
         <AnimationFunction />
-
+        <KeyFrameTrash />
+        <KeyFramePlus />
         <ChangeKeyFrame svg={prevSvg} type="prev" className="mr-[1px]" />
         <HandleAnimation />
         <ChangeKeyFrame svg={nextSvg} type="next" className="ml-[1px]" />
@@ -21,9 +24,7 @@ export default function NDD() {
         <Reset />
       </div>
 
-      <div className="flex">
-        <KeyFrames />
-      </div>
+      <KeyFrames />
     </div>
   );
 }

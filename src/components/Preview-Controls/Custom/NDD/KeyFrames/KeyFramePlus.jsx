@@ -103,7 +103,7 @@ export default function KeyFramePlus() {
     <div className="flex items-center gap-2" id="adding">
       <button
         onClick={handleActive}
-        className="mt-1 text-4xl font-bold text-green-500 cursor-none"
+        className="text-4xl font-bold text-green-500 cursor-none"
       >
         +
       </button>

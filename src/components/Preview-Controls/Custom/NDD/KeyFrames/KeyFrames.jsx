@@ -18,20 +18,6 @@ export default function KeyFrames() {
   const keyFramesPers = useSelector((state) => state.custom.keyFramePers);
   const activeKeyFrame = useSelector((state) => state.custom.activeKeyFrame);
 
-  function handleDeleteKeyFrame() {
-    if (activeKeyFrame === 0 || activeKeyFrame === keyFramesPers.length - 1) {
-      ///
-      if (deleteErrorNotification) return;
-      deleteErrorNotification = true;
-      setTimeout(() => {
-        deleteErrorNotification = false;
-      }, 1000);
-      toast.error("Cant delete default keyframe!");
-      ///
-      return;
-    }
-    dispatch(customActions.handleKeyFrame({ action: "delete" }));
-  }
   useEffect(() => {
     // Measure the container width
     if (containerRef.current) {
@@ -50,30 +36,24 @@ export default function KeyFrames() {
   }, []);
 
   return (
-    <div className="w-full bg-[#080A0A] h-[58%] mt-[1px] z-[9999]">
-      <div ref={containerRef} className="w-[98%] mx-auto h-full relative">
-        {keyFramesPers.map((_, index) => {
-          return (
-            <Fragment key={index}>
-              <KeyFrame
-                containerWidth={containerWidth}
-                currentIndex={index}
-                key={index}
-                active={index === activeKeyFrame}
-              />
-            </Fragment>
-          );
-        })}
-
-        <div className="flex items-center">
-          <KeyFramePlus />
-          <Trash2
-            onClick={handleDeleteKeyFrame}
-            size={32}
-            className="text-alert-t-error"
-          />
+    <>
+      <div className="w-full bg-[#080A0A] h-[50%] mt-[1px] z-[9999]">
+        <div ref={containerRef} className="w-[98%] mx-auto h-full relative">
+          {keyFramesPers.map((_, index) => {
+            return (
+              <Fragment key={index}>
+                <KeyFrame
+                  containerWidth={containerWidth}
+                  currentIndex={index}
+                  key={index}
+                  active={index === activeKeyFrame}
+                />
+              </Fragment>
+            );
+          })}
         </div>
       </div>
-    </div>
+      <div className="h-full"></div>
+    </>
   );
 }

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 
 export default function KeyFrame({ active, currentIndex, containerWidth }) {
+  const heightRef = useRef(null);
   const keyframeRef = useRef(null);
   const [leftPosition, setLeftPosition] = useState(0);
 
@@ -62,58 +63,63 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
 
   return (
     <div
-      ref={keyframeRef}
-      id={`per-${curKf}`}
-      className={`keyframe ${active && "bg-[#E1FF9A] text-black"} `}
-      onClick={() => {
-        dispatch(
-          customActions.handleKeyFrame({
-            action: "change-active",
-            value: currentIndex,
-          })
-        );
-        handleToolTip();
-      }}
+      ref={heightRef}
+      className="h-full"
       style={{
         position: "absolute",
         left: `${leftPosition}px`,
+        width: `${`${curKf}`.length * 10 + 20}px`,
       }}
     >
-      <p>{curKf}%</p>
-      {/* KEY FRAME COPY POPOUT */}
-      <AnimatePresence>
-        {showToolTip && (
-          <motion.div
-            initial={{ opacity: 0, y: "calc(-50%)" }}
-            animate={{
-              opacity: 1,
-              y: "calc(-120%)",
-            }}
-            exit={{
-              opacity: 0,
-              y: "calc(-100%)",
-              transition: { duration: 0.15 },
-            }}
-            className="keyframe-tooltip-container"
-            style={{ transform: "translateY(-110%)" }}
-          >
-            {keyFramePers.map((per, copyIndex) => {
-              if (per === curKf) return;
-              return (
-                <div className="keyframe-tooltip" key={copyIndex}>
-                  <p>{per}%</p>
-                  <ClipboardCopy
-                    onClick={() => handleCopyKeyFrame(copyIndex)}
-                    size={18}
-                  />
-                </div>
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className="absolute w-[2px] translate-y-full h-[100%] mt-[1px] bg-[#080A0A]"></div>
+      <div
+        ref={keyframeRef}
+        id={`per-${curKf}`}
+        className={`keyframe ${active && "bg-[#E1FF9A] text-black"} `}
+        onClick={() => {
+          dispatch(
+            customActions.handleKeyFrame({
+              action: "change-active",
+              value: currentIndex,
+            })
+          );
+          handleToolTip();
+        }}
+      >
+        <p>{curKf}%</p>
+        {/* KEY FRAME COPY POPOUT */}
+        <AnimatePresence>
+          {showToolTip && (
+            <motion.div
+              initial={{ opacity: 0, y: "calc(-50%)" }}
+              animate={{
+                opacity: 1,
+                y: "calc(-120%)",
+              }}
+              exit={{
+                opacity: 0,
+                y: "calc(-100%)",
+                transition: { duration: 0.15 },
+              }}
+              className="keyframe-tooltip-container"
+              style={{ transform: "translateY(-110%)" }}
+            >
+              {keyFramePers.map((per, copyIndex) => {
+                if (per === curKf) return;
+                return (
+                  <div className="keyframe-tooltip" key={copyIndex}>
+                    <p>{per}%</p>
+                    <ClipboardCopy
+                      onClick={() => handleCopyKeyFrame(copyIndex)}
+                      size={18}
+                    />
+                  </div>
+                );
+              })}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      <div className="keyframe-downline"></div>
     </div>
   );
 }
