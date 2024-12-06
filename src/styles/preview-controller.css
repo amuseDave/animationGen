@@ -64,4 +64,8 @@
   .keyframe-downline {
     @apply absolute w-[2px] top-0 h-full bg-[#080A0A] left-1/2 -translate-x-1/2 translate-y-full;
   }
+
+  .keyframe-diamond {
+    @apply absolute bg-[#222928] w-[9px] h-[9px] rotate-45 rounded-sm;
+  }
 }

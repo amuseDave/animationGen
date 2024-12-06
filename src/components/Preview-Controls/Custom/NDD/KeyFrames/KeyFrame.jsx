@@ -119,7 +119,11 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
           )}
         </AnimatePresence>
       </div>
-      <div className="keyframe-downline"></div>
+      <div className="keyframe-downline">
+        <div
+          className={`keyframe-diamond ${active && "bg-[#E1FF9A]"} cc`}
+        ></div>
+      </div>
     </div>
   );
 }
