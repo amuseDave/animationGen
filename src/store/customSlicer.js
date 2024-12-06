@@ -199,8 +199,6 @@ const customSlicer = createSlice({
       if (state.keyFrames.length > 2) {
         ///
 
-        state.reset = !state.reset;
-
         if (resetN) return { ...initialState, reset: !state.reset };
         resetN = true;
         setTimeout(() => {

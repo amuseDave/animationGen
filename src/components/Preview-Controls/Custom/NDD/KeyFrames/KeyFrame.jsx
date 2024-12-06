@@ -1,13 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { customActions } from "../../../../../store/customSlicer";
-import { ChevronDown, ClipboardCopy } from "lucide-react";
+import { ClipboardCopy } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-export default function KeyFrame({ active, currentIndex }) {
+export default function KeyFrame({ active, currentIndex, containerWidth }) {
+  const keyframeRef = useRef(null);
+  const [leftPosition, setLeftPosition] = useState(0);
+
   const [showToolTip, setShowToolTip] = useState(false);
   const keyFramePers = useSelector((state) => state.custom.keyFramePers);
   const dispatch = useDispatch();
+
+  const curKf = keyFramePers[currentIndex];
 
   function handleToolTip() {
     setShowToolTip(!showToolTip);
@@ -18,7 +23,7 @@ export default function KeyFrame({ active, currentIndex }) {
     if (!showToolTip) return;
 
     function hideToolTip(e) {
-      const toolTipEl = e.target.closest(`#per-${keyFramePers[currentIndex]}`);
+      const toolTipEl = e.target.closest(`#per-${curKf}`);
       if (toolTipEl) return;
       setShowToolTip(false);
     }
@@ -36,46 +41,64 @@ export default function KeyFrame({ active, currentIndex }) {
     setShowToolTip(false);
   }
 
+  useEffect(() => {
+    if (!containerWidth || !keyframeRef.current) return;
+
+    const keyframeWidth = keyframeRef.current.offsetWidth;
+
+    // Calculate position in pixels
+    const calculatedLeft = (curKf / 100) * containerWidth;
+
+    console.log(calculatedLeft);
+
+    // Clamp position to stay within bounds
+    const clampedLeft = Math.min(
+      containerWidth - keyframeWidth, // Maximum left value to stay inside
+      Math.max(0, calculatedLeft) // Ensure it doesn't go negative
+    );
+
+    setLeftPosition(clampedLeft);
+  }, [containerWidth, curKf]);
+
   return (
     <div
-      id={`per-${keyFramePers[currentIndex]}`}
-      className="relative flex items-center justify-start mt-2"
-      onClick={() =>
+      ref={keyframeRef}
+      id={`per-${curKf}`}
+      className={`keyframe ${active && "bg-[#E1FF9A] text-black"} `}
+      onClick={() => {
         dispatch(
           customActions.handleKeyFrame({
             action: "change-active",
             value: currentIndex,
           })
-        )
-      }
+        );
+        handleToolTip();
+      }}
+      style={{
+        position: "absolute",
+        left: `${leftPosition}px`,
+      }}
     >
-      <div
-        className={`w-4 h-4 rotate-45 ${
-          active ? "bg-green-300" : "bg-green-900"
-        }`}
-      ></div>
-      <span className="ml-2 text-white">{keyFramePers[currentIndex]}%</span>
-      <ChevronDown
-        onClick={handleToolTip}
-        size={20}
-        className={`${
-          showToolTip ? "rotate-180 text-green-300" : "rotate-0 text-white"
-        } transition-all`}
-      />
-
-      <AnimatePresence mode="popLayout">
+      <p>{curKf}%</p>
+      {/* KEY FRAME COPY POPOUT */}
+      <AnimatePresence>
         {showToolTip && (
           <motion.div
-            layout
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: "calc(-50%)" }}
             animate={{
               opacity: 1,
-              y: 0,
+              y: "calc(-120%)",
             }}
-            className={`absolute right-0 w-[90px] p-1 px-2 overflow-hidden rounded-lg top-7 bg-slate-50/50 z-50`}
+            exit={{
+              opacity: 0,
+              y: "calc(-100%)",
+              transition: { duration: 0.15 },
+            }}
+            className={`absolute left-0 top-0 p-1 px-2 rounded-lg bg-[#222928] text-[#CFE5DF]`}
+            style={{ transform: "translateY(-110%)" }}
           >
             {keyFramePers.map((per, copyIndex) => {
-              if (per === keyFramePers[currentIndex]) return;
+              if (per === curKf) return;
               return (
                 <div
                   className="flex items-center justify-between gap-2 font-bold text-start"
