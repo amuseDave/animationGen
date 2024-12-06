@@ -63,6 +63,7 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
 
   return (
     <div
+      id={`per-${curKf}`}
       onDoubleClick={() => {
         handleToolTip();
       }}
@@ -84,8 +85,7 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
     >
       <div
         ref={keyframeRef}
-        id={`per-${curKf}`}
-        className={`keyframe ${active && "bg-[#E1FF9A] text-black"} `}
+        className={`keyframe ${active && "bg-[#E1FF9A] text-black z-[9999]"} `}
       >
         <p>{curKf}%</p>
         {/* KEY FRAME COPY POPOUT */}

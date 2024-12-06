@@ -27,10 +27,8 @@ export default function KeyFrameTrash() {
   }
 
   return (
-    <Trash2
-      onClick={handleDeleteKeyFrame}
-      size={24}
-      className="text-alert-t-error"
-    />
+    <div className="preview-controller-box-item" onClick={handleDeleteKeyFrame}>
+      <Trash2 size={22} className="text-alert-t-error" />
+    </div>
   );
 }

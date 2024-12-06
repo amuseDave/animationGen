@@ -100,26 +100,35 @@ export default function KeyFramePlus() {
   }, [isActive]);
 
   return (
-    <div className="flex items-center gap-2" id="adding">
-      <button
-        onClick={handleActive}
-        className="text-4xl font-bold text-green-500 cursor-none"
-      >
+    <div
+      className="relative preview-controller-box-item"
+      id="adding"
+      onClick={handleActive}
+    >
+      <button className="text-3xl font-bold text-green-500 cursor-none">
         +
       </button>
 
       {isActive && (
         <>
-          <form onSubmit={handleInputSubmit}>
-            <input
-              ref={inputRef}
-              className="w-16 p-1 font-bold text-white border border-green-300 rounded-lg outline-none focus:border-none focus:outline-green-500 bg-slate-700"
-              placeholder="0"
-              value={inputVal}
-              onChange={handleInputChange}
-            ></input>
+          <form
+            className="absolute -top-2 left-0 -translate-y-full text-[#CFE5DF]"
+            onSubmit={handleInputSubmit}
+          >
+            <div className="preview-controller-box-item">
+              <input
+                style={{
+                  width: `${`${inputVal}`.length * 6 + 13}px`,
+                }}
+                ref={inputRef}
+                className="preview-controller-value-input"
+                placeholder="0"
+                value={inputVal}
+                onChange={handleInputChange}
+              ></input>
+              <p className="font-medium">%</p>
+            </div>
           </form>
-          <p className="font-bold text-white">%</p>
         </>
       )}
     </div>

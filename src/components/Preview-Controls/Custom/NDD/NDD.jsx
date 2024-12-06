@@ -16,6 +16,7 @@ export default function NDD() {
         <AnimationFunction />
         <KeyFrameTrash />
         <KeyFramePlus />
+        <div className="h-5 mx-[6px] bg-[#222928] rounded-md w-[3px]"></div>
         <ChangeKeyFrame svg={prevSvg} type="prev" className="mr-[1px]" />
         <HandleAnimation />
         <ChangeKeyFrame svg={nextSvg} type="next" className="ml-[1px]" />
