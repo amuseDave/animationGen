@@ -185,6 +185,16 @@ const customSlicer = createSlice({
           break;
       }
     },
+    handleNextPrevKF(state, { payload }) {
+      if (payload === "next") {
+        if (state.activeKeyFrame + 1 > state.keyFramePers.length - 1) return;
+        state.activeKeyFrame++;
+      }
+      if (payload === "prev") {
+        if (state.activeKeyFrame - 1 < 0) return;
+        state.activeKeyFrame--;
+      }
+    },
     handleReset(state) {
       if (state.keyFrames.length > 2) {
         ///

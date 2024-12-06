@@ -1,4 +1,4 @@
-import { Play, RefreshCcw } from "lucide-react";
+import PlaySvg from "../../../../assets/svgs/Group 149.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useRef } from "react";
 import { uiActions } from "../../../../store/uiSlicer";
@@ -89,20 +89,8 @@ export default function HandleAnimation() {
   }, [isAnimating]);
 
   return (
-    <>
-      {isAnimating ? (
-        <RefreshCcw
-          className="text-white bc bg-slate-900"
-          size={32}
-          onClick={handleAnimation}
-        />
-      ) : (
-        <Play
-          className="text-white bc bg-slate-900"
-          size={32}
-          onClick={handleAnimation}
-        />
-      )}
-    </>
+    <div className="preview-controller-box-item" onClick={handleAnimation}>
+      <img src={PlaySvg} />
+    </div>
   );
 }

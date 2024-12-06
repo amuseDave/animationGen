@@ -44,7 +44,7 @@
   }
 
   .preview-controller-box-item {
-    @apply px-2 flex items-center bg-[#191C1B] rounded-lg h-10;
+    @apply px-2 flex items-center bg-[#191C1B] rounded-lg h-9;
   }
 
   .preview-controller-value-input {
