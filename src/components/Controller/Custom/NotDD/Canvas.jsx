@@ -177,7 +177,18 @@ export default function Canvas() {
         <div className="absolute z-0 w-[1px] h-full bg-[#222928] cc"></div>
         <div className="absolute z-0 h-[1px] w-full bg-[#222928] cc"></div>
 
-        <div className="control-canvas-translateX-box">
+        <canvas
+          width={250}
+          height={250}
+          ref={canvasEl}
+          className="relative z-10"
+        ></canvas>
+
+        <div
+          className={`control-canvas-translateX-box ${
+            isHolding ? "z-0" : "z-10"
+          }`}
+        >
           <div className="control-square-box control-canvas-box">x</div>
           <input
             style={{ width: `${`${translateX}`.length * 8 + 12}px` }}
@@ -187,7 +198,11 @@ export default function Canvas() {
           />
         </div>
 
-        <div className="control-canvas-translateY-box">
+        <div
+          className={`control-canvas-translateY-box ${
+            isHolding ? "z-0" : "z-10"
+          }`}
+        >
           <div className="control-square-box control-canvas-box">y</div>
           <input
             style={{ width: `${`${translateY}`.length * 8 + 12}px` }}
@@ -196,13 +211,6 @@ export default function Canvas() {
             value={translateY}
           />
         </div>
-
-        <canvas
-          width={250}
-          height={250}
-          ref={canvasEl}
-          className="relative z-10"
-        ></canvas>
       </div>
     </>
   );
