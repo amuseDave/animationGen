@@ -1,5 +1,4 @@
-import { Trash2 } from "lucide-react";
-import trashSvg from "../../../assets/svgs/trashSvg.svg";
+import trashSvg from "../../../assets/svgs/trashSvg2.svg";
 import { useDispatch, useSelector } from "react-redux";
 
 import { animationActions } from "../../../store/animationsSlicer";

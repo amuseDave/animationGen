@@ -57,7 +57,7 @@ export default function AnimationFunction() {
               key="animation-function-motion"
               initial={{ opacity: 0, y: "calc(-100%)" }}
               animate={{ opacity: 1, y: "calc(-110%)" }}
-              exit={{ opacity: 0, y: "calc(-80%)" }}
+              exit={{ opacity: 0, y: "calc(-110%)", scale: 0 }}
               className="animation-functions-container"
             >
               {aFunctions.map((aFn) => (

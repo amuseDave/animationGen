@@ -1,6 +1,6 @@
-import { Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
+import trashSvg from "../../../../../assets/svgs/trashSvg.svg";
 import { customActions } from "../../../../../store/customSlicer";
 
 let deleteErrorNotification;
@@ -27,8 +27,14 @@ export default function KeyFrameTrash() {
   }
 
   return (
-    <div className="preview-controller-box-item" onClick={handleDeleteKeyFrame}>
-      <Trash2 size={22} className="text-red-900/60" />
+    <div
+      className="preview-controller-box-item group"
+      onClick={handleDeleteKeyFrame}
+    >
+      <img
+        src={trashSvg}
+        className="transition-all group-hover:brightness-150"
+      />
     </div>
   );
 }
