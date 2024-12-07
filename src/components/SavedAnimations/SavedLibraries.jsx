@@ -15,19 +15,19 @@ export default function SavedLibraries() {
       <div className="mt-6 libraries-container">
         <motion.div
           layout
-          className={`mt-8 ${type === "custom" && "mt-0 order-first"}`}
+          className={`${type === "custom" ? "mt-0 order-first" : "mt-8"}`}
         >
           <Custom svg={LibrarySVG} svg2={ChevronDown} />
         </motion.div>
         <motion.div
           layout
-          className={`mt-8 ${type === "featured" && "mt-0 order-first"}`}
+          className={`${type === "featured" ? "mt-0 order-first" : "mt-8"}`}
         >
           <Featured svg={LibrarySVG} svg2={ChevronDown} />
         </motion.div>
         <motion.div
           layout
-          className={`mt-8 ${type === "micro" && "mt-0 order-first"}`}
+          className={`${type === "micro" ? "mt-0 order-first" : "mt-8"}`}
         >
           <Micro svg={LibrarySVG} svg2={ChevronDown} />
         </motion.div>
