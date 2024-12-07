@@ -30,7 +30,7 @@ export default function KeyFrames() {
   return (
     <>
       <div className="w-full bg-[#080A0A] h-[50%] mt-[1px] z-[9999]">
-        <div ref={containerRef} className="w-[98%] mx-auto h-full relative">
+        <div ref={containerRef} className="w-[full] mx-auto h-full relative">
           {keyFramesPers.map((_, index) => {
             return (
               <Fragment key={index}>

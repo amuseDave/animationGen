@@ -20,9 +20,8 @@ export default function AnimationFunction() {
 
   return (
     <div className="flex items-center gap-1">
-      <p className="text-white">Animation Function</p>
       <select
-        className="text-white border rounded-md bg-slate-800 border-zinc-950"
+        className="w-[110px] preview-controller-box-item"
         value={animationFunction}
         onChange={handleAnimationFunction}
       >

@@ -12,18 +12,24 @@ import KeyFrameTrash from "./KeyFrames/KeyFrameTrash.jsx";
 export default function NDD() {
   return (
     <div className="preview-controller-customNDD-container">
-      <div className="flex items-center">
-        <AnimationFunction />
-        <KeyFrameTrash />
-        <KeyFramePlus />
+      <div className="flex items-center justify-center">
+        <div className="relative flex items-center">
+          <div className="absolute left-0 flex items-center -translate-x-full gap-x-[2px]">
+            <AnimationFunction />
+            <KeyFrameTrash />
+            <KeyFramePlus />
+          </div>
 
-        <div className="h-5 mx-[6px] bg-[#222928] rounded-md w-[3px]"></div>
-        <ChangeKeyFrame svg={prevSvg} type="prev" className="mr-[1px]" />
-        <HandleAnimation />
-        <ChangeKeyFrame svg={nextSvg} type="next" className="ml-[1px]" />
-        <div className="h-5 mx-[6px] bg-[#222928] rounded-md w-[3px]"></div>
+          <div className="h-5 mx-[6px] bg-[#222928] rounded-md w-[3px]"></div>
+          <ChangeKeyFrame svg={prevSvg} type="prev" className="mr-[1px]" />
+          <HandleAnimation />
+          <ChangeKeyFrame svg={nextSvg} type="next" className="ml-[1px]" />
+          <div className="h-5 mx-[6px] bg-[#222928] rounded-md w-[3px]"></div>
 
-        <Duration />
+          <div className="absolute right-0 translate-x-full">
+            <Duration />
+          </div>
+        </div>
 
         <Reset />
       </div>
