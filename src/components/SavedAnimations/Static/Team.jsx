@@ -71,7 +71,7 @@ export default function Team() {
           >
             <img
               src={coverImg}
-              className="absolute top-0 left-0 object-cover w-full h-24"
+              className="absolute top-0 left-0 object-cover w-full h-[92px]"
               alt=""
             />
             <img
