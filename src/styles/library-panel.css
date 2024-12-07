@@ -91,7 +91,7 @@
   }
 
   .library-animation-delete {
-    @apply ml-auto opacity-0 group-hover:opacity-100;
+    @apply ml-auto opacity-0 group-hover:opacity-100 hover:brightness-150 transition-all;
   }
 
   .library-animation-input {
