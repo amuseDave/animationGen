@@ -47,7 +47,7 @@ export default function AnimationFunction() {
         onClick={() => {
           setIsOpen(true);
         }}
-        className="preview-controller-box-item w-[118px] relative"
+        className="preview-controller-box-item w-[142px] relative"
       >
         {wordMaker(animationFunction)}
 
