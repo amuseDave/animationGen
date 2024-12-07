@@ -1,11 +1,9 @@
-import { ChevronDown } from "lucide-react";
-
-export default function Featured({ svg }) {
+export default function Featured({ svg, svg2 }) {
   return (
     <>
       <div className="flex gap-2 text-main-t-gray">
         <img src={svg} /> <h1>Featured library</h1>{" "}
-        <ChevronDown size={22} className="ml-auto" />
+        <img src={svg2} className="ml-auto" />
       </div>
     </>
   );

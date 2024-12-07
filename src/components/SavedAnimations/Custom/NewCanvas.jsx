@@ -1,7 +1,7 @@
 import { animationActions } from "../../../store/animationsSlicer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Plus } from "lucide-react";
+import addCircle from "../../../assets/svgs/add-circle.svg";
 
 export default function NewCanvas() {
   const navigate = useNavigate();
@@ -18,12 +18,10 @@ export default function NewCanvas() {
   }
 
   return (
-    <div className={`add-canvas-container`}>
+    <div onClick={handleNewCanvas} className="add-canvas-container">
       <p>New Canvas</p>
 
-      <div onClick={handleNewCanvas} className={`add-canvas-plus`}>
-        <Plus size={14} />
-      </div>
+      <img src={addCircle} />
     </div>
   );
 }

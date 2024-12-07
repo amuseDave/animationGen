@@ -1,11 +1,12 @@
-import { ChevronDown, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
+import trashSvg from "../../../assets/svgs/trashSvg.svg";
 import { useDispatch, useSelector } from "react-redux";
 
 import { animationActions } from "../../../store/animationsSlicer";
 import { useNavigate } from "react-router-dom";
 import AnimationName from "./AnimationName";
 
-export default function Custom({ svg }) {
+export default function Custom({ svg, svg2 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,8 +32,8 @@ export default function Custom({ svg }) {
   return (
     <>
       <div className="library-title-container">
-        <img src={svg} /> <h1>Custom library</h1>{" "}
-        <ChevronDown size={22} className="library-title-container-icon" />
+        <img src={svg} /> <h1>Custom library</h1>
+        <img src={svg2} className="ml-auto" />
       </div>
 
       <div>
@@ -54,7 +55,7 @@ export default function Custom({ svg }) {
               }}
               key={animation.id}
               className={`library-animation-container ${styles} ${
-                index === 0 && "mt-3"
+                index === 0 && "mt-[22px]"
               } group`}
             >
               <div>
@@ -69,17 +70,14 @@ export default function Custom({ svg }) {
 
               <AnimationName
                 isShared={isShared}
-                className={`library-animation-title ${
-                  same && "library-animation-title-active"
-                }`}
                 animationName={animation.name}
               />
 
-              <Trash2
+              <img
                 onClick={(e) => {
                   handleDelete(e, index);
                 }}
-                size={22}
+                src={trashSvg}
                 className="library-animation-delete"
               />
             </div>

@@ -4,7 +4,7 @@
 
 @layer components {
   .library-total-panel-container {
-    @apply relative  grid grid-rows-[1fr_80px] gap-3;
+    @apply relative grid grid-rows-[1fr_80px] gap-3;
   }
 
   .library-panel-container {
@@ -15,7 +15,7 @@
   /*LOGO CONTAINER TOP START*/
   /*************************/
   .logo-container {
-    @apply flex items-center gap-2;
+    @apply flex items-center gap-3;
   }
 
   .logo-container-img {
@@ -23,14 +23,14 @@
   }
 
   .logo-container-title {
-    @apply text-2xl font-semibold text-alert-t-success;
+    @apply text-2xl font-bold text-[#46AE8F];
   }
 
   .logo-container-loader {
-    @apply w-5 h-5 ml-auto border-2 rounded-full border-green-400/60 animate-spin border-t-transparent;
+    @apply w-5 h-5 ml-auto border-2 rounded-full border-[#46AE8F] animate-spin border-t-transparent;
   }
   .logo-container-cloud {
-    @apply ml-auto justify-self-end text-alert-t-success;
+    @apply ml-auto justify-self-end;
   }
   /*************************/
   /*LOGO CONTAINER TOP END*/
@@ -40,11 +40,7 @@
   /*Add Canvas START*/
   /*************************/
   .add-canvas-container {
-    @apply flex items-center px-4 py-2 transition-colors rounded-lg mt-7 bg-green-300/5 text-alert-t-success hover:bg-green-300/10;
-  }
-
-  .add-canvas-plus {
-    @apply p-1 ml-auto transition-colors translate-x-2 rounded-full bg-green-300/40 hover:bg-green-400/50 text-orange-50;
+    @apply flex items-center py-[10px] pl-[16px] pr-2 transition-colors rounded-lg mt-8  justify-between duration-200 text-[#B7FFE8] bg-[rgba(77,255,199,0.02)] hover:bg-[rgba(77,255,199,0.04)] active:bg-[rgba(77,255,199,0.06)];
   }
 
   /*************************/
@@ -58,63 +54,44 @@
     @apply flex flex-col font-medium;
   }
 
-  .library-margin {
-    @apply mt-8;
-  }
-
-  .library-active {
-    @apply order-first mt-4;
-  }
-
   .library-title-container {
     @apply flex items-center gap-2 text-main-t-gray;
   }
 
-  .library-title-container-icon {
-    @apply ml-auto;
-  }
-
   .library-dot {
-    @apply w-[6px] h-[6px] rounded-full bg-green-200;
+    @apply w-[7px] h-[7px] rounded-full bg-[#4E7167] group-hover:bg-[#618F82];
   }
 
   .library-dot-active {
-    @apply bg-orange-500;
+    @apply bg-[#E2C800] group-hover:bg-[#E2C800];
   }
 
   .library-dot-shared {
-    @apply bg-red-500;
+    @apply bg-red-400 group-hover:bg-red-500;
   }
 
   .library-dot-shared-active {
-    @apply bg-red-800;
+    @apply bg-red-500 group-hover:bg-red-500;
   }
 
   .library-animation-container {
-    @apply relative flex items-center gap-3 px-2 py-1 transition-colors rounded-md hover:bg-green-800/10;
+    @apply relative flex items-center gap-4 mt-3 transition-colors rounded-md  hover:text-[#618F82] text-[#4E7167];
   }
 
   .library-animation-container-active {
-    @apply hover:bg-orange-400/10;
+    @apply text-[#F5F3E1] hover:text-[#F5F3E1];
   }
 
   .library-animation-container-shared {
-    @apply hover:bg-red-600/10;
+    @apply text-red-300/30 hover:text-red-300/40;
   }
+
   .library-animation-container-shared-active {
-    @apply hover:bg-red-800/10;
-  }
-
-  .library-animation-title {
-    @apply text-main-t-gray;
-  }
-
-  .library-animation-title-active {
-    @apply text-main-t-gray-active;
+    @apply text-red-300/50 hover:text-red-300/50;
   }
 
   .library-animation-delete {
-    @apply ml-auto transition-all duration-300 opacity-0 text-red-600/20 hover:text-red-600/40 group-hover:opacity-100;
+    @apply ml-auto opacity-0 group-hover:opacity-100;
   }
 
   .library-animation-input {
