@@ -1,11 +1,22 @@
 import daveImg from "../../../assets/dave-icon.jpg";
+import googleSvg from "../../../assets/svgs/google.svg";
 import coverImg from "../../../assets/cover.jpg";
+
+import instagramSvg from "../../../assets/svgs/instagram.svg";
+import linkedingSvg from "../../../assets/svgs/linkedin.svg";
+import googleGraySvg from "../../../assets/svgs/googlegray.svg";
+import githubSvg from "../../../assets/svgs/github.svg";
+import twitterSvg from "../../../assets/svgs/twitter.svg";
+import youtubeSvg from "../../../assets/svgs/youtube.svg";
+
 import { ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import TEAM from "../../../utils/data";
 
 export default function Team() {
   const [isOpen, setIsOpen] = useState(false);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     function handleClick(e) {
@@ -56,7 +67,7 @@ export default function Team() {
             id="feature-box"
             animate={{ opacity: [0, 1] }}
             exit={{ opacity: 0 }}
-            className="pt-12 px-6 rounded-2xl border border-main-t-gray-active h-[400px] w-[500px] bg-saved-bg absolute bottom-[88px] left-0 overflow-hidden z-[1000]"
+            className="p-6 rounded-2xl border border-main-t-gray-active w-[528px] bg-saved-bg absolute bottom-[88px] left-0 overflow-hidden z-[1000] text-[#B8CCC7]"
           >
             <img
               src={coverImg}
@@ -64,16 +75,39 @@ export default function Team() {
               alt=""
             />
             <img
-              src={daveImg}
-              className="object-cover w-24 h-24 -translate-x-3 border rounded-full border-saved-bg"
+              src={TEAM[index].img}
+              className="object-cover w-[88px] relative z-10 h-[88px] border rounded-full border-saved-bg mt-6"
               alt=""
             />
-            <p className="mt-4 text-xl text-main-t-gray-active">AmuseDave</p>
-            <p className="text-sm text-main-t-gray">amusedave@gmail.com</p>
 
-            <div className="flex pb-2 mt-2 border-b-2 border-zinc-800">
+            {/* GOOGLE AND NAME WITH EMAIl START */}
+            <div className="flex justify-between mt-3">
+              <div>
+                <p className="text-lg text-main-t-gray-active">
+                  {TEAM[index].name}
+                </p>
+                <p className="text-sm text-main-t-gray">{TEAM[index].email}</p>
+              </div>
+
+              <div className="flex items-center gap-x-[5px] -translate-y-full mt-2">
+                <img src={googleSvg} className="w-6 h-6" />
+                <div className="text-nowrap">
+                  <p className="text-[14px]" style={{ lineHeight: 1 }}>
+                    Google <br />
+                    <span className="text-[12px] text-[#5C6663]">
+                      {TEAM[index].google}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            {/* GOOGLE AND NAME WITH EMAIl END */}
+
+            <div className="flex pb-4 mt-4 border-b border-[#262928] gap-x-4">
               Social media icons
             </div>
+
+            <p className="mt-2 text-sm text-main-t-gray">Bio</p>
           </motion.div>
         )}
       </AnimatePresence>
