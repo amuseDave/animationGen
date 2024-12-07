@@ -10,15 +10,9 @@
   /***************/
   /*SHARE/SAVE BTN START*/
   /***************/
-  .save-btn {
-    @apply absolute top-0 text-green-500 right-20;
-  }
-  .share-btn {
-    @apply absolute top-0 text-green-500 right-10;
-  }
 
   .share-container {
-    @apply absolute z-30 p-2 pr-8 text-white rounded-md shadow-lg -top-10 right-4 w-80 bg-green-600/10;
+    @apply absolute z-30 p-2 pr-8 text-white rounded-md shadow-lg -top-10 right-4 w-80 bg-[#191C1B];
   }
 
   .share-x {
@@ -32,8 +26,8 @@
   /*SHARE/SAVE BTN END*/
   /***************/
 
-  .preview-controller-copy {
-    @apply absolute top-0 right-0 text-main-t-active;
+  .preview-controller-copy-share {
+    @apply absolute text-main-t-active h-[46%] items-center mr-2 flex gap-1;
   }
   .preview-dd-playback {
     @apply absolute flex w-[90%] gap-2 px-3 py-1 border-2 rounded-md shadow-lg bg-teal-400/10 border-zinc-800 z-20;
@@ -44,7 +38,7 @@
   }
 
   .preview-controller-box-item {
-    @apply px-2 flex items-center bg-[#191C1B] rounded-lg h-[30px];
+    @apply px-2 flex items-center bg-[#191C1B] rounded-lg h-[30px] hover:bg-[#262b29] transition-all duration-200;
   }
 
   .preview-controller-value-input {

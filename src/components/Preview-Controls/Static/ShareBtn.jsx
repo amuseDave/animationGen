@@ -43,24 +43,24 @@ export default function ShareBtn() {
 
   return (
     <>
-      <Share2
-        id="share"
-        onClick={handleSharing}
-        size={32}
-        className="share-btn"
-      />
+      <Share2 id="share" onClick={handleSharing} size={24} strokeWidth={1.3} />
 
       <AnimatePresence>
         {isSharedOpen && (
           <motion.div
             id="container"
-            exit={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: -10 }}
+            exit={{ opacity: 0, y: 10 }}
             className="share-container"
           >
             {" "}
-            <X size={24} onClick={handleSharedClose} className="share-x" />
+            <X
+              size={24}
+              strokeWidth={1}
+              onClick={handleSharedClose}
+              className="share-x"
+            />
             <div className="relative">
               {/* Close Button */}
               {/* Scrolling Content */}

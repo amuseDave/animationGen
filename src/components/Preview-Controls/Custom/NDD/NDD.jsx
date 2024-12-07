@@ -26,12 +26,11 @@ export default function NDD() {
           <ChangeKeyFrame svg={nextSvg} type="next" className="ml-[1px]" />
           <div className="h-5 mx-[6px] bg-[#222928] rounded-md w-[3px]"></div>
 
-          <div className="absolute right-0 translate-x-full">
+          <div className="absolute right-0 flex items-center translate-x-full gap-x-[2px]">
             <Duration />
+            <Reset />
           </div>
         </div>
-
-        <Reset />
       </div>
 
       <KeyFrames />

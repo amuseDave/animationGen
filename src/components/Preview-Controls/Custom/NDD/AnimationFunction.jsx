@@ -2,7 +2,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { customActions } from "../../../../store/customSlicer";
 import { AnimatePresence, motion } from "framer-motion";
+
 import { wordMaker } from "../../../../utils/helper";
+import { Activity } from "lucide-react";
 
 export default function AnimationFunction() {
   const dispatch = useDispatch();
@@ -21,8 +23,6 @@ export default function AnimationFunction() {
     );
   }
 
-  const aFunctions = ["ease", "ease-in", "ease-out", "ease-in-out", "linear"];
-
   useEffect(() => {
     if (!isOpen) return;
 
@@ -38,6 +38,8 @@ export default function AnimationFunction() {
     };
   }, [isOpen]);
 
+  const aFunctions = ["ease", "ease-in", "ease-out", "ease-in-out", "linear"];
+
   return (
     <>
       <div
@@ -45,33 +47,37 @@ export default function AnimationFunction() {
         onClick={() => {
           setIsOpen(true);
         }}
-        className="preview-controller-box-item w-[110px] relative"
+        className="preview-controller-box-item w-[118px] relative"
       >
         {wordMaker(animationFunction)}
 
         <AnimatePresence>
           {isOpen && (
             <motion.div
+              key="animation-function-motion"
               initial={{ opacity: 0, y: "calc(-100%)" }}
               animate={{ opacity: 1, y: "calc(-110%)" }}
               exit={{ opacity: 0, y: "calc(-80%)" }}
               className="animation-functions-container"
             >
-              {aFunctions.map((aFn) => {
-                return (
-                  <p
-                    className={`px-1 py-[1px] rounded-md transition-all ${
-                      aFn === animationFunction && "bg-[#E1FF9A] text-black"
-                    }`}
-                    onClick={() => handleAnimationFunction(aFn)}
-                    key={aFn}
-                  >
-                    {wordMaker(aFn)}
-                  </p>
-                );
-              })}
+              {aFunctions.map((aFn) => (
+                <p
+                  key={aFn}
+                  className={`px-1 py-[1px] rounded-md transition-all ${
+                    aFn === animationFunction && "bg-[#E1FF9A] text-black"
+                  }`}
+                  onClick={() => handleAnimationFunction(aFn)}
+                >
+                  {wordMaker(aFn)}
+                </p>
+              ))}
             </motion.div>
           )}
+          <Activity
+            onClick={() => setIsOpen(true)}
+            size={18}
+            className="text-[#E1FF9A] ml-auto absolute right-1"
+          />
         </AnimatePresence>
       </div>
     </>

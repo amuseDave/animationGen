@@ -18,10 +18,16 @@ export default function Layout() {
         {type === "micro" && <h2>Micro animations</h2>}
 
         {/* TOP RIGHT OF PREVIEW CONTROLER COPY & SHARE */}
-        <div className="preview-controller-copy">
-          <Copy size={32} onClick={handleModal} />
+
+        <div className="top-0 right-0 preview-controller-copy-share">
+          <div className="relative preview-controller-box-item">
+            <Copy size={24} strokeWidth={1.3} onClick={handleModal} />
+          </div>
+          <div className="relative preview-controller-box-item">
+            <ShareBtn />
+          </div>
         </div>
-        <ShareBtn />
+
         {/* TOP RIGHT OF PREVIEW CONTROLER COPY & SHARE */}
       </>
     )

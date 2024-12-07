@@ -9,10 +9,8 @@ export default function Reset() {
   }
 
   return (
-    <Power
-      onClick={handleReset}
-      size={32}
-      className="absolute text-center text-green-200 right-28"
-    />
+    <div className="preview-controller-box-item">
+      <Power onClick={handleReset} size={24} strokeWidth={1.3} />
+    </div>
   );
 }
