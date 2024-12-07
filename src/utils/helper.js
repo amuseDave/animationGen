@@ -295,3 +295,10 @@ export function hexToRgba(hex, opacity) {
 
   return `rgba(${r}, ${g}, ${b}, ${opacity / 100})`;
 }
+
+export function wordMaker(word) {
+  word = word.replaceAll("-", " ");
+  word = word.split(" ");
+  word = word.map((w) => w[0].toUpperCase() + w.slice(1));
+  return word.join(" ");
+}

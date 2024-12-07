@@ -1,5 +1,5 @@
-import { CloudDownload } from "lucide-react";
 import { useSelector } from "react-redux";
+import LibrarySVG from "../../../assets/svgs/save.svg";
 
 export default function Loading() {
   const animationsAlert = useSelector(
@@ -9,6 +9,6 @@ export default function Loading() {
   return animationsAlert ? (
     <div className="logo-container-loader"></div>
   ) : (
-    <CloudDownload className="logo-container-cloud" />
+    <img src={LibrarySVG} className="logo-container-cloud" />
   );
 }

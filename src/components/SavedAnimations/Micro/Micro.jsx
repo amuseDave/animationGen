@@ -1,10 +1,10 @@
-import { Book, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
-export default function Micro() {
+export default function Micro({ svg }) {
   return (
     <>
       <div className="flex gap-2 text-main-t-gray">
-        <Book size={22} /> <h1>Micro library</h1>{" "}
+        <img src={svg} /> <h1>Micro library</h1>
         <ChevronDown size={22} className="ml-auto" />
       </div>
     </>

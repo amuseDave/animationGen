@@ -1,11 +1,11 @@
-import { Book, ChevronDown, Trash2 } from "lucide-react";
+import { ChevronDown, Trash2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { animationActions } from "../../../store/animationsSlicer";
 import { useNavigate } from "react-router-dom";
 import AnimationName from "./AnimationName";
 
-export default function Custom() {
+export default function Custom({ svg }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ export default function Custom() {
   return (
     <>
       <div className="library-title-container">
-        <Book size={22} /> <h1>Custom library</h1>{" "}
+        <img src={svg} /> <h1>Custom library</h1>{" "}
         <ChevronDown size={22} className="library-title-container-icon" />
       </div>
 

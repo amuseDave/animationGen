@@ -68,4 +68,8 @@
   .keyframe-diamond {
     @apply absolute bg-[#222928] w-[9px] h-[9px] rotate-45 rounded-sm;
   }
+
+  .animation-functions-container {
+    @apply absolute flex flex-col gap-y-1 top-0 left-0 w-full p-1 px-2 rounded-md bg-[#191C1B];
+  }
 }

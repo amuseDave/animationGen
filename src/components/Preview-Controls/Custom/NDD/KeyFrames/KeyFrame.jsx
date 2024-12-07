@@ -50,8 +50,6 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
     // Calculate position in pixels
     const calculatedLeft = (curKf / 100) * containerWidth;
 
-    console.log(calculatedLeft);
-
     // Clamp position to stay within bounds
     const clampedLeft = Math.min(
       containerWidth - keyframeWidth, // Maximum left value to stay inside

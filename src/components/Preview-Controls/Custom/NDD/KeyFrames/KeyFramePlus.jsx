@@ -105,7 +105,7 @@ export default function KeyFramePlus() {
       id="adding"
       onClick={handleActive}
     >
-      <button className="text-3xl font-bold text-green-500 cursor-none">
+      <button className="text-3xl font-bold text-green-500/50 cursor-none">
         +
       </button>
 
