@@ -2,7 +2,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, Flip } from "react-toastify";
 import notificationG from "../../../assets/svgs/notificationGreen.svg";
 import notificationR from "../../../assets/svgs/notificationRed.svg";
-import { X, Bell } from "lucide-react";
+import { X } from "lucide-react";
 
 function closeBtn({ closeToast, type }) {
   return (
@@ -15,17 +15,6 @@ function closeBtn({ closeToast, type }) {
 }
 
 export default function ToastProvider() {
-  function renderIcon({ type }) {
-    return (
-      <Bell
-        size={24}
-        className={`text-alert-t-success${
-          type === "error" && "text-alert-t-error"
-        }`}
-      />
-    );
-  }
-
   return (
     <ToastContainer
       position="bottom-left"
