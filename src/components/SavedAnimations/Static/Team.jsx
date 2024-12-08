@@ -103,11 +103,44 @@ export default function Team() {
             </div>
             {/* GOOGLE AND NAME WITH EMAIl END */}
 
+            {/* SOCIAL MEDIA ICONS START */}
             <div className="flex pb-4 mt-4 border-b border-[#262928] gap-x-4">
-              Social media icons
+              <img src={twitterSvg} />
+              <img src={instagramSvg} />
+              <img src={googleGraySvg} />
+              <img src={linkedingSvg} />
+              <img src={youtubeSvg} />
+              <img src={githubSvg} />
             </div>
+            {/* SOCIAL MEDIA ICONS END */}
 
-            <p className="mt-2 text-sm text-main-t-gray">Bio</p>
+            <p className="mt-4 text-sm text-main-t-gray">Bio</p>
+            <p className="mt-1 text-sm text-[#D4E6E1] inter">
+              Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa
+              mi..
+            </p>
+
+            <p className="mt-6 text-sm text-main-t-gray">Role</p>
+
+            {/* ROLES START */}
+            <div className="flex mt-2 gap-x-4">
+              {TEAM[index].roles.map((role) => (
+                <div
+                  style={{
+                    backgroundColor: role.bgColor,
+                    textColor: role.textColor,
+                  }}
+                  key={index}
+                  className={`rounded-md py-[5px] pl-2 pr-[10px] flex gap-x-2`}
+                >
+                  <img src={role.svg} />
+                  <p className={`dm-sans font-medium text-[14px]`}>
+                    {role.role}
+                  </p>
+                </div>
+              ))}
+            </div>
+            {/* ROLES END */}
           </motion.div>
         )}
       </AnimatePresence>

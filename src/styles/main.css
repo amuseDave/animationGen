@@ -19,6 +19,12 @@
 body {
   font-family: "Nunito", sans-serif;
 }
+.dm-sans {
+  font-family: "DM Sans", sans-serif;
+}
+.inter {
+  font-family: "Inter", sans-serif;
+}
 
 ::selection {
   background-color: #e1ff9a; /* Highlight background color */

@@ -34,11 +34,11 @@
   }
 
   .alert-success {
-    @apply bg-alert-bg-success text-alert-t-success;
+    @apply bg-[#00140F] text-[#00E2A6];
   }
 
   .alert-x {
-    @apply active:scale-[1.4] hover:scale-[1.2] ml-4 transition-all text-alert-t-success;
+    @apply active:scale-[1.4] hover:scale-[1.2] ml-4 transition-all text-[#00E2A6];
   }
 
   .alert-play-pos {

@@ -1,5 +1,7 @@
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, Flip } from "react-toastify";
+import notificationG from "../../../assets/svgs/notificationGreen.svg";
+import notificationR from "../../../assets/svgs/notificationRed.svg";
 import { X, Bell } from "lucide-react";
 
 function closeBtn({ closeToast, type }) {
@@ -39,15 +41,15 @@ export default function ToastProvider() {
         "alert " +
         (type === "success"
           ? "alert-success"
-          : type === "error"
-          ? "alert-error"
-          : type === "info"
-          ? "bg-blue-500 text-white"
-          : type === "warning"
-          ? "bg-yellow-500 text-black"
-          : "")
+          : type === "error" && "alert-error")
       }
-      icon={renderIcon}
+      icon={({ type }) =>
+        type === "success" ? (
+          <img src={notificationG} />
+        ) : (
+          type === "error" && <img src={notificationR} />
+        )
+      }
       closeButton={closeBtn}
       style={{ position: "absolute", zIndex: 10, bottom: 88 }}
       transition={Flip}
