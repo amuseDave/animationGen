@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/main.css";
+import "./styles/modal-panel.css";
 import "./styles/variables.css";
 import "./styles/positions.css";
 import "./styles/library-panel.css";

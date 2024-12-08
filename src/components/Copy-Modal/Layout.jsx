@@ -20,7 +20,7 @@ export default function Layout() {
           <motion.div
             animate={{ opacity: [0, 1] }}
             exit={{ opacity: 0, transition: { delay: 0.2 } }}
-            className="fixed top-0 right-0 z-50 flex items-center justify-center h-dvh w-dvw bg-slate-900/40 backdrop-blur-sm"
+            className="modal-overlay"
           >
             <motion.div
               animate={{
