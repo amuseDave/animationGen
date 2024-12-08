@@ -226,7 +226,7 @@ const animationsSlicer = createSlice({
       state.custom.animationNames[state.custom.curIndex].isShared = false;
 
       setCustomLocalStorage(state.custom);
-      toast.success("Shared animations has been saved!");
+      toast.success("Shared animation has been saved!");
     },
   },
 });

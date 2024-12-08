@@ -156,7 +156,7 @@ const customSlicer = createSlice({
           setTimeout(() => {
             deletedN = false;
           }, 1000);
-          toast.success("Key frame has been deleted!");
+          toast.success("Keyframe has been deleted!");
           ///
           break;
         }

@@ -87,11 +87,11 @@
   }
 
   .library-animation-container-shared-active {
-    @apply text-red-300/50 hover:text-red-300/50;
+    @apply text-red-100 hover:text-red-100;
   }
 
   .library-animation-delete {
-    @apply ml-auto opacity-0 group-hover:opacity-100 hover:brightness-150 transition-all;
+    @apply ml-auto transition-all opacity-0 group-hover:opacity-100 hover:brightness-150;
   }
 
   .library-animation-input {
