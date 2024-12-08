@@ -47,7 +47,7 @@ export default function Team() {
           alt=""
         />
         <img
-          src={daveImg}
+          src={TEAM[1].img}
           className="object-cover -translate-x-3 border rounded-full w-7 h-7 border-saved-bg"
           alt=""
         />
@@ -82,9 +82,9 @@ export default function Team() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={index} // Unique key to trigger re-render and animation
-                initial={{ x: index === 0 ? -100 : 100, opacity: 0 }}
+                initial={{ x: index === 0 ? 100 : -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                exit={{ x: index === 0 ? 100 : -100, opacity: 0 }}
+                exit={{ x: index === 0 ? -100 : 100, opacity: 0 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
               >
                 <img
