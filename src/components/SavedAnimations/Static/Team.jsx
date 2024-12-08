@@ -82,10 +82,10 @@ export default function Team() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={index} // Unique key to trigger re-render and animation
-                initial={{ x: index === 0 ? 100 : -100, opacity: 0 }}
+                initial={{ x: index === 0 ? -100 : 100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                exit={{ x: index === 0 ? -100 : 100, opacity: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                exit={{ x: index === 0 ? 100 : -100, opacity: 0 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
               >
                 <img
                   src={TEAM[index].img}
@@ -176,6 +176,7 @@ export default function Team() {
                     style={{
                       order: index === 1 && "-1",
                       marginLeft: index === 0 && "auto",
+                      rotate: index === 1 && "180deg",
                     }}
                   />
                 </div>
