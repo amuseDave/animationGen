@@ -10,6 +10,8 @@ const TEAM = [
     name: "Dovydas Salkevicius",
     email: "amuseddavid@gmail.com",
     google: "Front-End Developer",
+    nickname: "amuseDave",
+    miniRole: "Developed & Concept",
     roles: [
       {
         role: "Concept",
@@ -28,10 +30,11 @@ const TEAM = [
   },
   {
     img: ShaheerFull,
+    nickname: "Shaheer",
     google: "UI UX Designer",
     name: "Shaheer Inayat Ali",
     email: "shaheer_eminent@hotmail.com",
-    role: [
+    roles: [
       {
         role: "UI UX Design",
         textColor: "#FFFCE5",
