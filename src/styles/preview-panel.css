@@ -42,7 +42,7 @@
   }
 
   .alert-play-pos {
-    @apply absolute z-20 right-4 top-5;
+    @apply absolute z-20 right-20 top-5;
   }
   .alert-play-container {
     @apply flex items-center gap-2 text-main-t-gray-active;

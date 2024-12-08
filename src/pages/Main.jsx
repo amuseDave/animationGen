@@ -52,12 +52,12 @@ export default function MainLayout() {
         <div className="middle-container">
           <Navigation />
           <div className="preview-container">
-            <PlayingAnimationAlert />
             <PreviewLayout />
           </div>
           <div className="preview-controls-container">
             <PreviewControls />
           </div>
+          <PlayingAnimationAlert />
           <ToastProvider /> <ZoomControls />
         </div>
         <MainController />
