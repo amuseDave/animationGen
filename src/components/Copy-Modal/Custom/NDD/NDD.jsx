@@ -7,6 +7,11 @@ export default function NDD() {
   const { duration, keyFrames, animationFunction } = useSelector(
     (state) => state.custom
   );
+  const animationName = useSelector(
+    (state) =>
+      state.animations.custom.animationNames[state.animations.custom.curIndex]
+  );
+
   const [tab, setTab] = useState("html");
 
   function handleTab(tab) {
@@ -19,8 +24,9 @@ export default function NDD() {
         <NHTML tab={tab} handleTab={handleTab} />
         <NCSS tab={tab} handleTab={handleTab} />
       </div>
-      <div className="relative px-4 mt-4 text-[#D4E6E1] flex gap-x-3">
-        <div className="text-right text-white/40 numbers">
+      <div className="modal-code-container">
+        {/* Numbers */}
+        <div className="w-10 pt-4 pr-1 text-right bg-black/20 text-white/50 numbers">
           <p>0</p>
           <p>1</p>
           <p>2</p>
@@ -47,7 +53,7 @@ export default function NDD() {
         </div>
 
         {tab === "html" && (
-          <div>
+          <div className="pt-4 modal-code">
             <p>{"<div class='parent-container'>"}</p>
             <p className="ml-3">{"<div class='animation-container'>"}</p>
             <p className="ml-6">{"<p>Your Content</p>"}</p>
