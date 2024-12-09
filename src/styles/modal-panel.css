@@ -6,7 +6,7 @@
     @apply fixed top-0 right-0 z-50 flex items-center justify-center h-dvh w-dvw backdrop-blur-sm;
   }
   .modal-container {
-    @apply bg-[rgba(16,20,19,0.99)] w-[83%] h-[83%] rounded-xl border border-[#1A1F1D] p-6 pt-2;
+    @apply bg-[rgba(16,20,19,0.99)] w-[83%] h-[83%] rounded-xl border border-[#1A1F1D] p-6 pt-2 overflow-y-scroll;
   }
 
   .modal-tab-container {
@@ -23,5 +23,9 @@
 
   .modal-code-container {
     @apply relative pr-4 mt-4 text-[#D4E6E1] flex gap-x-3 bg-black/10 rounded-xl overflow-hidden;
+  }
+
+  .modal-nums {
+    @apply w-10 h-full py-4 pr-1 text-right bg-black/20 text-white/50;
   }
 }

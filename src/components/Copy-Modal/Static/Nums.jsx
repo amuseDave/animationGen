@@ -1,6 +1,6 @@
 export default function Nums() {
   return (
-    <div className="w-10 pt-4 pr-1 text-right bg-black/20 text-white/50 numbers">
+    <div className="modal-nums">
       <p>0</p>
       <p>1</p>
       <p>2</p>

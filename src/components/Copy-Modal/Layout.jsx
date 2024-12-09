@@ -61,13 +61,16 @@ export default function Layout() {
                 <TabCSS tab={tab} handleTab={handleTab} />
               </div>
               <div className="modal-code-container">
-                <Nums />
+                {tab === "html" && (
+                  <>
+                    <Nums />
+                    <div className="mt-4">
+                      <HTML />
+                    </div>
+                  </>
+                )}
 
-                <div className="py-4 modal-code">
-                  {tab === "html" && <HTML />}
-
-                  {type === "custom" && tab === "css" && <CustomModal />}
-                </div>
+                {type === "custom" && tab === "css" && <CustomModal />}
               </div>
             </motion.div>
           </motion.div>
