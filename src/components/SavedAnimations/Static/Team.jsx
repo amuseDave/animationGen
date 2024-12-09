@@ -24,9 +24,9 @@ export default function Team() {
   useEffect(() => {
     function handleClick(e) {
       const box = e.target.closest("#feature-box");
-      const btn = e.target.closest("#feature-btn");
+      const team = e.target.closest("#feature-team-container");
 
-      if (box || btn) return;
+      if (box || team) return;
 
       setIsOpen(false);
     }
@@ -37,7 +37,15 @@ export default function Team() {
   }, []);
 
   return (
-    <div className="relative h-full px-4 py-2 bg-saved-bg rounded-2xl">
+    <div
+      id="feature-team-container"
+      className="relative h-full px-4 py-2 bg-saved-bg rounded-2xl"
+      onClick={(e) => {
+        const box = e.target.closest("#feature-box");
+        if (box) return;
+        setIsOpen(!isOpen);
+      }}
+    >
       <p className="text-main-t-gray">Team</p>
 
       <div className="flex mt-2">
@@ -55,10 +63,6 @@ export default function Team() {
       </div>
 
       <ChevronUp
-        id="feature-btn"
-        onClick={() => {
-          setIsOpen(!isOpen);
-        }}
         size={18}
         className={`transition-transform absolute rc right-4 text-main-t-gray ${
           isOpen && "rotate-180 text-main-t-active"
