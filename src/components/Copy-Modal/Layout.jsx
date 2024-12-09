@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { uiActions } from "../../store/uiSlicer";
+import CustomModal from "./Custom/Layout.jsx";
 import { X } from "lucide-react";
-import { useEffect } from "react";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -38,7 +38,9 @@ export default function Layout() {
               }}
               className="modal-container"
               exit={{ opacity: [1, 0], scale: [1, 0] }}
-            ></motion.div>
+            >
+              {type === "custom" && <CustomModal />}
+            </motion.div>
 
             <X
               size={32}
