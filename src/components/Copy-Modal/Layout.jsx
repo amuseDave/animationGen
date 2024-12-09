@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { uiActions } from "../../store/uiSlicer";
 import { X } from "lucide-react";
+import { useEffect } from "react";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -18,25 +19,31 @@ export default function Layout() {
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
+            onClick={(e) => {
+              const container = e.target.closest("#modal-container");
+              if (container) return;
+              dispatch(uiActions.handleModal(false));
+            }}
             animate={{ opacity: [0, 1] }}
-            exit={{ opacity: 0, transition: { delay: 0.2 } }}
+            exit={{ opacity: 0, transition: { delay: 0.1 } }}
             className="modal-overlay"
           >
             <motion.div
+              id="modal-container"
               animate={{
-                transition: { delay: 0.2 },
+                transition: { delay: 0.1 },
                 opacity: [0, 1],
-                x: [-480, 0],
-                scale: [3, 1],
+
+                scale: [0, 1],
               }}
-              className="bg-black w-[90%] h-[90%] "
-              exit={{ opacity: 0, x: -160 }}
+              className="modal-container"
+              exit={{ opacity: [1, 0], scale: [1, 0] }}
             ></motion.div>
 
             <X
               size={32}
               onClick={handleModal}
-              className="absolute text-white right-6 top-6"
+              className="absolute text-[#E1FF9A] right-6 top-6"
             />
           </motion.div>
         )}

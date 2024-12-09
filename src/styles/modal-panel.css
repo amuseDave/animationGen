@@ -3,6 +3,9 @@
 @tailwind utilities;
 @layer components {
   .modal-overlay {
-    @apply fixed top-0 right-0 z-50 flex items-center justify-center h-dvh w-dvw bg-[#49dd9f07] backdrop-blur-sm;
+    @apply fixed top-0 right-0 z-50 flex items-center justify-center h-dvh w-dvw backdrop-blur-sm;
+  }
+  .modal-container {
+    @apply bg-[#101413f5] w-[80%] h-[80%] rounded-3xl border border-[#1A1F1D];
   }
 }
