@@ -7,6 +7,7 @@ import { X } from "lucide-react";
 import Nums from "./Static/Nums.jsx";
 import TabHTML from "./Static/TabHTML.jsx";
 import TabCSS from "./Static/TabCSS.jsx";
+import HTML from "./Static/HTML.jsx";
 
 export default function Layout() {
   const [tab, setTab] = useState("html");
@@ -49,6 +50,12 @@ export default function Layout() {
               className="modal-container"
               exit={{ opacity: [1, 0], scale: [1, 0] }}
             >
+              <X
+                size={28}
+                onClick={handleModal}
+                className="ml-auto text-[#E1FF9A] translate-x-4"
+              />
+
               <div className="modal-tab-container">
                 <TabHTML tab={tab} handleTab={handleTab} />
                 <TabCSS tab={tab} handleTab={handleTab} />
@@ -56,29 +63,13 @@ export default function Layout() {
               <div className="modal-code-container">
                 <Nums />
 
-                <div className="pt-4 modal-code">
-                  {tab === "html" && (
-                    <>
-                      <p>{"<div class='parent-container'>"}</p>
-                      <p className="ml-3">
-                        {"<div class='animation-container'>"}
-                      </p>
-                      <p className="ml-6">{"<p>Your Content</p>"}</p>
-                      <p className="ml-3">{"</div>"}</p>
-                      <p>{"</div>"}</p>
-                    </>
-                  )}
+                <div className="py-4 modal-code">
+                  {tab === "html" && <HTML />}
 
                   {type === "custom" && tab === "css" && <CustomModal />}
                 </div>
               </div>
             </motion.div>
-
-            <X
-              size={32}
-              onClick={handleModal}
-              className="absolute text-[#E1FF9A] right-6 top-6"
-            />
           </motion.div>
         )}
       </AnimatePresence>

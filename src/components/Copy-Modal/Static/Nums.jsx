@@ -24,6 +24,9 @@ export default function Nums() {
       <p>20</p>
       <p>21</p>
       <p>22</p>
+      <p>23</p>
+      <p>24</p>
+      <p>25</p>
     </div>
   );
 }
