@@ -25,3 +25,10 @@
     @apply relative pr-4 mt-4 text-[#D4E6E1] flex gap-x-3 bg-black/10 rounded-xl overflow-hidden;
   }
 }
+
+.sss {
+  animation: name 0.2s ease delay 1 forwards fill-mode;
+}
+
+@keyframes Your-Animation {
+}
