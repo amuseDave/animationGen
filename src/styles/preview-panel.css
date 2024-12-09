@@ -59,9 +59,14 @@
   /***************/
   .zoom {
     @apply absolute z-30 flex flex-col rounded-lg;
-    background: linear-gradient(to bottom, #0a110f, #0e1f1a, #07110e);
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      #58e2b61a,
+      #58e2b61a,
+      transparent
+    );
     border: 1px solid #2e92763b;
-    color: var(--alert-t-success);
   }
   /***************/
   /*ZOOM END*/

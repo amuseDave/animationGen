@@ -16,11 +16,7 @@ export default function PreviewControls() {
           handleZoomChangeHandler("zoom-in");
         }}
       >
-        <CirclePlus
-          size={20}
-          strokeWidth={1}
-          className="text-alert-t-success"
-        />
+        <CirclePlus size={20} strokeWidth={1} className="text-[#58e2b6]" />
       </div>
 
       <div
@@ -29,7 +25,7 @@ export default function PreviewControls() {
           handleZoomChangeHandler("reset");
         }}
       >
-        <RotateCcw size={20} strokeWidth={1} className="text-alert-t-success" />
+        <RotateCcw size={20} strokeWidth={1} className="text-[#58e2b6]" />
       </div>
 
       <div
@@ -38,11 +34,7 @@ export default function PreviewControls() {
           handleZoomChangeHandler("zoom-out");
         }}
       >
-        <CircleMinus
-          size={20}
-          strokeWidth={1}
-          className="text-alert-t-success"
-        />
+        <CircleMinus size={20} strokeWidth={1} className="text-[#58e2b6]" />
       </div>
     </div>
   );

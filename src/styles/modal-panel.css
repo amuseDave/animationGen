@@ -6,6 +6,14 @@
     @apply fixed top-0 right-0 z-50 flex items-center justify-center h-dvh w-dvw backdrop-blur-sm;
   }
   .modal-container {
-    @apply bg-[#101413f5] w-[80%] h-[80%] rounded-3xl border border-[#1A1F1D] p-2;
+    @apply bg-[#101413f5] w-[80%] h-[80%] rounded-3xl border border-[#1A1F1D] p-6;
+  }
+
+  .modal-tab-container {
+    @apply flex items-center px-3 py-1 text-sm bg-[#3a3a3a23] rounded-lg gap-x-4;
+  }
+
+  .modal-tab {
+    @apply font-light flex items-center gap-x-1 py-1 px-2 bg-[#e1ff9a09] rounded-md text-white/50 transition-all duration-200;
   }
 }
