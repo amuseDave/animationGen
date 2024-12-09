@@ -1,4 +1,4 @@
-import img from "../assets/square.jpg";
+import img from "../assets/Logo.svg";
 
 const squareImg = new Image();
 squareImg.src = img;

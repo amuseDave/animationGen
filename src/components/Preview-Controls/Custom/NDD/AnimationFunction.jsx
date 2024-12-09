@@ -63,8 +63,9 @@ export default function AnimationFunction() {
               {aFunctions.map((aFn) => (
                 <p
                   key={aFn}
-                  className={`px-1 py-[1px] rounded-md transition-all ${
-                    aFn === animationFunction && "bg-[#E1FF9A] text-black"
+                  className={`px-1 py-[1px] rounded-md transition-all hover:bg-[#e1ff9a11] ${
+                    aFn === animationFunction &&
+                    "bg-[#E1FF9A] hover:bg-[#e1ff9a] text-black"
                   }`}
                   onClick={() => handleAnimationFunction(aFn)}
                 >
