@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { hexToRgba } from "../../../../utils/helper";
-import Nums from "../../Static/Nums";
 
 export default function NDD() {
   const { duration, keyFrames, animationFunction } = useSelector(
@@ -23,7 +22,7 @@ export default function NDD() {
         ))}
       </div>
 
-      <div className="mt-4">
+      <div className="mt-4 modal-css">
         <p>{".parent-container { "}</p>
         <p className="ml-3">{"overflow: hidden;"}</p>
         <p>{"}"}</p>

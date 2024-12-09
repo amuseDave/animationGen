@@ -64,7 +64,7 @@ export default function Layout() {
                 {tab === "html" && (
                   <>
                     <Nums />
-                    <div className="mt-4">
+                    <div className="mt-4 modal-html">
                       <HTML />
                     </div>
                   </>

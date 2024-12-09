@@ -28,4 +28,9 @@
   .modal-nums {
     @apply w-10 h-full py-4 pr-1 text-right bg-black/20 text-white/50;
   }
+
+  .modal-html p,
+  .modal-css p {
+    @apply select-text;
+  }
 }
