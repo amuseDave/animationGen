@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { customActions } from "../../../../../store/customSlicer";
+import kfAddSvg from "../../../../../assets/svgs/keyframeaddbtn.svg";
 import { toast } from "react-toastify";
 
 let invalidNotification;
@@ -105,9 +106,7 @@ export default function KeyFramePlus() {
       id="adding"
       onClick={handleActive}
     >
-      <button className="text-3xl font-bold text-green-500/50 cursor-none">
-        +
-      </button>
+      <img src={kfAddSvg} className="scale-[1.5] " />
 
       {isActive && (
         <>

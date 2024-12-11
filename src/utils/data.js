@@ -9,7 +9,7 @@ const TEAM = [
     img: DaveFull,
     name: "Dovydas Salkevicius",
     email: "amuseddavid@gmail.com",
-    google: "Front-End Developer",
+    google: "Founder & CEO",
     nickname: "amuseDave",
     miniRole: "Developed & Concept",
     roles: [
@@ -27,11 +27,15 @@ const TEAM = [
         bgColor: "#0D1A12",
       },
     ],
+    discord: "https://discord.gg/dgqgY2dNzd",
+    linkedin:
+      "https://www.linkedin.com/in/dovydas-%C5%A1alkevi%C4%8Dius-967a002b3/",
+    youtube: "https://www.youtube.com/@amuseDave",
   },
   {
     img: ShaheerFull,
     nickname: "Shaheer",
-    google: "UI UX Designer",
+    google: "Founder & CEO",
     name: "Shaheer Inayat Ali",
     email: "shaheer_eminent@hotmail.com",
     roles: [
@@ -42,6 +46,9 @@ const TEAM = [
         svg: UIUXSvg,
       },
     ],
+    discord: "https://discord.gg/NP6dHJFJEX",
+    linkedin: "https://www.linkedin.com/in/eminentishere/",
+    youtube: "https://www.youtube.com/@Shaheer_Eminent",
   },
 ];
 

@@ -66,4 +66,8 @@
   .animation-functions-container {
     @apply absolute flex flex-col gap-y-1 top-0 left-0 w-full p-1 px-2 rounded-md bg-[#191C1B];
   }
+
+  .preview-controller-share-copy-items {
+    @apply px-2 flex items-center hover:bg-[#191C1B] rounded-lg h-[30px] transition-all duration-200 hover:text-[#E1FF9A] text-[#556664];
+  }
 }

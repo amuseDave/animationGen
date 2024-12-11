@@ -102,3 +102,18 @@
   /*Libraries end*/
   /*************************/
 }
+
+.team-svgs svg {
+  fill: #262928;
+  transition: all 0.3s ease-in-out;
+}
+.team-svgs .discord svg:hover {
+  fill: #5865f2;
+}
+.team-svgs .linkedin svg:hover {
+  fill: #0077b5;
+}
+
+.team-svgs .youtube svg:hover {
+  fill: #cd201f;
+}

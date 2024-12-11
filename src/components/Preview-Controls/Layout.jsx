@@ -20,11 +20,11 @@ export default function Layout() {
         {/* TOP RIGHT OF PREVIEW CONTROLER COPY & SHARE */}
 
         <div className="top-0 right-0 preview-controller-copy-share">
-          <div className="relative preview-controller-box-item">
-            <Copy size={24} strokeWidth={1.3} onClick={handleModal} />
+          <div className="relative preview-controller-share-copy-items">
+            <Copy size={24} strokeWidth={2.2} onClick={handleModal} />
           </div>
-          <div className="relative preview-controller-box-item">
-            <ShareBtn />
+          <div className="relative preview-controller-share-copy-items">
+            <ShareBtn strokeWidth={4} />
           </div>
         </div>
 

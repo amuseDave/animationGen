@@ -1,14 +1,12 @@
 import daveImg from "../../../assets/dave-icon.jpg";
-import googleSvg from "../../../assets/svgs/google.svg";
+import looomCraftSvg from "../../../assets/svgs/looomcraft.svg";
 import coverImg from "../../../assets/cover.jpg";
 
-import instagramSvg from "../../../assets/svgs/instagram.svg";
 import arrowLeftRight from "../../../assets/svgs/arrow-team-left-right.svg";
-import linkedingSvg from "../../../assets/svgs/linkedin.svg";
-import googleGraySvg from "../../../assets/svgs/googlegray.svg";
-import githubSvg from "../../../assets/svgs/github.svg";
-import twitterSvg from "../../../assets/svgs/twitter.svg";
-import youtubeSvg from "../../../assets/svgs/youtube.svg";
+import Linkedin from "../../../assets/svgs/Linkedin.jsx";
+import Discord from "../../../assets/svgs/Discord.jsx";
+import Youtube from "../../../assets/svgs/Youtube.jsx";
+// import githubSvg from "../../../assets/svgs/Github.jsx";
 
 import { ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -35,7 +33,7 @@ export default function Team() {
       window.removeEventListener("click", handleClick);
     };
   }, []);
-
+  // #5865F2 #262928
   return (
     <div
       id="feature-team-container"
@@ -107,10 +105,10 @@ export default function Team() {
                     </p>
                   </div>
                   <div className="flex items-center gap-x-[5px] -translate-y-full mt-2">
-                    <img src={googleSvg} className="w-6 h-6" />
+                    <img src={looomCraftSvg} className="w-6 h-6" />
                     <div className="text-nowrap">
                       <p className="text-[14px]" style={{ lineHeight: 1 }}>
-                        Google <br />
+                        LooomCraft <br />
                         <span className="text-[12px] text-[#5C6663]">
                           {TEAM[index].google}
                         </span>
@@ -120,13 +118,28 @@ export default function Team() {
                 </div>
                 {/* GOOGLE AND NAME WITH EMAIl END */}
                 {/* SOCIAL MEDIA ICONS START */}
-                <div className="flex pb-4 mt-4 border-b border-[#262928] gap-x-4">
-                  <img src={twitterSvg} />
-                  <img src={instagramSvg} />
-                  <img src={googleGraySvg} />
-                  <img src={linkedingSvg} />
-                  <img src={youtubeSvg} />
-                  <img src={githubSvg} />
+                <div className="flex pb-4 mt-4 border-b border-[#262928] gap-x-4 team-svgs">
+                  <a
+                    target="_blank"
+                    href={TEAM[index].discord}
+                    className="discord"
+                  >
+                    <Discord />
+                  </a>
+                  <a
+                    target="_blank"
+                    href={TEAM[index].linkedin}
+                    className="linkedin"
+                  >
+                    <Linkedin />
+                  </a>
+                  <a
+                    target="_blank"
+                    href={TEAM[index].youtube}
+                    className="youtube"
+                  >
+                    <Youtube />
+                  </a>
                 </div>
                 {/* SOCIAL MEDIA ICONS END */}
                 <p className="mt-4 text-sm text-main-t-gray">Bio</p>

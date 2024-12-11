@@ -11,7 +11,6 @@ export default function NDD() {
   );
 
   const aName = animationName.name.replaceAll(" ", "-");
-
   const length = 10 + keyFrames.length * 8;
 
   return (

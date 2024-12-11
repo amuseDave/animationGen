@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { uiActions } from "../store/uiSlicer";
 import { animationActions } from "../store/animationsSlicer";
+import { uiActions } from "../store/uiSlicer";
 import { useSearchParams } from "react-router-dom";
 
 //
