@@ -51,7 +51,7 @@ export default function NDD() {
               kf.bgOpacity
             )};`}</p>
 
-            <p className="ml-6">{`transform: translate(${kf.translateX}%, ${kf.translateY}%) rotate(${kf.rotate}deg) scaleX(${kf.scaleX}) scaleY(${kf.scaleY})};`}</p>
+            <p className="ml-6">{`transform: translate(${kf.translateX}%, ${kf.translateY}%) rotate(${kf.rotate}deg) scaleX(${kf.scaleX}) scaleY(${kf.scaleY});`}</p>
 
             <p className="ml-6">{`left: ${kf.left};`}</p>
             <p className="ml-6">{`top: ${kf.top};`}</p>
