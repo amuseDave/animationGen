@@ -104,7 +104,12 @@ export default function Team() {
                       {TEAM[index].email}
                     </p>
                   </div>
-                  <div className="flex items-center gap-x-[5px] -translate-y-full mt-2">
+
+                  <a
+                    target="_blank"
+                    href="https://looomcraft.com"
+                    className="flex items-center gap-x-[5px] -translate-y-full mt-2"
+                  >
                     <img src={looomCraftSvg} className="w-6 h-6" />
                     <div className="text-nowrap">
                       <p className="text-[14px]" style={{ lineHeight: 1 }}>
@@ -114,7 +119,7 @@ export default function Team() {
                         </span>
                       </p>
                     </div>
-                  </div>
+                  </a>
                 </div>
                 {/* GOOGLE AND NAME WITH EMAIl END */}
                 {/* SOCIAL MEDIA ICONS START */}
