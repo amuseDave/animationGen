@@ -21,7 +21,7 @@ export default function NDD() {
         ))}
       </div>
 
-      <div className="mt-4 modal-css">
+      <div className="modal-css">
         <p>{".parent-container { "}</p>
         <p className="ml-3">{"overflow: hidden;"}</p>
         <p>{"}"}</p>

@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { uiActions } from "../../store/uiSlicer";
 import { useState } from "react";
 import CustomModal from "./Custom/Layout.jsx";
-import { X } from "lucide-react";
+import { Copy, X } from "lucide-react";
 import Nums from "./Static/Nums.jsx";
 import TabHTML from "./Static/TabHTML.jsx";
 import TabCSS from "./Static/TabCSS.jsx";
-import HTML from "./Static/HTML.jsx";
+import CustomHTML from "./Custom/NDD/HTML.jsx";
 
 export default function Layout() {
   const [tab, setTab] = useState("html");
@@ -61,17 +61,37 @@ export default function Layout() {
                 <TabCSS tab={tab} handleTab={handleTab} />
               </div>
               <div className="modal-code-container">
-                {tab === "html" && (
+                {tab === "html" && type === "custom" && (
                   <>
                     <Nums />
-                    <div className="mt-4 modal-html">
-                      <HTML />
+                    <div className="modal-html">
+                      <CustomHTML />
                     </div>
                   </>
                 )}
 
-                {type === "custom" && tab === "css" && <CustomModal />}
+                {tab === "css" && type === "custom" && <CustomModal />}
               </div>
+              <Copy
+                onClick={() => {
+                  let textToCopy = "";
+                  if (tab === "html") {
+                    textToCopy = `
+                    <div class="parent-container">
+                      <div class="animation-container">
+                        <p>Your Content</p>
+                      </div>
+                    </div>`;
+                  }
+                  if (textToCopy) {
+                    navigator.clipboard
+                      .writeText(textToCopy)
+                      .then(() => alert("Copied to clipboard!"))
+                      .catch((err) => alert("Failed to copy: " + err));
+                  }
+                }}
+                className="absolute right-10 bottom-7"
+              />
             </motion.div>
           </motion.div>
         )}
