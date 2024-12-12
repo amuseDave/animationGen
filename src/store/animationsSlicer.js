@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
+import featuredAnimations from "./featuredAnimations";
 
 let limitN;
 let createdN;
@@ -33,9 +34,9 @@ const initialState = {
     ],
   },
   featured: {
-    animationNames: [{ name: "Astronaut", id: uuidv4() }],
+    animationNames: [{ name: "Loader", id: uuidv4() }],
     activeIndex: 0,
-    animations: [],
+    animations: featuredAnimations,
   },
   micro: [{ name: "sw", animation: "" }],
 };
