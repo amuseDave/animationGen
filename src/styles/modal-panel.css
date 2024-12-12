@@ -22,7 +22,7 @@
   }
 
   .modal-code-container {
-    @apply relative pr-4 mt-4 text-[#D4E6E1] flex gap-x-3 bg-black/10 rounded-xl overflow-y-scroll h-[89%];
+    @apply relative pr-4 mt-2 text-[#D4E6E1] flex gap-x-3 bg-black/10 rounded-xl overflow-y-scroll h-[89%];
   }
 
   .modal-nums {

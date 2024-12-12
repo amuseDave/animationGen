@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { hexToRgba } from "../../../../utils/helper";
+import { Fragment } from "react";
 
 export default function NDD() {
   const { duration, keyFrames, animationFunction } = useSelector(
@@ -22,44 +23,69 @@ export default function NDD() {
       </div>
 
       <div className="modal-css">
-        <p>{".parent-container { "}</p>
-        <p className="ml-3">{"overflow: hidden;"}</p>
-        <p>{"}"}</p>
+        <p className="text-blue-500">
+          {".parent-container "}
+          <span className="text-green-500">{"{"}</span>
+          <br />
+          <span className="ml-3 text-blue-400">{"overflow: hidden;"}</span>
+          <br />
+          <span className="text-green-500">{"}"}</span>
+          <br />
+          {".animation-container "}
+          <span className="text-green-500">{"{"}</span>
+          <br />
 
-        <p>{".animation-container {"}</p>
-        <p className="ml-3">{"width: 200px;"}</p>
-        <p className="ml-3">{"height: 200px;"}</p>
-        <p className="ml-3">{`animation: ${aName} ${duration}s ${animationFunction} forwards;`}</p>
-        <p>{"}"}</p>
+          <span className="ml-3 text-blue-400">{"width: 200px;"}</span>
+          <br />
+          <span className="ml-3 text-blue-400">{"height: 200px;"}</span>
+          <br />
+          <span className="ml-3 text-blue-400">{`animation: ${aName} ${duration}s ${animationFunction} forwards;`}</span>
+          <br />
+          <span className="text-green-500">{"}"}</span>
+          <br />
 
-        <p>{`@keyframes ${aName} { `}</p>
-        {keyFrames.map((kf, idx) => (
-          <div className="" key={idx}>
-            <p className="ml-3">
-              {kf.keyPercentage}% {"{"}
-            </p>
+          <span className="text-red-500">{"@keyframes "}</span>
+          <span className="text-orange-400">{aName} </span>
+          <span className="text-blue-500">{"{"}</span>
+          <br />
 
-            <p className="ml-6">{`opacity: ${kf.opacity / 100};`}</p>
+          {keyFrames.map((kf, idx) => (
+            <Fragment key={idx}>
+              <span className="ml-3">{kf.keyPercentage}% </span>
+              <span className="text-green-500">{"{"}</span>
+              <br />
 
-            <p className="ml-6">{`color: ${hexToRgba(
-              kf.textColor,
-              kf.textOpacity
-            )};`}</p>
+              <span className="ml-6 text-blue-400">{`opacity: ${
+                kf.opacity / 100
+              };`}</span>
+              <br />
 
-            <p className="ml-6">{`background-color: ${hexToRgba(
-              kf.backgroundColor,
-              kf.bgOpacity
-            )};`}</p>
+              <span className="ml-6 text-blue-400">{`color: ${hexToRgba(
+                kf.textColor,
+                kf.textOpacity
+              )};`}</span>
+              <br />
 
-            <p className="ml-6">{`transform: translate(${kf.translateX}%, ${kf.translateY}%) rotate(${kf.rotate}deg) scaleX(${kf.scaleX}) scaleY(${kf.scaleY});`}</p>
+              <span className="ml-6 text-blue-400">{`background-color: ${hexToRgba(
+                kf.backgroundColor,
+                kf.bgOpacity
+              )};`}</span>
+              <br />
 
-            <p className="ml-6">{`left: ${kf.left};`}</p>
-            <p className="ml-6">{`top: ${kf.top};`}</p>
+              <span className="ml-6 text-blue-400">{`transform: translate(${kf.translateX}%, ${kf.translateY}%) rotate(${kf.rotate}deg) scaleX(${kf.scaleX}) scaleY(${kf.scaleY});`}</span>
+              <br />
 
-            <p className="ml-3">{"}"}</p>
-          </div>
-        ))}
-        <p>{"}"}</p>
+              <span className="ml-6 text-blue-400">{`left: ${kf.left};`}</span>
+              <br />
+              <span className="ml-6 text-blue-400">{`top: ${kf.top};`}</span>
+              <br />
+
+              <span className="ml-3 text-green-500">{"}"}</span>
+              <br />
+            </Fragment>
+          ))}
+          <span className="text-blue-500">{"}"}</span>
+        </p>
       </div>
     </>
   );

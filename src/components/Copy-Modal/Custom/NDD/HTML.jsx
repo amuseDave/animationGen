@@ -1,19 +1,24 @@
 export default function HTML() {
   return (
     <>
-      <p className="text-blue-500">
+      <p className="text-green-500">
         {"<div class="}
-        <span className="text-yellow-400">"{"parent-container"}"</span>
+        <span className="text-blue-400">"{"parent-container"}"</span>
         {">"}
-      </p>
-      <p className="ml-3 text-blue-500">
-        {"<div class="}
-        <span className="text-yellow-400">"{"animation-container"}"</span>
+        <br />
+        <span className="ml-3">{"<div class="}</span>
+        <span className="text-blue-400">"{"animation-container"}"</span>
+
         {">"}
+        <br />
+        <span className="ml-6">{"<p>"}</span>
+        <span className="text-[#D4E6E1]">Your Content</span>
+        {"</p>"}
+        <br />
+        <span className="ml-3">{"</div>"}</span>
+        <br />
+        {"</div>"}
       </p>
-      <p className="ml-6 text-pink-500">{"<p>Your Content</p>"}</p>
-      <p className="ml-3 text-blue-500">{"</div>"}</p>
-      <p className="text-blue-500">{"</div>"}</p>
     </>
   );
 }
