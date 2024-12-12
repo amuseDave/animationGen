@@ -6,7 +6,7 @@ const featuredAnimations = [
         <div></div>
         <div></div>
       </div>`,
-
+    class: "loader",
     css: `
     .loader {
   /* change color here */
@@ -19,15 +19,15 @@ const featuredAnimations = [
 .loader {
   display: inline-block;
   position: relative;
-  width: 20%;
-  height: 20%;
+  width: 80px;
+  height: 80px;
 }
 .loader div {
   box-sizing: border-box;
   display: block;
   position: absolute;
-  width: 90%;
-  height: 90%;
+  width: 64px;
+  height: 64px;
   margin: 8px;
   border: 8px solid currentColor;
   border-radius: 50%;

@@ -21,6 +21,10 @@ export default function Layout() {
     };
   }, [animation.css]);
 
+  useEffect(() => {
+    document.querySelector(`.${animation.class}`).style.scale = zoomLevel;
+  }, [zoomLevel]);
+
   return (
     <section
       style={parentStyles}
