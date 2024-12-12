@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../store/uiSlicer";
 import { useSearchParams } from "react-router-dom";
+import { animationActions } from "../store/animationsSlicer";
 import { featuredActions } from "../store/featuredSlicer";
 
 export default function FeaturedAnimations() {

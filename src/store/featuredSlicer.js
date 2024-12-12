@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  activeIndex: 0,
-  animationNames: [],
-  animations: [],
+  animation: {},
 };
 
 const featuredSlicer = createSlice({
   name: "featured",
   initialState,
-  reducers: {},
+  reducers: {
+    handleSetAnimation(state, { payload }) {
+      state.animation = payload;
+    },
+  },
 });
 
 export default featuredSlicer.reducer;

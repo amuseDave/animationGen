@@ -32,7 +32,11 @@ const initialState = {
       },
     ],
   },
-  featured: [{ name: "any", animation: "" }],
+  featured: {
+    animationNames: [{ name: "Astronaut", id: uuidv4() }],
+    activeIndex: 0,
+    animations: [],
+  },
   micro: [{ name: "sw", animation: "" }],
 };
 
@@ -227,6 +231,10 @@ const animationsSlicer = createSlice({
 
       setCustomLocalStorage(state.custom);
       toast.success("Shared animation has been saved!");
+    },
+
+    handleFeaturedIndex(state, { payload }) {
+      state.featured.activeIndex = payload;
     },
   },
 });

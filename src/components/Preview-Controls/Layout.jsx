@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import FeaturedControls from "./Featured/Layout";
 import CustomPreviewControls from "./Custom/Layout";
 import { uiActions } from "../../store/uiSlicer";
 import { Copy } from "lucide-react";
@@ -14,7 +15,7 @@ export default function Layout() {
     type && (
       <>
         {type === "custom" && <CustomPreviewControls />}
-        {type === "featured" && <h2>Featured animations</h2>}
+        {type === "featured" && <FeaturedControls />}
         {type === "micro" && <h2>Micro animations</h2>}
 
         {/* TOP RIGHT OF PREVIEW CONTROLER COPY & SHARE */}

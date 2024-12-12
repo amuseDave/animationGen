@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { animationActions } from "../../store/animationsSlicer";
 import NewCanvas from "./Custom/NewCanvas";
 import UpdateCanvasState from "./Custom/UpdateCanvasState";
+import UpdateFeaturedState from "./Featured/UpdateFeaturedState";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ export default function Layout() {
           <Loading />
         </div>
 
+        <UpdateFeaturedState />
         <UpdateCanvasState />
         <NewCanvas />
         {/* Saved Animations */}
