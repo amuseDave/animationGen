@@ -1,7 +1,7 @@
 export default function HTML() {
   return (
     <>
-      <p className="text-green-500">
+      <p className="h-full text-green-500">
         {"<div class="}
         <span className="text-blue-400">"{"parent-container"}"</span>
         {">"}

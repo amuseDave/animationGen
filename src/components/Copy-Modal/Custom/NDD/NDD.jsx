@@ -22,7 +22,7 @@ export default function NDD() {
         ))}
       </div>
 
-      <div className="modal-css">
+      <div className="w-full modal-css">
         <p className="text-blue-500">
           {".parent-container "}
           <span className="text-green-500">{"{"}</span>

@@ -38,6 +38,6 @@
 
   .modal-css,
   .modal-html {
-    @apply mt-4;
+    @apply pt-4;
   }
 }

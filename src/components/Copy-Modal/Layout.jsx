@@ -40,6 +40,22 @@ export default function Layout() {
           className="modal-overlay"
         >
           <motion.div
+            onDoubleClick={() => {
+              let copyEl;
+
+              if (tab === "html") {
+                copyEl = document.querySelector(".modal-html p");
+              } else if (tab === "css") {
+                copyEl = document.querySelector(".modal-css p");
+              }
+
+              const range = document.createRange();
+              range.selectNodeContents(copyEl);
+
+              const selection = window.getSelection();
+              selection.removeAllRanges(); // Clear any previous selections
+              selection.addRange(range); // Select the content of the span
+            }}
             id="modal-container"
             animate={{
               transition: { delay: 0.1 },
@@ -66,7 +82,7 @@ export default function Layout() {
               {tab === "html" && (
                 <>
                   <Nums />
-                  <div className="modal-html">
+                  <div className="w-full h-full modal-html">
                     {type === "custom" && <CustomHTML />}
                   </div>
                 </>
