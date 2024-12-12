@@ -4,16 +4,19 @@ import { ClipboardCopy } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 
-export default function KeyFrame({ active, currentIndex, containerWidth }) {
+export default function KeyFrame({ active, currentIndex }) {
   const heightRef = useRef(null);
   const keyframeRef = useRef(null);
-  const [leftPosition, setLeftPosition] = useState(0);
 
   const [showToolTip, setShowToolTip] = useState(false);
   const keyFramePers = useSelector((state) => state.custom.keyFramePers);
   const dispatch = useDispatch();
-
   const curKf = keyFramePers[currentIndex];
+
+  const [leftPosition, setLeftPosition] = useState({
+    percentage: curKf,
+    translate: "-50% 0",
+  });
 
   function handleToolTip() {
     setShowToolTip(!showToolTip);
@@ -43,21 +46,25 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
   }
 
   useEffect(() => {
-    if (!containerWidth || !keyframeRef.current) return;
+    if (!keyframeRef.current) return;
 
-    const keyframeWidth = keyframeRef.current.offsetWidth;
+    const containerPos = document
+      .getElementById("keyframes-parent")
+      .getBoundingClientRect();
 
-    // Calculate position in pixels
-    const calculatedLeft = (curKf / 100) * containerWidth;
+    const { left, right } = keyframeRef.current.getBoundingClientRect();
 
-    // Clamp position to stay within bounds
-    const clampedLeft = Math.min(
-      containerWidth - keyframeWidth, // Maximum left value to stay inside
-      Math.max(0, calculatedLeft) // Ensure it doesn't go negative
-    );
+    const newTranslate =
+      left < containerPos.left
+        ? "0% 0%"
+        : right > containerPos.right
+        ? "-100% 0%"
+        : "-50% 0";
 
-    setLeftPosition(clampedLeft);
-  }, [containerWidth, curKf]);
+    const changingNew = { percentage: curKf, translate: newTranslate };
+
+    setLeftPosition(changingNew);
+  }, []);
 
   return (
     <div
@@ -77,13 +84,16 @@ export default function KeyFrame({ active, currentIndex, containerWidth }) {
       className="h-full"
       style={{
         position: "absolute",
-        left: `${leftPosition}px`,
-        width: `${`${curKf}`.length * 10 + 20}px`,
+        left: `${leftPosition.percentage}%`,
+        translate: leftPosition.translate,
+        width: "42px",
+        zIndex: active ? "9999" : 10,
       }}
     >
       <div
         ref={keyframeRef}
-        className={`keyframe ${active && "bg-[#E1FF9A] text-black z-[9999]"} `}
+        // style={{ width: `${`${curKf}`.length * 10 + 20}px` }}
+        className={`keyframe ${active && "bg-[#E1FF9A] text-black"} `}
       >
         <p>{curKf}%</p>
         {/* KEY FRAME COPY POPOUT */}

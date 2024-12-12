@@ -42,16 +42,13 @@ export default function Layout() {
           <motion.div
             onDoubleClick={() => {
               let copyEl;
-
               if (tab === "html") {
                 copyEl = document.querySelector(".modal-html p");
               } else if (tab === "css") {
                 copyEl = document.querySelector(".modal-css p");
               }
-
               const range = document.createRange();
               range.selectNodeContents(copyEl);
-
               const selection = window.getSelection();
               selection.removeAllRanges(); // Clear any previous selections
               selection.addRange(range); // Select the content of the span
