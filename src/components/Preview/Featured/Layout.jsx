@@ -16,6 +16,10 @@ export default function Layout() {
     style.textContent = animation.css;
     document.head.appendChild(style);
 
+    const javaScript = document.createElement("script");
+    javaScript.textContent = animation.js;
+    document.head.appendChild(javaScript);
+
     return () => {
       document.head.removeChild(style);
     };

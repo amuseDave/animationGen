@@ -34,7 +34,11 @@ const initialState = {
     ],
   },
   featured: {
-    animationNames: [{ name: "Loader", id: uuidv4() }],
+    animationNames: [
+      { name: "Loader", id: uuidv4() },
+      { name: "Loader2", id: uuidv4() },
+      { name: "Navigation", id: uuidv4() },
+    ],
     activeIndex: 0,
     animations: featuredAnimations,
   },
