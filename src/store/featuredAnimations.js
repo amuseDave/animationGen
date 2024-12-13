@@ -264,6 +264,7 @@ overflow: hidden;
 }
 
 .nav-open .nav-bg {
+/*SCALE LARGER ANIMATING BACKGROUND IF TOO SMALL*/
   transform: scale(32);
 }
 
