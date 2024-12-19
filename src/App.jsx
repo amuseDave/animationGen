@@ -1,9 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Main from "./pages/Main.jsx";
-import Custom from "./pages/Custom";
-import FeaturedAnimations from "./pages/FeaturedAnimations";
-import MicroInteractions from "./pages/MicroInteractions";
 import Error from "./pages/Error.jsx";
+import { lazy, Suspense } from "react";
+
+const FeaturedAnimations = lazy(() => import("./pages/FeaturedAnimations.jsx"));
+const Custom = lazy(() => import("./pages/Custom.jsx"));
+const MicroInteractions = lazy(() => import("./pages/MicroInteractions.jsx"));
 
 const route = createBrowserRouter([
   {
@@ -23,5 +25,9 @@ const route = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={route} />;
+  return (
+    <Suspense fallback={<>Loading</>}>
+      <RouterProvider router={route} />
+    </Suspense>
+  );
 }
