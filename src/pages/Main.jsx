@@ -39,6 +39,7 @@ export default function MainLayout() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  console.log("render");
 
   return (
     <>
