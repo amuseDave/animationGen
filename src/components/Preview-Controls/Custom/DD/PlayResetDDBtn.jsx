@@ -34,7 +34,7 @@ export default function PlayResetDDBTN() {
   const playPauseClass = `text-purple-500 ${
     !(isAnimationCreatedDD && !isResizing)
       ? "cursor-not-allowed opacity-25"
-      : "cursor-none"
+      : ""
   } -order-1`;
 
   return (
@@ -60,7 +60,7 @@ export default function PlayResetDDBTN() {
         className={`text-purple-900 ${
           isResizing || !isAnimationCreatedDD
             ? "cursor-not-allowed opacity-25"
-            : "cursor-none"
+            : ""
         }`}
       />
     </>

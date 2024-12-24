@@ -15,7 +15,7 @@ export default function DefaultCanvas() {
     <canvas
       ref={defaultCanvas}
       id="generator"
-      className={`fixed top-0 left-0 bottom-0 right-0 z-0 cursor-none bg-background transition-colors`}
+      className={`fixed top-0 left-0 bottom-0 right-0 z-0 bg-background transition-colors`}
     ></canvas>
   );
 }

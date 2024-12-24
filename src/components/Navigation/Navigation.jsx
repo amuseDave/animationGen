@@ -14,25 +14,28 @@ export default function Navigation({ error }) {
     <nav className={`navigation-main-container ${navClass}`}>
       {error ? (
         <>
-          <Link className="nav-btn" to="/">
+          <Link className="nav-btn cursor-[inherit]" to="/">
             Custom
           </Link>
-          <Link className="nav-btn" to="featured-animations">
+          <Link className="nav-btn cursor-[inherit]" to="featured-animations">
             Featured
           </Link>
-          <Link className="nav-btn" to="micro-interactions">
+          <Link className="nav-btn cursor-[inherit]" to="micro-interactions">
             Micro-Int
           </Link>
         </>
       ) : (
         <>
-          <NavLink className="nav-btn" to="/">
+          <NavLink className="nav-btn cursor-[inherit]" to="/">
             Custom
           </NavLink>
-          <NavLink className="nav-btn" to="featured-animations">
+          <NavLink
+            className="nav-btn cursor-[inherit]"
+            to="featured-animations"
+          >
             Featured
           </NavLink>
-          <NavLink className="nav-btn" to="micro-interactions">
+          <NavLink className="nav-btn cursor-[inherit]" to="micro-interactions">
             Micro-Int
           </NavLink>
         </>

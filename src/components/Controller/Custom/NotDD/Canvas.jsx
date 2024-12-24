@@ -100,7 +100,7 @@ export default function Canvas() {
         dispatch(uiActions.handleCursor("default"));
         isHover = false;
       }
-    }, 8),
+    }, 4),
     []
   );
 
