@@ -28,9 +28,8 @@ const TEAM = [
       },
     ],
     discord: "https://discord.gg/dgqgY2dNzd",
-    linkedin:
-      "https://www.linkedin.com/in/dovydas-%C5%A1alkevi%C4%8Dius-967a002b3/",
-    youtube: "https://www.youtube.com/@amuseDave",
+    linkedin: "https://www.linkedin.com/in/dovydas-%C5%A1alkevi%C4%8Dius-967a002b3/",
+    youtube: "https://www.youtube.com/@amuseDave/shorts",
   },
   {
     img: ShaheerFull,
